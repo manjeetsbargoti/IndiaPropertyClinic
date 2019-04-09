@@ -215,7 +215,7 @@ class HomeController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'footerProperties', 'contRow', 'state',));
+        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'footerProperties', 'contRow', 'state'));
         }
     }
 
