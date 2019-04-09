@@ -32,8 +32,6 @@ class RepairServiceController extends Controller
             $rservices = new OtherServices;
             $rservices->service_name    = $data['rservice_name'];
             $rservices->parent_id       = $data['parent_id'];
-            $rservices->service_image   = $data['rservice_image'];
-            $rservices->service_banner  = $data['rservice_banner'];
             $rservices->s_description   = $data['s_description'];
             $rservices->description     = $data['description'];
             $rservices->url             = $data['rservice_url'];
