@@ -1,0 +1,86 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
+
+Route::get('/admin/dashboard', 'AdminController@dashboard');
+
+Route::group(['middleware' => ['auth']], function()
+{
+    Route::get('/admin/dashboard', 'AdminController@dashboard');
+    Route::get('/admin/profile', 'AdminController@adminProfile');
+    Route::get('/admin/settings', 'AdminController@settings');
+    Route::get('/admin/check-pwd', 'AdminController@chkpassword');
+    Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@updatePassword');
+
+    // Admin Property Module (Add/Update/View/Delete)
+    Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty');
+    Route::get('/admin/properties', 'PropertyController@viewProperty');
+    Route::match(['get', 'post'], '/admin/edit-property/{id}', 'PropertyController@editProperty');
+
+    // Routes for Getting State List and City List Dynamically
+    Route::get('/admin/get-state-list','PropertyController@getStateList');
+    Route::get('/admin/get-city-list','PropertyController@getCityList');
+
+    // Admin Services Module (Add/Update/View/Disable)
+    Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
+    Route::get('/admin/services', 'ServiceController@viewService');
+    Route::match(['get', 'post'], '/admin/disable/{id}', 'ServiceController@disableService');
+    Route::match(['get', 'post'], '/admin/enable/{id}', 'ServiceController@enableService');
+
+    // Other Services Module (Add/Update/View/Disable)
+    Route::match(['get', 'post'], '/admin/add-repair-service', 'RepairServiceController@addRService');
+    Route::get('/admin/repair-services', 'RepairServiceController@viewRService');
+    Route::match(['get', 'post'], '/admin/edit-repair-services/{id}', 'RepairServiceController@editRService');
+    Route::match(['get', 'post'], '/admin/disable/{id}', 'RepairServiceController@disableService');
+    Route::match(['get', 'post'], '/admin/enable/{id}', 'RepairServiceController@enableService');
+
+    // User Module by Admin (Add/Update/View/Disable)
+    Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
+    Route::get('/admin/users', 'AdminController@viewUser');
+    Route::match(['get', 'post'], '/admin/disable/{id}', 'AdminController@disableUser');
+    Route::match(['get', 'post'], '/admin/enable/{id}', 'AdminController@enableUser');
+
+    // Home Loan Applications
+    Route::get('/admin/home-loan-application', 'HomeLoanController@homeLoanQuery');
+    Route::match(['get', 'post'], '/admin/resolved/{id}', 'HomeLoanController@applicationResolved');
+    Route::match(['get', 'post'], '/admin/pending/{id}', 'HomeLoanController@applicationPending');
+
+    // Property Query Routes
+    Route::get('/admin/property-query', 'PropertyController@propertyQuery');
+    Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
+    Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
+
+});
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index');
+Route::get('/properties', 'HomeController@viewAll');
+Route::match(['get', 'post'], '/properties/{url}', 'PropertyController@viewSingleProperty');
+Route::get('/services/{url}', 'RepairServiceController@SingleRepairService');
+
+// Search by City, State and Country
+Route::get('/view-properties/state_id={state_id}', 'PropertyController@searchByState');
+Route::get('/view-properties/country_id={country_id}', 'PropertyController@searchByCountry');
+Route::get('/view-properties/city_id={city_id}', 'PropertyController@searchByCity');
+
+Route::get('/logout', 'AdminController@logout');
+
+//homepage search start
+Route::post('/search', 'HomeController@search')->name('autocomplete.search');
+Route::post('/search-result', 'HomeController@searchresult');
+
+// Apply for Home Loan and EMI Calculator
+Route::match(['get', 'post'],'/Apply-Home-Loan', 'HomeLoanController@applyHomeLoan');
+

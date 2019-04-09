@@ -1,0 +1,337 @@
+﻿@font-face {
+	font-family: 'icomoon';
+	src: url("../fonts/icomoon.eot?pyeqq5");
+	src: url("../fonts/icomoon.eot?pyeqq5#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?pyeqq5") format("truetype"), url("../fonts/icomoon.woff?pyeqq5") format("woff"), url("../fonts/icomoon.svg?pyeqq5#icomoon") format("svg");
+	font-weight: normal;
+	font-style: normal
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+	font-family: 'Font Awesome 5 Free' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+.icon-link:before {
+	content: ""
+}
+
+.icon-chevron-thin-down:before {
+	content: ""
+}
+
+.icon-chevron-thin-up:before {
+	content: ""
+}
+
+.icon-chevron-with-circle-right:before {
+	content: ""
+}
+
+.icon-chevron-with-circle-left:before {
+	content: ""
+}
+
+.icon-images:before {
+	content: ""
+}
+
+.icon-chevron-thin-right:before {
+	content: ""
+}
+
+.icon-chevron-thin-left:before {
+	content: ""
+}
+
+.icon-cloud-download:before {
+	content: ""
+}
+
+.icon-zoom-out:before {
+	content: "f00e"
+}
+
+.icon-zoom-in:before {
+	content: ""
+}
+
+.icon-cross:before {
+	content: ""
+}
+
+.icon-spinner:before {
+	content: ""
+}
+
+@font-face {
+	font-family: 'Martel Sans Regular';
+	src: url("../fonts/MartelSans-Regular.ttf") format("truetype");
+	font-weight: normal
+}
+
+@font-face {
+	font-family: 'Martel Sans Light';
+	src: url("../fonts/MartelSans-Light.ttf") format("truetype");
+	font-weight: 100
+}
+
+.js-gallery {
+	background-color: #000;
+	color: #fff;
+	font-family: "Martel Sans Light", "Segoe UI", "Helvetica Neue", sans-serif;
+	position: fixed;
+	z-index: 100;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: 0.8rem;
+	display: none;
+	-webkit-tap-highlight-color: transparent
+}
+
+.clearfix {
+	float: none !important;
+	clear: both !important
+}
+
+.jsg-title {
+	padding: 0.5rem 0.5rem 0;
+	font-size: 0.85rem;
+	border-bottom: 1px #333 solid;
+	background-color: #222
+}
+
+.jsg-title .jsg-name {
+	display: inline-block;
+	float: left;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	width: calc(100% - 4rem);
+	padding-top: 6px
+}
+
+.jsg-title .jsg-btns {
+	display: inline-block;
+	font-size: 1.4rem;
+	float: right;
+	cursor: pointer
+}
+
+.jsg-title .jsg-btns i:hover {
+	text-shadow: 0 0 3px #fff
+}
+
+.jsg-title .jsg-btns i:active {
+	font-weight: bold
+}
+
+.jsg-title .jsg-zoom {
+	font-size: 1.3rem;
+	display: inline-block
+}
+
+.jsg-title .jsg-close {
+	margin-left: 12px;
+	display: inline-block
+}
+
+.jsg-title .jsg-albums {
+	white-space: nowrap;
+	overflow-x: auto;
+	text-overflow: ellipsis;
+	width: 100%;
+	font-size: 0.7rem;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+.jsg-title .jsg-album {
+	text-transform: uppercase;
+	display: inline-block;
+	margin: 0 1.8rem 0 0;
+	color: #999;
+	cursor: pointer;
+	border-bottom: 1px transparent solid
+}
+
+.jsg-title .jsg-album:hover {
+	color: #fff
+}
+
+.jsg-title .jsg-album.active {
+	color: #fff;
+	border-bottom: 1px #fff solid
+}
+
+.jsg-content {
+	position: relative
+}
+
+.jsg-content .jsg-images {
+	width: 100%;
+	height: calc(100vh - 72px);
+	position: relative;
+	text-align: center
+}
+
+.jsg-content .jsg-thumbnails {
+	display: none
+}
+
+.jsg-nav {
+	font-size: 1.6rem;
+	transition: all 0.5s
+}
+
+.jsg-nav>div {
+	opacity: 0.4;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	text-shadow: 0 0 6px #000;
+	cursor: pointer
+}
+
+.jsg-nav>div:hover {
+	opacity: 1
+}
+
+.jsg-nav>div.disabled {
+	display: none
+}
+
+.jsg-nav .jsg-prev {
+	left: 4px
+}
+
+.jsg-nav .jsg-next {
+	right: 4px
+}
+
+.jsg-images .preloader {
+	position: absolute;
+	display: inline-block;
+	top: 50%;
+	left: 50%;
+	font-size: 2.5rem;
+	transform: translateY(-50%) translateX(-50%)
+}
+
+.jsg-image {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+@media (min-width: 768px) {
+	.jsg-title {
+		padding: 0.5rem 1rem 0
+	}
+	.jsg-title .jsg-name {
+		font-size: 0.9rem
+	}
+	.jsg-title .jsg-albums {
+		font-size: 0.8rem;
+		overflow-x: hidden
+	}
+	.jsg-content .jsg-images {
+		float: left;
+		width: 90%;
+		height: calc(100vh - 75px);
+		position: relative
+	}
+	.jsg-content .jsg-thumbnails {
+		float: right;
+		width: calc(10% - 2px);
+		border-left: 1px #333 solid;
+		height: calc(100vh - 75px);
+		display: inline-block
+	}
+	.jsg-content:hover .jsg-nav>div {
+		opacity: 0.4
+	}
+	.jsg-content .jsg-nav>div {
+		opacity: 0
+	}
+	.jsg-content .jsg-nav>div:hover {
+		opacity: 0.8
+	}
+	.jsg-content .jsg-nav>div:active {
+		font-weight: bold;
+		opacity: 1
+	}
+	.jsg-content .jsg-nav .jsg-prev {
+		left: 12px
+	}
+	.jsg-content .jsg-nav .jsg-next {
+		right: calc(10% + 12px)
+	}
+	.jsg-thumbnails {
+		overflow: auto
+	}
+	.jsg-thumbnails::-webkit-scrollbar {
+		width: 0;
+		background: transparent
+	}
+	.jsg-thumb-item {
+		display: block;
+		width: 80%;
+		padding-bottom: 80%;
+		margin: 20px auto;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+		cursor: pointer;
+		opacity: 0.6
+	}
+	.jsg-thumb-item.active {
+		border: 1px white solid;
+		cursor: default;
+		opacity: 1
+	}
+}
+
+.icon-spin-inf {
+	-webkit-animation: icon-spin-inf 2s infinite linear;
+	-moz-animation: icon-spin-inf 2s infinite linear;
+	-o-animation: icon-spin-inf 2s infinite linear;
+	animation: icon-spin-inf 2s infinite linear;
+	display: block
+}
+
+@-webkit-keyframes icon-spin-inf {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg)
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg)
+	}
+}
+
+@keyframes icon-spin-inf {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg)
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg)
+	}
+}
+
+
+/*# sourceMappingURL=jsGallery.css.map */

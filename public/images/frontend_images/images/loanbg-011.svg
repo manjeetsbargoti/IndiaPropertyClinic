@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 95.69">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        isolation: isolate;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        fill: #52e6c6;
+      }
+
+      .cls-5 {
+        clip-path: url(#clip-path-2);
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-7 {
+        mix-blend-mode: multiply;
+        fill: url(#linear-gradient-2);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-1" width="500" height="95.69"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <path class="cls-1" d="M227.87,66.36C277.12,88.93,354.67,52.85,405.62,54,490,55.81,485.47,92.86,530.15,97.11c52.81,5,69.62,39.55,52.16,62.69-16.1,21.35-56.52,40.35-103.82,55.7-51.24,16.62-114.41,30-181,32.15s-135.38-9.29-156.33-30.75c-10.49-10.74-33.76-9.35-91.63-12.39-80.4-4.23-116-26.58-122.15-53.63-6.21-27.27.16-57,43.37-83.3C96.83-9.24,193.4,50.56,227.87,66.36Z"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="-426.32" y1="658.02" x2="-16.64" y2="658.02" gradientTransform="matrix(0.22, 0.98, 0.98, -0.22, -322.79, 492.48)" gradientUnits="userSpaceOnUse">
+      <stop offset="0.16" stop-color="#7476f8"/>
+      <stop offset="0.2" stop-color="#7c7ef8"/>
+      <stop offset="0.47" stop-color="#b4b5fb"/>
+      <stop offset="0.7" stop-color="#ddddfd"/>
+      <stop offset="0.88" stop-color="#f6f6ff"/>
+      <stop offset="0.99" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="967.74" y1="824.83" x2="1320.26" y2="824.83" gradientTransform="matrix(-0.11, -0.98, -1.13, 0.13, 1138.1, 1129.29)" gradientUnits="userSpaceOnUse">
+      <stop offset="0.16" stop-color="#7476f8"/>
+      <stop offset="0.28" stop-color="#8d8ff9" stop-opacity="0.82"/>
+      <stop offset="0.47" stop-color="#b5b6fb" stop-opacity="0.53"/>
+      <stop offset="0.65" stop-color="#d5d6fd" stop-opacity="0.3"/>
+      <stop offset="0.8" stop-color="#ececfe" stop-opacity="0.14"/>
+      <stop offset="0.92" stop-color="#fafaff" stop-opacity="0.04"/>
+      <stop offset="0.99" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <title>loanbg</title>
+  <g class="cls-2">
+    <g id="OBJECTS">
+      <g class="cls-3">
+        <g>
+          <path class="cls-4" d="M16.93,8c75.34-10,106.2,13.48,149.8,32.21,49.86,21.43,79.05,30.25,114.4,19.18,167.84-52.58,223.12,26.35,213,58.7,0,0-491,35.06-537,28.43L-47,28.66A195.43,195.43,0,0,1,16.93,8Z"/>
+          <g class="cls-5">
+            <path class="cls-6" d="M378,19.05c17.87-2.88,38.8-2.63,54.44.63,21.44,4.47,30.94,13.64,34,22.6,3.7,10.84,183.32,80.12,165.86,103.27-16.1,21.34-106.56,54.6-153.86,69.95-51.24,16.62-114.41,30-181,32.15s-135.38-9.29-156.33-30.75c-10.49-10.74-88.92,10.72-118.88,6.6-150-20.63-96.82-79.19-94.57-107.23C-71.41,105.5-59.62,94.88-53,84.16-37,58.21-72.25,40.17-72,16-71.79,1.82-45.28-10.4-6.72-15.68,118.81-32.87,321.9,28.08,378,19.05Z"/>
+            <path class="cls-7" d="M404.06,25.45c.2,20.57-18.77,40.74-56.21,57-14.37,6.23-6,13.53-1.51,21.61,14.59,26.2-30.1,39.14-14,52.1,58.86,47.42,13.65,66.49,5.09,75-64.09,63.8-201.89,29-312,21.87-79.47-5.15-148.77-35.25-181.13-57.92-19-13.31-27.5-27.56-35.86-41.65C-214.51,114.76-240.22,76-264.79,37.34Z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
