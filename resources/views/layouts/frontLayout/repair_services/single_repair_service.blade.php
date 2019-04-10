@@ -27,7 +27,7 @@
                         @endforeach
                         <ul class="serliststyle">
                             @foreach($services as $service)
-                            <li>{!! $service->s_description !!}</li>
+                            <li>{!! str_limit($service->s_description, $limit=400) !!}</li>
                             @endforeach
                         </ul>
                         <a href="#" role="button" class="btn btn-danger">Get Qute</a>
@@ -139,17 +139,23 @@
         </div>
         <div id="ser_professionals" class="serview_conbox">
             <div class="row">
+                <?php $counter = 0; ?>
+                @foreach($vendor as $v)
+                <?php $counter++; ?>
+                @if($counter<=4)
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                     <div class="fireman">
                         <div class="boxuser_pic">
                             <img src="{{ url('images/frontend_images/images/user2.jpg') }}">
                         </div>
                         <div class="boxuser_details">
-                            <h5>Vendors</h5>
-                            <p>Sector 17, Kopar Khairane, Navi Mumbai, Maharashtra, India</p>
+                            <h5>{{ $v->first_name }} {{ $v->last_name }}</h5>
+                            <p>{{ $v->country }}, {{ $v->state }}, {{ $v->city }}</p>
                         </div>
                     </div>
                 </div>
+                @endif
+                @endforeach
             </div>
         </div>
     </div>

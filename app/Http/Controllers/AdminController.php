@@ -188,6 +188,12 @@ class AdminController extends Controller
         }
     }
 
+    // Edit User
+    public function editUser(Request $request, $id=null)
+    {
+        
+    }
+
 
 }
 
