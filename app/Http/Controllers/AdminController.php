@@ -191,7 +191,14 @@ class AdminController extends Controller
     // Edit User
     public function editUser(Request $request, $id=null)
     {
-        
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+
+            echo  "<pre>"; print_r($data); die;
+        }
+
+        return view('admin.users.edit_user');
     }
 
 
