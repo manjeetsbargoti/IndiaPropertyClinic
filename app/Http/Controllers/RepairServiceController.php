@@ -144,6 +144,15 @@ class RepairServiceController extends Controller
             $footerProperties[$key]->city_name = $city->name;
         }
 
+        foreach($vendor as $key => $val)
+        {
+            $countryname = DB::table('countries')->where(['id'=>$val->country])->first();
+            $vendor[$key]->country_name = $countryname->name;
+            $state = DB::table('states')->where(['id'=>$val->state])->first();
+            $vendor[$key]->state_name = $state->name;
+            $city = DB::table('cities')->where(['id'=>$val->city])->first();
+            $vendor[$key]->city_name = $city->name;
+        }
 
         return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'footerProperties', 'sub_services'));
     }

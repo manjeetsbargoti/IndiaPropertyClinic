@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Admin;
+Use DB;
+use Session;
 use App\User;
+use App\Admin;
 use App\UserType;
 use App\Services;
-// use Auth;
-use Session;
-Use App\OtherServices;
 use App\Property;
+Use App\OtherServices;
 use App\PropertyImages;
-Use DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -22,19 +21,16 @@ class AdminController extends Controller
     {
         $userData = Auth::user();
 
-        if (Auth::guard($guard)->check()) {
-            return redirect('/admin/dashboard');
-        }
+        // if (Auth::guard($guard)->check()) {
+        //     Session::put('Auth', $data['email']);
+        //     return redirect('/admin/dashboard');
+        // }
         if($request->isMethod('post'))
         {
             $data = $request->input();
             if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => '1', 'status' => '1']))
             {
                 return redirect('/admin/dashboard')->with(compact('userData'));
-            }
-            else if(Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => '0', 'status' => '1']))
-            {
-                return redirect('/dashboard')->with('flash_message_success', 'Welcome! User');
             }
             else
             {
@@ -93,7 +89,7 @@ class AdminController extends Controller
     public function logout()
     {
         Session::flush();
-        return redirect('/admin')->with('flash_message_success', 'Logged out Successfully!');
+        return redirect('/')->with('flash_message_success', 'Logged out Successfully!');
     }
 
     public function adminProfile()
@@ -198,9 +194,142 @@ class AdminController extends Controller
             echo  "<pre>"; print_r($data); die;
         }
 
-        return view('admin.users.edit_user');
+        $user = new User;
+
+        $userdetails = User::where(['id'=>$id])->get();
+        $servicetype = OtherServices::where(['parent_id'=>0])->get();
+        $usertype = UserType::get();
+        $phonecode = DB::table('countries')->get();
+        $countryname = DB::table('countries')->pluck("name","id");
+
+        // echo  "<pre>"; print_r($userdetails); die;
+
+        return view('admin.users.edit_user', compact('userdetails', 'servicetype', 'usertype', 'phonecode', 'countryname'));
     }
 
+    // User Login Function
+    public function login(Request $request)
+    {
+
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+
+            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'admin'=>0, 'status'=>1]))
+            {
+                Session::put('UserSession', $data['email']);
+                return redirect('/');
+            }
+            else {
+                return redirect()->back()->with('flash_message_error', 'Invalid Username or Password!');
+            }
+        }
+
+        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
+        $footerProperties = json_decode(json_encode($footerProperties));
+
+        foreach($footerProperties as $key => $val) {
+            $service_name = Services::where(['id'=>$val->service_id])->first();
+            // $properties[$key]->service_name = $service_name->service_name;
+            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+            $country = DB::table('countries')->where(['id'=>$val->country])->first();
+            $footerProperties[$key]->country_name = $country->name;
+            $state = DB::table('states')->where(['id'=>$val->state])->first();
+            $footerProperties[$key]->state_name = $state->name;
+            $city = DB::table('cities')->where(['id'=>$val->city])->first();
+            $footerProperties[$key]->city_name = $city->name;
+        }
+
+        return view('auth.login', compact('footerProperties'));
+    }
+
+    // Reset user Password
+    public function resetPassword()
+    {
+        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
+        $footerProperties = json_decode(json_encode($footerProperties));
+
+        foreach($footerProperties as $key => $val) {
+            $service_name = Services::where(['id'=>$val->service_id])->first();
+            // $properties[$key]->service_name = $service_name->service_name;
+            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+            $country = DB::table('countries')->where(['id'=>$val->country])->first();
+            $footerProperties[$key]->country_name = $country->name;
+            $state = DB::table('states')->where(['id'=>$val->state])->first();
+            $footerProperties[$key]->state_name = $state->name;
+            $city = DB::table('cities')->where(['id'=>$val->city])->first();
+            $footerProperties[$key]->city_name = $city->name;
+        }
+
+        return view('auth.passwords.reset', compact('footerProperties'));
+    }
+
+    // User Register Function
+    public function register(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $userCount = User::where('email', $data['email'])->count();
+
+            if($userCount>0)
+            {
+                return redirect()->back()->with('flash_message_error', 'A User with this Email already exists.');
+            }
+            else{
+
+                $user = new User;
+
+                $user->first_name       = $data['first_name'];
+                $user->last_name        = $data['last_name'];
+                $user->email            = $data['email'];
+                $user->password         = bcrypt($data['password']);
+                $user->phonecode        = $data['phonecode'];
+                $user->phone            = $data['mobilenumber'];
+                $user->usertype         = $data['usertype'];
+                $user->servicetypeid    = $data['servicetype'];
+
+                $user->save();
+
+                return redirect('/login')->with('flash_message_success', 'You are Registered Successfully! Please Check your Email and Verify.');
+
+            }
+            
+        }
+
+        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
+        $footerProperties = json_decode(json_encode($footerProperties));
+
+        foreach($footerProperties as $key => $val) {
+            $service_name = Services::where(['id'=>$val->service_id])->first();
+            // $properties[$key]->service_name = $service_name->service_name;
+            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+            $country = DB::table('countries')->where(['id'=>$val->country])->first();
+            $footerProperties[$key]->country_name = $country->name;
+            $state = DB::table('states')->where(['id'=>$val->state])->first();
+            $footerProperties[$key]->state_name = $state->name;
+            $city = DB::table('cities')->where(['id'=>$val->city])->first();
+            $footerProperties[$key]->city_name = $city->name;
+        }
+
+        $usertypes = UserType::where(['status'=>1])->get();
+        $servicetype = OtherServices::where(['status'=>1, 'parent_id'=>0])->get();
+        $countrycode = DB::table('countries')->get();
+        $countryname = DB::table('countries')->pluck("name","id");
+
+        return view('auth.register', compact('footerProperties', 'usertypes', 'servicetype', 'countrycode', 'countryname'));
+    }
+
+    // User Account 
+    public function userAccount()
+    {
+        return ('User Account');
+    }
 
 }
 

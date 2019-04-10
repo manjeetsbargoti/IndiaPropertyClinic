@@ -150,16 +150,27 @@
             <div class="user_profile">
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
+                    @guest    
+                        My Account
+                    @else
+                    {{ Auth::user()->first_name }} <span class="caret"></span>
+                    @endguest
                     </button>
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                         <ul>
-                            <li><a href="{{ url('/userLogin') }}"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                            <!-- Authentication Links -->
+                            @guest
+                            <li>
+                                <a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
+                            </li>
+                            <!-- <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> Log In</a></li> -->
+                            @else
+                            <li><a href="{{ url('/My-Account') }}"><i class="fas fa-user"></i> My Profile</a></li>
                             <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                             <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                             <!-- <li><a href="#"><i class="fas fa-receipt"></i> My Invoices</a></li> -->
-                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                            <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                            @endguest
                         </ul>
                     </div>
                 </div>

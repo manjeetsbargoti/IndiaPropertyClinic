@@ -95,22 +95,11 @@
                                   </select>
                               </div>
                             </div>
-                            <div class="col-xs-12 col-md-6">
-                                <div class="form-group">
-                                  <label>Password</label>
-                                  <input type="text" name="password" id="generatePassword" class="form-control" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-3">
-                                <div class="form-group">
-                                  <button style="margin-top: 2.25em;" type="button" class="btn btn-info btn-sm" onclick='document.getElementById("generatePassword").value = Password.generate(16)'>Generate Password</button>
-                                </div>
-                            </div>
                             <div class="col-xs-12 col-md-12">
                                 <label>User is..</label>
                                 <div class="form-group">
                                     @foreach($usertype as $type)
-                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $type->usercode }}">
+                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $type->usertype }}" @if($type->usertype=='{{ $type->usertype }}') checked @endif)>
                                         <label class="form-check-label" for="usertype">{{ $type->usertype_name }}</label> &nbsp;&nbsp;
                                     @endforeach
                                 </div>
@@ -118,7 +107,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
+                                    <select class="form-control js-example-basic-multiple" name="servicetype[]" id="servicetype" multiple="multiple">
                                         <option value="" selected>Select Service</option>
                                         @foreach($servicetype as $service)
                                         <option value="{{ $service->id }}">{{ $service->service_name }}</option>

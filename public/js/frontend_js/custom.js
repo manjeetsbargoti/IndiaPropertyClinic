@@ -784,6 +784,20 @@ function calculateEMI(){
 }
 calculateEMI();
 
+// User Register Validation
+$('#registerForm').validate({
+  rules:{
+    email: {
+      required: true,
+    },
+    messages: {
+      email: {
+        required: "Please Enter Your Email",
+      }
+    }
+  }
+})
+
 
 
 

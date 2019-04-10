@@ -25,6 +25,11 @@ class RedirectIfAuthenticated
             return redirect()->action('AdminController@adminLogin')->with('flash_message_error', 'Please login to access.');
         }
 
+        if(empty(Session::has('Auth')))
+        {
+            return redirect('/admin');
+        }
+
         return $next($request);
     }
 }

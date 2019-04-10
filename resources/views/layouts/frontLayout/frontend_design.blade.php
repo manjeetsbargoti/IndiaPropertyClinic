@@ -18,6 +18,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/frontend_css/jquery.mmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend_css/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/frontend_css/particle.css') }}"> -->
     
 </head>
 <body >
@@ -41,6 +42,9 @@
     <script src="{{ asset('js/frontend_js/tagsinput.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-lib.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-main.min.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('js/frontend_js/particles.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/frontend_js/partapp.js') }}"></script> -->
+    <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.validate.min.js') }}"></script>
 
     <script type="text/javascript">
     $(function() {

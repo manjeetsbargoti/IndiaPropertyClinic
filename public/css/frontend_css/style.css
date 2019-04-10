@@ -3738,4 +3738,31 @@ ul.sublist {
  button.arrowbtn.collapsed {
     transform: rotate(-90deg);
  }
+
+ /*======================================================*/
+/*===================== User Login =====================*/
+/*======================================================*/
+
+.userlogin_form .card {
+    margin: 2em auto;
+}
+
+.userlogin_form .card .form-control{
+    border: 1px solid #ced4da;
+}
+
+.userlogin_form .card .form-control:focus {
+    /* border: 1px solid orangered; */
+    /* outline-offset: orangered !important; */
+    box-shadow: 0 0 5px #F15A27;
+}
+
+.userlogin_form .card p{
+    padding-top: 1em;
+    font-size: 1.2em;
+    text-align: center;
+}
+.userlogin_form .card p a {
+    text-decoration: underline;
+}
  

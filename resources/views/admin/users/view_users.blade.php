@@ -57,7 +57,7 @@
                                     <td>{{ $u->usertype_name }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="#" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="/admin/edit-user/{{ $u->id }}" class="btn btn-warning btn-sm">Edit</a>
                                             @if($u->status == 1)
                                             <a href="/admin/disable/{{ $u->id }}" class="btn btn-danger btn-sm">Deactivate</a>
                                             @else

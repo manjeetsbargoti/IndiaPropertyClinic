@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function()
 
     // User Module by Admin (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
+    Route::match(['get', 'post'], '/admin/edit-user/{id}', 'AdminController@editUser');
     Route::get('/admin/users', 'AdminController@viewUser');
     Route::match(['get', 'post'], '/admin/disable/{id}', 'AdminController@disableUser');
     Route::match(['get', 'post'], '/admin/enable/{id}', 'AdminController@enableUser');
@@ -64,6 +65,15 @@ Route::group(['middleware' => ['auth']], function()
 });
 
 Auth::routes();
+
+Route::group(['middleware' => ['userlogin']], function()
+{
+    Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
+    // User Login/Register Functionality
+Route::match(['get', 'post'],'/login', 'AdminController@login');
+Route::match(['get', 'post'],'/register', 'AdminController@register');
+Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/properties', 'HomeController@viewAll');
@@ -83,4 +93,9 @@ Route::post('/search-result', 'HomeController@searchresult');
 
 // Apply for Home Loan and EMI Calculator
 Route::match(['get', 'post'],'/Apply-Home-Loan', 'HomeLoanController@applyHomeLoan');
+
+// User Login/Register Functionality
+Route::match(['get', 'post'],'/login', 'AdminController@login');
+Route::match(['get', 'post'],'/register', 'AdminController@register');
+Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
 
