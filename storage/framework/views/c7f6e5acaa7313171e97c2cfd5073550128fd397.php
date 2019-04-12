@@ -1,10 +1,11 @@
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/layouts/adminLayout/users/admin_header.blade.php */ ?>
 <div id="header"></div>
 
 <!-- Main Header -->
 <header class="main-header">
 
   <!-- Logo -->
-  <a href="{{ url('/admin') }}" class="logo">
+  <a href="<?php echo e(url('/admin')); ?>" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>I</b>PC</span>
     <!-- logo for regular state and mobile devices -->
@@ -21,7 +22,7 @@
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
         <li>
-          <a href="{{ url('/') }}" target="_blank" title="Visit Website"><i class="fa fa-globe"></i></a>
+          <a href="<?php echo e(url('/')); ?>" target="_blank" title="Visit Website"><i class="fa fa-globe"></i></a>
         </li>
         <!-- Messages: style can be found in dropdown.less-->
         <li class="dropdown messages-menu">
@@ -126,7 +127,7 @@
             <!-- The user image in the navbar-->
             <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-            <span class="hidden-xs">{{{ Auth::user()->first_name }}}</span>
+            <span class="hidden-xs"><?php echo e(Auth::user()->first_name); ?></span>
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
@@ -134,8 +135,9 @@
               <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
               <p>
-              {{{ Auth::user()->first_name }}} {{{ Auth::user()->last_name }}}
-                <small>Member since Nov. 2012</small>
+              <?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?>
+
+                <small>Member since <?php echo e(date('M, Y', strtotime(Auth::user()->created_at))); ?></small>
               </p>
             </li>
             <!-- Menu Body -->
@@ -156,10 +158,10 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="{{ url('/admin/profile') }}" class="btn btn-default btn-flat">Profile</a>
+                <a href="<?php echo e(url('/My-Account')); ?>" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="{{ url('/get-out') }}" class="btn btn-default btn-flat">Sign out</a>
+                <a href="<?php echo e(url('/logout')); ?>" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>

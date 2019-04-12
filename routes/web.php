@@ -10,10 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controllers;
+use App\Http\Controllers\PropertyController;
 
 Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
-Route::get('/admin/dashboard', 'AdminController@dashboard');
+// Route::get('/admin/dashboard', 'AdminController@dashboard');
 
 Route::group(['middleware' => ['auth']], function()
 {
@@ -61,6 +63,9 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/admin/property-query', 'PropertyController@propertyQuery');
     Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
+
+    // Admin Logout Function
+    Route::get('/get-out', 'AdminController@getOut');
 
 });
 

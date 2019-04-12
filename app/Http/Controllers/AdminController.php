@@ -86,10 +86,12 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('property', 'users', 'contUser', 'contActUser', 'contInactUser'));
     }
 
-    public function logout()
+    // Admin Logut Function
+    public function getOut()
     {
-        Session::flush();
-        return redirect('/')->with('flash_message_success', 'Logged out Successfully!');
+        Auth::logout();
+        Session::forget('Auth');
+        return redirect('/admin')->with('flash_message_success', 'Logged out Successfully!');
     }
 
     public function adminProfile()
@@ -218,7 +220,7 @@ class AdminController extends Controller
             if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'admin'=>0, 'status'=>1]))
             {
                 Session::put('UserSession', $data['email']);
-                return redirect('/');
+                return redirect('/My-Account');
             }
             else {
                 return redirect()->back()->with('flash_message_error', 'Invalid Username or Password!');
@@ -281,7 +283,49 @@ class AdminController extends Controller
     // User Account 
     public function userAccount()
     {
-        return ('User Account');
+        $data = Auth::user();
+        // $data = json_decode(json_encode($data));
+        $id = $data['id'];
+        // echo "<pre>"; print_r($id); die;
+        $users = User::where(['id'=>$id])->get();
+        // $users = json_decode(json_encode($users));
+
+        foreach($users as $key => $val) {
+            $rservice_name = OtherServices::where(['id'=>$val->servicetypeid])->first();
+            $users[$key]->service_name = $rservice_name->service_name;
+            $usertype_name = UserType::where(['usercode'=>$val->usertype])->first();
+            $users[$key]->user_type = $usertype_name->usertype_name;
+            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            if($country_count > 0) 
+            {
+                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $users[$key]->country_name = $country->name;
+            }
+            $state_count = DB::table('states')->where(['id'=>$val->state])->count();
+            if($state_count > 0)
+            {
+                $state = DB::table('states')->where(['id'=>$val->state])->first();
+                $users[$key]->state_name = $state->name;
+            }
+            $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
+            if($city_count > 0)
+            {
+                $city = DB::table('cities')->where(['id'=>$val->city])->first();
+                $users[$key]->city_name = $city->name;
+            }
+            
+        }
+        // echo "<pre>"; print_r($users); die;
+
+        return view('auth.users.user_account', compact('users', 'country_count', 'state_count', 'city_count'));
+    }
+
+    // User Logout Function
+    public function logout()
+    {
+        Auth::logout();
+        Session::forget('UserSession');
+        return redirect('/login')->with('flash_message_success', 'Logged out Successfully!');
     }
 
 }

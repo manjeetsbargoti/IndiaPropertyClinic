@@ -54,17 +54,17 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-green sidebar-mini fixed">
 
 <div class="wrapper">
 
-@include('layouts.adminLayout.admin_header')
+@include('layouts.adminLayout.users.admin_header')
 
-@include('layouts.adminLayout.admin_sidebar')
+@include('layouts.adminLayout.users.admin_sidebar')
 
 @yield('content')
 
-@include('layouts.adminLayout.admin_footer')
+@include('layouts.adminLayout.users.admin_footer')
 
 </div>
 <!-- ./wrapper -->

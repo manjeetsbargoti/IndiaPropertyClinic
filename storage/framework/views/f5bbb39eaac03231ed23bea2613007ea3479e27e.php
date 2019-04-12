@@ -1,5 +1,5 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/admin/dashboard.blade.php */ ?>
+<?php $__env->startSection('content'); ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -53,7 +53,7 @@
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
             <div class="info-box-content">
-              <a href="{{ url('/admin/users') }}" class="user-count"><label class="btn btn-info btn-xs">Total &nbsp;&nbsp;<?php echo $contUser; ?></label></a>
+              <a href="<?php echo e(url('/admin/users')); ?>" class="user-count"><label class="btn btn-info btn-xs">Total &nbsp;&nbsp;<?php echo $contUser; ?></label></a>
               <a href="#" class="user-count"><label class="btn btn-success btn-xs">Active &nbsp;&nbsp;<?php echo $contActUser; ?></label></a>
               <a href="#" class="user-count"><label class="btn btn-danger btn-xs">Inactive &nbsp;&nbsp;<?php echo $contInactUser; ?></label></a>
             </div>
@@ -76,27 +76,28 @@
             <div class="box-body">
               <ul class="products-list product-list-in-box">
                 <?php $counter = 0 ; ?>
-                @foreach($property as $p)
+                <?php $__currentLoopData = $property; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $counter++ ; ?>
-                @if( $counter <= 4)
+                <?php if( $counter <= 4): ?>
                 <li class="item">
                   <div class="product-img">
-                    <img class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/'.$p->image_name)}}" alt="{{ $p->property_name }}">
+                    <img class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$p->image_name)); ?>" alt="<?php echo e($p->property_name); ?>">
                   </div>
                   <div class="product-info">
-                    <a href="{{ url('/') }}/{{ $p->property_url }}" target="_blank" class="product-title">{{ str_limit($p->property_name, $limit=50) }}
-                      <span class="label label-success pull-right">₹ {{ $p->property_price }}</span></a>
-                    <span class="product-description">{!! str_limit($p->description, $limit=100) !!}</span>
+                    <a href="<?php echo e(url('/')); ?>/<?php echo e($p->property_url); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->property_name, $limit=50)); ?>
+
+                      <span class="label label-success pull-right">₹ <?php echo e($p->property_price); ?></span></a>
+                    <span class="product-description"><?php echo str_limit($p->description, $limit=100); ?></span>
                   </div>
                 </li>
-                @endif
-                @endforeach
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <!-- /.item -->
               </ul>
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-center">
-              <a href="{{ url('/admin/properties') }}" class="uppercase">View All Proerty</a>
+              <a href="<?php echo e(url('/admin/properties')); ?>" class="uppercase">View All Proerty</a>
             </div>
             <!-- /.box-footer -->
           </div>
@@ -117,27 +118,27 @@
             <div class="box-body no-padding">
               <ul class="users-list clearfix">
                 <?php $counter = 0 ; ?>
-                @foreach($users as $u)
+                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $counter++ ; ?>
-                @if( $counter <= 8)
+                <?php if( $counter <= 8): ?>
                 <li>
-                  <img title="{{ $u->first_name }} {{ $u->last_name }}" src="../../dist/img/user1-128x128.jpg" alt="{{ $u->first_name }} Image">
-                  <a title="{{ $u->first_name }} {{ $u->last_name }}" class="users-list-name" href="#">{{ $u->first_name }} {{ $u->last_name }}</a>
-                  <!-- <span class="users-list-date">{{ $u->created_at }}</span> -->
-                  @if($u->status == 1)
-                  <a href="/admin/disable/{{ $u->id }}" class="label label-success">Active</a>
-                  @else
-                  <a href="/admin/enable/{{ $u->id }}" class="label label-danger">Inactive</a>
-                  @endif
+                  <img title="<?php echo e($u->first_name); ?> <?php echo e($u->last_name); ?>" src="../../dist/img/user1-128x128.jpg" alt="<?php echo e($u->first_name); ?> Image">
+                  <a title="<?php echo e($u->first_name); ?> <?php echo e($u->last_name); ?>" class="users-list-name" href="#"><?php echo e($u->first_name); ?> <?php echo e($u->last_name); ?></a>
+                  <!-- <span class="users-list-date"><?php echo e($u->created_at); ?></span> -->
+                  <?php if($u->status == 1): ?>
+                  <a href="/admin/disable/<?php echo e($u->id); ?>" class="label label-success">Active</a>
+                  <?php else: ?>
+                  <a href="/admin/enable/<?php echo e($u->id); ?>" class="label label-danger">Inactive</a>
+                  <?php endif; ?>
                 </li>
-                @endif
-                @endforeach
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </ul>
               <!-- /.users-list -->
             </div>
             <!-- /.box-body -->
             <div class="box-footer text-center">
-              <a href="{{ url('/admin/users') }}" class="uppercase">View All Users</a>
+              <a href="<?php echo e(url('/admin/users')); ?>" class="uppercase">View All Users</a>
             </div>
             <!-- /.box-footer -->
           </div>
@@ -166,4 +167,5 @@
   </div>
   <!-- /.content-wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
