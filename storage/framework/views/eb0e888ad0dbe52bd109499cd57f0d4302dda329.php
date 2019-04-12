@@ -1,28 +1,11 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/layouts/frontLayout/header_design.blade.php */ ?>
-<div id="page">
-      
-<!-- Modal Advanced Search-->
-<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        ...
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-    </div>
-    </div>
-</div>
-</div> -->
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/layouts/frontLayout/header_design.blade.php */ ?>
+<?php 
+use App\Http\Controllers\Controller;
+$mainnavservice = Controller::mainNav();
 
-     
+?>
+
+<div id="page">
         <div class="header_top">
             <div class="container">
                 <div class="row">
@@ -96,16 +79,23 @@
                         <div class="mobuser_profile">
                             <div class="dropdown">
                                 <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Login / Register
+                                <?php if(auth()->guard()->guest()): ?>    
+                                    My Account
+                                <?php else: ?>
+                                    <?php echo e(Auth::user()->first_name); ?> <span class="caret"></span>
+                                <?php endif; ?>
                                 </button>
                                 <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                                     <ul>
-                                        <li><a href="javascript:avoid();"  data-toggle="modal" data-target="#homeLogin"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                                        <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
-                                        <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                                        <li><a href="#"><i class="fas fa-receipt"></i> My Invoices</a></li>
-                                        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                                        <!-- Authentication Links -->
+                                        <?php if(auth()->guard()->guest()): ?>
+                                            <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
+                                        <?php else: ?>
+                                            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                                            <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
+                                            <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> <?php echo e(__('Log Out')); ?></a></li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>
@@ -126,21 +116,11 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Buy <span class="sr-only">(current)</span></a>
-            </li>
+            <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <li class="nav-item">
-                <a class="nav-link" href="#">Rent</a>
+                <a class="nav-link" href="<?php echo e(url('/view-properties/for='.$mainnav->id)); ?>"><?php echo e($mainnav->service_name); ?> <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sell
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                </div>
-            </li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <li class="nav-item">
                 <a class="nav-link" href="#">Tools & Advice</a>
             </li>
@@ -151,16 +131,23 @@
             <div class="user_profile">
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
+                    <?php if(auth()->guard()->guest()): ?>    
+                        My Account
+                    <?php else: ?>
+                    <?php echo e(Auth::user()->first_name); ?> <span class="caret"></span>
+                    <?php endif; ?>
                     </button>
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                         <ul>
-                            <li><a href="<?php echo e(url('/userLogin')); ?>"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
-                            <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                            <!-- <li><a href="#"><i class="fas fa-receipt"></i> My Invoices</a></li> -->
-                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                            <!-- Authentication Links -->
+                            <?php if(auth()->guard()->guest()): ?>
+                                <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
+                            <?php else: ?>
+                                <li><a href="<?php echo e(url('/My-Account')); ?>"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
+                                <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                                <li><a href="<?php echo e(url('/logout')); ?>"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>

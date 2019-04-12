@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/home.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/home.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <div class="smart_container">

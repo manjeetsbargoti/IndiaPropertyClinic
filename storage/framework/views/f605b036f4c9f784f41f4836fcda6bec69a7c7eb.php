@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/frontend/home_loan_application.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/home_loan_application.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <div class="smart_container">

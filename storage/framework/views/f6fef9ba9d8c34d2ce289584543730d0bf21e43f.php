@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/frontend/view_single_property.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/view_single_property.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

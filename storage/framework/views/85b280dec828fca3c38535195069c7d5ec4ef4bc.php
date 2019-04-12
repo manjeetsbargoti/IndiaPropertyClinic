@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/frontend/viewall_properties.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_service.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <div class="smart_container">
@@ -134,19 +134,20 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-9">
                 <div class="header_breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
-                      <li class="breadcrumb-item">All Properties</li>
-                    </ol>
-                  </nav>
-                  <p><span><?php echo $contRow; ?> Properties </span> </p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
+                        <li class="breadcrumb-item">All Properties in <?php echo e($properties[0]->service_name); ?></li>
+                        </ol>
+                    </nav>
+                    <p><span><?php echo $contRow; ?> Properties </span></p>
                 </div>
-
-                  <div class="row posts endless-pagination" data-next-page="<?php echo e($posts->nextPageUrl()); ?>">
-                    <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php if($contRow == 0) { ?>
+                    <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
+                <?php } ?> 
+                <div class="row">
+                    <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                       
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
@@ -175,7 +176,7 @@
                                 </div>
                                 <div class="protxt_inn">
                                     <h6><?php echo e($property->property_name); ?></h6>
-                                    <p><?php echo e(strip_tags($property->description)); ?></p>
+                                    <p><?php echo str_limit($property->description, $limit=50); ?></p>
                                     <div class="price_sec">
                                         <ul>
                                             <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
@@ -189,11 +190,9 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
-                <div class="product_loadding">
-                    <?php echo $posts->render(); ?>
-
-                    <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
-                </div>
+                <!-- <div class="product_loadding">
+                    <img src="/images/frontend_images/images/loadder.svg">
+                </div> -->
 
             </div>
         </div>
@@ -201,7 +200,6 @@
         
     </div>
 </div>
-
 
 </div>
 

@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/layouts/app.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/layouts/app.blade.php */ ?>
 <!DOCTYPE html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
@@ -43,11 +43,11 @@
                         <!-- Authentication Links -->
                         <?php if(auth()->guard()->guest()): ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo e(route('login')); ?>"><?php echo e(__('Login')); ?></a>
+                                <a class="nav-link" href="<?php echo e(url('/login')); ?>"><?php echo e(__('Login')); ?></a>
                             </li>
                             <?php if(Route::has('register')): ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo e(route('register')); ?>"><?php echo e(__('Register')); ?></a>
+                                    <a class="nav-link" href="<?php echo e(url('/register')); ?>"><?php echo e(__('Register')); ?></a>
                                 </li>
                             <?php endif; ?>
                         <?php else: ?>

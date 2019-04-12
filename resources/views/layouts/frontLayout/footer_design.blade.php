@@ -1,3 +1,10 @@
+<?php 
+
+use App\Http\Controllers\Controller;
+$footerProperties = Controller::footersection();
+
+?>
+
 <footer>
     <div class="footer_top">
         <div class="container">
@@ -95,7 +102,10 @@
                     <div class="footer_box">
                         <h5>LATEST LISTINGS</h5>
                         <ul>
+                            <?php $counter=0; ?>
                             @foreach($footerProperties as $footerproperty)
+                            <?php $counter++ ?>
+                            @if($counter <= 2)
                             <li>
                                 <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
                                     <span>
@@ -106,9 +116,10 @@
                                     <h5>INR {{ $footerproperty->property_price }}</h5>
                                 </a>
                             </li>
+                            @endif
                             @endforeach
                             
-                            <a href="#">View All...</a>
+                            <a href="{{ url('/properties') }}">View All...</a>
                         </ul>
                     </div>
                 </div>

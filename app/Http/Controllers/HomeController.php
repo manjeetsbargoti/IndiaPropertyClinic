@@ -43,12 +43,10 @@ class HomeController extends Controller
     {
         $properties = Property::orderBy('id', 'asc')->get();
         $featureProperty = Property::where(['featured'=>1])->get();
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
         $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();
         $otherServices = OtherServices::get();
         $properties = json_decode(json_encode($properties));
-        $footerProperties = json_decode(json_encode($footerProperties));
 
         foreach($properties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
@@ -74,38 +72,23 @@ class HomeController extends Controller
             $featureProperty[$key]->city_name = $city->name;
         }
 
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
-
         $services = Services::where(['status'=>1])->get();
         $continents = DB::table('continents')->get();
         $countries = DB::table('countries')->get();
         // echo "<pre>"; print_r($properties); die;
 
-        return view('home')->with(compact('properties', 'propertyImages', 'footerProperties', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries'));
+        return view('home')->with(compact('properties', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries'));
 
     }
 
     // View All Properties
     public function viewAll()
     {
-        $properties = Property::orderBy('id', 'asc')->get();
-        $posts = Property::paginate($this->posts_per_page);
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
+        $properties = Property::orderBy('created_at', 'desc')->get();
+        $posts = Property::orderBy('created_at', 'desc')->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
         $properties = json_decode(json_encode($properties));
-        $footerProperties = json_decode(json_encode($footerProperties));
         
 
         foreach($posts as $key => $val) {
@@ -120,25 +103,12 @@ class HomeController extends Controller
             $city = DB::table('cities')->where(['id'=>$val->city])->first();
             $posts[$key]->city_name = $city->name;
         }
-
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
         
         if(!empty($properties)){
             $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         }
-        return view('frontend.viewall_properties', compact('properties', 'propertyImages', 'otherServices', 'footerProperties', 'contRow', 'posts'));
+        return view('frontend.viewall_properties', compact('properties', 'propertyImages', 'otherServices', 'contRow', 'posts'));
     }
 
     // Home Page Search Function Start
@@ -178,10 +148,9 @@ class HomeController extends Controller
                 $r = $city[0];
                 $properties = Property::where([[ 'city','=',$r['id']], [ 'property_type_id', '=', $data['property_type']]])->get();
             }
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
+
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
-        $footerProperties = json_decode(json_encode($footerProperties));
 
         foreach($properties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
@@ -196,26 +165,13 @@ class HomeController extends Controller
             $properties[$key]->city_name = $cityname->name;
         }
 
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            // $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
-
         if(!empty($properties)){
             $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'footerProperties', 'contRow', 'state'));
+        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'contRow', 'state'));
         }
     }
 

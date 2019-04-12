@@ -1,27 +1,10 @@
-<div id="page">
-      
-<!-- Modal Advanced Search-->
-<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        ...
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-    </div>
-    </div>
-</div>
-</div> -->
+<?php 
+use App\Http\Controllers\Controller;
+$mainnavservice = Controller::mainNav();
 
-     
+?>
+
+<div id="page">
         <div class="header_top">
             <div class="container">
                 <div class="row">
@@ -95,16 +78,23 @@
                         <div class="mobuser_profile">
                             <div class="dropdown">
                                 <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Login / Register
+                                @guest    
+                                    My Account
+                                @else
+                                    {{ Auth::user()->first_name }} <span class="caret"></span>
+                                @endguest
                                 </button>
                                 <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                                     <ul>
-                                        <li><a href="javascript:avoid();"  data-toggle="modal" data-target="#homeLogin"><i class="fas fa-sign-in-alt"></i> Log In</a></li>
-                                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
-                                        <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
-                                        <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                                        <li><a href="#"><i class="fas fa-receipt"></i> My Invoices</a></li>
-                                        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                                        <!-- Authentication Links -->
+                                        @guest
+                                            <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
+                                        @else
+                                            <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                                            <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
+                                            <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                                            <li><a href="#"><i class="fas fa-sign-out-alt"></i> {{ __('Log Out') }}</a></li>
+                                        @endguest
                                     </ul>
                                 </div>
                             </div>
@@ -125,21 +115,11 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Buy <span class="sr-only">(current)</span></a>
-            </li>
+            @foreach($mainnavservice as $mainnav)
             <li class="nav-item">
-                <a class="nav-link" href="#">Rent</a>
+                <a class="nav-link" href="{{ url('/view-properties/for='.$mainnav->id) }}">{{ $mainnav->service_name }} <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sell
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                </div>
-            </li>
+            @endforeach
             <li class="nav-item">
                 <a class="nav-link" href="#">Tools & Advice</a>
             </li>
@@ -160,16 +140,12 @@
                         <ul>
                             <!-- Authentication Links -->
                             @guest
-                            <li>
-                                <a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a>
-                            </li>
-                            <!-- <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> Log In</a></li> -->
+                                <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
                             @else
-                            <li><a href="{{ url('/My-Account') }}"><i class="fas fa-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
-                            <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                            <!-- <li><a href="#"><i class="fas fa-receipt"></i> My Invoices</a></li> -->
-                            <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                                <li><a href="{{ url('/My-Account') }}"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
+                                <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                             @endguest
                         </ul>
                     </div>

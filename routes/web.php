@@ -70,9 +70,9 @@ Route::group(['middleware' => ['userlogin']], function()
 {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
     // User Login/Register Functionality
-Route::match(['get', 'post'],'/login', 'AdminController@login');
-Route::match(['get', 'post'],'/register', 'AdminController@register');
-Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
+    Route::match(['get', 'post'],'/login', 'AdminController@login');
+    Route::match(['get', 'post'],'/register', 'AdminController@register');
+    Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
 });
 
 Route::get('/', 'HomeController@index');
@@ -84,6 +84,7 @@ Route::get('/services/{url}', 'RepairServiceController@SingleRepairService');
 Route::get('/view-properties/state_id={state_id}', 'PropertyController@searchByState');
 Route::get('/view-properties/country_id={country_id}', 'PropertyController@searchByCountry');
 Route::get('/view-properties/city_id={city_id}', 'PropertyController@searchByCity');
+Route::get('/view-properties/for={id}', 'PropertyController@searchByService');
 
 Route::get('/logout', 'AdminController@logout');
 

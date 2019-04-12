@@ -121,40 +121,26 @@ class RepairServiceController extends Controller
     // View Single Other Service on Frontend
     public function SingleRepairService(Request $request, $url=null)
     {
-        $footerProperties = Property::orderBy('id', 'asc')->limit(2)->get();
         $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
         $randervice = OtherServices::inRandomOrder()->limit(4)->get();
         $services = OtherServices::where(['url'=>$url])->get();
         $services = json_decode(json_encode($services));
         $sub_services = OtherServices::where(['parent_id'=>$services[0]->id])->get();
-        $footerProperties = json_decode(json_encode($footerProperties));
         $vendor = User::where(['usertype'=> 'V'])->get();
         // echo "<pre>"; print_r($sub_services); die;
 
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
+        // foreach($vendor as $key => $val)
+        // {
+        //     $countryname = DB::table('countries')->where(['id'=>$val->country])->first();
+        //     $vendor[$key]->country_name = $countryname->name;
+        //     $state = DB::table('states')->where(['id'=>$val->state])->first();
+        //     $vendor[$key]->state_name = $state->name;
+        //     $city = DB::table('cities')->where(['id'=>$val->city])->first();
+        //     $vendor[$key]->city_name = $city->name;
+        // }
 
-        foreach($vendor as $key => $val)
-        {
-            $countryname = DB::table('countries')->where(['id'=>$val->country])->first();
-            $vendor[$key]->country_name = $countryname->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $vendor[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $vendor[$key]->city_name = $city->name;
-        }
-
-        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'footerProperties', 'sub_services'));
+        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'sub_services'));
     }
 
     // Edit Repair Service function

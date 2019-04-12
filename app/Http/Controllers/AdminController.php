@@ -225,45 +225,14 @@ class AdminController extends Controller
             }
         }
 
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
-        $footerProperties = json_decode(json_encode($footerProperties));
-
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            // $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
-
-        return view('auth.login', compact('footerProperties'));
+        return view('auth.login');
     }
 
     // Reset user Password
     public function resetPassword()
     {
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
-        $footerProperties = json_decode(json_encode($footerProperties));
 
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            // $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
-
-        return view('auth.passwords.reset', compact('footerProperties'));
+        return view('auth.passwords.reset');
     }
 
     // User Register Function
@@ -301,28 +270,12 @@ class AdminController extends Controller
             
         }
 
-        $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
-        $footerProperties = json_decode(json_encode($footerProperties));
-
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            // $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
-
         $usertypes = UserType::where(['status'=>1])->get();
         $servicetype = OtherServices::where(['status'=>1, 'parent_id'=>0])->get();
         $countrycode = DB::table('countries')->get();
         $countryname = DB::table('countries')->pluck("name","id");
 
-        return view('auth.register', compact('footerProperties', 'usertypes', 'servicetype', 'countrycode', 'countryname'));
+        return view('auth.register', compact('usertypes', 'servicetype', 'countrycode', 'countryname'));
     }
 
     // User Account 

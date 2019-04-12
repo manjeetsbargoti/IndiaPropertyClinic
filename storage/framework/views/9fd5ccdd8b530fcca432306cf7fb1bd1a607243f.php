@@ -1,4 +1,11 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/layouts/frontLayout/footer_design.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/layouts/frontLayout/footer_design.blade.php */ ?>
+<?php 
+
+use App\Http\Controllers\Controller;
+$footerProperties = Controller::footersection();
+
+?>
+
 <footer>
     <div class="footer_top">
         <div class="container">
@@ -96,7 +103,10 @@
                     <div class="footer_box">
                         <h5>LATEST LISTINGS</h5>
                         <ul>
+                            <?php $counter=0; ?>
                             <?php $__currentLoopData = $footerProperties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $footerproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $counter++ ?>
+                            <?php if($counter <= 2): ?>
                             <li>
                                 <a href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">
                                     <span>
@@ -107,9 +117,10 @@
                                     <h5>INR <?php echo e($footerproperty->property_price); ?></h5>
                                 </a>
                             </li>
+                            <?php endif; ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             
-                            <a href="#">View All...</a>
+                            <a href="<?php echo e(url('/properties')); ?>">View All...</a>
                         </ul>
                     </div>
                 </div>

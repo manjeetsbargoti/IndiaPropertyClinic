@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\vendor\laravel\framework\src\Illuminate\Pagination/resources/views/bootstrap-4.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\vendor\laravel\framework\src\Illuminate\Pagination/resources/views/bootstrap-4.blade.php */ ?>
 <?php if($paginator->hasPages()): ?>
     <ul class="pagination" role="navigation">
         

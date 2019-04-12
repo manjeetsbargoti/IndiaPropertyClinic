@@ -1,4 +1,4 @@
-<?php /* D:\Laravel\PropertyAdmin\resources\views/layouts/frontLayout/frontend_design.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/layouts/frontLayout/frontend_design.blade.php */ ?>
 <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
@@ -19,6 +19,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo e(asset('css/frontend_css/jquery.mmenu.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/owl.carousel.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/style.css')); ?>">
+    <!-- <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/particle.css')); ?>"> -->
     
 </head>
 <body >
@@ -42,6 +43,9 @@
     <script src="<?php echo e(asset('js/frontend_js/tagsinput.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-lib.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-main.min.js')); ?>"></script>
+    <!-- <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/particles.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/partapp.js')); ?>"></script> -->
+    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.validate.min.js')); ?>"></script>
 
     <script type="text/javascript">
     $(function() {
