@@ -15,6 +15,7 @@ Use App\PropertyImages;
 Use Illuminate\Http\Request;
 Use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PropertyController extends Controller
 {
@@ -57,7 +58,7 @@ class PropertyController extends Controller
 
             $value = Property::create([
                 'property_name'         => $data['property_name'],
-                'property_url'          => $data['property_url'],
+                'property_url'          => $data['slug'],
                 'property_type_id'      => $property_type,
                 'property_code'         => $data['property_code'],
                 'property_price'        => $data['property_price'],
@@ -173,11 +174,15 @@ class PropertyController extends Controller
         foreach($properties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
             $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $properties[$key]->image_name = $propertyimage_name->image_name;
+            $propertyimage_count = PropertyImages::where(['property_id'=>$val->id])->count();
+            if($propertyimage_count > 0)
+            {
+                $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+                $properties[$key]->image_name = $propertyimage_name->image_name;
+            }
         }
 
-        return view('admin.property.view-property', compact('properties'));
+        return view('admin.property.view-property', compact('properties', 'propertyimage_count'));
     }
 
     // View Single Property
@@ -381,6 +386,14 @@ class PropertyController extends Controller
     public function editProperty(Request $request, $id=null)
     {
         return ('Under Maintenance!');
+    }
+
+    // Creating unique Slug
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Property::class, 'property_url', $request->property_name, ['unique' => true]);
+        // echo "<pre>"; print_r($slug); die;
+        return response()->json(['slug' => $slug]);
     }
 
 }

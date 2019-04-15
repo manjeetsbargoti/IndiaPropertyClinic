@@ -119,5 +119,26 @@ desired effect
 <!-- Custom js for Admin -->
 <script src="{{ asset('dist/js/custom.js') }}"></script>
 
+<script>
+  // Creating Property URL
+$('#property_name').change(function(e) {
+    $.get('{{ url("/add-new-property/check_slug") }}', 
+      { 'property_name': $(this).val() }, 
+      function( data ) {
+        $('#slug').val(data.slug);
+      }
+    );
+});
+
+// Creating Repair Service URL
+$('#rservice_name').change(function(e) {
+  $.get('{{ url("/repair-services/check_slug") }}', 
+    { 'rservice_name': $(this).val() }, 
+    function( data ) {
+      $('#slug').val(data.slug);
+  });
+});
+</script>
+
 </body>
 </html>

@@ -70,7 +70,7 @@
                                             <label for="Url">Url</label>
                                             <div class="input-group">
                                                 <span class="input-group-addon">Url</span>
-                                                <input type="text" name="property_url" id="property_url" class="form-control">
+                                                <input type="text" name="slug" id="slug" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -479,8 +479,6 @@
     
     </div>
     <!-- ./wrapper -->
-
-
 
     <?php $__env->stopSection(); ?>
 

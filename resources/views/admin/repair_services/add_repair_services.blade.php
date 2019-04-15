@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Url</span>
-                                <input name="rservice_url" id="rservice_url" type="text" class="form-control">
+                                <input name="slug" id="slug" type="text" class="form-control">
                             </div>
                         </div>
 

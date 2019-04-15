@@ -49,15 +49,17 @@
                                 <?php $i++ ?>
                                 <tr>
                                     <td><?php echo e($i); ?></td>
-                                    <?php if(!empty($property->image_name)): ?>
+                                    <?php if($propertyimage_count > 0): ?>
                                     <td><img width="60px" class="thumb" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?>"></td>
+                                    <?php else: ?>
+                                    <td><img width="60px" class="thumb" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>"></td>                                    
                                     <?php endif; ?>
                                     <td><a target="_blank" href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><?php echo e($property->property_name); ?></a></td>
                                     <td><?php echo e($property->service_name); ?></td>
                                     <td><?php echo e($property->property_code); ?></td>
                                     <td><?php echo e($property->property_price); ?>/-</td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal" class="btn btn-success btn-xs">View</a>
+                                        <a data-toggle="modal" data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal" class="btn btn-success btn-xs">Details</a>
                                         <a href="<?php echo e(url('/admin/edit-property/'.$property->id)); ?>" class="btn btn-warning btn-xs">Edit</a>
                                         <a class="btn btn-danger btn-xs">Delete</a>
                                     </td>

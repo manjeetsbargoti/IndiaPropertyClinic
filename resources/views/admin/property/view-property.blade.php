@@ -49,15 +49,17 @@
                                 <?php $i++ ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    @if(!empty($property->image_name))
+                                    @if($propertyimage_count > 0)
                                     <td><img width="60px" class="thumb" src="{{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}"></td>
+                                    @else
+                                    <td><img width="60px" class="thumb" src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}"></td>                                    
                                     @endif
                                     <td><a target="_blank" href="{{ url('/properties/'.$property->property_url) }}">{{ $property->property_name }}</a></td>
                                     <td>{{ $property->service_name }}</td>
                                     <td>{{ $property->property_code }}</td>
                                     <td>{{ $property->property_price }}/-</td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#property_{{ $property->id }}" data-toggle="modal" class="btn btn-success btn-xs">View</a>
+                                        <a data-toggle="modal" data-target="#property_{{ $property->id }}" data-toggle="modal" class="btn btn-success btn-xs">Details</a>
                                         <a href="{{ url('/admin/edit-property/'.$property->id) }}" class="btn btn-warning btn-xs">Edit</a>
                                         <a class="btn btn-danger btn-xs">Delete</a>
                                     </td>

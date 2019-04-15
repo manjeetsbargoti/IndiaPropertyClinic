@@ -11,6 +11,7 @@ use App\OtherServices;
 Use App\PropertyImages;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Facades\Input;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class RepairServiceController extends Controller
 {
@@ -227,5 +228,13 @@ class RepairServiceController extends Controller
         }
         // echo "<pre>"; print_r($repairServices_dropdown); die;
         return view('admin.repair_services.edit_repair_service')->with(compact('servicesDetails', 'repairServices_dropdown'));
+    }
+
+    // Creating unique Slug
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(OtherServices::class, 'url', $request->rservice_name, ['unique' => true]);
+        // echo "<pre>"; print_r($slug); die;
+        return response()->json(['slug' => $slug]);
     }
 }

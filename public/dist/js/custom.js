@@ -1,12 +1,6 @@
 
 
-// Creating Property URL
-$('#property_name').keyup(function(){
-    var str = $(this).val();
-    var trims = $.trim(str);
-    var property_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-    $('#property_url').val(property_url.toLowerCase());
-});
+
 
 // Creating Service URL
 $('#rservice_name').keyup(function(){
@@ -16,13 +10,8 @@ $('#rservice_name').keyup(function(){
     $('#rservice_url').val(rservice_url.toLowerCase());
 });
 
-// Creating Repair Service URL
-$('#service_name').keyup(function(){
-    var str = $(this).val();
-    var trims = $.trim(str);
-    var service_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
-    $('#service_url').val(service_url.toLowerCase());
-});
+
+
 
 // Data fields according to Property Type Selection
 $(function() {

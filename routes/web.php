@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty');
     Route::get('/admin/properties', 'PropertyController@viewProperty');
     Route::match(['get', 'post'], '/admin/edit-property/{id}', 'PropertyController@editProperty');
+    Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
 
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list','PropertyController@getStateList');
@@ -40,12 +41,13 @@ Route::group(['middleware' => ['auth']], function()
     Route::match(['get', 'post'], '/admin/disable/{id}', 'ServiceController@disableService');
     Route::match(['get', 'post'], '/admin/enable/{id}', 'ServiceController@enableService');
 
-    // Other Services Module (Add/Update/View/Disable)
+    // Repair Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-repair-service', 'RepairServiceController@addRService');
     Route::get('/admin/repair-services', 'RepairServiceController@viewRService');
     Route::match(['get', 'post'], '/admin/edit-repair-services/{id}', 'RepairServiceController@editRService');
     Route::match(['get', 'post'], '/admin/disable/{id}', 'RepairServiceController@disableService');
     Route::match(['get', 'post'], '/admin/enable/{id}', 'RepairServiceController@enableService');
+    Route::match(['get', 'post'], '/repair-services/check_slug', 'RepairServiceController@checkSlug');
 
     // User Module by Admin (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
