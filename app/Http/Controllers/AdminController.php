@@ -291,8 +291,12 @@ class AdminController extends Controller
         // $users = json_decode(json_encode($users));
 
         foreach($users as $key => $val) {
-            $rservice_name = OtherServices::where(['id'=>$val->servicetypeid])->first();
-            $users[$key]->service_name = $rservice_name->service_name;
+            $rservice_count = OtherServices::where(['id'=>$val->servicetypeid])->count();
+            if($rservice_count)
+            {
+                $rservice_name = OtherServices::where(['id'=>$val->servicetypeid])->first();
+                $users[$key]->service_name = $rservice_name->service_name;
+            }
             $usertype_name = UserType::where(['usercode'=>$val->usertype])->first();
             $users[$key]->user_type = $usertype_name->usertype_name;
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();

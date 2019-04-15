@@ -138,7 +138,7 @@
                             </div>
                             <div class="protxt_inn">
                                 <h6>{{ $property->property_name }}</h6>
-                                <p>{!! str_limit($property->description, $limit=100) !!}</p>
+                                <p>{{ strip_tags(str_limit($property->description, $limit=120)) }}</p>
                                 <div class="price_sec">
                                     <ul>
                                         <li><h5><span>INR</span> {{ $property->property_price }}</h5></li>

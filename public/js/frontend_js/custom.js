@@ -1,3 +1,4 @@
+
 var stickyHeaders = (function() {
 
   var $window = $(window),
@@ -77,7 +78,7 @@ $(function() {
   // SIDEBAR canvas menu END //
 
 
-  $('.product-slide').owlCarousel({
+$('.product-slide').owlCarousel({
     items:1,
     loop:true,
     margin:0,
@@ -125,7 +126,7 @@ $('.services').owlCarousel({
       margin: 20
     }
   }
-})
+});
 
 
 $('.dealerscarousel').owlCarousel({
@@ -156,7 +157,7 @@ $('.dealerscarousel').owlCarousel({
       margin: 10
     }
   }
-})
+});
 
 // filter menu //
 
@@ -167,6 +168,8 @@ $(document).ready(function(){
 });
 
 
+
+// product view slider //
 
 // product view slider //
 
@@ -797,11 +800,6 @@ $('#registerForm').validate({
     }
   }
 })
-
-
-
-
-
 
 
 

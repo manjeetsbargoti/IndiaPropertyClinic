@@ -111,13 +111,12 @@ class PropertyController extends Controller
                 $image_size = $image_array[$i]->getClientSize();
                 $extension = $image_array[$i]->getClientOriginalExtension();
                 $filename = rand(1, 99999).'.'.$extension;
+                $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
                 $large_image_path = public_path('images/backend_images/property_images/large/'.$filename);
                 $medium_image_path = 'images/backend_images/property_images/medium/'.$filename;
                 $small_image_path = 'images/backend_images/property_images/small/'.$filename;
                 // Resize image
-                Image::make($image_array[$i])->resize(730, 464)->save($large_image_path);
-                // Image::make($image_array[$i])->resize(270, 171)->save($medium_image_path);
-                // Image::make($image_array[$i])->resize(256, 169)->save($small_image_path);
+                Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
                 
                 // Store image in property folder
                 $property->image = $filename;

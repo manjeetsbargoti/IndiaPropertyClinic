@@ -140,7 +140,7 @@
                             </div>
                             <div class="protxt_inn">
                                 <h6><?php echo e($property->property_name); ?></h6>
-                                <p><?php echo str_limit($property->description, $limit=100); ?></p>
+                                <p><?php echo e(strip_tags(str_limit($property->description, $limit=120))); ?></p>
                                 <div class="price_sec">
                                     <ul>
                                         <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>

@@ -18,7 +18,9 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/frontend_css/jquery.mmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend_css/style.css') }}">
-    <!-- <link rel="stylesheet" href="{{ asset('css/frontend_css/particle.css') }}"> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
     
 </head>
 <body >
@@ -32,19 +34,17 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="{{ asset('js/frontend_js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
-    <!-- <script src="{{ asset('js/frontend_js/jquery.passtrength.js') }}"></script> -->
-    <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.mmenu.js') }}"></script>
     <script src="{{ asset('js/frontend_js/tagsinput.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-lib.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-main.min.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/frontend_js/particles.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/frontend_js/partapp.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
 
     <script type="text/javascript">
     $(function() {
