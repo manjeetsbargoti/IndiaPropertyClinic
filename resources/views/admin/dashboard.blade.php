@@ -80,12 +80,12 @@
                 <?php $counter++ ; ?>
                 @if( $counter <= 4)
                 <li class="item">
-                  <div class="product-img">
-                    <img class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/'.$p->image_name)}}" alt="{{ $p->property_name }}">
+                  <div class="product-img"><span class="label label-info">{{ date('d M, Y', strtotime($p->created_at)) }} </span>
+                    <img style="width: 67px !important;" class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/'.$p->image_name)}}" alt="{{ $p->property_name }}">
                   </div>
                   <div class="product-info">
-                    <a href="{{ url('/') }}/{{ $p->property_url }}" target="_blank" class="product-title">{{ str_limit($p->property_name, $limit=50) }}
-                      <span class="label label-success pull-right">₹ {{ $p->property_price }}</span></a>
+                    <a href="{{ url('/properties/') }}/{{ $p->property_url }}" target="_blank" class="product-title">{{ str_limit($p->property_name, $limit=50) }}
+                    <span class="label label-success pull-right">₹ {{ $p->property_price }}</span>
                     <span class="product-description">{!! str_limit($p->description, $limit=100) !!}</span>
                   </div>
                 </li>

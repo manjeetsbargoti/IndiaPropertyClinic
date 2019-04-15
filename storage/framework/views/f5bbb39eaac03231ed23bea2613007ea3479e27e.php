@@ -80,13 +80,13 @@
                 <?php $counter++ ; ?>
                 <?php if( $counter <= 4): ?>
                 <li class="item">
-                  <div class="product-img">
-                    <img class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$p->image_name)); ?>" alt="<?php echo e($p->property_name); ?>">
+                  <div class="product-img"><span class="label label-info"><?php echo e(date('d M, Y', strtotime($p->created_at))); ?> </span>
+                    <img style="width: 67px !important;" class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$p->image_name)); ?>" alt="<?php echo e($p->property_name); ?>">
                   </div>
                   <div class="product-info">
-                    <a href="<?php echo e(url('/')); ?>/<?php echo e($p->property_url); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->property_name, $limit=50)); ?>
+                    <a href="<?php echo e(url('/properties/')); ?>/<?php echo e($p->property_url); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->property_name, $limit=50)); ?>
 
-                      <span class="label label-success pull-right">₹ <?php echo e($p->property_price); ?></span></a>
+                    <span class="label label-success pull-right">₹ <?php echo e($p->property_price); ?></span>
                     <span class="product-description"><?php echo str_limit($p->description, $limit=100); ?></span>
                   </div>
                 </li>

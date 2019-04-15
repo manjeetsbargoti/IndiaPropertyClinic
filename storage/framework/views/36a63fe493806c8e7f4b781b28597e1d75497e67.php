@@ -5,7 +5,7 @@
 <header class="main-header">
 
   <!-- Logo -->
-  <a href="<?php echo e(url('/admin')); ?>" class="logo">
+  <a href="<?php echo e(url('/admin/dashboard')); ?>" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>I</b>PC</span>
     <!-- logo for regular state and mobile devices -->
@@ -137,7 +137,7 @@
               <p>
               <?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?>
 
-                <small>Member since Nov. 2012</small>
+                <small>Member since <?php echo e(date('M, Y', strtotime(Auth::user()->created_at))); ?></small>
               </p>
             </li>
             <!-- Menu Body -->

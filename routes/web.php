@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/admin/users', 'AdminController@viewUser');
     Route::match(['get', 'post'], '/admin/disable/{id}', 'AdminController@disableUser');
     Route::match(['get', 'post'], '/admin/enable/{id}', 'AdminController@enableUser');
+    Route::match(['get', 'post'], '/checkemail', 'AdminController@checkEmail');
 
     // Home Loan Applications
     Route::get('/admin/home-loan-application', 'HomeLoanController@homeLoanQuery');

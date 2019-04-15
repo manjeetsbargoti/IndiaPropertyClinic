@@ -4,7 +4,7 @@
 <header class="main-header">
 
   <!-- Logo -->
-  <a href="{{ url('/admin') }}" class="logo">
+  <a href="{{ url('/admin/dashboard') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>I</b>PC</span>
     <!-- logo for regular state and mobile devices -->
@@ -135,7 +135,7 @@
 
               <p>
               {{{ Auth::user()->first_name }}} {{{ Auth::user()->last_name }}}
-                <small>Member since Nov. 2012</small>
+                <small>Member since {{ date('M, Y', strtotime(Auth::user()->created_at)) }}</small>
               </p>
             </li>
             <!-- Menu Body -->

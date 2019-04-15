@@ -332,5 +332,23 @@ class AdminController extends Controller
         return redirect('/login')->with('flash_message_success', 'Logged out Successfully!');
     }
 
+    // Check User Email
+    public function checkEmail(Request $request)
+    {
+        if($request->get('email'))
+        {
+            $email = $request->get('email');
+            $data = User::where('email', $email)->count();
+            if($data > 0)
+            {
+                echo 'not_unique';
+            }
+            else
+            {
+                echo 'unique';
+            }
+        }
+    }
+
 }
 

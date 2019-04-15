@@ -1,6 +1,11 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
+<style type="text/css">
+   .box{width:600px;margin:0 auto;border:1px solid #ccc;}
+   .has-error{border-color:#FF0000;background-color:#ffff99;}
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -48,7 +53,7 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <label>E-mail</label>
+                                  <label>E-mail</label> <span class="pull-right" id="error_email"></span>
                                   <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                                 </div>
                             </div>
