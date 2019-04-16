@@ -61,7 +61,7 @@
                                     <td>
                                         <a data-toggle="modal" data-target="#property_{{ $property->id }}" data-toggle="modal" class="btn btn-success btn-xs">Details</a>
                                         <a href="{{ url('/admin/edit-property/'.$property->id) }}" class="btn btn-warning btn-xs">Edit</a>
-                                        <a class="btn btn-danger btn-xs">Delete</a>
+                                        <a href="{{ url('/admin/delete-property/'.$property->id) }}" class="btn btn-danger btn-xs">Delete</a>
                                     </td>
                                 </tr>
 

@@ -252,7 +252,7 @@ $footerProperties = Controller::footersection();
                             <li><a href="#">Home Loan</a></li>
                         </ul>
                     
-                    <p>Copyright 2019 | India Property Clinic. All Rights Reserved.</p>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> | India Property Clinic. All Rights Reserved.</p>
                 </div> 
                 </div>
                 <div class="col-lg-4">

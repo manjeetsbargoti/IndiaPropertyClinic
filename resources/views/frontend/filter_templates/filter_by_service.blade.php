@@ -137,7 +137,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item">All Properties in {{ $properties[0]->service_name }}</li>
+                        <li class="breadcrumb-item">All Properties for {{ $properties[0]->service_name }}</li>
                         </ol>
                     </nav>
                     <p><span><?php echo $contRow; ?> Properties </span></p>

@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <label>E-mail</label> <span class="pull-right" id="error_email"></span>
+                                  <label>E-mail</label> 
                                   <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                             <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                   <label>Password</label>
-                                  <input type="text" name="password" id="generatePassword" class="form-control" placeholder="Password">
+                                  <input type="password" name="password" id="generatePassword" class="form-control" placeholder="Password">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-3">

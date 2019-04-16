@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth']], function()
     Route::get('/admin/properties', 'PropertyController@viewProperty');
     Route::match(['get', 'post'], '/admin/edit-property/{id}', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
+    Route::match(['get', 'post'], '/admin/delete-property/{id}', 'PropertyController@deleteProperty');
 
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list','PropertyController@getStateList');
@@ -77,11 +78,14 @@ Auth::routes();
 Route::group(['middleware' => ['userlogin']], function()
 {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
+
+});
+
     // User Login/Register Functionality
     Route::match(['get', 'post'],'/login', 'AdminController@login');
     Route::match(['get', 'post'],'/register', 'AdminController@register');
     Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
-});
+    Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
 
 Route::get('/', 'HomeController@index');
 Route::get('/properties', 'HomeController@viewAll');
@@ -108,3 +112,6 @@ Route::match(['get', 'post'],'/login', 'AdminController@login');
 Route::match(['get', 'post'],'/register', 'AdminController@register');
 Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
 
+
+// Email Verification Routes
+Route::match(['get', 'post'], '/verify/{code}', 'AdminController@verifyEmail');

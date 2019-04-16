@@ -471,15 +471,13 @@
                 </div>
             </div>
         </div>
-    
     </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.content-wrapper -->
-    
-    </div>
-    <!-- ./wrapper -->
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-    <?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

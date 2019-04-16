@@ -17,7 +17,7 @@ class OtherServices extends Model
     public function sluggable()
     {
         return [
-            'slug' => [
+            'url' => [
                 'source' => 'rservice_name'
             ]
         ];

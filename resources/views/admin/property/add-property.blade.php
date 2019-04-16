@@ -470,13 +470,11 @@
                 </div>
             </div>
         </div>
-    
     </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.content-wrapper -->
-    
-    </div>
-    <!-- ./wrapper -->
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
 
-    @endsection
+@endsection

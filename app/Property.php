@@ -17,7 +17,7 @@ class Property extends Model
     public function sluggable()
     {
         return [
-            'slug' => [
+            'property_url' => [
                 'source' => 'property_name'
             ]
         ];

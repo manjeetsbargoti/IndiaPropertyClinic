@@ -35,7 +35,7 @@ class RepairServiceController extends Controller
             $rservices->parent_id       = $data['parent_id'];
             $rservices->s_description   = $data['s_description'];
             $rservices->description     = $data['description'];
-            $rservices->url             = $data['rservice_url'];
+            $rservices->url             = $data['slug'];
             $rservices->status          = $status;
 
 

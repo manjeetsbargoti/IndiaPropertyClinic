@@ -1,6 +1,11 @@
 <?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/auth/register.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
+<style type="text/css">
+   .box{width:600px;margin:0 auto;border:1px solid #ccc;}
+   .has-error{border-color:#FF0000 !important;background-color:#ffff99;}
+</style>
+
 <div class="smart_container">
     <div class="userlogin_form">
         <div class="container">
@@ -50,6 +55,7 @@
                                                 <strong><?php echo e($errors->first('email')); ?></strong>
                                             </span>
                                         <?php endif; ?>
+                                        <span id="error_email"></span>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -86,7 +92,7 @@
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
                                     <select class="form-control" name="servicetype">
-                                        <option selected disabled>Select Service</option>
+                                        <option selected value="">Select Service</option>
                                         <?php $__currentLoopData = $servicetype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($service->id); ?>"><?php echo e($service->service_name); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

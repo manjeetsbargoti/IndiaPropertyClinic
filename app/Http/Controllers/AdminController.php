@@ -14,6 +14,7 @@ use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -128,6 +129,13 @@ class AdminController extends Controller
 
             $user->save();
 
+            // User Register Email
+            // $email = $data['email'];
+            // $messageData = ['email'=>$data['email'], 'name'=>$data['first_name']];
+            // Mail::send('emails.register', $messageData, function($message) use($email){
+            //     $message->to($email)->subject('Registration with India Property Clinic');
+            // });
+
             return redirect('/admin/users')->with('flash_message_success', 'User Added Successfully!');
         }
 
@@ -136,6 +144,15 @@ class AdminController extends Controller
         $phonecode = DB::table('countries')->get();
         $countryname = DB::table('countries')->pluck("name","id");
         return view("admin.users.add_new_user", compact('phonecode', 'usertype', 'servicetype','countryname'));
+    }
+
+    // Verify Registered User Email
+    public function verifyEmail(Request $request, $code=null)
+    {
+        // if()
+        // {
+
+        // }
     }
 
     // Getting State List according to Country
@@ -198,29 +215,90 @@ class AdminController extends Controller
 
         $user = new User;
 
-        $userdetails = User::where(['id'=>$id])->get();
+        $userdetails = User::where(['id'=>$id])->first();
+        $userdetails = json_decode(json_encode($userdetails));
         $servicetype = OtherServices::where(['parent_id'=>0])->get();
         $usertype = UserType::get();
         $phonecode = DB::table('countries')->get();
-        $countryname = DB::table('countries')->pluck("name","id");
+        $countryname = DB::table('countries')->get();
+        $statename = DB::table('states')->where(['country_id'=>$userdetails->country])->get();
+        $cityname = DB::table('cities')->where(['state_id'=>$userdetails->state])->get();
+
+        // Select Country Name
+        $country_dropdown = "<option selected value=''>Select Country</option>";
+        foreach($countryname as $cname)
+        {
+            if($cname->id==$userdetails->country)
+            {
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $country_dropdown .= "<option value='".$cname->id."' ".$selected.">".$cname->name."</option>";
+        }
+
+        // Select Country Name
+        $state_dropdown = "<option selected value=''>Select State</option>";
+        foreach($statename as $sname)
+        {
+            if($sname->id==$userdetails->state)
+            {
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $state_dropdown .= "<option value='".$sname->id."' ".$selected.">".$sname->name."</option>";
+        }
+
+        // Select City Name
+        $city_dropdown = "<option selected value=''>Select City</option>";
+        foreach($cityname as $cname)
+        {
+            if($cname->id==$userdetails->city)
+            {
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $city_dropdown .= "<option value='".$cname->id."' ".$selected.">".$cname->name."</option>";
+        }
+
+        // Selecct Service Type
+        $services_dropdown = "<option selected value=''>Select</option>";
+        foreach($servicetype as $stype)
+        {
+            if($stype->id==$userdetails->servicetypeid)
+            {
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $services_dropdown .= "<option value='".$stype->id."' ".$selected.">".$stype->service_name."</option>";
+        }
 
         // echo  "<pre>"; print_r($userdetails); die;
 
-        return view('admin.users.edit_user', compact('userdetails', 'servicetype', 'usertype', 'phonecode', 'countryname'));
+        return view('admin.users.edit_user', compact('userdetails', 'services_dropdown', 'usertype', 'phonecode', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
     }
 
     // User Login Function
     public function login(Request $request)
     {
-
         if($request->isMethod('post'))
         {
             $data = $request->all();
 
-            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'admin'=>0, 'status'=>1]))
+            if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password'], 'admin'=>0]))
             {
-                Session::put('UserSession', $data['email']);
-                return redirect('/My-Account');
+                $userStatus = User::where(['email'=>$data['email']])->first();
+                if($userStatus->status == 0)
+                {
+                    Session::Flush();
+                    return redirect()->back()->with('flash_message_error','Your account has been disabled! Please contact Admin.');
+                } else {
+                    Session::put('UserSession', $data['email']);
+                    return redirect('/My-Account');
+                }  
             }
             else {
                 return redirect()->back()->with('flash_message_error', 'Invalid Username or Password!');
@@ -266,7 +344,15 @@ class AdminController extends Controller
 
                 $user->save();
 
-                return redirect('/login')->with('flash_message_success', 'You are Registered Successfully! Please Check your Email and Verify.');
+                // Send Confirmation Email
+                $email = $data['email'];
+                $messageData = ['email'=>$data['email'], 'name'=>$data['first_name'], 'code'=>base64_encode($data['email'])];
+                Mail::send('emails.confirmation', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Confirm account with India Property Clinic');
+                });
+
+                return redirect('/login')->with('flash_message_success', 'Please confirm your email to activate your account!');
+                // return redirect('/login')->with('flash_message_success', 'You are Registered Successfully! Please Check your Email and Verify.');
 
             }
             

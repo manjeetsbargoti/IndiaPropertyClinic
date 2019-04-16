@@ -85,7 +85,7 @@
                             <input type="hidden" name="current_image" id="rservice_image" value="{{ $servicesDetails->service_image }}">
                             <input type="file" name="rservice_image" id="rservice_image" class="form-control-file">
                             @if(!empty($servicesDetails->service_image))
-                            <img  style="padding-top: 1em;" src="{{ asset('/images/backend_images/repair_service_images/large/'.$servicesDetails->service_image)}}" style="width:170px;"> <a <?php // href="{{ url('/admin/delete-property-image/'.$propertyDetails->id) }}" ?> >Delete</a>
+                            <img class="img-responsive" style="padding-top: 1em; width:100px;" src="{{ asset('/images/backend_images/repair_service_images/large/'.$servicesDetails->service_image)}}"> <a <?php // href="{{ url('/admin/delete-property-image/'.$propertyDetails->id) }}" ?> >Delete</a>
                             @endif
                           <!-- <p class="help-block">Example block-level help text here.</p> -->
                         </div>
