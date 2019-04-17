@@ -42,6 +42,7 @@
                                     <th>E-mail Address</th>
                                     <th>Phone</th>
                                     <th>User Type</th>
+                                    <th>Join Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -55,13 +56,14 @@
                                     <td><?php echo e($u->email); ?></td>
                                     <td><?php echo e($u->phonecode); ?>-<?php echo e($u->phone); ?></td>
                                     <td><?php echo e($u->usertype_name); ?></td>
+                                    <td><?php echo e(date('d M, Y', strtotime($u->created_at))); ?></td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/edit-user/<?php echo e($u->id); ?>" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="/admin/edit-user/<?php echo e($u->id); ?>" class="label label-warning label-sm">Edit</a>
                                             <?php if($u->status == 1): ?>
-                                            <a href="/admin/disable/<?php echo e($u->id); ?>" class="btn btn-danger btn-sm">Deactivate</a>
+                                            <a href="/admin/disable/<?php echo e($u->id); ?>" class="label label-danger label-sm">Deactivate</a>
                                             <?php else: ?>
-                                            <a href="/admin/enable/<?php echo e($u->id); ?>" class="btn btn-success btn-sm">Activate</a>
+                                            <a href="/admin/enable/<?php echo e($u->id); ?>" class="label label-success label-sm">Activate</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -73,7 +75,9 @@
                                     <th>S.No</th>
                                     <th>User Name</th>
                                     <th>E-mail Address</th>
+                                    <th>Phone</th>
                                     <th>User Type</th>
+                                    <th>Join Date</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
