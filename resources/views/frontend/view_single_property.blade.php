@@ -48,10 +48,6 @@
                 <div class="overview_property">
                     <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/view-properties/city_id='.$property->city) }}">{{ $property->city_name }}, {{ $property->country_name }}</a></h1>
                     <h5>Plot Area: <span>{{ $property->parea }} Square Ft</span></h5>
-                    <div class="overview_rateingsec">
-                        <h4 class="overview_rateing"><i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5 </h4>
-                        <a id="rateing_revbtn" href="javascript:void(0);">1,15,037 Ratings & 11,802 Reviews</a>
-                    </div>
                     <h6>{{ $property->property_name }}</h6>
                     <h5>Age of Property: <span>Under Cinstrection</span></h5>
                     <h5>Facing: <span>{{ $property->pfacing }}</span></h5>

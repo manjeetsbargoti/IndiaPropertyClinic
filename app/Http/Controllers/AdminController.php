@@ -172,7 +172,7 @@ class AdminController extends Controller
     // View All User
     public function viewUser(Request $request)
     {
-        $user = User::where(['admin'=>0])->get();
+        $user = User::where(['admin'=>0])->orderBy('created_at', 'desc')->get();
         $user = json_decode(json_encode($user));
 
         foreach($user as $key => $val) {

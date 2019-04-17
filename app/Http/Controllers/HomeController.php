@@ -73,12 +73,21 @@ class HomeController extends Controller
         foreach($featureProperty as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
             $featureProperty[$key]->service_name = $service_name->service_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $featureProperty[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $featureProperty[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $featureProperty[$key]->city_name = $city->name;
+            $country_countf = DB::table('countries')->where(['id'=>$val->country])->count();
+            if($country_countf > 0){
+                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $featureProperty[$key]->country_name = $country->name;
+            }
+            $state_countf = DB::table('states')->where(['id'=>$val->state])->count();
+            if($state_countf > 0) {
+                $state = DB::table('states')->where(['id'=>$val->state])->first();
+                $featureProperty[$key]->state_name = $state->name;
+            }
+            $city_countf = DB::table('cities')->where(['id'=>$val->city])->count();
+            if($city_countf){
+                $city = DB::table('cities')->where(['id'=>$val->city])->first();
+                $featureProperty[$key]->city_name = $city->name;
+            }
         }
         if($country_count > 0){
             $countrycount = $country_count;
@@ -113,8 +122,6 @@ class HomeController extends Controller
         $posts = Property::orderBy('created_at', 'desc')->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
-        $properties = json_decode(json_encode($properties));
-        
 
         foreach($posts as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
@@ -122,20 +129,22 @@ class HomeController extends Controller
             $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
             $posts[$key]->image_name = $propertyimage_name->image_name;
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
-            if($country_count > 0){
+            if($country_count > 0)
+            {
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
-                $properties[$key]->country_name = $country->name;
-            
+                $posts[$key]->country_name = $country->name;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
-            if($state_count > 0){
+            if($state_count > 0)
+            {
                 $state = DB::table('states')->where(['id'=>$val->state])->first();
-                $properties[$key]->state_name = $state->name;
+                $posts[$key]->state_name = $state->name;
             }
             $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
-            if($city_count > 0){
-                $cityname = DB::table('cities')->where(['id'=>$val->city])->first();
-                $properties[$key]->city_name = $cityname->name;
+            if($city_count > 0)
+            {
+                $city = DB::table('cities')->where(['id'=>$val->city])->first();
+                $posts[$key]->city_name = $city->name;
             }
         }
         if(!empty($country_count)){
