@@ -137,9 +137,12 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        @foreach($properties as $p)
-                        <li class="breadcrumb-item">All Properties in {{ $p->city_name  }}</li>
-                        @endforeach
+                        <li class="breadcrumb-item">All Properties in 
+                        @if(!empty($scityname))
+                            <span> {{ $scityname }} </span></li>
+                        @else
+                            <span> {{ $cityname[0] }} </span></li>
+                        @endif
                         </ol>
                     </nav>
                     <p><span><?php echo $contRow; ?> Properties </span></p>

@@ -220,7 +220,14 @@
                                                     <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                                 </div>
                                                 <div class="bottom_strip">
-                                                    <h6><i class="fas fa-map-marker-alt"></i> <?php echo e($property->city_name); ?>, <?php echo e($property->country_name); ?></h6>
+                                                    <h6><i class="fas fa-map-marker-alt"></i> 
+                                                    <?php if(!empty($property->city_name)): ?>
+                                                        <span><?php echo e($property->city_name); ?>,</span>
+                                                    <?php endif; ?> 
+                                                    <?php if(!empty($property->country_name)): ?>
+                                                        <span><?php echo e($property->country_name); ?></span>
+                                                    <?php endif; ?>
+                                                    </h6>
                                                     <p><?php echo e($property->parea); ?> Square Ft</p>
                                                     <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
                                                 </div>  

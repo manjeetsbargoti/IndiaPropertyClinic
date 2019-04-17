@@ -249,6 +249,7 @@ class PropertyController extends Controller
 
     public function searchByState($state_id=null)
     {
+        $statename = DB::table('states')->where(['id'=>$state_id])->pluck('name');
         $properties = Property::where(['state'=>$state_id])->get();
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
@@ -277,6 +278,21 @@ class PropertyController extends Controller
                 $properties[$key]->city_name = $city->name;
             }
         }
+        if(!empty($country_count)){
+            $countrycount = $country_count;
+        } else {
+            $countrycount = 0;
+        }
+        if(!empty($state_count)){
+            $statecount = $state_count;
+        } else {
+            $statecount = 0;
+        }
+        if(!empty($city_count)){
+            $citycount = $city_count;
+        } else {
+            $citycount = 0;
+        }
 
         if(!empty($properties)){
             $contRow = count($properties);
@@ -284,7 +300,7 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_state')->with(compact('properties', 'propertyImages', 'contRow', 'state', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.filter_templates.filter_by_state')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
     }
 
     public function searchByCountry($country_id=null)
@@ -321,6 +337,12 @@ class PropertyController extends Controller
             }
         }
 
+        if(!empty($country_count)){
+            $countrycount = $country_count;
+        } else {
+            $countrycount = 0;
+        }
+
         if(!empty($properties)){
             $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
@@ -329,11 +351,12 @@ class PropertyController extends Controller
         }
         // echo "<pre>"; print_r($countryname); die;
         
-        return view('frontend.filter_templates.filter_by_country', compact('properties', 'propertyImages', 'contRow', 'countryname', 'posts', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.filter_templates.filter_by_country', compact('properties', 'propertyImages', 'contRow', 'countryname', 'posts', 'countrycount'));
     }
 
     public function searchByCity($city_id=null)
     {
+        $cityname = DB::table('cities')->where(['id'=>$city_id])->pluck('name');
         $properties = Property::where(['city'=>$city_id])->get();
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
@@ -362,6 +385,21 @@ class PropertyController extends Controller
                 $properties[$key]->city_name = $city->name;
             }
         }
+        if(!empty($country_count)){
+            $countrycount = $country_count;
+        } else {
+            $countrycount = 0;
+        }
+        if(!empty($state_count)){
+            $statecount = $state_count;
+        } else {
+            $statecount = 0;
+        }
+        if(!empty($city_count)){
+            $citycount = $city_count;
+        } else {
+            $citycount = 0;
+        }
 
         if(!empty($properties)){
             $contRow = count($properties);
@@ -369,7 +407,7 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'cityname', 'countrycount', 'statecount', 'citycount'));
     }
 
     // Search By Service
@@ -403,6 +441,21 @@ class PropertyController extends Controller
                 $properties[$key]->city_name = $city->name;
             }
         }
+        if(!empty($country_count)){
+            $countrycount = $country_count;
+        } else {
+            $countrycount = 0;
+        }
+        if(!empty($state_count)){
+            $statecount = $state_count;
+        } else {
+            $statecount = 0;
+        }
+        if(!empty($city_count)){
+            $citycount = $city_count;
+        } else {
+            $citycount = 0;
+        }
 
         if(!empty($properties)){
             $contRow = count($properties);
@@ -410,7 +463,7 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'countrycount', 'statecount', 'citycount'));
     }
 
     // Property Query
