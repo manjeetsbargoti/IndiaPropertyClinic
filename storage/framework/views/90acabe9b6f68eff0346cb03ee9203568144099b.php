@@ -1,4 +1,4 @@
-<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_country.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_csc.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <div class="smart_container">
@@ -122,8 +122,7 @@
                                                     Option 3
                                                 </div>
                                                 </div>
-                                            </div>
-                                                        
+                                            </div>       
                                         </div>
                                 </li>
                             </ul>
@@ -134,18 +133,27 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-9">
                 <div class="header_breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
-                      <li class="breadcrumb-item">All Properties in <?php echo e($countryname[0]); ?></li>
-                    </ol>
-                  </nav>
-                  <p><span><?php echo $contRow; ?> Properties </span></p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
+                        <li class="breadcrumb-item">All Properties in 
+                        <?php if(!empty($scityname)): ?>
+                            <span> <?php echo e($scityname); ?> </span></li>
+                        <?php elseif(!empty($cityname)): ?>
+                            <span> <?php echo e($cityname[0]); ?> </span></li>
+                        <?php elseif(!empty($statename)): ?>
+                            <span> <?php echo e($statename[0]); ?> </span></li>
+                        <?php elseif(!empty($countryname)): ?>
+                            <span> <?php echo e($countryname[0]); ?> </span></li>
+                        <?php endif; ?>
+                        </ol>
+                    </nav>
+                    <p><span><?php echo $contRow; ?> Properties </span></p>
                 </div>
-                    <?php if($contRow == 0) { ?>
-                        <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
-                    <?php } ?>
-                  <div class="row">
+                <?php if($contRow == 0) { ?>
+                    <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
+                <?php } ?> 
+                <div class="row">
                     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="product_box">
@@ -200,7 +208,6 @@
                 <div class="product_loadding">
                     <?php echo $posts->render(); ?>
 
-                    <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
                 </div>
 
             </div>
@@ -209,6 +216,7 @@
         
     </div>
 </div>
+
 </div>
 
 <?php $__env->stopSection(); ?>

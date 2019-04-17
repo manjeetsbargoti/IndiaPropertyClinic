@@ -122,8 +122,7 @@
                                                     Option 3
                                                 </div>
                                                 </div>
-                                            </div>
-                                                        
+                                            </div>       
                                         </div>
                                 </li>
                             </ul>
@@ -140,8 +139,12 @@
                         <li class="breadcrumb-item">All Properties in 
                         <?php if(!empty($scityname)): ?>
                             <span> <?php echo e($scityname); ?> </span></li>
-                        <?php else: ?>
+                        <?php elseif(!empty($cityname)): ?>
                             <span> <?php echo e($cityname[0]); ?> </span></li>
+                        <?php elseif(!empty($statename)): ?>
+                            <span> <?php echo e($statename[0]); ?> </span></li>
+                        <?php elseif(!empty($countryname)): ?>
+                            <span> <?php echo e($countryname[0]); ?> </span></li>
                         <?php endif; ?>
                         </ol>
                     </nav>
@@ -151,7 +154,7 @@
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?> 
                 <div class="row">
-                    <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
@@ -166,7 +169,14 @@
                                     <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                 </div>
                                 <div class="bottom_strip">
-                                    <h6><i class="fas fa-map-marker-alt"></i> <?php echo e($property->city_name); ?>, <?php echo e($property->country_name); ?></h6>
+                                    <h6><i class="fas fa-map-marker-alt"></i> 
+                                    <?php if(!empty($property->city_name)): ?>
+                                        <span><?php echo e($property->city_name); ?>,</span>
+                                    <?php endif; ?> 
+                                    <?php if(!empty($property->country_name)): ?>
+                                        <span><?php echo e($property->country_name); ?></span>
+                                    <?php endif; ?>
+                                    </h6>
                                     <p><?php echo e($property->parea); ?> Square Ft</p>
                                     <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
                                 </div>  
@@ -195,9 +205,10 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
-                <!-- <div class="product_loadding">
-                    <img src="/images/frontend_images/images/loadder.svg">
-                </div> -->
+                <div class="product_loadding">
+                    <?php echo $posts->render(); ?>
+
+                </div>
 
             </div>
         </div>

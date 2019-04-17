@@ -122,8 +122,7 @@
                                                     Option 3
                                                 </div>
                                                 </div>
-                                            </div>
-                                                        
+                                            </div>       
                                         </div>
                                 </li>
                             </ul>
@@ -134,19 +133,28 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-9">
                 <div class="header_breadcrumb">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                      <li class="breadcrumb-item">All Properties in {{ $statename[0] }}</li>
-                    </ol>
-                  </nav>
-                  <p><span><?php echo $contRow; ?> Properties </span></p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                        <li class="breadcrumb-item">All Properties in 
+                        @if(!empty($scityname))
+                            <span> {{ $scityname }} </span></li>
+                        @elseif(!empty($cityname))
+                            <span> {{ $cityname[0] }} </span></li>
+                        @elseif(!empty($statename))
+                            <span> {{ $statename[0] }} </span></li>
+                        @elseif(!empty($countryname))
+                            <span> {{ $countryname[0] }} </span></li>
+                        @endif
+                        </ol>
+                    </nav>
+                    <p><span><?php echo $contRow; ?> Properties </span></p>
                 </div>
                 <?php if($contRow == 0) { ?>
-                        <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
-                    <?php } ?>
-                  <div class="row">
-                    @foreach($properties as $property)
+                    <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
+                <?php } ?> 
+                <div class="row">
+                    @foreach($posts as $property)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
@@ -161,7 +169,14 @@
                                     <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                 </div>
                                 <div class="bottom_strip">
-                                    <h6><i class="fas fa-map-marker-alt"></i> {{ $property->city_name }}, {{ $property->country_name }}</h6>
+                                    <h6><i class="fas fa-map-marker-alt"></i> 
+                                    @if(!empty($property->city_name))
+                                        <span>{{ $property->city_name }},</span>
+                                    @endif 
+                                    @if(!empty($property->country_name))
+                                        <span>{{ $property->country_name }}</span>
+                                    @endif
+                                    </h6>
                                     <p>{{ $property->parea }} Square Ft</p>
                                     <span class="tagbtn rent">{{ $property->service_name }}</span>
                                 </div>  
@@ -190,9 +205,9 @@
                     @endforeach
                 </div>
 
-                <!-- <div class="product_loadding">
-                    <img src="/images/frontend_images/images/loadder.svg">
-                </div> -->
+                <div class="product_loadding">
+                    {!! $posts->render() !!}
+                </div>
 
             </div>
         </div>
@@ -200,6 +215,7 @@
         
     </div>
 </div>
+
 </div>
 
-@stop
+@endsection

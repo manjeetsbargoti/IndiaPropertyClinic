@@ -251,7 +251,7 @@ class HomeController extends Controller
         }
 
         // echo "<pre>"; print_r($scityname); die;
-        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
+        return view('frontend.filter_templates.search_result')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
         }
     }
 

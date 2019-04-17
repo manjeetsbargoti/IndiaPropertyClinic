@@ -161,7 +161,14 @@
                                     <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                 </div>
                                 <div class="bottom_strip">
-                                    <h6><i class="fas fa-map-marker-alt"></i> {{ $property->city_name }}, {{ $property->country_name }}</h6>
+                                    <h6><i class="fas fa-map-marker-alt"></i> 
+                                    @if(!empty($property->city_name))
+                                        <span>{{ $property->city_name }},</span>
+                                    @endif 
+                                    @if(!empty($property->country_name))
+                                        <span>{{ $property->country_name }}</span>
+                                    @endif
+                                    </h6>
                                     <p>{{ $property->parea }} Square Ft</p>
                                     <span class="tagbtn rent">{{ $property->service_name }}</span>
                                 </div>  

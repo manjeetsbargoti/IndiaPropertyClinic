@@ -7,6 +7,7 @@ Use Image;
 Use Session;
 Use App\Services;
 Use App\UserType;
+use App\Cities;
 Use App\Property;
 use App\PropertyQuery;
 Use App\PropertyTypes;
@@ -20,7 +21,7 @@ use \Cviebrock\EloquentSluggable\Services\SlugService;
 class PropertyController extends Controller
 {
 
-    protected $posts_per_page = 9;
+    protected $posts_per_page = 12;
 
     // This is the function for Add New Property by Admin
     public function addProperty(Request $request)
@@ -251,31 +252,32 @@ class PropertyController extends Controller
     {
         $statename = DB::table('states')->where(['id'=>$state_id])->pluck('name');
         $properties = Property::where(['state'=>$state_id])->get();
+        $posts = Property::where(['state'=>$state_id])->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
 
-        foreach($properties as $key => $val) {
+        foreach($posts as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
-            $properties[$key]->service_name = $service_name->service_name;
+            $posts[$key]->service_name = $service_name->service_name;
             $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $properties[$key]->image_name = $propertyimage_name->image_name;
+            $posts[$key]->image_name = $propertyimage_name->image_name;
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
             if($country_count > 0)
             {
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
-                $properties[$key]->country_name = $country->name;
+                $posts[$key]->country_name = $country->name;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0)
             {
                 $state = DB::table('states')->where(['id'=>$val->state])->first();
-                $properties[$key]->state_name = $state->name;
+                $posts[$key]->state_name = $state->name;
             }
             $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
             if($city_count > 0)
             {
                 $city = DB::table('cities')->where(['id'=>$val->city])->first();
-                $properties[$key]->city_name = $city->name;
+                $posts[$key]->city_name = $city->name;
             }
         }
         if(!empty($country_count)){
@@ -300,14 +302,13 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_state')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
+        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
     }
 
     public function searchByCountry($country_id=null)
     {
-        $properties = Property::where(['country'=>$country_id])->get();
-        // $countryname
         $countryname = DB::table('countries')->where(['id'=>$country_id])->pluck('name');
+        $properties = Property::where(['country'=>$country_id])->get();
         $posts = Property::where(['country'=>$country_id])->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
@@ -321,19 +322,19 @@ class PropertyController extends Controller
             if($country_count > 0)
             {
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
-                $properties[$key]->country_name = $country->name;
+                $posts[$key]->country_name = $country->name;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0)
             {
                 $state = DB::table('states')->where(['id'=>$val->state])->first();
-                $properties[$key]->state_name = $state->name;
+                $posts[$key]->state_name = $state->name;
             }
             $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
             if($city_count > 0)
             {
                 $city = DB::table('cities')->where(['id'=>$val->city])->first();
-                $properties[$key]->city_name = $city->name;
+                $posts[$key]->city_name = $city->name;
             }
         }
 
@@ -351,38 +352,39 @@ class PropertyController extends Controller
         }
         // echo "<pre>"; print_r($countryname); die;
         
-        return view('frontend.filter_templates.filter_by_country', compact('properties', 'propertyImages', 'contRow', 'countryname', 'posts', 'countrycount'));
+        return view('frontend.filter_templates.filter_by_csc', compact('propertyImages', 'contRow', 'countryname', 'posts', 'countrycount'));
     }
 
     public function searchByCity($city_id=null)
     {
         $cityname = DB::table('cities')->where(['id'=>$city_id])->pluck('name');
         $properties = Property::where(['city'=>$city_id])->get();
+        $posts = Property::where(['city'=>$city_id])->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
 
-        foreach($properties as $key => $val) {
+        foreach($posts as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
-            $properties[$key]->service_name = $service_name->service_name;
+            $posts[$key]->service_name = $service_name->service_name;
             $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $properties[$key]->image_name = $propertyimage_name->image_name;
+            $posts[$key]->image_name = $propertyimage_name->image_name;
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
             if($country_count > 0)
             {
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
-                $properties[$key]->country_name = $country->name;
+                $posts[$key]->country_name = $country->name;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0)
             {
                 $state = DB::table('states')->where(['id'=>$val->state])->first();
-                $properties[$key]->state_name = $state->name;
+                $posts[$key]->state_name = $state->name;
             }
             $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
             if($city_count > 0)
             {
                 $city = DB::table('cities')->where(['id'=>$val->city])->first();
-                $properties[$key]->city_name = $city->name;
+                $posts[$key]->city_name = $city->name;
             }
         }
         if(!empty($country_count)){
@@ -407,7 +409,7 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_city')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'cityname', 'countrycount', 'statecount', 'citycount'));
+        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'propertyImages', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
     }
 
     // Search By Service
@@ -518,5 +520,7 @@ class PropertyController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
+
+    
 
 }

@@ -1,5 +1,5 @@
-<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_country.blade.php */ ?>
-<?php $__env->startSection('content'); ?>
+@extends('layouts.frontLayout.frontend_design')
+@section('content')
 
 <div class="smart_container">
 
@@ -136,72 +136,70 @@
                 <div class="header_breadcrumb">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
-                      <li class="breadcrumb-item">All Properties in <?php echo e($countryname[0]); ?></li>
+                      <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+                      <li class="breadcrumb-item">All Properties in {{ $scityname }}</li>
                     </ol>
                   </nav>
                   <p><span><?php echo $contRow; ?> Properties </span></p>
                 </div>
-                    <?php if($contRow == 0) { ?>
+                <?php if($contRow == 0) { ?>
                         <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                     <?php } ?>
                   <div class="row">
-                    <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    @foreach($properties as $property)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
-                                    <?php $__currentLoopData = $propertyImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $carousal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($property->id==$carousal->property_id): ?>
-                                    <div class="item"><img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$carousal->image_name)); ?>"></div>
-                                    <?php endif; ?>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    @foreach($propertyImages as $carousal)
+                                    @if($property->id==$carousal->property_id)
+                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$carousal->image_name)}}"></div>
+                                    @endif
+                                    @endforeach
                                 </div>
                                 <div class="rateing">
                                     <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                 </div>
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i> 
-                                    <?php if(!empty($property->city_name)): ?>
-                                        <span><?php echo e($property->city_name); ?>,</span>
-                                    <?php endif; ?> 
-                                    <?php if(!empty($property->country_name)): ?>
-                                        <span><?php echo e($property->country_name); ?></span>
-                                    <?php endif; ?>
+                                    @if(!empty($property->city_name))
+                                        <span>{{ $property->city_name }},</span>
+                                    @endif 
+                                    @if(!empty($property->country_name))
+                                        <span>{{ $property->country_name }}</span>
+                                    @endif
                                     </h6>
-                                    <p><?php echo e($property->parea); ?> Square Ft</p>
-                                    <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
+                                    <p>{{ $property->parea }} Square Ft</p>
+                                    <span class="tagbtn rent">{{ $property->service_name }}</span>
                                 </div>  
                             </div>
                             <div class="product_text">
                                 <div class="protxt_top">
                                     <ul>
-                                        <li><i><img src="/images/frontend_images/images/room.svg"></i><p><span><?php echo e($property->rooms); ?></span>Rooms</p></li>
-                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i><p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p></li>
-                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i><p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p></li>
+                                        <li><i><img src="/images/frontend_images/images/room.svg"></i><p><span>{{ $property->rooms }}</span>Rooms</p></li>
+                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i><p><span>{{ $property->bedrooms }}</span>Bedrooms</p></li>
+                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i><p><span>{{ $property->bathrooms }}</span>Bathroom</p></li>
                                     </ul>
                                 </div>
                                 <div class="protxt_inn">
-                                    <h6><?php echo e($property->property_name); ?></h6>
-                                    <p><?php echo e(strip_tags(str_limit($property->description, $limit=80))); ?></p>
+                                    <h6>{{ $property->property_name }}</h6>
+                                    <p>{{ strip_tags(str_limit($property->description, $limit=80)) }}</p>
                                     <div class="price_sec">
                                         <ul>
-                                            <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
-                                            <li><a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Full Info</a></li>
+                                            <li><h5><span>INR</span> {{ $property->property_price }}</h5></li>
+                                            <li><a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Full Info</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    @endforeach
                 </div>
 
-                <div class="product_loadding">
-                    <?php echo $posts->render(); ?>
-
-                    <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
-                </div>
+                <!-- <div class="product_loadding">
+                    <img src="/images/frontend_images/images/loadder.svg">
+                </div> -->
 
             </div>
         </div>
@@ -211,5 +209,4 @@
 </div>
 </div>
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+@stop
