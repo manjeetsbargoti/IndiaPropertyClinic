@@ -112,7 +112,11 @@ $footerProperties = Controller::footersection();
                                     <span>
                                         <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
                                     </span>
-                                    <h6><?php echo e($footerproperty->city_name); ?>, <?php echo e($footerproperty->country_name); ?></h6>
+                                    <h6>
+                                    <?php if(!empty($footerproperty->city_name)): ?>
+                                    <span><?php echo e($footerproperty->city_name); ?></span> 
+                                    <?php endif; ?>
+                                    </h6>
                                     <p><?php echo e($footerproperty->parea); ?> Square Ft</p>
                                     <h5>INR <?php echo e($footerproperty->property_price); ?></h5>
                                 </a>

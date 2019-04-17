@@ -111,7 +111,11 @@ $footerProperties = Controller::footersection();
                                     <span>
                                         <img src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
                                     </span>
-                                    <h6>{{ $footerproperty->city_name }}, {{ $footerproperty->country_name }}</h6>
+                                    <h6>
+                                    @if(!empty($footerproperty->city_name))
+                                    <span>{{ $footerproperty->city_name }}</span> 
+                                    @endif
+                                    </h6>
                                     <p>{{ $footerproperty->parea }} Square Ft</p>
                                     <h5>INR {{ $footerproperty->property_price }}</h5>
                                 </a>
