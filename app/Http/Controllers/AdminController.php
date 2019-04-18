@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cities;
 use App\OtherServices;
 use App\Property;
 use App\PropertyImages;
@@ -438,6 +439,31 @@ class AdminController extends Controller
                 echo 'unique';
             }
         }
+    }
+
+    // Add Country, State, City in Database
+    public function addCity(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            $city = new Cities;
+
+            $city->state_id = $data['state'];
+            $city->country_id = $data['country'];
+            $city->name = $data['city_name'];
+
+            $city->save();
+
+            return redirect()->back()->with('flash_message_success', 'City Added Successfully!');
+
+        }
+
+        $countryname = DB::table('countries')->pluck("name", "id");
+
+        return view('admin.csc_temp.add_city', compact('countryname'));
     }
 
 }

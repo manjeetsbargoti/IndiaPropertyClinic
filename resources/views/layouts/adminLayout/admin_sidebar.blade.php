@@ -103,6 +103,17 @@
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
+        <li class="treeview">
+          <a href="#"><i class="fa fa-globe"></i> <span>CSC Database</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('/admin/add-city') }}"><i class="fa fa-building text-green"></i> <span>Add City</span></a></li>
+          </ul>
+        </li>
+        
       </ul>
       <!-- /.sidebar-menu -->
     </section>

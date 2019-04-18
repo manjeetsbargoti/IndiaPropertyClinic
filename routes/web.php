@@ -68,6 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
 
+    // Add Missing City
+    Route::match(['get', 'post'], '/admin/add-city', 'AdminController@addCity');
+
     // Admin Logout Function
     Route::get('/get-out', 'AdminController@getOut');
 
