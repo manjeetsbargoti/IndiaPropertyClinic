@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>All User</h1>
+        <h3><a href="{{ url('admin/add-new-user') }}" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">All User</li>
@@ -42,6 +42,7 @@
                                     <th>E-mail Address</th>
                                     <th>Phone</th>
                                     <th>User Type</th>
+                                    <th>Service</th>
                                     <th>Join Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -56,6 +57,11 @@
                                     <td>{{ $u->email}}</td>
                                     <td>{{$u->phonecode}}-{{ $u->phone}}</td>
                                     <td>{{ $u->usertype_name }}</td>
+                                    <td>
+                                    @if(!empty($u->service_name))
+                                        {{ $u->service_name }}
+                                    @endif
+                                    </td>
                                     <td>{{ date('d M, Y', strtotime($u->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
@@ -77,6 +83,7 @@
                                     <th>E-mail Address</th>
                                     <th>Phone</th>
                                     <th>User Type</th>
+                                    <th>Service</th>
                                     <th>Join Date</th>
                                     <th>Action</th>
                                 </tr>

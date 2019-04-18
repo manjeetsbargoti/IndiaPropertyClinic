@@ -12,6 +12,7 @@ use App\Property;
 Use App\OtherServices;
 use App\PropertyImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -147,12 +148,29 @@ class AdminController extends Controller
     }
 
     // Verify Registered User Email
-    public function verifyEmail(Request $request, $code=null)
+    public function verifyEmail(Request $request, $email=null)
     {
-        // if()
-        // {
+        $email = base64_decode($email);
+        $userCount = User::where('email', $email)->count();
+        if($userCount > 0){
+            $userDetails = User::where('email', $email)->first();
+            if($userDetails->status == 1){
+                return redirect('/login')->with('flash_message_success', 'Your account already Activated! Please login now.');
+            } else {
+                User::where('email', $email)->update(['status'=>1]);
 
-        // }
+                // User Welcome Email
+                $messageData = ['email'=>$email, 'name'=>$userDetails->first_name];
+                Mail::send('emails.register', $messageData, function($message) use($email){
+                    $message->to($email)->subject('Registration with India Property Clinic');
+                });
+
+                return redirect('/login')->with('flash_message_success', 'Your Email account Activated! Please login now.');
+            }
+        } else {
+            // abort(404);
+            echo "Verification Failed!";
+        }
     }
 
     // Getting State List according to Country
@@ -178,6 +196,11 @@ class AdminController extends Controller
         foreach($user as $key => $val) {
             $usertype = UserType::where(['usercode'=>$val->usertype])->first();
             $user[$key]->usertype_name = $usertype->usertype_name;
+            $rservices_count = OtherServices::where(['id'=>$val->servicetypeid])->count();
+            if($rservices_count > 0) {
+                $rservices = OtherServices::where(['id'=>$val->servicetypeid])->first();
+                $user[$key]->service_name = $rservices->service_name;
+            }
         }
 
         // echo "<pre>"; print_r($user); die;
@@ -358,7 +381,6 @@ class AdminController extends Controller
                 // return redirect('/login')->with('flash_message_success', 'You are Registered Successfully! Please Check your Email and Verify.');
 
             }
-            
         }
 
         $usertypes = UserType::where(['status'=>1])->get();
