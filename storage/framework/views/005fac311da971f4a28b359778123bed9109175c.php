@@ -57,9 +57,7 @@
                                 <div class="form-group">
                                     <label>Code</label>
                                     <select name="phonecode" id="phonecode" class="form-control">
-                                    <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->phonecode); ?> &nbsp;<?php echo e($code->iso3); ?></option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                                      <?php echo $phone_code; ?>    
                                     </select>
                                 </div>
                             </div>
@@ -73,7 +71,14 @@
                               <div class="form-group">
                                   <label for="Country">Country</label>
                                   <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <?php echo $country_dropdown; ?>
+                                    <?php if(!empty($country_dropdown)): ?>
+                                      <?php echo $country_dropdown; ?>
+                                    <?php else: ?>
+                                    <option value="" selected>Select Country</option>
+                                      <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                      <option value="<?php echo e($key); ?>"><?php echo e($country); ?></option>
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
                                   </select>
                               </div>
                             </div>
@@ -81,7 +86,11 @@
                               <div class="form-group">
                                   <label for="State">State</label>
                                   <select class="form-control select2 select2-hidden-accessible" name="state" id="state" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                    <?php if(!empty($state_dropdown)): ?>
                                     <?php echo $state_dropdown; ?>
+                                    <?php else: ?>
+                                    <option value="">Select State Now</option>
+                                    <?php endif; ?>
                                   </select>
                               </div>
                             </div>

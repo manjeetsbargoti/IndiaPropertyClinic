@@ -252,7 +252,7 @@ class AdminController extends Controller
             $country_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
         }
 
-        // Select Country Name
+        // Select State Name
         $state_dropdown = "<option selected value=''>Select State</option>";
         foreach ($statename as $sname) {
             if ($sname->id == $userdetails->state) {
@@ -285,9 +285,20 @@ class AdminController extends Controller
             $services_dropdown .= "<option value='" . $stype->id . "' " . $selected . ">" . $stype->service_name . "</option>";
         }
 
+        // Select Phone Code
+        $phone_code = "<option selected value=''>Select</option>";
+        foreach($phonecode as $pcode){
+            if($pcode->id == $userdetails->country){
+                $selected = 'selected';
+            }else{
+                $selected="";
+            }
+            $phone_code .= "<option value='" . $pcode->phonecode . "' " . $selected . ">" . $pcode->phonecode . " " . $pcode->iso3. "</option>";
+        }
+
         // echo  "<pre>"; print_r($userdetails); die;
 
-        return view('admin.users.edit_user', compact('userdetails', 'services_dropdown', 'usertype', 'phonecode', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
+        return view('admin.users.edit_user', compact('userdetails', 'services_dropdown', 'usertype', 'phonecode', 'country_dropdown', 'state_dropdown', 'city_dropdown', 'phone_code'));
     }
 
     // User Login Function

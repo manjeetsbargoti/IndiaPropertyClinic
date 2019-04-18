@@ -56,9 +56,7 @@
                                 <div class="form-group">
                                     <label>Code</label>
                                     <select name="phonecode" id="phonecode" class="form-control">
-                                    @foreach($phonecode as $code)
-                                        <option value="{{ $code->phonecode }}">{{ $code->phonecode }} &nbsp;{{ $code->iso3 }}</option>
-                                    @endforeach    
+                                      <?php echo $phone_code; ?>    
                                     </select>
                                 </div>
                             </div>
@@ -72,7 +70,14 @@
                               <div class="form-group">
                                   <label for="Country">Country</label>
                                   <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <?php echo $country_dropdown; ?>
+                                    @if(!empty($country_dropdown))
+                                      <?php echo $country_dropdown; ?>
+                                    @else
+                                    <option value="" selected>Select Country</option>
+                                      @foreach($countryname as $key => $country)
+                                      <option value="{{ $key }}">{{ $country }}</option>
+                                      @endforeach
+                                    @endif
                                   </select>
                               </div>
                             </div>
@@ -80,7 +85,11 @@
                               <div class="form-group">
                                   <label for="State">State</label>
                                   <select class="form-control select2 select2-hidden-accessible" name="state" id="state" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                    @if(!empty($state_dropdown))
                                     <?php echo $state_dropdown; ?>
+                                    @else
+                                    <option value="">Select State Now</option>
+                                    @endif
                                   </select>
                               </div>
                             </div>

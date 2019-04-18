@@ -33,6 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
