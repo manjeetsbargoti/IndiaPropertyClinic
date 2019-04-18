@@ -9,16 +9,14 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-use App\Http\Controllers;
+ */
 use App\Http\Controllers\PropertyController;
 
 Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
 // Route::get('/admin/dashboard', 'AdminController@dashboard');
 
-Route::group(['middleware' => ['auth']], function()
-{
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/profile', 'AdminController@adminProfile');
     Route::get('/admin/settings', 'AdminController@settings');
@@ -33,8 +31,8 @@ Route::group(['middleware' => ['auth']], function()
     Route::match(['get', 'post'], '/admin/delete-property/{id}', 'PropertyController@deleteProperty');
 
     // Routes for Getting State List and City List Dynamically
-    Route::get('/admin/get-state-list','PropertyController@getStateList');
-    Route::get('/admin/get-city-list','PropertyController@getCityList');
+    Route::get('/admin/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
@@ -75,17 +73,16 @@ Route::group(['middleware' => ['auth']], function()
 
 Auth::routes();
 
-Route::group(['middleware' => ['userlogin']], function()
-{
+Route::group(['middleware' => ['userlogin']], function () {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
 
 });
 
-    // User Login/Register Functionality
-    Route::match(['get', 'post'],'/login', 'AdminController@login');
-    Route::match(['get', 'post'],'/register', 'AdminController@register');
-    Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
-    Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
+// User Login/Register Functionality
+Route::match(['get', 'post'], '/login', 'AdminController@login');
+Route::match(['get', 'post'], '/register', 'AdminController@register');
+Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword');
+Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
 
 Route::get('/', 'HomeController@index');
 Route::get('/properties', 'HomeController@viewAll');
@@ -105,13 +102,12 @@ Route::post('/search', 'HomeController@search')->name('autocomplete.search');
 Route::post('/search-result', 'HomeController@searchresult');
 
 // Apply for Home Loan and EMI Calculator
-Route::match(['get', 'post'],'/Apply-Home-Loan', 'HomeLoanController@applyHomeLoan');
+Route::match(['get', 'post'], '/Apply-Home-Loan', 'HomeLoanController@applyHomeLoan');
 
 // User Login/Register Functionality
-Route::match(['get', 'post'],'/login', 'AdminController@login');
-Route::match(['get', 'post'],'/register', 'AdminController@register');
-Route::match(['get', 'post'],'/password/reset', 'AdminController@resetPassword');
-
+Route::match(['get', 'post'], '/login', 'AdminController@login');
+Route::match(['get', 'post'], '/register', 'AdminController@register');
+Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword');
 
 // Email Verification Routes
 Route::match(['get', 'post'], '/verify/{code}', 'AdminController@verifyEmail');
