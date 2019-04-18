@@ -30,7 +30,7 @@
                   @endif
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="{{ url('/admin/add-new-user') }}">
+                    <form role="form" name="edit_user" id="edit_user" method="POST" action="{{ url('/admin/edit-user/'.$userdetails->id) }}">
                     {{ csrf_field() }}
                       <div class="box-body">
                         <div class="row">
@@ -92,29 +92,12 @@
                                   </select>
                               </div>
                             </div>
-                            <div class="col-xs-12 col-md-12">
-                                <label>User is..</label>
-                                <div class="form-group">
-                                    @foreach($usertype as $type)
-                                      <input type="radio" class="form-check-input" name="usertype"  value="{{ $type->usercode }}" {{ $type->usercode == '$userdetails->usertype' ? 'checked' : '' }} >
-                                      <label class="form-check-label" for="usertype">{{ $type->usertype_name }}</label> &nbsp;&nbsp;
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <label for="for vendor service"><strong>if you are a Vendor</strong></label>
-                                <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
-                                      <?php echo $services_dropdown; ?>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                       </div>
                       <!-- /.box-body -->
         
                       <div class="box-footer">
-                        <button type="submit" class="btn btn-success pull-right">Add User</button>
+                        <button type="submit" class="btn btn-success pull-right">Update User</button>
                       </div>
                     </form>
                   </div>

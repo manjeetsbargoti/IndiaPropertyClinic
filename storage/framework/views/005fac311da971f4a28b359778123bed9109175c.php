@@ -30,7 +30,7 @@
                   <?php endif; ?>
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="<?php echo e(url('/admin/add-new-user')); ?>">
+                    <form role="form" name="edit_user" id="edit_user" method="POST" action="<?php echo e(url('/admin/edit-user/'.$userdetails->id)); ?>">
                     <?php echo e(csrf_field()); ?>
 
                       <div class="box-body">
@@ -93,29 +93,12 @@
                                   </select>
                               </div>
                             </div>
-                            <div class="col-xs-12 col-md-12">
-                                <label>User is..</label>
-                                <div class="form-group">
-                                    <?php $__currentLoopData = $usertype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                      <input type="radio" class="form-check-input" name="usertype"  value="<?php echo e($type->usercode); ?>" <?php echo e($type->usercode == '$userdetails->usertype' ? 'checked' : ''); ?> >
-                                      <label class="form-check-label" for="usertype"><?php echo e($type->usertype_name); ?></label> &nbsp;&nbsp;
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <label for="for vendor service"><strong>if you are a Vendor</strong></label>
-                                <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
-                                      <?php echo $services_dropdown; ?>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                       </div>
                       <!-- /.box-body -->
         
                       <div class="box-footer">
-                        <button type="submit" class="btn btn-success pull-right">Add User</button>
+                        <button type="submit" class="btn btn-success pull-right">Update User</button>
                       </div>
                     </form>
                   </div>

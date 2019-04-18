@@ -210,10 +210,13 @@ class AdminController extends Controller
         {
             $data = $request->all();
 
-            echo  "<pre>"; print_r($data); die;
+            $user = new User;
+            // echo  "<pre>"; print_r($id); die;
+            if(!empty($id)){
+                User::where(['id'=>$id])->update(['first_name'=>$data['first_name'], 'last_name'=>$data['last_name'], 'email'=>$data['email'], 'phonecode'=>$data['phonecode'], 'phone'=>$data['phone'], 'country'=>$data['country'], 'state'=>$data['state'], 'city'=>$data['city']]);
+                return redirect('/admin/users')->with('flash_message_success', 'User updated Successfully!');
+            }
         }
-
-        $user = new User;
 
         $userdetails = User::where(['id'=>$id])->first();
         $userdetails = json_decode(json_encode($userdetails));

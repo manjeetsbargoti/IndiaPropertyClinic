@@ -194,7 +194,6 @@
                                 </ul>
                             </div>
                     </div>
-                    
                 </div>
 
                 <div class="tab-content" id="myTabContent">
@@ -256,7 +255,6 @@
                                 <?php endif; ?>
                                 <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    
                             </div>
                             <div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View All</a></div>
                         </div>
