@@ -458,12 +458,10 @@ class AdminController extends Controller
             $city->save();
 
             return redirect()->back()->with('flash_message_success', 'City Added Successfully!');
-
         }
 
         $countryname = DB::table('countries')->pluck("name", "id");
 
         return view('admin.csc_temp.add_city', compact('countryname'));
     }
-
 }
