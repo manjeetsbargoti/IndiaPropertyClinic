@@ -115,7 +115,12 @@ class HomeController extends Controller
         $countries = DB::table('countries')->get();
         // echo "<pre>"; print_r($dealer); die;
 
-        return view('home')->with(compact('properties', 'dealer', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount'));
+        // Meta tags
+        $meta_title = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_description = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+
+        return view('home')->with(compact('properties', 'dealer', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
 
     }
 

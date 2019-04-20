@@ -51,6 +51,14 @@ class Controller extends BaseController
         }
         // echo "<pre>"; print_r($footerProperties); die;
         return $footerProperties;
+    }
 
+    // Meta Tags
+    public static function metaKeywords()
+    {
+        $metakey = Property::get();
+        $metakey = json_decode(json_encode($metakey));
+
+        return $metakey;
     }
 }

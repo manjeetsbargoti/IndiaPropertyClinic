@@ -6,10 +6,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- for Google -->
+    <?php if(!empty($meta_title)): ?><meta name="title" content="<?php echo e($meta_title); ?>"/><?php endif; ?>
+
+    <?php if(!empty($meta_description)): ?><meta name="description" content="<?php echo e($meta_description); ?>"/><?php endif; ?>
+    
+    <?php if(!empty($meta_keywords)): ?><meta name="keywords" content="<?php echo e($meta_keywords); ?>"/><?php endif; ?>
+    
+    <link rel="canonical" href="" />
+    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title><?php echo e(config('app.name', 'India Property Clinic')); ?></title>
+    <title><?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?> <?php else: ?> India Property Clinic <?php endif; ?></title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>">

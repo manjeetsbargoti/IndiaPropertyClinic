@@ -5,10 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- for Google -->
+    @if(!empty($meta_title))<meta name="title" content="{{ $meta_title }}"/>@endif
+
+    @if(!empty($meta_description))<meta name="description" content="{{ $meta_description }}"/>@endif
+    
+    @if(!empty($meta_keywords))<meta name="keywords" content="{{ $meta_keywords }}"/>@endif
+    
+    @if(!empty($meta_keywords))<link rel="canonical" href="" />@endif
+    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'India Property Clinic') }}</title>
+    <title>@if(!empty($meta_title)){{ $meta_title }} @else India Property Clinic @endif</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">
