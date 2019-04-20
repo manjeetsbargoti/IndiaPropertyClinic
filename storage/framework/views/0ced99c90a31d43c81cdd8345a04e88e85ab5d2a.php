@@ -6,7 +6,7 @@
         <div class="banner_sec">
             <div class="banner_inn">
                 <div class="container">
-                <div class="row align-items-center">          
+                <div class="row align-items-center">
                         <div class="col-lg-8 m-auto">
                             <h4 class="bannerhead">India's Largest Real Estate Marketplace</h4>
                             <?php if(Session::has('searcherr')): ?>
@@ -18,10 +18,10 @@
                             <div class="search_sec">
                                 <div class="search_secinn">
                                     <ul class="nav nav-pills" id="searchTab" role="tablist">
-                                    <?php $counter = 0; ?>
+                                    <?php $counter = 0;?>
                                     <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($service->parent_id != 0): ?>
-                                    <?php $counter ++; ?>
+                                    <?php $counter++;?>
                                         <li class="nav-item">
                                             <a class="nav-link <?=($counter == 1) ? 'active' : ''?>" id="search<?php echo e($service->service_name); ?>-tab" data-toggle="tab" href="#search<?php echo e($service->service_name); ?>" role="tab" aria-controls="search<?php echo e($service->service_name); ?>" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><?php echo e($service->service_name); ?></a>
                                         </li>
@@ -31,10 +31,10 @@
                                 </div>
                                 <div class="tab-content tab_conarea" id="myTabContent">
                                     <h5>Property search for rent and sales <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModalCenter">Advanced Search</a></h5>
-                                    <?php $counter = 0; ?>
+                                    <?php $counter = 0;?>
                                     <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($service->parent_id != 0): ?>
-                                    <?php $counter ++; ?>
+                                    <?php $counter++;?>
                                     <div class="tab-pane fade show <?=($counter == 1) ? 'active' : ''?>" id="search<?php echo e($service->service_name); ?>" role="tabpanel" aria-labelledby="search<?php echo e($service->service_name); ?>-tab">
                                         <form action="<?php echo e(url('/search-result')); ?>" method="post">
                                             <div class="row search_field">
@@ -78,7 +78,7 @@
         </div>
 
         <div class="othersertop_sec">
-            <div class="container">        
+            <div class="container">
                 <div class="owl-carousel services owl-theme">
                 <?php $__currentLoopData = $otherServices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $othservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($othservice->parent_id==0): ?>
@@ -110,7 +110,7 @@
 
         <div class="row">
             <?php $__currentLoopData = $featureProperty; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if($loop->index < 2): ?>                
+            <?php if($loop->index < 2): ?>
                 <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-xl-6">
                     <div class="product_box featurepro_box">
                         <div class="product_img">
@@ -128,14 +128,14 @@
                                 <h6><i class="fas fa-map-marker-alt"></i>
                                 <?php if(!empty($property->city_name)): ?>
                                     <span><?php echo e($property->city_name); ?>,</span>
-                                <?php endif; ?> 
+                                <?php endif; ?>
                                 <?php if(!empty($property->country_name)): ?>
                                     <span><?php echo e($property->country_name); ?></span>
                                 <?php endif; ?>
                                 </h6>
                                 <p><?php echo e($property->parea); ?> Square Ft</p>
                                 <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
-                            </div>  
+                            </div>
                         </div>
                         <div class="product_text">
                             <div class="protxt_top">
@@ -160,7 +160,7 @@
                 </div>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    
+
             </div>
     </div>
 </div>
@@ -179,34 +179,31 @@
                             </div>
                             <div class="latest_producttab mb-3">
                                 <ul class="nav nav-pills" id="productTab" role="tablist">
-                                    <?php $counter = 0; ?>
+                                    <?php $counter = 0;?>
                                     <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($service->parent_id != 0): ?>
-                                    <?php $counter ++; ?>
+                                    <?php $counter++;?>
                                         <li class="nav-item">
                                             <a class="nav-link show <?=($counter == 1) ? 'active' : ''?>" id="<?php echo e($service->service_name); ?>-tab" data-toggle="tab" href="#<?php echo e($service->service_name); ?>" role="tab" aria-controls="<?php echo e($service->service_name); ?>" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><?php echo e($service->service_name); ?></a>
                                         </li>
                                     <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="propdealers-tab" data-toggle="tab" href="#propdealers" role="tab" aria-controls="propdealers" aria-selected="false">Dealers</a>
-                                    </li>
                                 </ul>
                             </div>
                     </div>
                 </div>
 
                 <div class="tab-content" id="myTabContent">
-                    <?php $counter = 0; ?>
+                    <?php $counter = 0;?>
                     <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($service->parent_id != 0): ?>
-                        <?php $counter ++; ?>
+                        <?php $counter++;?>
                         <div class="tab-pane fade show <?=($counter == 1) ? 'active' : ''?>" id="<?php echo e($service->service_name); ?>" role="tabpanel" aria-labelledby="<?php echo e($service->service_name); ?>-tab">
                             <div class="row">
-                                <?php $counter = 0 ; ?>
+                                <?php $counter = 0;?>
                                 <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($property->service_id == $service->id ): ?>
-                                <?php $counter++ ; ?>
+                                <?php $counter++;?>
                                 <?php if( $counter <= 4): ?>
                                     <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                                         <div class="product_box">
@@ -219,17 +216,17 @@
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </div>
                                                 <div class="bottom_strip">
-                                                    <h6><i class="fas fa-map-marker-alt"></i> 
+                                                    <h6><i class="fas fa-map-marker-alt"></i>
                                                     <?php if(!empty($property->city_name)): ?>
                                                         <span><?php echo e($property->city_name); ?>,</span>
-                                                    <?php endif; ?> 
+                                                    <?php endif; ?>
                                                     <?php if(!empty($property->country_name)): ?>
                                                         <span><?php echo e($property->country_name); ?></span>
                                                     <?php endif; ?>
                                                     </h6>
                                                     <p><?php echo e($property->parea); ?> Square Ft</p>
                                                     <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
-                                                </div>  
+                                                </div>
                                             </div>
                                             <div class="product_text">
                                                 <div class="protxt_top">
@@ -260,189 +257,6 @@
                         </div>
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                    <div class="tab-pane fade" id="propdealers" role="tabpanel" aria-labelledby="propdealers-tab">
-                        <div class="dealers_sec">
-                            <div class="owl-carousel dealerscarousel owl-theme">
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer1.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer2.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer3.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer4.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer1.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer2.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer3.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer4.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer1.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer2.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer3.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer4.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer1.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer2.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer3.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="item">
-                                    <a href="#">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img src="/images/frontend_images/images/dealer4.png"></div>
-                                            <div class="dealers_txt">
-                                                <h4>Dealer Name</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
                   </div>
             </div>
             <div class="col-12 col-md-3 col-xl-3" style="display:none;">
@@ -450,7 +264,7 @@
                         <h1>Free Ads</h1>
                         <p>Find the latest homes for sale</p>
                     </div>
-                <div class="free_ads">                   
+                <div class="free_ads">
                     <div class="owl-carousel feature-slide owl-theme">
                         <div class="item">
                             <img src="/images/frontend_images/images/ads.jpg">
@@ -467,11 +281,11 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 
-<!-- // Commercial Properties -->
+<!-- Commercial Properties -->
 
             <div class="latest_product">
                 <div class="container">
@@ -486,10 +300,10 @@
                                 </div>
                             </div>
                                 <div class="row">
-                                    <?php $counter = 0 ; ?>
+                                    <?php $counter = 0;?>
                                     <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($property->property_type_id==7 || $property->property_type_id==8 || $property->property_type_id==9 || $property->property_type_id==10 || $property->property_type_id==11): ?>
-                                    <?php $counter++ ; ?>
+                                    <?php $counter++;?>
                                     <?php if($counter <= 4): ?>
                                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                                         <div class="product_box">
@@ -505,14 +319,14 @@
                                                 <h6><i class="fas fa-map-marker-alt"></i>
                                                 <?php if(!empty($property->city_name)): ?>
                                                     <span><?php echo e($property->city_name); ?>,</span>
-                                                <?php endif; ?> 
+                                                <?php endif; ?>
                                                 <?php if(!empty($property->country_name)): ?>
                                                     <span><?php echo e($property->country_name); ?></span>
                                                 <?php endif; ?>
                                                 </h6>
                                                 <p><?php echo e($property->parea); ?> Square Ft</p>
                                                 <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
-                                                </div>  
+                                                </div>
                                             </div>
                                             <div class="product_text">
                                                 <div class="protxt_top">
@@ -545,6 +359,44 @@
                     </div>
                 </div>
             </div>
+<!-- /.Commercial Properties -->
+
+<!-- Dealers -->
+
+<div class="latest_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="globleheadding text-left">
+                            <h1>Builders/Agents</h1>
+                        </div>
+                        <div class="dealers_sec">
+                            <div class="owl-carousel dealerscarousel owl-theme">
+                                <?php $__currentLoopData = $dealer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="item">
+                                    <a href="#">
+                                        <div class="dealers_box">
+                                            <div class="dealers_img"><img src="/images/frontend_images/images/default.jpg"></div>
+                                            <div class="dealers_txt">
+                                                <h4><?php echo e($d->first_name); ?></h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.Dealers -->
+
 
 <div class="oter_services">
     <div class="container">
@@ -556,7 +408,7 @@
             <div class="owl-carousel services owl-theme">
                 <?php $__currentLoopData = $otherServices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $othservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($othservice->parent_id==0): ?>
-                    <div class="item">                          
+                    <div class="item">
                         <div class="service_box">
                             <div class="serbox_img"><img src="<?php echo e(asset('/images/backend_images/repair_service_images/large/'.$othservice->service_image)); ?>"></div>
                             <div class="serbox_txt">
@@ -616,7 +468,7 @@
     <div class="container">
         <div class="globleheadding">
             <h1>Properties By Continents</h1>
-            <p>You can use the theme places short-code to list specific cities or areas<br> 
+            <p>You can use the theme places short-code to list specific cities or areas<br>
                     where you have properties ready to sale/rent.</p>
         </div>
         <div class="top_countries_sec">

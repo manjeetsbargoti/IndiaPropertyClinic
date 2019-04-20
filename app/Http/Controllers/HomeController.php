@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+Use DB;
 use Auth;
 use Image;
 use Session;
-Use DB;
-use App\Services;
+use App\User;
 use App\Cities;
+use App\Services;
 use App\Property;
 use App\PropertyTypes;
 Use App\OtherServices;
@@ -106,12 +107,15 @@ class HomeController extends Controller
             $citycount = 0;
         }
 
+        $dealer = User::where(['usertype'=>'A'])->orWhere(['usertype'=>'B'])->orderBy('created_at', 'desc')->get();
+        $dealer = json_decode(json_encode($dealer));
+
         $services = Services::where(['status'=>1])->get();
         $continents = DB::table('continents')->get();
         $countries = DB::table('countries')->get();
-        // echo "<pre>"; print_r($properties); die;
+        // echo "<pre>"; print_r($dealer); die;
 
-        return view('home')->with(compact('properties', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount'));
+        return view('home')->with(compact('properties', 'dealer', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount'));
 
     }
 

@@ -49,7 +49,6 @@ class Controller extends BaseController
                 $footerProperties[$key]->city_name = $city->name;
             }
         }
-
         // echo "<pre>"; print_r($footerProperties); die;
         return $footerProperties;
 
