@@ -11,7 +11,7 @@
             <div class="services_viewbannertxt">
                 <div class="container">
                 <div class="row">
-                    <div class="col-12 col-sm-12 col-md-7 col-xl-8">
+                    <div class="col-12 col-sm-12 col-md-7 col-xl-5">
                         <div class="header_breadcrumb white">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -33,7 +33,7 @@
                         <a href="#" role="button" class="btn btn-danger">Get Qute</a>
                         <a href="#" role="button" class="btn btn-warning">Call Now</a>
                     </div>
-                    <div class="col-12 col-sm-12 col-md-5 col-xl-4">
+                    <div class="col-12 col-sm-12 col-md-5 col-xl-4 ml-auto">
                         <div class="ser_prcessing">
                             <h4>What Services matter needs to be addressed?</h4>
                             <div class="ser_prcessinginn">

@@ -13,7 +13,7 @@
     
     <?php if(!empty($meta_keywords)): ?><meta name="keywords" content="<?php echo e($meta_keywords); ?>"/><?php endif; ?>
     
-    <link rel="canonical" href="" />
+    <?php if(!empty($meta_keywords)): ?><link rel="canonical" href="" /><?php endif; ?>
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 
     <!-- for Facebook -->
