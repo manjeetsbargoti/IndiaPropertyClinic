@@ -68,9 +68,9 @@
                                             <div id="donate">
                                                 <button class="btn btn-warning btn-sm">Edit</button>
                                                 @if($service->status==0)
-                                                    <a href="/admin/enable/{{ $service->id }}" class="btn btn-success btn-sm">Enable</a>
+                                                    <a href="/admin/senable/{{ $service->id }}" class="btn btn-success btn-sm">Enable</a>
                                                 @else
-                                                <a href="/admin/disable/{{ $service->id }}" class="btn btn-danger btn-sm">Disable</a>
+                                                <a href="/admin/sdisable/{{ $service->id }}" class="btn btn-danger btn-sm">Disable</a>
                                                 @endif
                                             </div>
                                         </td>

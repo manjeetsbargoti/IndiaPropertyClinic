@@ -61,16 +61,18 @@
                                     <?php if(!empty($u->service_name)): ?>
                                         <?php echo e($u->service_name); ?>
 
+                                    <?php else: ?>
+                                        Property
                                     <?php endif; ?>
                                     </td>
                                     <td><?php echo e(date('d M, Y', strtotime($u->created_at))); ?></td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/edit-user/<?php echo e($u->id); ?>" class="label label-warning label-sm">Edit</a>
+                                            <a href="/admin/edit-user/<?php echo e($u->id); ?>" tite="Edit" class="label label-warning label-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <?php if($u->status == 1): ?>
-                                            <a href="/admin/disable/<?php echo e($u->id); ?>" class="label label-danger label-sm">Deactivate</a>
+                                            <a href="/admin/udisable/<?php echo e($u->id); ?>" title="Disable" class="label label-danger label-sm"><i class="fa fa-times" aria-hidden="true"></i></a>
                                             <?php else: ?>
-                                            <a href="/admin/enable/<?php echo e($u->id); ?>" class="label label-success label-sm">Activate</a>
+                                            <a href="/admin/uenable/<?php echo e($u->id); ?>" title="Enable" class="label label-success label-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
                                             <?php endif; ?>
                                         </div>
                                     </td>

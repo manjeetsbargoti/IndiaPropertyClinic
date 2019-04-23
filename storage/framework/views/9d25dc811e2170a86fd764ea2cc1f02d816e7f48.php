@@ -1,11 +1,11 @@
-<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/admin/repair_services/view_repair_service.blade.php */ ?>
+<?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/admin/services/view_services.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>View Repair Services</h1>
+        <h1>View Services</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">View Services</li>
@@ -35,36 +35,43 @@
                                 <thead>
                                     <tr>
                                     <th>S.No</th>
-                                    <th>Services Banner</th>
+                                    <th>Services Image</th>
                                     <th>Services Name</th>
                                     <th>Parent Service</th>
+                                    <th>Url</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php $i = 0 ?>
-                                    <?php $__currentLoopData = $repairservices; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php $i++ ?>
                                     <tr>
                                         <td><?php echo e($i); ?></td>
                                         <td>
-                                        <?php if(!empty($rservice->service_image)): ?>
-                                            <img src="<?php echo e(asset('/images/backend_images/repair_service_images/large/'.$rservice->service_banner)); ?>" class="thumb" style="width: 60px;">
+                                        <?php if(!empty($service->service_image)): ?>
+                                            <img src="<?php echo e(asset('/images/backend_images/service_images/large/'.$service->service_image)); ?>" class="thumb" style="width: 60px;">
                                         <?php endif; ?>
                                         </td>
-                                        <td><a href="<?php echo e(url('/services/')); ?>/<?php echo e($rservice->url); ?>" target="_blank"><?php echo e($rservice->service_name); ?></a></td>
-                                        <td><?php echo e($rservice->parent_id); ?></td>
+                                        <td><?php echo e($service->service_name); ?></td>
+                                        <td><?php echo e($service->parent_id); ?></td>
+                                        <td><a href="<?php echo e(url('/')); ?>/<?php echo e($service->url); ?>" target="_blank"><?php echo e(url('/')); ?>/<?php echo e($service->url); ?></a></td>
                                         <td>
-                                        <?php if($rservice->status==1): ?>
-                                            <a href="/admin/rdisable/<?php echo e($rservice->id); ?>" class="btn btn-success btn-sm">Enable</a>
+                                        <?php if($service->status==1): ?>
+                                            <button class="btn btn-success btn-mini">Enable</button>
                                         <?php else: ?>
-                                            <a href="/admin/renable/<?php echo e($rservice->id); ?>" class="btn btn-danger btn-sm">Disable</a>
+                                            <button class="btn btn-danger btn-mini">Disable</button>
                                         <?php endif; ?>
                                         </td>
                                         <td>
                                             <div id="donate">
-                                                <a href=" <?php echo e(url('/admin/edit-repair-services/'.$rservice->id)); ?> " class="btn btn-warning btn-sm">Edit</a>
+                                                <button class="btn btn-warning btn-sm">Edit</button>
+                                                <?php if($service->status==0): ?>
+                                                    <a href="/admin/senable/<?php echo e($service->id); ?>" class="btn btn-success btn-sm">Enable</a>
+                                                <?php else: ?>
+                                                <a href="/admin/sdisable/<?php echo e($service->id); ?>" class="btn btn-danger btn-sm">Disable</a>
+                                                <?php endif; ?>
                                             </div>
                                         </td>
                                     </tr>
@@ -76,6 +83,7 @@
                                         <th>Services Image</th>
                                         <th>Services Name</th>
                                         <th>Parent Service</th>
+                                        <th>Url</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>

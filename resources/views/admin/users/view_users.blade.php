@@ -60,16 +60,18 @@
                                     <td>
                                     @if(!empty($u->service_name))
                                         {{ $u->service_name }}
+                                    @else
+                                        Property
                                     @endif
                                     </td>
                                     <td>{{ date('d M, Y', strtotime($u->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/edit-user/{{ $u->id }}" class="label label-warning label-sm">Edit</a>
+                                            <a href="/admin/edit-user/{{ $u->id }}" tite="Edit" class="label label-warning label-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             @if($u->status == 1)
-                                            <a href="/admin/disable/{{ $u->id }}" class="label label-danger label-sm">Deactivate</a>
+                                            <a href="/admin/udisable/{{ $u->id }}" title="Disable" class="label label-danger label-sm"><i class="fa fa-times" aria-hidden="true"></i></a>
                                             @else
-                                            <a href="/admin/enable/{{ $u->id }}" class="label label-success label-sm">Activate</a>
+                                            <a href="/admin/uenable/{{ $u->id }}" title="Enable" class="label label-success label-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
                                             @endif
                                         </div>
                                     </td>

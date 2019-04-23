@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">{{ $property->property_name }}</li>
                         </ol>
                     </nav>
-                    <p><span>{{ $property->city_name }}, <a href="{{ url('/view-properties/country_id='.$property->country) }}">{{ $property->country_name }}</a> </span> | All Residential for Sale in <a href="{{ url('/view-properties/state_id='.$property->state) }}">{{ $property->state_name }}</a> </p>
+                    <p><span>@if(!empty($property->city_name)) {{ $property->city_name }},@endif <a href="{{ url('/view-properties/country_id='.$property->country) }}">@if(!empty($property->country_name)) {{ $property->country_name }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/view-properties/state_id='.$property->state) }}">@if(!empty($property->state_name)) {{ $property->state_name }} @endif</a> </p>
                 </div>
             <div class="row">
             
@@ -46,13 +46,13 @@
            
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
-                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/view-properties/city_id='.$property->city) }}">{{ $property->city_name }}, {{ $property->country_name }}</a></h1>
+                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/view-properties/city_id='.$property->city) }}">@if(!empty($property->city_name)) {{ $property->city_name }},@endif @if(!empty($property->country_name)) {{ $property->country_name }} @endif</a></h1>
                     <h5>Plot Area: <span>{{ $property->parea }} Square Ft</span></h5>
                     <h6>{{ $property->property_name }}</h6>
                     <h5>Age of Property: <span>Under Cinstrection</span></h5>
                     <h5>Facing: <span>{{ $property->pfacing }}</span></h5>
                     
-                    <p>{{ strip_tags(str_limit($property->description, $limit=130)) }}</p>
+                    <p>{{ strip_tags(str_limit($property->description, $limit=350)) }}</p>
                     <h3>₹ {{ $property->property_price }}</h3>
                     <div class="protxt_top">
                         <ul>

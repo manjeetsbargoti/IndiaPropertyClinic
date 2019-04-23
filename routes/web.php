@@ -39,23 +39,23 @@ Route::group(['middleware' => ['auth']], function () {
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
     Route::get('/admin/services', 'ServiceController@viewService');
-    Route::match(['get', 'post'], '/admin/disable/{id}', 'ServiceController@disableService');
-    Route::match(['get', 'post'], '/admin/enable/{id}', 'ServiceController@enableService');
+    Route::match(['get', 'post'], '/admin/sdisable/{id}', 'ServiceController@disableService');
+    Route::match(['get', 'post'], '/admin/senable/{id}', 'ServiceController@enableService');
 
     // Repair Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-repair-service', 'RepairServiceController@addRService');
     Route::get('/admin/repair-services', 'RepairServiceController@viewRService');
     Route::match(['get', 'post'], '/admin/edit-repair-services/{id}', 'RepairServiceController@editRService');
-    Route::match(['get', 'post'], '/admin/disable/{id}', 'RepairServiceController@disableService');
-    Route::match(['get', 'post'], '/admin/enable/{id}', 'RepairServiceController@enableService');
+    Route::match(['get', 'post'], '/admin/rdisable/{id}', 'RepairServiceController@disableService');
+    Route::match(['get', 'post'], '/admin/renable/{id}', 'RepairServiceController@enableService');
     Route::match(['get', 'post'], '/repair-services/check_slug', 'RepairServiceController@checkSlug');
 
     // User Module by Admin (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
     Route::match(['get', 'post'], '/admin/edit-user/{id}', 'AdminController@editUser');
     Route::get('/admin/users', 'AdminController@viewUser');
-    Route::match(['get', 'post'], '/admin/disable/{id}', 'AdminController@disableUser');
-    Route::match(['get', 'post'], '/admin/enable/{id}', 'AdminController@enableUser');
+    Route::match(['get', 'post'], '/admin/udisable/{id}', 'AdminController@disableUser');
+    Route::match(['get', 'post'], '/admin/uenable/{id}', 'AdminController@enableUser');
     Route::match(['get', 'post'], '/checkemail', 'AdminController@checkEmail');
 
     // Home Loan Applications

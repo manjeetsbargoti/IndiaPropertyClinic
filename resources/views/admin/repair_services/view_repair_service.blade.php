@@ -57,9 +57,9 @@
                                         <td>{{ $rservice->parent_id }}</td>
                                         <td>
                                         @if($rservice->status==1)
-                                            <a href="/admin/disable/{{ $rservice->id }}" class="btn btn-success btn-sm">Enable</a>
+                                            <a href="/admin/rdisable/{{ $rservice->id }}" class="btn btn-success btn-sm">Enable</a>
                                         @else
-                                            <a href="/admin/enable/{{ $rservice->id }}" class="btn btn-danger btn-sm">Disable</a>
+                                            <a href="/admin/renable/{{ $rservice->id }}" class="btn btn-danger btn-sm">Disable</a>
                                         @endif
                                         </td>
                                         <td>
