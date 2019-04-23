@@ -67,7 +67,11 @@
                             <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
                         </div>
                         <div class="agent_txt">
-                        <h6>Builder: {{ $property->builder_name }}</h6>
+                        @if(!empty($property->builder_name))
+                        <h6><a href="#">{{ $property->builder_name }}</a></h6>
+                        @elseif(!empty($property->addby_name))
+                        <h6>{{ $property->addby_name }}</h6>
+                        @endif
                         <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">AGENT Contact</a>
                         <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#contactModal"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
                         

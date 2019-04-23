@@ -265,7 +265,8 @@ class PropertyController extends Controller
                 $properties[$key]->addby_name = $addBy->first_name;
             }
             $builder_count = User::where(['id'=>$val->builder])->count();
-            if($addby_count > 0){
+            // echo "<pre>"; print_r($builder_count); die;
+            if(!empty($builder_count)){
                 $buildername = User::where(['id'=>$val->builder])->first();
                 $properties[$key]->builder_name = $buildername->first_name;
             }
