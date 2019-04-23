@@ -162,7 +162,7 @@ class PropertyController extends Controller
             return redirect('/admin/properties')->with('flash_message_success', 'Property Added Successfully!');
         }
 
-        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
+        $getBuilder = User::where(['usertype'=>'B'])->orWhere(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
         $countryname = DB::table('countries')->pluck("name", "id");
@@ -258,6 +258,16 @@ class PropertyController extends Controller
             if ($city_count > 0) {
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
                 $properties[$key]->city_name = $city->name;
+            }
+            $addby_count = User::where(['id'=>$val->add_by])->count();
+            if($addby_count > 0){
+                $addBy = User::where(['id'=>$val->add_by])->first();
+                $properties[$key]->addby_name = $addBy->first_name;
+            }
+            $builder_count = User::where(['id'=>$val->builder])->count();
+            if($addby_count > 0){
+                $buildername = User::where(['id'=>$val->builder])->first();
+                $properties[$key]->builder_name = $buildername->first_name;
             }
         }
 

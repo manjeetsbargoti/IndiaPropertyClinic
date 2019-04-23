@@ -133,7 +133,7 @@ function generate_string($input, $strength = 16) {
                                     <div class="col-xs-12 col-md-4">
                                         <div class="form-group">
                                             <label name="Builder">Builder</label>
-                                            <select name="builder_name" id="builder_name" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <select name="builder" id="builder_name" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                 <option value="" selected>Select Builder</option>
                                                 <option value="addBuilder"> + Add New</option>
                                                 <?php $__currentLoopData = $getBuilder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $b): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

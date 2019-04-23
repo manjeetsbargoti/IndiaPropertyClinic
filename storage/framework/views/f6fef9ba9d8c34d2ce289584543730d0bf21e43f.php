@@ -67,7 +67,7 @@
                             <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
                         </div>
                         <div class="agent_txt">
-                        <h6><?php echo e($property->add_by); ?></h6>
+                        <h6>Builder: <?php echo e($property->builder_name); ?></h6>
                         <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">AGENT Contact</a>
                         <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#contactModal"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
                         
