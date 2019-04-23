@@ -84,11 +84,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-md-4">
+                                    <div class="col-xs-12 col-md-4 hidden">
                                         <div class="form-group">
                                         <label name="Property Code">Property Code</label>
                                             <div class="input-group"> 
-                                                <input name="property_code" id="property_code" type="text" class="form-control">
+                                                <input name="property_code" id="property_code" type="text" value="IPC<?php echo rand(00001, 9999999); ?>" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -110,6 +110,18 @@
                                                 <span class="input-group-addon">Rs</span>
                                                 <input name="booking_price" id="booking_price" type="text" class="form-control">
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
+                                            <label name="Booking Amount">Builder</label>
+                                            <select name="property_type" id="PropertyType" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <option value="" selected>Select Builder</option>
+                                                @foreach($propertytype as $ptype)
+                                                    <option value="{{ $ptype->property_type_code }}">{{ $ptype->property_type }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
