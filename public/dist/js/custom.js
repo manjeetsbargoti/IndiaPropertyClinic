@@ -1,7 +1,4 @@
 
-
-
-
 // Creating Service URL
 $('#rservice_name').keyup(function(){
     var str = $(this).val();
@@ -9,9 +6,6 @@ $('#rservice_name').keyup(function(){
     var rservice_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
     $('#rservice_url').val(rservice_url.toLowerCase());
 });
-
-
-
 
 // Data fields according to Property Type Selection
 $(function() {
@@ -227,12 +221,26 @@ $(document).ready(function() {
     });
 });
 
-// Hide all but Show after select any option from Property type
-$("#PropertyType").change(function() {
-    if ($(this).val() == 'no') {
-        $("#PropertyInfo").hide();
+// // Hide all but Show after select any option from Property type
+// $("#PropertyType").change(function() {
+//     if ($(this).val() == 'no') {
+//         $("#PropertyInfo").hide();
+//     } else {
+//         $("#PropertyInfo").show();
+//     }
+// });
+
+// Show add builder on add new select
+$("#builder_name").change(function() {
+    if ($(this).val() == 'addBuilder') {
+        $("#AddBuilderData").show();
+        $('#AddBuilderData').removeClass('hidden').addClass('show');
     } else {
-        $("#PropertyInfo").show();
+        $("#AddBuilderData").hide();
+    }
+    if ($(this).val() != 'addBuilder') {
+        $("#AddBuilderData").hide();
+        $('#AddBuilderData').removeClass('show').addClass('hidden');
     }
 });
 

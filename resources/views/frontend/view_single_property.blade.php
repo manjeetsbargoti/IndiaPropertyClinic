@@ -52,7 +52,7 @@
                     <h5>Age of Property: <span>Under Cinstrection</span></h5>
                     <h5>Facing: <span>{{ $property->pfacing }}</span></h5>
                     
-                    <p>{!! str_limit($property->description, $limit=130) !!}</p>
+                    <p>{{ strip_tags(str_limit($property->description, $limit=130)) }}</p>
                     <h3>₹ {{ $property->property_price }}</h3>
                     <div class="protxt_top">
                         <ul>

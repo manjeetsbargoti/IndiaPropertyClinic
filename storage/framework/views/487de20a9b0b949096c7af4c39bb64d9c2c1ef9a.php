@@ -1,6 +1,22 @@
 <?php /* D:\IndiaProperty\IndiaPropertyClinic\resources\views/admin/property/add-property.blade.php */ ?>
 <?php $__env->startSection('content'); ?>
 
+<?php
+ 
+$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+ 
+function generate_string($input, $strength = 16) {
+    $input_length = strlen($input);
+    $random_string = '';
+    for($i = 0; $i < $strength; $i++) {
+        $random_character = $input[mt_rand(0, $input_length - 1)];
+        $random_string .= $random_character;
+    }
+ 
+    return $random_string;
+}
+?>
+
 <style>
 #filediv{display:inline-block !important;}
 #file{color:green;padding:5px;border:1px dashed #123456;background-color:#f9ffe5}
@@ -116,13 +132,75 @@
 
                                     <div class="col-xs-12 col-md-4">
                                         <div class="form-group">
-                                            <label name="Booking Amount">Builder</label>
-                                            <select name="property_type" id="PropertyType" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <label name="Builder">Builder</label>
+                                            <select name="builder_name" id="builder_name" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                 <option value="" selected>Select Builder</option>
-                                                <?php $__currentLoopData = $propertytype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ptype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($ptype->property_type_code); ?>"><?php echo e($ptype->property_type); ?></option>
+                                                <option value="addBuilder"> + Add New</option>
+                                                <?php $__currentLoopData = $getBuilder; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $b): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($b->id); ?>"><?php echo e($b->first_name); ?> <?php echo e($b->last_name); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="AddBuilderData" class="builder_info col-sm-12 col-md-12 hidden">
+                                    <div class="builder_heading col-xs-12 col-md-12">
+                                        <h4><strong>Add Builder</strong></h4>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
+                                            <label for="First Name">First Name</label>
+                                            <input type="text" name="first_name" id="first_name" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
+                                            <label for="Last Name">Last Name</label>
+                                            <input type="text" name="last_name" id="last_name" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-4">
+                                        <div class="form-group">
+                                            <label for="Usertype">Usertype</label>
+                                            <select name="usertype" id="usertype" class="form-control">
+                                                <option selected value="B">Builder</option>
+                                                <option value="A">Agent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="Email">Email</label>
+                                            <input type="text" name="email" id="email" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-6 hidden">
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="password" name="password" id="password" value="<?php echo generate_string($permitted_chars, 20); ?>" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4 col-md-2">
+                                        <div class="form-group">
+                                            <label>Code</label>
+                                            <select name="phonecode" id="phonecode" class="form-control">
+                                            <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->phonecode); ?> &nbsp;<?php echo e($code->iso3); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8 col-md-4">
+                                        <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone">
                                         </div>
                                     </div>
                                 </div>

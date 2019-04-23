@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Image;
+use App\User;
 use App\Property;
-use App\PropertyImages;
-use App\PropertyQuery;
-use App\PropertyTypes;
 use App\Services;
 use App\UserType;
-use DB;
+use App\PropertyTypes;
+use App\PropertyQuery;
+use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Image;
+
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class PropertyController extends Controller
@@ -27,7 +29,7 @@ class PropertyController extends Controller
             $data = $request->all();
 
             // Add Logged In User name to Property
-            $add_by = Auth::user()->first_name;
+            $add_by = Auth::user()->id;
 
             // Data test code
             // echo "<pre>"; print_r($data); die;
@@ -51,49 +53,72 @@ class PropertyController extends Controller
                 $feature = 1;
             }
 
+            $user = new User;
+            // Add Builder/Agent with Property
+            if(!empty($data['first_name']))
+            {
+                $builder = User::create([
+                    'first_name'    => $data['first_name'],
+                    'last_name'     => $data['last_name'],
+                    'email'         => $data['email'],
+                    'password'      => bcrypt($data['password']),
+                    'phonecode'     => $data['phonecode'],
+                    'phone'         => $data['phone'],
+                    'usertype'      => $data['usertype'],
+                ]);
+            }
+
+            // get Builder id
+            if (empty($builder->id)) {
+                $builder_id = $data['builder'];
+            } else {
+                $builder_id = $builder->id;
+            }
+
             // echo "<pre>"; print_r($data); die;
 
             $value = Property::create([
-                'property_name' => $data['property_name'],
-                'property_url' => $data['slug'],
-                'property_type_id' => $property_type,
-                'property_code' => $data['property_code'],
-                'property_price' => $data['property_price'],
-                'booking_price' => $data['booking_price'],
-                'description' => $data['description'],
-                'featured' => $feature,
-                'map_pass' => $data['map_passed'],
-                'open_sides' => $data['open_sides'],
-                'parea' => $data['property_area'],
-                'widthroad' => $data['width_road_facing'],
-                'furnish_type' => $data['furnish_type'],
-                'floorno' => $data['floor_no'],
-                'total_floors' => $data['total_floors'],
-                'apple_trees' => $data['apple_trees'],
-                'parea' => $data['property_area'],
-                'pfacing' => $data['property_facing'],
-                'transaction_type' => $data['transection_type'],
-                'construction_status' => $data['construction_status'],
-                'bedrooms' => $data['bedrooms'],
-                'bathrooms' => $data['bathrooms'],
-                'balconies' => $data['balconies'],
-                'p_washrooms' => $data['p_washroom'],
-                'cafeteria' => $data['cafeteria'],
-                'road_facing' => $data['roadfacing'],
-                'c_shop' => $data['corner_shop'],
-                'wall_made' => $data['boundrywall'],
-                'p_showroom' => $data['pshowroom'],
-                'property_age' => $data['property_age'],
-                'plotno' => $data['plot_no'],
-                'address1' => $data['property_address1'],
-                'address2' => $data['property_address2'],
-                'locality' => $data['locality'],
-                'country' => $data['country'],
-                'state' => $data['state'],
-                'city' => $data['city'],
-                'zipcode' => $data['zipcode'],
-                'add_by' => $add_by,
-                'service_id' => $property_for,
+                'property_name'         => $data['property_name'],
+                'property_url'          => $data['slug'],
+                'property_type_id'      => $property_type,
+                'property_code'         => $data['property_code'],
+                'property_price'        => $data['property_price'],
+                'booking_price'         => $data['booking_price'],
+                'description'           => $data['description'],
+                'featured'              => $feature,
+                'map_pass'              => $data['map_passed'],
+                'open_sides'            => $data['open_sides'],
+                'parea'                 => $data['property_area'],
+                'widthroad'             => $data['width_road_facing'],
+                'furnish_type'          => $data['furnish_type'],
+                'floorno'               => $data['floor_no'],
+                'total_floors'          => $data['total_floors'],
+                'apple_trees'           => $data['apple_trees'],
+                'parea'                 => $data['property_area'],
+                'pfacing'               => $data['property_facing'],
+                'transaction_type'      => $data['transection_type'],
+                'construction_status'   => $data['construction_status'],
+                'bedrooms'              => $data['bedrooms'],
+                'bathrooms'             => $data['bathrooms'],
+                'balconies'             => $data['balconies'],
+                'p_washrooms'           => $data['p_washroom'],
+                'cafeteria'             => $data['cafeteria'],
+                'road_facing'           => $data['roadfacing'],
+                'c_shop'                => $data['corner_shop'],
+                'wall_made'             => $data['boundrywall'],
+                'p_showroom'            => $data['pshowroom'],
+                'property_age'          => $data['property_age'],
+                'plotno'                => $data['plot_no'],
+                'address1'              => $data['property_address1'],
+                'address2'              => $data['property_address2'],
+                'locality'              => $data['locality'],
+                'country'               => $data['country'],
+                'state'                 => $data['state'],
+                'city'                  => $data['city'],
+                'zipcode'               => $data['zipcode'],
+                'add_by'                => $add_by,
+                'service_id'            => $property_for,
+                'builder'               => $builder_id,
             ]);
 
             // echo "<pre>"; print_r($value); die;
@@ -137,10 +162,12 @@ class PropertyController extends Controller
             return redirect('/admin/properties')->with('flash_message_success', 'Property Added Successfully!');
         }
 
+        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
         $countryname = DB::table('countries')->pluck("name", "id");
-        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname'));
+        $phonecode = DB::table('countries')->get();
+        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder','phonecode'));
     }
 
     // Getting State List according to Country
