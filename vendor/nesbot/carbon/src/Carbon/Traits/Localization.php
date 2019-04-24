@@ -83,6 +83,8 @@ trait Localization
     }
 
     /**
+     * Return default humanDiff() options (merged flags as integer).
+     *
      * @return int
      */
     public static function getHumanDiffOptions()
@@ -327,7 +329,7 @@ trait Localization
 
             foreach ($fromTranslations as $index => $word) {
                 if (preg_match("/^$word\$/i", $chunk)) {
-                    return $toTranslations[$index];
+                    return $toTranslations[$index] ?? '';
                 }
             }
 
