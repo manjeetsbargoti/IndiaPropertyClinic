@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/custom.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
   <!-- Google Font -->
   <link rel="stylesheet"
@@ -110,6 +111,7 @@ desired effect
 <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+
 
 <!-- CK Editor -->
 <!-- <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script> -->

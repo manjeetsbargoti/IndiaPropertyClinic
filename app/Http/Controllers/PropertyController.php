@@ -8,6 +8,7 @@ use App\User;
 use App\Property;
 use App\Services;
 use App\UserType;
+use App\Amenities;
 use App\PropertyTypes;
 use App\PropertyQuery;
 use App\PropertyImages;
@@ -47,11 +48,19 @@ class PropertyController extends Controller
                 return redirect()->back()->with('flash_message_error', 'Property Type is Missing!');
             }
 
-            if (empty($data['feature'])) {
-                $feature = 0;
-            } else {
-                $feature = 1;
-            }
+            if (empty($data['feature'])) { $feature = 0; } else { $feature = 1; }
+
+            if (empty($data['gym'])) { $gym = 0; } else { $gym = 1; }
+            if (empty($data['club_house'])) { $club_house = 0; } else { $club_house = 1; }
+            if (empty($data['play_area'])) { $play_area = 0; } else { $play_area = 1; }
+            if (empty($data['water_supply'])) { $water_supply = 0; } else { $water_supply = 1; }
+            if (empty($data['geyser'])) { $geyser = 0; } else { $geyser = 1; }
+            if (empty($data['visitor_arking'])) { $visitor_arking = 0; } else { $visitor_arking = 1; }
+            if (empty($data['garden'])) { $garden = 0; } else { $garden = 1; }
+            if (empty($data['waste_disposal'])) { $waste_disposal = 0; } else { $waste_disposal = 1; }
+            if (empty($data['power_backup'])) { $power_backup = 0; } else { $power_backup = 1; }
+            if (empty($data['swimming_pool'])) { $swimming_pool = 0; } else { $swimming_pool = 1; }
+            if (empty($data['water_storage'])) { $water_storage = 0; } else { $water_storage = 1; }
 
             $user = new User;
             // Add Builder/Agent with Property
@@ -83,7 +92,7 @@ class PropertyController extends Controller
                 'property_type_id'      => $property_type,
                 'property_code'         => $data['property_code'],
                 'property_price'        => $data['property_price'],
-                'booking_price'         => $data['booking_price'],
+                // 'booking_price'         => $data['booking_price'],
                 'description'           => $data['description'],
                 'featured'              => $feature,
                 'map_pass'              => $data['map_passed'],
@@ -93,9 +102,9 @@ class PropertyController extends Controller
                 'furnish_type'          => $data['furnish_type'],
                 'floorno'               => $data['floor_no'],
                 'total_floors'          => $data['total_floors'],
-                'apple_trees'           => $data['apple_trees'],
+                'apple_trees'           => $data['trees'],
                 'parea'                 => $data['property_area'],
-                'pfacing'               => $data['property_facing'],
+                // 'pfacing'               => $data['property_facing'],
                 'transaction_type'      => $data['transection_type'],
                 'construction_status'   => $data['construction_status'],
                 'bedrooms'              => $data['bedrooms'],
@@ -108,7 +117,7 @@ class PropertyController extends Controller
                 'wall_made'             => $data['boundrywall'],
                 'p_showroom'            => $data['pshowroom'],
                 'property_age'          => $data['property_age'],
-                'plotno'                => $data['plot_no'],
+                // 'plotno'                => $data['plot_no'],
                 'address1'              => $data['property_address1'],
                 'address2'              => $data['property_address2'],
                 'locality'              => $data['locality'],
@@ -119,6 +128,22 @@ class PropertyController extends Controller
                 'add_by'                => $add_by,
                 'service_id'            => $property_for,
                 'builder'               => $builder_id,
+            ]);
+
+            // Add Amenities
+            $amenities = Amenities::create([
+                'property_id'       => $value->id,
+                'gym'               => $gym,
+                'club_house'        => $club_house,
+                'play_area'         => $play_area,
+                'water_supply'      => $water_supply,
+                'geyser'            => $geyser,
+                'visitor_arking'    => $visitor_arking,
+                'garden'            => $garden,
+                'waste_disposal'    => $waste_disposal,
+                'power_backup'      => $power_backup,
+                'swimming_pool'     => $swimming_pool,
+                'water_storage'     => $water_storage,
             ]);
 
             // echo "<pre>"; print_r($value); die;
