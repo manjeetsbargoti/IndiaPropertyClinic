@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use DB;
 use Session;
 use App\User;
+use Socialite;
+use Exception;
 use App\Cities;
 use App\Property;
 use App\Services;
@@ -15,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AdminController extends Controller
 {
@@ -495,4 +499,61 @@ class AdminController extends Controller
             }
         }
     }
+
+    // Login via Twitter
+    public function redirect($provider=null)
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+
+    public function callback($provider=null)
+    {
+               
+        $getInfo = Socialite::driver($provider)->user();
+        // echo "<pre>"; print_r($getInfo); die;
+        $user = $this->createUser($getInfo,$provider);
+        auth()->login($user);
+        return redirect()->to('/');
+ 
+    }
+
+    function createUser($getInfo,$provider){
+ 
+        $user = User::where('provider_id', $getInfo->id)->first();
+    
+        if (!$user) {
+            $user = User::create([
+               'first_name' => $getInfo->name,
+               'email'    => $getInfo->email,
+               'provider' => $provider,
+               'provider_id' => $getInfo->id
+           ]);
+         }
+         return $user;
+      }
+
+    // public function handleTwitterCallback()
+    // {
+    //     try {
+    //         $user = Socialite::driver('twitter')->user();
+    //         $create['name'] = $user->name;
+    //         $create['email'] = $user->email;
+    //         $create['twitter_id'] = $user->id;
+            
+    //         // $usernew = User::create([
+    //         //     'first_name' => $create['name'],
+    //         //     'email' => $create['email'],
+    //         //     'twitter_id' => $create['twitter_id'],
+    //         // ]);
+
+    //         echo "<pre>"; print_r($create); die;
+
+    //         $userModel = new User;
+    //         $createdUser = $userModel->addNew($create);
+    //         Auth::loginUsingId($createdUser->id);
+    //         return redirect('/home');
+    //     } catch (Exception $e) {
+    //         return redirect('/auth/twitter');
+    //     }
+    // }
 }

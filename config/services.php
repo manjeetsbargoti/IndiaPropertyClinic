@@ -44,4 +44,10 @@ return [
         ],
     ],
 
+    'twitter' => [
+        'client_id' => '3vyAEZMIoKdjlvSr45i6c0NcJ',
+        'client_secret' => 'sDOg21MdNtlsMLQ1bnD43CkFKIwPEPBEvcI7QV7OW3cQnMaYhI',
+        'redirect' => 'http://127.0.0.1:8000/auth/callback/twitter',
+    ],
+
 ];

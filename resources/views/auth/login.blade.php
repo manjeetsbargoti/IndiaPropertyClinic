@@ -1,5 +1,41 @@
 @extends('layouts.frontLayout.frontend_design')
 @section('content')
+<style>
+    div.social-wrap a {
+        padding-right: 35px;
+        padding-top: 6px;
+        text-align: center;
+        height: 35px;
+        vertical-align: middle;
+        background: none;
+        border: none;
+        display: inline-block;
+        background-size: 35px 35px;
+        background-position: right center;
+        background-repeat: no-repeat;
+        border-radius: 4px;
+        color: white;
+        font-family: "Merriweather Sans", sans-serif;
+        font-size: 14px;
+        margin-bottom: 0px;
+        width: 205px;
+        border-bottom: 2px solid transparent;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        box-shadow: 0 4px 2px -2px grey;
+        text-shadow: rgba(0, 0, 0, .5) -1px -1px 0;
+    }
+    div.social-wrap a#facebook {
+        border-color: #2d5073;
+        background-color: #3b5998;
+        background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
+    }
+    div.social-wrap a#twitter {
+        border-color: #007aa6;
+        background-color: #008cbf;
+        background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/twitter-icon.png);
+    }
+</style>
 
 <div class="smart_container">
     <div class="userlogin_form">
@@ -75,7 +111,9 @@
                             <div class="card-body">
                             <p>New to India Property Clinic <a href="{{ url('/register') }}">Sign Up</a></p>
                             <hr>
-                            <p>or Login using <a href="#"><i class="fa fa-facebook"></i> Facebook</a>&nbsp;&nbsp;<a href="#"><i class="fa fa-google"></i> Google</a></p>
+                            <div class="social-wrap">
+                                <a href="#" id="facebook"> Sign in <em>w/</em> Facebook</a>&nbsp;&nbsp;<a href="{{ url('/auth/redirect/twitter') }}" id="twitter"> Sign in <em>w/</em> Twitter</a>
+                            </div>
                             </div>
                         </div>
                     </div>

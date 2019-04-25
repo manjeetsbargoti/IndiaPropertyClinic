@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'usertype',
+        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'usertype', 'provider', 'provider_id'
     ];
 
     /**
@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function addNew($input)
+    {
+        $check = static::where('twitter_id',$input['twitter_id'])->first();
+
+        if(is_null($check)){
+            return static::create($input);
+        }
+
+        return $check;
+    }
 }

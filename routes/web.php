@@ -120,3 +120,10 @@ Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword'
 
 // Email Verification Routes
 Route::match(['get', 'post'], '/verify/{code}', 'AdminController@verifyEmail');
+
+// Login via Twitter
+Route::get('/twitter', function () {
+    return view('twitterAuth');
+});
+Route::get('/auth/redirect/{provider}', 'AdminController@redirect');
+Route::get('/auth/callback/{provider}', 'AdminController@callback');
