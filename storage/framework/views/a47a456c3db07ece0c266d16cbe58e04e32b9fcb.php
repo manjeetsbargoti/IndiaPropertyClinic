@@ -1,5 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class = "wrapper" >
 
@@ -8,11 +7,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        User Profile
+        Welcome, <span><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></span>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
+        <li><a href="#">Users</a></li>
         <li class="active">User profile</li>
       </ol>
     </section>
@@ -26,11 +25,12 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user4-128x128.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
 
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-              <p class="text-muted text-center">Software Engineer</p>
+              <h3 class="profile-username text-center"><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></h3>
+                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+              <p class="text-muted text-center"><?php echo e($u->user_type); ?>, <?php echo e($u->service_name); ?></p>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -68,9 +68,20 @@
               <hr>
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-
-              <p class="text-muted">Malibu, California</p>
-
+                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <p class="text-muted">
+                        <?php if($city_count > 0): ?>
+                            <span><?php echo e($u->city_name); ?>,</span> 
+                        <?php else: ?>
+                            <span title="Update Your City">City,</span>
+                        <?php endif; ?>
+                        <?php if($state_count > 0): ?>
+                            <span><?php echo e($u->state_name); ?></span> 
+                        <?php else: ?>
+                            <span title="Update Your State">State</span>
+                        <?php endif; ?>
+                    </p>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               <hr>
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
@@ -362,13 +373,13 @@
                   <div class="form-group">
                     <label for="Current Password" class="col-sm-2 control-label">Current Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" name="current_pwd" id="current_pwd">
+                      <input type="password" class="form-control" id="current_password">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="New Password" class="col-sm-2 control-label">New Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" name="new_pwd" id="new_pwd">
+                      <input type="password" class="form-control" id="new_password">
                     </div>
                   </div>
                   <div class="form-group">
@@ -401,4 +412,5 @@
         
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.users.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/auth/users/user_account.blade.php ENDPATH**/ ?>

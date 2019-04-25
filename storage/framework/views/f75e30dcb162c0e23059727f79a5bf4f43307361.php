@@ -1,5 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class = "wrapper" >
 
@@ -401,4 +400,5 @@
         
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/admin_profile.blade.php ENDPATH**/ ?>

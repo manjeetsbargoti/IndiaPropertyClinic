@@ -142,7 +142,7 @@ $mainnavservice = Controller::mainNav();
                             <?php if(auth()->guard()->guest()): ?>
                                 <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
                             <?php else: ?>
-                                <li><a href="<?php echo e(url('/My-Account')); ?>"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/My-Account')); ?> <?php endif; ?>"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                                 <li><a href="<?php echo e(url('/logout')); ?>"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>

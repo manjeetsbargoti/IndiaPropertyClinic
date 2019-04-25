@@ -128,6 +128,7 @@ class PropertyController extends Controller
                 'add_by'                => $add_by,
                 'service_id'            => $property_for,
                 'builder'               => $builder_id,
+                'agent'                 => $data['agent'],
             ]);
 
             // Add Amenities
@@ -187,12 +188,13 @@ class PropertyController extends Controller
             return redirect('/admin/properties')->with('flash_message_success', 'Property Added Successfully!');
         }
 
-        $getBuilder = User::where(['usertype'=>'B'])->orWhere(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
+        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
+        $getAgent = User::where(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
         $countryname = DB::table('countries')->pluck("name", "id");
         $phonecode = DB::table('countries')->get();
-        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder','phonecode'));
+        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent','phonecode'));
     }
 
     // Getting State List according to Country

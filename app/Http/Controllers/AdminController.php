@@ -464,4 +464,23 @@ class AdminController extends Controller
 
         return view('admin.csc_temp.add_city', compact('countryname'));
     }
+
+    // CheckPassword function
+    public function chkpassword(Request $request)
+    {
+        $data = $request->all();
+        $current_password = $data['current_pwd'];
+        $check_password = User::where(['admin'=>'1'])->first();
+        if(Hash::check($current_password,$check_password->password)){
+            echo "ture"; die;
+        }else{
+            echo "false"; die;
+        }
+    }
+
+    // Change Password
+    public function changePassword()
+    {
+
+    }
 }

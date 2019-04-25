@@ -142,7 +142,7 @@ $mainnavservice = Controller::mainNav();
                             @guest
                                 <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
                             @else
-                                <li><a href="{{ url('/My-Account') }}"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>

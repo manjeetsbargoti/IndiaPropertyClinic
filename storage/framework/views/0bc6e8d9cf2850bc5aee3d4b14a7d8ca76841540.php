@@ -142,11 +142,23 @@ function generate_string($input, $strength = 16) {
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="col-xs-12 col-md-4">
+                                            <div class="form-group">
+                                                <label name="Builder">Agent</label>
+                                                <select name="agent" id="agent" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                    <option value="" selected>Select Agent</option>
+                                                    <?php $__currentLoopData = $getAgent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($a->id); ?>"><?php echo e($a->first_name); ?> <?php echo e($a->last_name); ?></option>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div id="AddBuilderData" class="builder_info col-sm-12 col-md-12 hidden">
                                         <div class="builder_heading col-xs-12 col-md-12">
-                                            <h4><strong>Add Builder</strong></h4>
+                                            <h4><strong>Add Builder/Agent</strong></h4>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
@@ -167,7 +179,8 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Usertype">Usertype</label>
                                                 <select name="usertype" id="usertype" class="form-control">
-                                                    <option selected value="B">Builder</option>
+                                                    <option selected value="">Select Usertype</option>
+                                                    <option value="B">Builder</option>
                                                     <option value="A">Agent</option>
                                                 </select>
                                             </div>
@@ -192,7 +205,7 @@ function generate_string($input, $strength = 16) {
                                                 <label>Code</label>
                                                 <select name="phonecode" id="phonecode" class="form-control">
                                                 <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->phonecode); ?> &nbsp;<?php echo e($code->iso3); ?></option>
+                                                    <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->iso3); ?> &nbsp;<?php echo e($code->phonecode); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
                                                 </select>
                                             </div>
@@ -203,6 +216,13 @@ function generate_string($input, $strength = 16) {
                                             <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone">
                                             </div>
                                         </div>
+
+                                        <!-- <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                            <label>Projects</label>
+                                                <textarea name="project_name" id="project_name" class="form-control"></textarea>
+                                            </div>
+                                        </div> -->
                                     </div>
 
                                     <div id="PropertyInfo" class="property_info col-sm-12 col-md-12 hidden">
