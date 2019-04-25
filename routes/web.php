@@ -84,7 +84,8 @@ Route::group(['middleware' => ['userlogin']], function () {
 });
 
 // Check Password
-Route::match(['get', 'post'], '/admin//admin/check-pwd', 'AdminController@chkpassword');
+Route::get('/admin/check-pwd', 'AdminController@chkpassword');
+Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@changePassword');
 
 // User Login/Register Functionality
 Route::match(['get', 'post'], '/login', 'AdminController@login');

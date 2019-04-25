@@ -1,7 +1,7 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
 
-    <div class = "wrapper" >
+    <!-- <div class = "wrapper" > -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -358,11 +358,13 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="change_password">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="{{ url('/admin/update-pwd') }}">
+                {{ csrf_field() }}
                   <div class="form-group">
                     <label for="Current Password" class="col-sm-2 control-label">Current Password</label>
                     <div class="col-sm-10">
                       <input type="password" class="form-control" name="current_pwd" id="current_pwd">
+                      <span id="chkPwd"></span>
                     </div>
                   </div>
                   <div class="form-group">
@@ -398,7 +400,7 @@
     <!-- /.content -->
   </div>
     <!-- /.content-wrapper -->
-        
+
 
 
 @endsection

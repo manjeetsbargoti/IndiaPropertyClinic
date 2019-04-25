@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/custom.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
   <!-- Google Font -->
@@ -58,6 +59,8 @@ desired effect
 <body class="hold-transition skin-blue sidebar-mini">
 
 <div class="wrapper">
+
+  <div class='notifications top-right'></div>
 
 @include('layouts.adminLayout.admin_header')
 
@@ -112,6 +115,7 @@ desired effect
 <!-- FastClick -->
 <script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
 
 <!-- CK Editor -->
 <!-- <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script> -->
@@ -176,6 +180,55 @@ $('#email').blur(function()
    })
   }
  });
+</script>
+
+<script>
+  $('#new_pwd').click(function(){
+    var current_pwd = $('#current_pwd').val();
+    // alert(current_pwd);
+    $.ajax({
+        type: 'get',
+        url: '/admin/check-pwd',
+        data: {current_pwd:current_pwd},
+        success: function(resp){
+            if(resp=="false"){
+                $('#chkPwd').html('<font color=red>Current Password is Incorrect!</font>');
+            }else{
+                $('#chkPwd').html('<font color=green>Current Password is Correct!</font>');
+            }
+        },error:function(){
+            alert("error");
+        }
+    });
+});
+</script>
+
+<script>
+
+
+  @if(Session::has('flash_message_success'))
+     $('.top-right').notify({
+        message: { text: "{{ Session::get('flash_message_success') }}" },
+        // fadeOut: { enabled: true, delay: 3000 }
+        transition: 'fade'
+      }).show();
+     @php
+       Session::forget('flash_message_success');
+     @endphp
+  @endif
+
+
+  @if(Session::has('flash_message_error'))
+      $('.top-right').notify({
+        message: { text: "{{ Session::get('flash_message_error') }}" },
+        // fadeOut: { enabled: true, delay: 3000 },
+        type:'error',
+        transition: 'fade'
+      }).show();
+      @php
+        Session::forget('flash_message_error');
+      @endphp
+  @endif
 </script>
 
 </body>

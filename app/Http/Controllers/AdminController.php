@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Cities;
-use App\OtherServices;
-use App\Property;
-use App\PropertyImages;
-use App\Services;
-use App\User;
-use App\UserType;
 use DB;
+use Session;
+use App\User;
+use App\Cities;
+use App\Property;
+use App\Services;
+use App\UserType;
+use App\OtherServices;
+use App\PropertyImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Session;
 
 class AdminController extends Controller
 {
@@ -479,8 +480,19 @@ class AdminController extends Controller
     }
 
     // Change Password
-    public function changePassword()
+    public function changePassword(Request $request)
     {
-
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $check_password = User::where(['email'=>Auth::user()->email])->first();
+            $current_password = $data['current_pwd'];
+            if(Hash::check($current_password,$check_password->password)){
+                $password = bcrypt($data['new_pwd']);
+                User::where('id', '1')->update(['password'=>$password]);
+                return redirect('/admin/profile')->with('flash_message_success', 'Password updated Successfully!');
+            }else {
+                return redirect('/admin/settings')->with('flash_message_error', 'Current Password is Incorrect!');
+            }
+        }
     }
 }
