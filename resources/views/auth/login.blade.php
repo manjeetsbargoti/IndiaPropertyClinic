@@ -112,7 +112,7 @@
                             <p>New to India Property Clinic <a href="{{ url('/register') }}">Sign Up</a></p>
                             <hr>
                             <div class="social-wrap">
-                                <a href="#" id="facebook"> Sign in <em>w/</em> Facebook</a>&nbsp;&nbsp;<a href="{{ url('/auth/redirect/twitter') }}" id="twitter"> Sign in <em>w/</em> Twitter</a>
+                                <a href="{{ url('/auth/redirect/facebook') }}" id="facebook"> Sign in <em>w/</em> Facebook</a>&nbsp;&nbsp;<a href="{{ url('/auth/redirect/twitter') }}" id="twitter"> Sign in <em>w/</em> Twitter</a>
                             </div>
                             </div>
                         </div>
