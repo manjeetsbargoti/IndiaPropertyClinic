@@ -68,6 +68,7 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'SSD\\Currency\\' => 13,
         ),
         'R' => 
         array (
@@ -248,6 +249,10 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'SSD\\Currency\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -3424,6 +3429,18 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'Ramsey\\Uuid\\UuidFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactory.php',
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
+        'SSD\\Currency\\Config' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Config.php',
+        'SSD\\Currency\\Currencies\\BaseCurrency' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Currencies/BaseCurrency.php',
+        'SSD\\Currency\\Currencies\\EUR' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Currencies/EUR.php',
+        'SSD\\Currency\\Currencies\\GBP' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Currencies/GBP.php',
+        'SSD\\Currency\\Currencies\\USD' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Currencies/USD.php',
+        'SSD\\Currency\\Currency' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Currency.php',
+        'SSD\\Currency\\CurrencyFacade' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/CurrencyFacade.php',
+        'SSD\\Currency\\CurrencyServiceProvider' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/CurrencyServiceProvider.php',
+        'SSD\\Currency\\Option' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Option.php',
+        'SSD\\Currency\\Providers\\BaseProvider' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Providers/BaseProvider.php',
+        'SSD\\Currency\\Providers\\CookieProvider' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Providers/CookieProvider.php',
+        'SSD\\Currency\\Providers\\SessionProvider' => __DIR__ . '/..' . '/sebastiansulinski/laravel-currency/src/Providers/SessionProvider.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

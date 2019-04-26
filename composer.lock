@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c3c05617ef661e5f533f848f3017515",
+    "content-hash": "cdd5a95a6b01a17b8fe236eaf856f150",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -1995,6 +1995,48 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "sebastiansulinski/laravel-currency",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastiansulinski/laravel-currency.git",
+                "reference": "301d5aa3f8257c5969ae3fa4c7ef563edd27c6ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastiansulinski/laravel-currency/zipball/301d5aa3f8257c5969ae3fa4c7ef563edd27c6ec",
+                "reference": "301d5aa3f8257c5969ae3fa4c7ef563edd27c6ec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^5.5",
+                "illuminate/support": "^5.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^6.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SSD\\Currency\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian Sulinski",
+                    "email": "info@ssdtutorials.com"
+                }
+            ],
+            "description": "Currency component for Laravel 5+",
+            "time": "2018-05-21T09:22:39+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

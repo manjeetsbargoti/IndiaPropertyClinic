@@ -81,7 +81,7 @@
                                                 <div class="col-sm-6">
                                                     <p><strong>Property Code:</strong> <?php echo e($property->property_code); ?></p>
                                                     <p><strong>Description:</strong> <?php echo e(strip_tags(str_limit($property->description, $limit=80))); ?></p>
-                                                    <h5><strong>Price:</strong> <span style="color: #e60f0f;"><?php echo e($property->property_price); ?>/-</span></h5>
+                                                    <h5><strong>Price:</strong> <span style="color: #e60f0f;"><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></span></h5>
                                                     <p><strong>Category:</strong> <?php echo e($property->service_name); ?></p>
                                                 </div>
                                             </div>

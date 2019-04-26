@@ -35,10 +35,11 @@
     31 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
     32 => 'Intervention\\Image\\ImageServiceProvider',
     33 => 'Laravel\\Socialite\\SocialiteServiceProvider',
-    34 => 'App\\Providers\\AppServiceProvider',
-    35 => 'App\\Providers\\AuthServiceProvider',
-    36 => 'App\\Providers\\EventServiceProvider',
-    37 => 'App\\Providers\\RouteServiceProvider',
+    34 => 'SSD\\Currency\\CurrencyServiceProvider',
+    35 => 'App\\Providers\\AppServiceProvider',
+    36 => 'App\\Providers\\AuthServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
+    38 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -60,10 +61,11 @@
     15 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
     16 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
     17 => 'Intervention\\Image\\ImageServiceProvider',
-    18 => 'App\\Providers\\AppServiceProvider',
-    19 => 'App\\Providers\\AuthServiceProvider',
-    20 => 'App\\Providers\\EventServiceProvider',
-    21 => 'App\\Providers\\RouteServiceProvider',
+    18 => 'SSD\\Currency\\CurrencyServiceProvider',
+    19 => 'App\\Providers\\AppServiceProvider',
+    20 => 'App\\Providers\\AuthServiceProvider',
+    21 => 'App\\Providers\\EventServiceProvider',
+    22 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
