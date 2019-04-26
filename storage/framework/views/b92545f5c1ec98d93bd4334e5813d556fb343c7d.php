@@ -42,14 +42,14 @@
                                     <td><?php echo e($i); ?></td>
                                     <td><?php echo e($u->first_name); ?> <?php echo e($u->last_name); ?></td>
                                     <td><?php echo e($u->email); ?></td>
-                                    <td><?php echo e($u->phonecode); ?>-<?php echo e($u->phone); ?></td>
-                                    <td><?php if($u->usertype_name): ?> <?php echo e($u->usertype_name); ?> <?php endif; ?></td>
+                                    <td><?php if(!empty($u->phone)): ?> <?php echo e($u->phonecode); ?>-<?php echo e($u->phone); ?> <?php else: ?> <a href="/admin/edit-user/<?php echo e($u->id); ?>" tite="Edit" class="label label-danger label-sm">Add Phone</a> <?php endif; ?></td>
+                                    <td><?php if(!empty($u->usertype_name)): ?> <?php echo e($u->usertype_name); ?> <?php else: ?> User <?php endif; ?></td>
                                     <td>
                                     <?php if(!empty($u->service_name)): ?>
                                         <?php echo e($u->service_name); ?>
 
                                     <?php else: ?>
-                                        Property
+                                        Service
                                     <?php endif; ?>
                                     </td>
                                     <td><?php echo e(date('d M, Y', strtotime($u->created_at))); ?></td>

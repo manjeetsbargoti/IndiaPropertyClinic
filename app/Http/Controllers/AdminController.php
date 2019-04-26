@@ -404,8 +404,12 @@ class AdminController extends Controller
                 $rservice_name = OtherServices::where(['id' => $val->servicetypeid])->first();
                 $users[$key]->service_name = $rservice_name->service_name;
             }
-            $usertype_name = UserType::where(['usercode' => $val->usertype])->first();
-            $users[$key]->user_type = $usertype_name->usertype_name;
+            $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
+            if($usertype_count > 0)
+            {
+                $usertype_name = UserType::where(['usercode' => $val->usertype])->first();
+                $users[$key]->user_type = $usertype_name->usertype_name;
+            }
             $country_count = DB::table('countries')->where(['id' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
@@ -517,7 +521,9 @@ class AdminController extends Controller
         // echo "<pre>"; print_r($getInfo); die;
         $user = $this->createUser($getInfo,$provider);
         auth()->login($user);
-        return redirect()->to('/');
+        // echo "<pre>"; print_r($user['email']); die;
+        Session::put('UserSession', $user['email']);
+        return redirect()->to('/My-Account');
  
     }
 
@@ -535,5 +541,5 @@ class AdminController extends Controller
          }
          return $user;
       }
-
+    //   ['email' => $data['email'], 'password' => $data['password'], 'admin' => '1', 'status' => '1'
 }

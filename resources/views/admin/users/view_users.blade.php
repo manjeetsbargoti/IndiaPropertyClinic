@@ -43,13 +43,13 @@
                                     <td>{{ $i }}</td>
                                     <td>{{ $u->first_name }} {{ $u->last_name }}</td>
                                     <td>{{ $u->email}}</td>
-                                    <td>{{$u->phonecode}}-{{ $u->phone}}</td>
-                                    <td>@if($u->usertype_name) {{ $u->usertype_name }} @endif</td>
+                                    <td>@if(!empty($u->phone)) {{$u->phonecode}}-{{ $u->phone}} @else <a href="/admin/edit-user/{{ $u->id }}" tite="Edit" class="label label-danger label-sm">Add Phone</a> @endif</td>
+                                    <td>@if(!empty($u->usertype_name)) {{ $u->usertype_name }} @else User @endif</td>
                                     <td>
                                     @if(!empty($u->service_name))
                                         {{ $u->service_name }}
                                     @else
-                                        Property
+                                        Service
                                     @endif
                                     </td>
                                     <td>{{ date('d M, Y', strtotime($u->created_at)) }}</td>

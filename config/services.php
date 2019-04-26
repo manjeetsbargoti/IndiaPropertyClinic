@@ -45,9 +45,9 @@ return [
     ],
 
     'twitter' => [
-        'client_id' => '3vyAEZMIoKdjlvSr45i6c0NcJ',
-        'client_secret' => 'sDOg21MdNtlsMLQ1bnD43CkFKIwPEPBEvcI7QV7OW3cQnMaYhI',
-        'redirect' => 'http://property.devirvine.com/auth/callback/twitter',
+        'client_id' => 'bci27umgMGsyU5EAI3rPyt7gQ',
+        'client_secret' => 'XzaZWHWemTQDLZS3uRd8JKMMNkzrz4f9kYBSAOeKKQ2Oaf1ip3',
+        'redirect' => 'http://127.0.0.1:8000/auth/callback/twitter',
     ],
 
     'facebook' => [
