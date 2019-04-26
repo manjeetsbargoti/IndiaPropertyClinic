@@ -227,6 +227,12 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
+            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            if($country_count > 0){
+                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $properties[$key]->country_name = $country->name;
+                $properties[$key]->currency = $country->currency;
+            }
         }
 
         return view('admin.property.view-property', compact('properties', 'propertyimage_count'));
@@ -275,6 +281,7 @@ class PropertyController extends Controller
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
+                $properties[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
@@ -322,6 +329,7 @@ class PropertyController extends Controller
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
+                $posts[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
@@ -376,6 +384,7 @@ class PropertyController extends Controller
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
+                $posts[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
@@ -423,6 +432,7 @@ class PropertyController extends Controller
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
+                $posts[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
@@ -476,6 +486,7 @@ class PropertyController extends Controller
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
+                $properties[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {

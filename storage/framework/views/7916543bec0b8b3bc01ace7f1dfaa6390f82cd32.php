@@ -56,7 +56,7 @@
                                     <td><a target="_blank" href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><?php echo e($property->property_name); ?></a></td>
                                     <td><?php echo e($property->service_name); ?></td>
                                     <td><?php echo e($property->property_code); ?></td>
-                                    <td><?php echo e($property->property_price); ?>/-</td>
+                                    <td><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></td>
                                     <td>
                                         <a data-toggle="modal" data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                                         <a href="<?php echo e(url('/admin/edit-property/'.$property->id)); ?>" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

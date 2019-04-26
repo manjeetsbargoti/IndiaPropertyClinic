@@ -58,6 +58,7 @@ class HomeController extends Controller
             if($country_count > 0){
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
                 $properties[$key]->country_name = $country->name;
+                $properties[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0) {
@@ -78,6 +79,7 @@ class HomeController extends Controller
             if($country_countf > 0){
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
                 $featureProperty[$key]->country_name = $country->name;
+                $featureProperty[$key]->currency = $country->currency;
             }
             $state_countf = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_countf > 0) {
@@ -142,6 +144,7 @@ class HomeController extends Controller
             {
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
                 $posts[$key]->country_name = $country->name;
+                $posts[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0)
@@ -232,7 +235,7 @@ class HomeController extends Controller
             if($country_count > 0){
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
                 $properties[$key]->country_name = $country->name;
-            
+                $properties[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0){

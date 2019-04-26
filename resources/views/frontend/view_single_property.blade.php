@@ -53,7 +53,7 @@
                     <h5>Facing: <span>{{ $property->pfacing }}</span></h5>
                     
                     <p>{{ strip_tags(str_limit($property->description, $limit=350)) }}</p>
-                    <h3>₹ {{ $property->property_price }}</h3>
+                    <h3>{{ $property->currency }} {{ $property->property_price }}</h3>
                     <div class="protxt_top">
                         <ul>
                             <li><i><img src="/images/frontend_images/images/room.svg"></i><p><span>{{ $property->rooms }}</span>Rooms</p></li>

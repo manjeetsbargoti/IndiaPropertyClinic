@@ -52,7 +52,7 @@
                     <h5>Facing: <span><?php echo e($property->pfacing); ?></span></h5>
                     
                     <p><?php echo e(strip_tags(str_limit($property->description, $limit=350))); ?></p>
-                    <h3>₹ <?php echo e($property->property_price); ?></h3>
+                    <h3><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></h3>
                     <div class="protxt_top">
                         <ul>
                             <li><i><img src="/images/frontend_images/images/room.svg"></i><p><span><?php echo e($property->rooms); ?></span>Rooms</p></li>

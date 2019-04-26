@@ -43,7 +43,7 @@
                                     <td><?php echo e($u->first_name); ?> <?php echo e($u->last_name); ?></td>
                                     <td><?php echo e($u->email); ?></td>
                                     <td><?php echo e($u->phonecode); ?>-<?php echo e($u->phone); ?></td>
-                                    <td><?php echo e($u->usertype_name); ?></td>
+                                    <td><?php if($u->usertype_name): ?> <?php echo e($u->usertype_name); ?> <?php endif; ?></td>
                                     <td>
                                     <?php if(!empty($u->service_name)): ?>
                                         <?php echo e($u->service_name); ?>

@@ -44,7 +44,7 @@
                                     <td>{{ $u->first_name }} {{ $u->last_name }}</td>
                                     <td>{{ $u->email}}</td>
                                     <td>{{$u->phonecode}}-{{ $u->phone}}</td>
-                                    <td>{{ $u->usertype_name }}</td>
+                                    <td>@if($u->usertype_name) {{ $u->usertype_name }} @endif</td>
                                     <td>
                                     @if(!empty($u->service_name))
                                         {{ $u->service_name }}

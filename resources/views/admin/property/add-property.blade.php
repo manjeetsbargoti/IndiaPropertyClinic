@@ -113,10 +113,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
                                                 <label name="Expected Total Price">Expected Total Price</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">Rs</span>
-                                                    <input name="property_price" id="property_price" type="text" class="form-control">
-                                                </div>
+                                                <input name="property_price" id="property_price" type="text" class="form-control">
                                             </div>
                                         </div>
 

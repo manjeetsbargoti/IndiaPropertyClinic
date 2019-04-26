@@ -193,7 +193,11 @@ class AdminController extends Controller
 
         foreach ($user as $key => $val) {
             $usertype = UserType::where(['usercode' => $val->usertype])->first();
-            $user[$key]->usertype_name = $usertype->usertype_name;
+            $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
+            if($usertype_count > 0)
+            {
+                $user[$key]->usertype_name = $usertype->usertype_name;
+            }
             $rservices_count = OtherServices::where(['id' => $val->servicetypeid])->count();
             if ($rservices_count > 0) {
                 $rservices = OtherServices::where(['id' => $val->servicetypeid])->first();
@@ -510,7 +514,7 @@ class AdminController extends Controller
     {
                
         $getInfo = Socialite::driver($provider)->user();
-        echo "<pre>"; print_r($getInfo); die;
+        // echo "<pre>"; print_r($getInfo); die;
         $user = $this->createUser($getInfo,$provider);
         auth()->login($user);
         return redirect()->to('/');
@@ -532,28 +536,4 @@ class AdminController extends Controller
          return $user;
       }
 
-    // public function handleTwitterCallback()
-    // {
-    //     try {
-    //         $user = Socialite::driver('twitter')->user();
-    //         $create['name'] = $user->name;
-    //         $create['email'] = $user->email;
-    //         $create['twitter_id'] = $user->id;
-            
-    //         // $usernew = User::create([
-    //         //     'first_name' => $create['name'],
-    //         //     'email' => $create['email'],
-    //         //     'twitter_id' => $create['twitter_id'],
-    //         // ]);
-
-    //         echo "<pre>"; print_r($create); die;
-
-    //         $userModel = new User;
-    //         $createdUser = $userModel->addNew($create);
-    //         Auth::loginUsingId($createdUser->id);
-    //         return redirect('/home');
-    //     } catch (Exception $e) {
-    //         return redirect('/auth/twitter');
-    //     }
-    // }
 }

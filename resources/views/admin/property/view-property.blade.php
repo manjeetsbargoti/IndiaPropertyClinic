@@ -57,7 +57,7 @@
                                     <td><a target="_blank" href="{{ url('/properties/'.$property->property_url) }}">{{ $property->property_name }}</a></td>
                                     <td>{{ $property->service_name }}</td>
                                     <td>{{ $property->property_code }}</td>
-                                    <td>{{ $property->property_price }}/-</td>
+                                    <td>{{ $property->currency }} {{ $property->property_price }}</td>
                                     <td>
                                         <a data-toggle="modal" data-target="#property_{{ $property->id }}" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                                         <a href="{{ url('/admin/edit-property/'.$property->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -82,7 +82,7 @@
                                                 <div class="col-sm-6">
                                                     <p><strong>Property Code:</strong> {{ $property->property_code }}</p>
                                                     <p><strong>Description:</strong> {{ strip_tags(str_limit($property->description, $limit=80)) }}</p>
-                                                    <h5><strong>Price:</strong> <span style="color: #e60f0f;">{{ $property->property_price }}/-</span></h5>
+                                                    <h5><strong>Price:</strong> <span style="color: #e60f0f;">{{ $property->currency }} {{ $property->property_price }}</span></h5>
                                                     <p><strong>Category:</strong> {{ $property->service_name }}</p>
                                                 </div>
                                             </div>

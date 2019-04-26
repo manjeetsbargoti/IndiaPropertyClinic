@@ -149,7 +149,7 @@
                                 <p><?php echo e(strip_tags(str_limit($property->description, $limit=120))); ?></p>
                                 <div class="price_sec">
                                     <ul>
-                                        <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
+                                        <li><h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5></li>
                                         <li><a target="_blank" href="<?php echo e(url('/properties/'.$property->property_url)); ?>" class="btn_fullinfo">Full Info</a></li>
                                     </ul>
                                 </div>
@@ -240,7 +240,7 @@
                                                     <p><?php echo str_limit($property->description, $limit=80); ?></p>
                                                     <div class="price_sec">
                                                         <ul>
-                                                            <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
+                                                            <li><h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5></li>
                                                             <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>" class="btn_fullinfo">Full Info</a></li>
                                                         </ul>
                                                     </div>
@@ -340,7 +340,7 @@
                                                     <p><?php echo str_limit($property->description, $limit=100); ?></p>
                                                     <div class="price_sec">
                                                         <ul>
-                                                            <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
+                                                            <li><h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5></li>
                                                             <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>" class="btn_fullinfo">Full Info</a></li>
                                                         </ul>
                                                     </div>
