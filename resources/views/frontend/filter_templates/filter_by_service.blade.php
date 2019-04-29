@@ -186,7 +186,13 @@
                                     <p>{{ strip_tags(str_limit($property->description, $limit=80)) }}</p>
                                     <div class="price_sec">
                                         <ul>
-                                            <li><h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5></li>
+                                            <li>
+                                                @if(!empty($property->property_price))
+                                                    <h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5>
+                                                @else
+                                                    <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get Price</a>
+                                                @endif
+                                            </li>
                                             <li><a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Full Info</a></li>
                                         </ul>
                                     </div>

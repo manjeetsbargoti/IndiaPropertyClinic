@@ -236,6 +236,7 @@ class PropertyController extends Controller
         }
 
         return view('admin.property.view-property', compact('properties', 'propertyimage_count'));
+        
     }
 
     // View Single Property
@@ -552,7 +553,125 @@ class PropertyController extends Controller
     // Edit Property Function
     public function editProperty(Request $request, $id = null)
     {
-        return ('<h2>Coming Soon!</h2>');
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            return redirect('/admin/properties')->with('flash_message_success', 'Property Updated Successfulley');
+        }
+
+        $properties = Property::where(['id'=>$id])->orderBy('created_at', 'desc')->first();
+        $properties = json_decode(json_encode($properties));
+        // echo "<pre>"; print_r($properties); die;
+        foreach($properties as $key => $val){
+            // $propertyimage_count = PropertyImages::where(['property_id'=>$val->id])->count();
+            // if($propertyimage_count > 0){
+            //     $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+            //     $properties[$key]->image_name = $propertyimage_name->image_name;
+            // }
+
+            $pamenities_count = Amenities::where(['property_id'=>$val->id])->count();
+            if($pamenities_count > 0){
+                $pamenities = Amenities::where(['property_id'=>$val->id])->first();
+                $properties[$key]->gym = $pamenities->gym;
+                $properties[$key]->club_house = $pamenities->club_house;
+                $properties[$key]->play_area = $pamenities->play_area;
+                $properties[$key]->water_supply = $pamenities->water_supply;
+                $properties[$key]->geyser = $pamenities->geyser;
+                $properties[$key]->visitor_arking = $pamenities->visitor_arking;
+                $properties[$key]->garden = $pamenities->garden;
+                $properties[$key]->waste_disposal = $pamenities->waste_disposal;
+                $properties[$key]->power_backup = $pamenities->power_backup;
+                $properties[$key]->swimming_pool = $pamenities->swimming_pool;
+                $properties[$key]->water_storage = $pamenities->water_storage;
+            }
+            
+        }
+
+        // Select Property for
+        $propertyfor = Services::where('parent_id', '!=', '0')->get();
+        $propertyfor_dropdown = "<option selected value=''>Property for</option>";
+        foreach($propertyfor as $pf){
+            if($pf->id == $properties->service_id){
+                $selected = "selected";
+            }else{
+                $selected = "";
+            }
+            $propertyfor_dropdown .= "<option value='".$pf->id."' ".$selected.">".$pf->service_name."</option>";
+        }
+
+        $propertytype = PropertyTypes::where('status', '1')->get();
+        $propertytype_dropdown = "<option selected value=''>Property Type</option>";
+        foreach($propertytype as $pt){
+            if($pt->property_type_code == $properties->property_type_id){
+                $selected = "selected";
+            }else{
+                $selected = "";
+            }
+            $propertytype_dropdown .= "<option value='".$pt->property_type_code."' ".$selected.">".$pt->property_type."</option>";
+        }
+
+        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
+        $builder_dropdown = "<option selected value=''>Select Builder</option>";
+        foreach($getBuilder as $gb){
+            if($gb->id == $properties->builder){
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $builder_dropdown .= "<option value='".$gb->id."' ".$selected.">".$gb->first_name." ".$gb->last_name."</option>";
+        }
+
+        $getAgent = User::where(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
+        $agent_dropdown = "<option selected value=''>Select Agent</option>";
+        foreach($getAgent as $ga){
+            if($ga->id == $properties->agent){
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $agent_dropdown .= "<option value='".$ga->id."' ".$selected.">".$ga->first_name." ".$ga->last_name."</option>";
+        }
+        $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
+        // $propertytype = PropertyTypes::get();
+        // Country Dropdown
+        $countryname = DB::table('countries')->get();
+        $country_dropdown = "<option selected value=''>Select Country</option>";
+        foreach($countryname as $cont){
+            if($cont->id == $properties->country){
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $country_dropdown .= "<option value='".$cont->id."' ".$selected.">".$cont->name."</option>";
+        }
+
+        // State Dropdown
+        $statename = DB::table('states')->where(['country_id'=>$properties->country])->get();
+        $state_dropdown = "<option selected value=''>Select State</option>";
+        foreach($statename as $stn){
+            if($stn->id == $properties->state){
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $state_dropdown .= "<option value='".$stn->id."' ".$selected.">".$stn->name."</option>";
+        }
+
+        // City Dropdown
+        $cityname = DB::table('cities')->where(['state_id'=>$properties->state])->get();
+        $city_dropdown = "<option selected value=''>Select City</option>";
+        foreach($cityname as $city){
+            if($city->id == $properties->city){
+                $selected = "selected";
+            }else {
+                $selected = "";
+            }
+            $city_dropdown .= "<option value='".$city->id."' ".$selected.">".$city->name."</option>";
+        }
+
+        $phonecode = DB::table('countries')->get();
+
+        return view('admin.property.edit_property', compact('properties', 'getBuilder', 'getAgent', 'servicetype', 'propertytype', 'countryname', 'phonecode', 'propertyfor_dropdown', 'propertytype_dropdown', 'builder_dropdown', 'agent_dropdown', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
     }
 
     // Delete Property Function

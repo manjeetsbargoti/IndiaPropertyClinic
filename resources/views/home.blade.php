@@ -148,8 +148,14 @@
                                 <p>{{ strip_tags(str_limit($property->description, $limit=120)) }}</p>
                                 <div class="price_sec">
                                     <ul>
-                                        <li><h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5></li>
-                                        <li><a target="_blank" href="{{ url('/properties/'.$property->property_url) }}" class="btn_fullinfo">Full Info</a></li>
+                                        <li>
+                                            @if(!empty($property->property_price))
+                                                <h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5>
+                                            @else
+                                                <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get Price</a>
+                                            @endif
+                                        </li>
+                                        <li><a href="{{ url('/properties/'.$property->property_url) }}" class="btn_fullinfo">Full Info</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -239,7 +245,13 @@
                                                     <p>{!! str_limit($property->description, $limit=80) !!}</p>
                                                     <div class="price_sec">
                                                         <ul>
-                                                            <li><h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5></li>
+                                                            <li>
+                                                                @if(!empty($property->property_price))
+                                                                    <h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5>
+                                                                @else
+                                                                    <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get Price</a>
+                                                                @endif
+                                                            </li>
                                                             <li><a href="{{ url('/properties/'.$property->property_url) }}" class="btn_fullinfo">Full Info</a></li>
                                                         </ul>
                                                     </div>
@@ -339,7 +351,13 @@
                                                     <p>{!! str_limit($property->description, $limit=100) !!}</p>
                                                     <div class="price_sec">
                                                         <ul>
-                                                            <li><h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5></li>
+                                                            <li>
+                                                                @if(!empty($property->property_price))
+                                                                    <h5><span>{{ $property->currency }}</span> {{ $property->property_price }}</h5>
+                                                                @else
+                                                                    <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get Price</a>
+                                                                @endif
+                                                            </li>
                                                             <li><a href="{{ url('/properties/'.$property->property_url) }}" class="btn_fullinfo">Full Info</a></li>
                                                         </ul>
                                                     </div>

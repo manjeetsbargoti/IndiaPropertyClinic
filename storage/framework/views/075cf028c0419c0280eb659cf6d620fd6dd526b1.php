@@ -181,7 +181,13 @@
                                     <p><?php echo e(strip_tags(str_limit($property->description, $limit=80))); ?></p>
                                     <div class="price_sec">
                                         <ul>
-                                            <li><h5><span>INR</span> <?php echo e($property->property_price); ?></h5></li>
+                                            <li>
+                                            <?php if(!empty($property->property_price)): ?>
+                                                <h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5>
+                                            <?php else: ?>
+                                            <a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Get Price</a>
+                                            <?php endif; ?>
+                                            </li>
                                             <li><a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Full Info</a></li>
                                         </ul>
                                     </div>

@@ -180,7 +180,8 @@ class HomeController extends Controller
             // echo "<pre>"; print_r($contRow); die;
         }
         return view('frontend.viewall_properties', compact('properties', 'propertyImages', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount'));
-    }
+        // return response()->json($posts);
+    }   
 
     // Home Page Search Function Start
     public function search(Request $request)

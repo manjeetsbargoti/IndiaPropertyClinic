@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Auth::routes();
 
-Route::group(['middleware' => ['userlogin']], function () {
+    Route::group(['middleware' => ['userlogin']], function () {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
 
 });
