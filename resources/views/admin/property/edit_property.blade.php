@@ -202,7 +202,7 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div> -->
 
-                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12 hidden">
+                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12">
                                         <div class="property_heading col-xs-12 col-md-12">
                                             <h4><strong>Property Information</strong></h4>
                                         </div>
@@ -387,9 +387,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Personal Washroom">Personal Washroom</label>
                                                 <select name="p_washroom" id="p_washroom" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->p_washrooms == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->p_washrooms == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->p_washrooms == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -398,9 +398,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Cafeteria">Pantry/Cafeteria</label>
                                                 <select name="cafeteria" id="cafeteria" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->cafeteria == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->cafeteria == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->cafeteria == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -409,9 +409,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Main Road Facing">Is Main Road Facing</label>
                                                 <select name="roadfacing" id="roadfacing" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->road_facing == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->road_facing == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->road_facing == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -420,9 +420,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Corner Shop">Corner Shop</label>
                                                 <select name="corner_shop" id="corner_shop" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->c_shop == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->c_shop == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->c_shop == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -431,9 +431,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Boundry Wall Madep">Boundry Wall Made</label>
                                                 <select name="boundrywall" id="boundrywall" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->wall_made == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->wall_made == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->wall_made == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -442,9 +442,9 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Personal Showroom">Personal Showroom</label>
                                                 <select name="pshowroom" id="pshowroom" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                    <option @if($properties->p_showroom == '') selected @endif value="" selected>Select</option>
+                                                    <option @if($properties->p_showroom == '1') selected @endif value="1">Yes</option>
+                                                    <option @if($properties->p_showroom == '0') selected @endif value="0">No</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -537,7 +537,7 @@ function generate_string($input, $strength = 16) {
                                     </div>
                                     <div class="form-group">
                                         <!-- <label for="Property Images">Add Images</label> -->
-                                        <!-- <input type="file" id="property_images" name="property_images"> -->
+                                        <img width="200px" src="{{ asset('/images/backend_images/property_images/large/'.$properties->image_name)}}" alt="{{ $properties->property_name }}">
                                         <div class="add_image">
                                             <input type="button" id="add_more" class="btn btn-info" value="add image"/>
                                             <!-- <i class="fas fa-camera"></i> -->
@@ -558,7 +558,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="gym" id="gym" class="flat-green" @if($properties->gym=='1') checked @endif value="1"> Gym
+                                                    <input type="checkbox" name="gym" id="gym" class="flat-green" @if(!empty($properties->gym)) @if($properties->gym =='1') checked @endif @endif value="1"> Gym
                                                 </label>
                                             </div>
                                         </div>
@@ -566,7 +566,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="club_house" id="club_house" class="flat-green" value="1"> Club House
+                                                    <input type="checkbox" name="club_house" id="club_house" class="flat-green" @if(!empty($properties->club_house)) @if($properties->club_house =='1') checked @endif @endif value="1"> Club House
                                                 </label>
                                             </div>
                                         </div>
@@ -574,7 +574,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="play_area" id="play_area" class="flat-green" value="1"> Play Area
+                                                    <input type="checkbox" name="play_area" id="play_area" class="flat-green" @if(!empty($properties->play_area)) @if($properties->play_area =='1') checked @endif @endif value="1"> Play Area
                                                 </label>
                                             </div>
                                         </div>
@@ -582,7 +582,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="water_supply" id="water_supply" class="flat-green" value="1"> Water Supply
+                                                    <input type="checkbox" name="water_supply" id="water_supply" class="flat-green" @if(!empty($properties->water_supply)) @if($properties->water_supply =='1') checked @endif @endif value="1"> Water Supply
                                                 </label>
                                             </div>
                                         </div>
@@ -590,7 +590,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="geyser" id="geyser" class="flat-green" value="1"> Hot water / Geyser
+                                                    <input type="checkbox" name="geyser" id="geyser" class="flat-green" @if(!empty($properties->geyser)) @if($properties->geyser =='1') checked @endif @endif value="1"> Hot water / Geyser
                                                 </label>
                                             </div>
                                         </div>
@@ -598,7 +598,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="visitor_arking" id="visitor_arking" class="flat-green" value="1"> Visitor's Parking
+                                                    <input type="checkbox" name="visitor_arking" id="visitor_arking" class="flat-green" @if(!empty($properties->visitor_arking)) @if($properties->visitor_arking =='1') checked @endif @endif value="1"> Visitor's Parking
                                                 </label>
                                             </div>
                                         </div>
@@ -606,7 +606,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="garden" id="garden" class="flat-green" value="1"> Garden/ Greenery
+                                                    <input type="checkbox" name="garden" id="garden" class="flat-green" @if(!empty($properties->garden)) @if($properties->garden =='1') checked @endif @endif value="1"> Garden/ Greenery
                                                 </label>
                                             </div>
                                         </div>
@@ -614,7 +614,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="waste_disposal" id="waste_disposal" class="flat-green" value="1"> Waste Disposal
+                                                    <input type="checkbox" name="waste_disposal" id="waste_disposal" class="flat-green" @if(!empty($properties->waste_disposal)) @if($properties->waste_disposal =='1') checked @endif @endif value="1"> Waste Disposal
                                                 </label>
                                             </div>
                                         </div>
@@ -622,7 +622,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="power_backup" id="power_backup" class="flat-green" value="1"> Power Backup
+                                                    <input type="checkbox" name="power_backup" id="power_backup" class="flat-green" @if(!empty($properties->power_backup)) @if($properties->power_backup =='1') checked @endif @endif value="1"> Power Backup
                                                 </label>
                                             </div>
                                         </div>
@@ -630,7 +630,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="swimming_pool" id="swimming_pool" class="flat-green" value="1"> Swimming Pool
+                                                    <input type="checkbox" name="swimming_pool" id="swimming_pool" class="flat-green" @if(!empty($properties->swimming_pool)) @if($properties->swimming_pool =='1') checked @endif @endif value="1"> Swimming Pool
                                                 </label>
                                             </div>
                                         </div>
@@ -638,7 +638,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="water_storage" id="water_storage" class="custom-control-input" value="1"> Water Storage
+                                                    <input type="checkbox" name="water_storage" id="water_storage" class="custom-control-input" @if(!empty($properties->water_storage)) @if($properties->water_storage =='1') checked @endif @endif value="1"> Water Storage
                                                 </label>
                                             </div>
                                         </div>
@@ -646,7 +646,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="security_personnel" id="security_personnel" class="custom-control-input" value="1"> Security Personnel
+                                                    <input type="checkbox" name="security_personnel" id="security_personnel" class="custom-control-input" @if(!empty($properties->security_personnel)) @if($properties->security_personnel =='1') checked @endif @endif value="1"> Security Personnel
                                                 </label>
                                             </div>
                                         </div>
@@ -654,13 +654,13 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="gated_community" id="gated_community" class="custom-control-input" value="1"> Gated Community
+                                                    <input type="checkbox" name="gated_community" id="gated_community" class="custom-control-input" @if(!empty($properties->gated_community)) @if($properties->gated_community =='1') checked @endif @endif value="1"> Gated Community
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div class="box-footer">
-                                            <input type="submit" class="btn btn-success btn-md btn-block" value="Submit Property">
+                                            <input type="submit" class="btn btn-success btn-md btn-block" value="Update Property">
                                         </div>
                                     </div>
                                 </div>
