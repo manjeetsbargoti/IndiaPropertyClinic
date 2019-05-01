@@ -30,7 +30,7 @@ function generate_string($input, $strength = 16) {
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Add New Property</h1>
+        <h1>Edit Property</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Edit Property</li>
@@ -41,18 +41,6 @@ function generate_string($input, $strength = 16) {
     <section class="content container-fluid">
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                @if(Session::has('flash_message_success'))
-                    <div class="alert alert-success alert-dismissible">
-                        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                        <strong>{!! session('flash_message_success') !!}</strong>
-                    </div>
-                @endif
-                @if(Session::has('flash_message_error'))
-                    <div class="alert alert-error alert-dismissible">
-                        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                        <strong>{!! session('flash_message_error') !!}</strong>
-                    </div>
-                @endif
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -202,7 +190,7 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div> -->
 
-                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12">
+                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12 hidden">
                                         <div class="property_heading col-xs-12 col-md-12">
                                             <h4><strong>Property Information</strong></h4>
                                         </div>

@@ -202,7 +202,7 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div> -->
 
-                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12">
+                                    <div id="PropertyInfo" class="property_info col-sm-12 col-md-12 hidden">
                                         <div class="property_heading col-xs-12 col-md-12">
                                             <h4><strong>Property Information</strong></h4>
                                         </div>
