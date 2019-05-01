@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/edit-property/get-state-list', 'PropertyController@getStateList');
+    // Route::get('/admin/edit-property/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
@@ -106,7 +108,7 @@ Route::get('/view-properties/for={id}', 'PropertyController@searchByService');
 
 Route::get('/logout', 'AdminController@logout');
 
-//homepage search start
+// Homepage search start
 Route::post('/search', 'HomeController@search')->name('autocomplete.search');
 Route::post('/search-result', 'HomeController@searchresult');
 

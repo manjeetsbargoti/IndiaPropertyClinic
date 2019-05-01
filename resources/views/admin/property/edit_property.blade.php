@@ -56,7 +56,7 @@ function generate_string($input, $strength = 16) {
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-property/'.$properties->id) }}" name="add_property" id="add_property" novalidate="novalidate">
+                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/edit-property/'.$properties->id) }}" name="edit_property" id="edit_property" novalidate="novalidate">
                         {{ csrf_field() }}
                             <div class="col-sm-12 col-md-9">
                                 <div class="row">
@@ -500,7 +500,14 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Country">Country</label>
                                                 <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                    <?php echo $country_dropdown; ?>
+                                                    @if(!empty($country_dropdown))
+                                                        <?php echo $country_dropdown; ?>
+                                                    @else
+                                                    <option value="" selected>Select Country</option>
+                                                        @foreach($countryname as $key => $country)
+                                                        <option value="{{ $key }}">{{ $country }}</option>
+                                                        @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
                                         </div>
@@ -536,14 +543,14 @@ function generate_string($input, $strength = 16) {
                                         <h4><strong>Property Images</strong></h4>
                                     </div>
                                     <div class="form-group">
-                                        <!-- <label for="Property Images">Add Images</label> -->
-                                        <img width="200px" src="{{ asset('/images/backend_images/property_images/large/'.$properties->image_name)}}" alt="{{ $properties->property_name }}">
-                                        <div class="add_image">
-                                            <input type="button" id="add_more" class="btn btn-info" value="add image"/>
-                                            <!-- <i class="fas fa-camera"></i> -->
-                                            </div>
-                                            <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                        @foreach($propertyImage as $propImages)
+                                        <input type="hidden" name="current_image[]" multiple id="image" value="{{ $propImages->image_name }}">
+                                        <img width="150" style="padding: 0.5em 0.5em 0.5em 0;" src="{{ asset('/images/backend_images/property_images/large/'.$propImages->image_name)}}" alt="{{ $propImages->property_name }}">
+                                        @endforeach
                                     </div>
+                                </div>
+                                <div class="box-footer">
+                                    <input type="submit" class="btn btn-success btn-md pull-right" value="Update Property">
                                 </div>
                             </div>
                             
@@ -657,10 +664,6 @@ function generate_string($input, $strength = 16) {
                                                     <input type="checkbox" name="gated_community" id="gated_community" class="custom-control-input" @if(!empty($properties->gated_community)) @if($properties->gated_community =='1') checked @endif @endif value="1"> Gated Community
                                                 </label>
                                             </div>
-                                        </div>
-
-                                        <div class="box-footer">
-                                            <input type="submit" class="btn btn-success btn-md btn-block" value="Update Property">
                                         </div>
                                     </div>
                                 </div>

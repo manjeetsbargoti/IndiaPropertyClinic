@@ -204,8 +204,6 @@ $('#email').blur(function()
 </script>
 
 <script>
-
-
   <?php if(Session::has('flash_message_success')): ?>
      $('.top-right').notify({
         message: { text: "<?php echo e(Session::get('flash_message_success')); ?>" },
@@ -216,7 +214,6 @@ $('#email').blur(function()
        Session::forget('flash_message_success');
      ?>
   <?php endif; ?>
-
 
   <?php if(Session::has('flash_message_error')): ?>
       $('.top-right').notify({

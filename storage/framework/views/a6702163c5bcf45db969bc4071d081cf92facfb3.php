@@ -55,7 +55,7 @@ function generate_string($input, $strength = 16) {
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="post" action="<?php echo e(url('/admin/edit-property/'.$properties->id)); ?>" name="add_property" id="add_property" novalidate="novalidate">
+                        <form enctype="multipart/form-data" method="post" action="<?php echo e(url('/admin/edit-property/'.$properties->id)); ?>" name="edit_property" id="edit_property" novalidate="novalidate">
                         <?php echo e(csrf_field()); ?>
 
                             <div class="col-sm-12 col-md-9">
@@ -500,7 +500,14 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Country">Country</label>
                                                 <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                    <?php echo $country_dropdown; ?>
+                                                    <?php if(!empty($country_dropdown)): ?>
+                                                        <?php echo $country_dropdown; ?>
+                                                    <?php else: ?>
+                                                    <option value="" selected>Select Country</option>
+                                                        <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($key); ?>"><?php echo e($country); ?></option>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php endif; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -536,14 +543,14 @@ function generate_string($input, $strength = 16) {
                                         <h4><strong>Property Images</strong></h4>
                                     </div>
                                     <div class="form-group">
-                                        <!-- <label for="Property Images">Add Images</label> -->
-                                        <img width="200px" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$properties->image_name)); ?>" alt="<?php echo e($properties->property_name); ?>">
-                                        <div class="add_image">
-                                            <input type="button" id="add_more" class="btn btn-info" value="add image"/>
-                                            <!-- <i class="fas fa-camera"></i> -->
-                                            </div>
-                                            <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                        <?php $__currentLoopData = $propertyImage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $propImages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <input type="hidden" name="current_image[]" multiple id="image" value="<?php echo e($propImages->image_name); ?>">
+                                        <img width="150" style="padding: 0.5em 0.5em 0.5em 0;" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$propImages->image_name)); ?>" alt="<?php echo e($propImages->property_name); ?>">
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
+                                </div>
+                                <div class="box-footer">
+                                    <input type="submit" class="btn btn-success btn-md pull-right" value="Update Property">
                                 </div>
                             </div>
                             
@@ -657,10 +664,6 @@ function generate_string($input, $strength = 16) {
                                                     <input type="checkbox" name="gated_community" id="gated_community" class="custom-control-input" <?php if(!empty($properties->gated_community)): ?> <?php if($properties->gated_community =='1'): ?> checked <?php endif; ?> <?php endif; ?> value="1"> Gated Community
                                                 </label>
                                             </div>
-                                        </div>
-
-                                        <div class="box-footer">
-                                            <input type="submit" class="btn btn-success btn-md btn-block" value="Update Property">
                                         </div>
                                     </div>
                                 </div>

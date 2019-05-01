@@ -244,11 +244,13 @@ $(function() {
 
 // Country, State, City Ajax Fetch
 $('#country').change(function(){
-    var countryID = $(this).val();    
+    var countryID = $(this).val();   
+    var _token = $('input[name="_token"]').val(); 
     if(countryID){
         $.ajax({
-            type:"GET",
+            type:"get",
             url:"get-state-list?country_id="+countryID,
+            data: {_token:_token},
             success:function(res){               
             if(res){
                 $("#state").empty();
@@ -484,7 +486,6 @@ var editor_config = {
  
     _pattern : /[a-zA-Z0-9_\-\+\.]/,
     
-    
     _getRandomByte : function()
     {
       if(window.crypto && window.crypto.getRandomValues) 
@@ -521,8 +522,7 @@ var editor_config = {
           }        
         }, this)
         .join('');  
-    }    
-      
+    }     
   };
 
   
