@@ -239,7 +239,6 @@ $(function() {
         $("#AppleTrees").hide();
     }
 
-    // });
 });
 
 // Country, State, City Ajax Fetch
