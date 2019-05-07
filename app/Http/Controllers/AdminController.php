@@ -11,8 +11,10 @@ use App\Cities;
 use App\Property;
 use App\Services;
 use App\UserType;
+use App\HomeLoan;
 use App\OtherServices;
 use App\PropertyImages;
+use App\PropertyQuery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +28,8 @@ class AdminController extends Controller
     {
         $userData = Auth::user();
 
-        // if (Auth::guard($guard)->check()) {
-        //     Session::put('Auth', $data['email']);
+        // if (Auth::guard($guard)->check() && $userData->admin == 1) {
+        //     Session::put('Auth', $userData['email']);
         //     return redirect('/admin/dashboard');
         // }
         if ($request->isMethod('post')) {
@@ -56,9 +58,26 @@ class AdminController extends Controller
             $property[$key]->service_name = $service_name->service_name;
             $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
             $property[$key]->image_name = $propertyimage_name->image_name;
-        }
 
-        // echo "<pre>"; print_r($actusers); die;
+            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            if($country_count > 0){
+                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $property[$key]->country_name = $country->name;
+                $property[$key]->currency = $country->currency;
+            }
+
+            $property_count = Property::count();
+
+            // Home Loan Queries
+            $homeloan_total_count = HomeLoan::count();
+            $homeloan_pen_count = HomeLoan::where(['resolved'=>0])->count();
+
+            // Property Queries
+            $propertyq_total_count = PropertyQuery::count();
+            $propertyq_pen_count = PropertyQuery::where(['status'=>0])->count();
+
+        }
+        // echo "<pre>"; print_r($property_count); die;
 
         // Count Number of Users
         if (!empty($users)) {
@@ -84,7 +103,7 @@ class AdminController extends Controller
             $contInactUser = 0;
         }
 
-        return view('admin.dashboard', compact('property', 'users', 'contUser', 'contActUser', 'contInactUser'));
+        return view('admin.dashboard', compact('property', 'property_count', 'users', 'contUser', 'contActUser', 'contInactUser', 'homeloan_total_count', 'homeloan_pen_count', 'propertyq_total_count', 'propertyq_pen_count'));
     }
 
     // Admin Logut Function
@@ -337,7 +356,6 @@ class AdminController extends Controller
     // Reset user Password
     public function resetPassword()
     {
-
         return view('auth.passwords.reset');
     }
 

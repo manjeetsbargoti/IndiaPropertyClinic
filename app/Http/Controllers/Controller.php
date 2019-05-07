@@ -61,4 +61,26 @@ class Controller extends BaseController
 
         return $metakey;
     }
+
+    // Continent's List
+    public static function continents()
+    {
+        $continent = DB::table('continents')->get();
+        $continent = json_decode(json_encode($continent));
+
+        // echo "<pre>"; print_r($continent); die;
+
+        return $continent;
+    }
+
+    // Country List
+    public static function countries()
+    {
+        $country = DB::table('countries')->get();
+        $country = json_decode(json_encode($country));
+
+        // echo "<pre>"; print_r($country); die;
+
+        return $country;
+    }
 }

@@ -2,6 +2,9 @@
 use App\Http\Controllers\Controller;
 $mainnavservice = Controller::mainNav();
 
+$continent = Controller::continents();
+$country = Controller::countries();
+
 ?>
 
 <div id="page">
@@ -79,9 +82,7 @@ $mainnavservice = Controller::mainNav();
                             <div class="dropdown">
                                 <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @guest    
-                                    My Account
-                                @else
-                                    {{ Auth::user()->first_name }} <span class="caret"></span>
+                                    <i class="fas fa-user fa-2x"></i>
                                 @endguest
                                 </button>
                                 <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
@@ -90,6 +91,7 @@ $mainnavservice = Controller::mainNav();
                                         @guest
                                             <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
                                         @else
+                                            <li><a><i class="fas fa-sign-in-alt"></i> {{ Auth::user()->first_name }}</a></li>
                                             <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
                                             <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                             <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
@@ -131,9 +133,7 @@ $mainnavservice = Controller::mainNav();
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @guest    
-                        My Account
-                    @else
-                    {{ Auth::user()->first_name }} <span class="caret"></span>
+                    <i class="fas fa-user"></i>
                     @endguest
                     </button>
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
@@ -142,6 +142,7 @@ $mainnavservice = Controller::mainNav();
                             @guest
                                 <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
                             @else
+                                <li><a><i class="fas fa-sign-in-alt"></i> {{ Auth::user()->first_name }}</a></li>
                                 <li><a href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
@@ -149,9 +150,49 @@ $mainnavservice = Controller::mainNav();
                             @endguest
                         </ul>
                     </div>
-                </div>
-                    
+                </div>   
             </div>
+            <div class="topcountries">
+                        <button data-toggle="collapse" data-target="#topcon_toggle">
+                            <span class="country_before">Top Countries</span>
+                        </button>
+                        <div id="topcon_toggle" class="collapse">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <ul class="nav flex-column" id="myTab" role="tablist">
+                                        <?php $counter = 0; ?>
+                                        @foreach($continent as $c)
+                                        <?php $counter++; ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->continent_id }}-tab" data-toggle="tab" href="#continent{{ $c->continent_id }}" role="tab" aria-controls="cont{{ $c->continent_id }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon"><img src="/images/frontend_images/images/asia.svg"></span>{{ $c->name }}</a>
+                                            </li>
+                                        @endforeach
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="tab-content" id="myTabContent">
+                                            <?php $counter = 0; ?>
+                                            @foreach($continent as $c)
+                                            <?php $counter++; ?>
+                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="continent{{ $c->continent_id }}" role="tabpanel" aria-labelledby="cont{{ $c->continent_id }}-tab">
+                                                <ul class="country_list">
+                                                @foreach($country as $coun)
+                                                @if($coun->continent_id == $c->continent_id)
+                                                    <li>
+                                                        <a href="{{ url('/view-properties/country_id='.$coun->id) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
+                                                    </li>
+                                                @endif
+                                                @endforeach
+                                                </ul>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </div>                            
         </div>
         </nav>

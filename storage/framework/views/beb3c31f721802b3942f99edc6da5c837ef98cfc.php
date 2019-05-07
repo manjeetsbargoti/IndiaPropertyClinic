@@ -2,6 +2,9 @@
 use App\Http\Controllers\Controller;
 $mainnavservice = Controller::mainNav();
 
+$continent = Controller::continents();
+$country = Controller::countries();
+
 ?>
 
 <div id="page">
@@ -79,9 +82,7 @@ $mainnavservice = Controller::mainNav();
                             <div class="dropdown">
                                 <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?php if(auth()->guard()->guest()): ?>    
-                                    My Account
-                                <?php else: ?>
-                                    <?php echo e(Auth::user()->first_name); ?> <span class="caret"></span>
+                                    <i class="fas fa-user fa-2x"></i>
                                 <?php endif; ?>
                                 </button>
                                 <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
@@ -90,6 +91,7 @@ $mainnavservice = Controller::mainNav();
                                         <?php if(auth()->guard()->guest()): ?>
                                             <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
                                         <?php else: ?>
+                                            <li><a><i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::user()->first_name); ?></a></li>
                                             <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
                                             <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                             <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
@@ -131,9 +133,7 @@ $mainnavservice = Controller::mainNav();
                 <div class="dropdown">
                     <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php if(auth()->guard()->guest()): ?>    
-                        My Account
-                    <?php else: ?>
-                    <?php echo e(Auth::user()->first_name); ?> <span class="caret"></span>
+                    <i class="fas fa-user"></i>
                     <?php endif; ?>
                     </button>
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
@@ -142,6 +142,7 @@ $mainnavservice = Controller::mainNav();
                             <?php if(auth()->guard()->guest()): ?>
                                 <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
                             <?php else: ?>
+                                <li><a><i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::user()->first_name); ?></a></li>
                                 <li><a href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/My-Account')); ?> <?php endif; ?>"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
@@ -149,9 +150,49 @@ $mainnavservice = Controller::mainNav();
                             <?php endif; ?>
                         </ul>
                     </div>
-                </div>
-                    
+                </div>   
             </div>
+            <div class="topcountries">
+                        <button data-toggle="collapse" data-target="#topcon_toggle">
+                            <span class="country_before">Top Countries</span>
+                        </button>
+                        <div id="topcon_toggle" class="collapse">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <ul class="nav flex-column" id="myTab" role="tablist">
+                                        <?php $counter = 0; ?>
+                                        <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $counter++; ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont<?php echo e($c->continent_id); ?>-tab" data-toggle="tab" href="#continent<?php echo e($c->continent_id); ?>" role="tab" aria-controls="cont<?php echo e($c->continent_id); ?>tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon"><img src="/images/frontend_images/images/asia.svg"></span><?php echo e($c->name); ?></a>
+                                            </li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="tab-content" id="myTabContent">
+                                            <?php $counter = 0; ?>
+                                            <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $counter++; ?>
+                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="continent<?php echo e($c->continent_id); ?>" role="tabpanel" aria-labelledby="cont<?php echo e($c->continent_id); ?>-tab">
+                                                <ul class="country_list">
+                                                <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <?php if($coun->continent_id == $c->continent_id): ?>
+                                                    <li>
+                                                        <a href="<?php echo e(url('/view-properties/country_id='.$coun->id)); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
+                                                    </li>
+                                                <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </ul>
+                                            </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
         </div>                            
         </div>
         </nav>

@@ -24,8 +24,8 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">90<small>%</small></span>
+              <span class="info-box-text">Properties</span>
+              <span class="info-box-number"><?php echo $property_count; ?></small></span>
             </div>
           </div>
         </div>
@@ -33,8 +33,9 @@
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
+              <span class="info-box-text">Home Loan Query</span>
+              <a href="#" class="user-count"><label class="btn btn-success btn-xs">Total &nbsp;&nbsp;<?php echo $homeloan_total_count; ?></label></a>
+              <a href="#" class="user-count"><label class="btn btn-danger btn-xs">Pending &nbsp;&nbsp;<?php echo $homeloan_pen_count; ?></label></a>
             </div>
           </div>
         </div>
@@ -44,8 +45,9 @@
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-help"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Queries</span>
-              <span class="info-box-number">760</span>
+              <span class="info-box-text">Property Query</span>
+              <a href="#" class="user-count"><label class="btn btn-success btn-xs">Total &nbsp;&nbsp;<?php echo $propertyq_total_count; ?></label></a>
+              <a href="#" class="user-count"><label class="btn btn-danger btn-xs">Pending &nbsp;&nbsp;<?php echo $propertyq_pen_count; ?></label></a>
             </div>
           </div>
         </div>
@@ -85,8 +87,8 @@
                   </div>
                   <div class="product-info">
                     <a href="{{ url('/properties/') }}/{{ $p->property_url }}" target="_blank" class="product-title">{{ str_limit($p->property_name, $limit=50) }}
-                    <span class="label label-success pull-right">₹ {{ $p->property_price }}</span>
-                    <span class="product-description">{!! str_limit($p->description, $limit=100) !!}</span>
+                    <span class="label label-success pull-right">@if(!empty($p->currency)){{ $p->currency }} @endif {{ $p->property_price }}</span>
+                    <span class="product-description">{{ strip_tags(str_limit($p->description, $limit=100)) }}</span>
                   </div>
                 </li>
                 @endif

@@ -14,17 +14,17 @@ use App\Http\Controllers\PropertyController;
 
 Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
-// Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::get('/admin/dashboard', 'AdminController@dashboard');
 
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/admin/dashboard', 'AdminController@dashboard');
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/admin/dashboard', 'AdminController@dashboard')->middleware('admin');
     Route::get('/admin/profile', 'AdminController@adminProfile');
-    Route::get('/admin/settings', 'AdminController@settings');
+    // Route::get('/admin/settings', 'AdminController@settings');
     Route::get('/admin/check-pwd', 'AdminController@chkpassword');
     Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@updatePassword');
 
     // Admin Property Module (Add/Update/View/Delete)
-    Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty');
+    Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty')->middleware('admin');
     Route::get('/admin/properties', 'PropertyController@viewProperty');
     Route::match(['get', 'post'], '/admin/edit-property/{id}', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
@@ -80,7 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 Auth::routes();
 
-    Route::group(['middleware' => ['userlogin']], function () {
+Route::group(['middleware' => ['userlogin']], function () {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
 
 });
