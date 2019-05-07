@@ -18,10 +18,10 @@ class Admin
     {
         // $data = Auth::user();
         // echo "<pre>"; print_r($data); die;
-        if(auth()->user()  && $request->user()->admin == 1){
-            // return $next($request);
-            return redirect()->guest('/login');
-        }
+        // if(auth()->user()  && $request->user()->admin == 1){
+        //     // return $next($request);
+        //     return redirect()->guest('/login');
+        // }
         return $next($request);
         
     }

@@ -131,18 +131,20 @@ $country = Controller::countries();
             </ul>
             <div class="user_profile">
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
                     @guest    
-                    <i class="fas fa-user"></i>
+                    <button class="btn btn-link"><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></button>
+                    @else
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></button>
                     @endguest
-                    </button>
+                    
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                         <ul>
                             <!-- Authentication Links -->
                             @guest
-                                <li><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
+                               
                             @else
-                                <li><a><i class="fas fa-sign-in-alt"></i> {{ Auth::user()->first_name }}</a></li>
+                                <li><a>{{ Auth::user()->first_name }}</a></li>
                                 <li><a href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>

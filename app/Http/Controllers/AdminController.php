@@ -56,7 +56,10 @@ class AdminController extends Controller
         foreach ($property as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $property[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+            $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
+            if($propertyimage_count > 0){
+                $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+            }
             $property[$key]->image_name = $propertyimage_name->image_name;
 
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();

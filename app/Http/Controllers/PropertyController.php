@@ -171,7 +171,7 @@ class PropertyController extends Controller
 
                     // Store image in property folder
                     $property->image = $filename;
-                    PropertyImages::create([
+                    $propertyimage=PropertyImages::create([
                         'image_name' => $filename,
                         'image_size' => $image_size,
                         'property_id' => $value->id,
@@ -181,7 +181,7 @@ class PropertyController extends Controller
             } else {
                 $filename = "default.jpg";
                 $property->image = "default.jpg";
-                PropertyImages::create([
+                $propertyimage=PropertyImages::create([
                     'image_name' => $filename,
                     'image_size' => '7.4',
                     'property_id' => $value->id,

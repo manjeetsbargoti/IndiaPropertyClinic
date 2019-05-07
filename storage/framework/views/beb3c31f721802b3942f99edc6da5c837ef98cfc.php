@@ -131,18 +131,20 @@ $country = Controller::countries();
             </ul>
             <div class="user_profile">
                 <div class="dropdown">
-                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
                     <?php if(auth()->guard()->guest()): ?>    
-                    <i class="fas fa-user"></i>
+                    <button class="btn btn-link"><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></button>
+                    <?php else: ?>
+                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></button>
                     <?php endif; ?>
-                    </button>
+                    
                     <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                         <ul>
                             <!-- Authentication Links -->
                             <?php if(auth()->guard()->guest()): ?>
-                                <li><a href="<?php echo e(url('/login')); ?>"><i class="fas fa-sign-in-alt"></i> <?php echo e(__('Login')); ?></a></li>
+                               
                             <?php else: ?>
-                                <li><a><i class="fas fa-sign-in-alt"></i> <?php echo e(Auth::user()->first_name); ?></a></li>
+                                <li><a><?php echo e(Auth::user()->first_name); ?></a></li>
                                 <li><a href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/My-Account')); ?> <?php endif; ?>"><i class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>

@@ -31,35 +31,35 @@ $(function() {
             $("#WidthRoadFacing").hide();
         }
 
-        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1018") {
+        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1018" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#Bedrooms").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
             $("#Bedrooms").hide();
         }
 
-        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this).val() == "1018") {
+        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this).val() == "1018" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#Bathrooms").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
             $("#Bathrooms").hide();
         }
 
-        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007") {
+        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#Balconies").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
             $("#Balconies").hide();
         }
 
-        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013" || $(this).val() == "1018") {
+        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013" || $(this).val() == "1018" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#FurnishStatus").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
             $("#FurnishStatus").hide();
         }
 
-        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013") {
+        if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#FloorNo").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
@@ -87,7 +87,7 @@ $(function() {
             $("#Cafeteria").hide();
         }
 
-        if ($(this).val() == "1010" || $(this).val() == "1011") {
+        if ($(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1021" || $(this).val() == "1022") {
             $("#IsRoadFacing").show();
             $('#PropertyInfo').removeClass('hidden').addClass('show');
         } else {
@@ -148,35 +148,35 @@ $(function() {
         $("#WidthRoadFacing").hide();
     }
 
-    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1018") {
+    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1018" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#Bedrooms").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
         $("#Bedrooms").hide();
     }
 
-    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1018") {
+    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1018" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#Bathrooms").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
         $("#Bathrooms").hide();
     }
 
-    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007") {
+    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#Balconies").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
         $("#Balconies").hide();
     }
 
-    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1013" || $('#PropertyType').val() == "1018") {
+    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1005" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1013" || $('#PropertyType').val() == "1018" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#FurnishStatus").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
         $("#FurnishStatus").hide();
     }
 
-    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1013") {
+    if ($('#PropertyType').val() == "1002" || $('#PropertyType').val() == "1003" || $('#PropertyType').val() == "1004" || $('#PropertyType').val() == "1006" || $('#PropertyType').val() == "1007" || $('#PropertyType').val() == "1008" || $('#PropertyType').val() == "1009" || $('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1013" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#FloorNo").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
@@ -204,7 +204,7 @@ $(function() {
         $("#Cafeteria").hide();
     }
 
-    if ($('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011") {
+    if ($('#PropertyType').val() == "1010" || $('#PropertyType').val() == "1011" || $('#PropertyType').val() == "1021" || $('#PropertyType').val() == "1022") {
         $("#IsRoadFacing").show();
         $('#PropertyInfo').removeClass('hidden').addClass('show');
     } else {
