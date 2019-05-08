@@ -101,6 +101,28 @@
                                   </select>
                               </div>
                             </div>
+
+                            <div class="col-xs-12 col-md-12">
+                                <label>User is..</label>
+                                <div class="form-group">
+                                        <input class="form-check-input" name="usertype" id="usertype" type="radio" @if($userdetails->usertype == 'U') checked @endif value="U">
+                                        <label class="form-check-label" for="usertype">Buyer/Owner</label> &nbsp;&nbsp;
+                                        <input class="form-check-input" name="usertype" id="usertype" type="radio" @if($userdetails->usertype == 'A') checked @endif value="A">
+                                        <label class="form-check-label" for="usertype">Agent</label> &nbsp;&nbsp;
+                                        <input class="form-check-input" name="usertype" id="usertype" type="radio" @if($userdetails->usertype == 'B') checked @endif value="B">
+                                        <label class="form-check-label" for="usertype">Builder</label> &nbsp;&nbsp;
+                                        <input class="form-check-input" name="usertype" id="usertype" type="radio" @if($userdetails->usertype == 'V') checked @endif value="V">
+                                        <label class="form-check-label" for="usertype">Vendor</label> &nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <label for="for vendor service"><strong>if you are a Vendor</strong></label>
+                                <div class="form-group">
+                                    <select class="form-control" name="servicetype" id="servicetype">
+                                        <?php echo $services_dropdown; ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                       </div>
                       <!-- /.box-body -->

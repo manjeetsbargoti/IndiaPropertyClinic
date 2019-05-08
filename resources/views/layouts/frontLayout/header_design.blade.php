@@ -167,7 +167,8 @@ $country = Controller::countries();
                                         @foreach($continent as $c)
                                         <?php $counter++; ?>
                                             <li class="nav-item">
-                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->continent_id }}-tab" data-toggle="tab" href="#continent{{ $c->continent_id }}" role="tab" aria-controls="cont{{ $c->continent_id }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon"><img src="/images/frontend_images/images/asia.svg"></span>{{ $c->name }}</a>
+                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->continent_id }}-tab" data-toggle="tab" href="#continent{{ $c->continent_id }}" role="tab" aria-controls="cont{{ $c->continent_id }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon">
+                                                <img src="/images/frontend_images/images/{{ $c->icon_image }}"></span>{{ $c->name }}</a>
                                             </li>
                                         @endforeach
                                         </ul>

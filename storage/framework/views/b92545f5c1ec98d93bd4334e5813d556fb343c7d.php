@@ -61,6 +61,7 @@
                                             <?php else: ?>
                                             <a href="/admin/uenable/<?php echo e($u->id); ?>" title="Enable" class="label label-success label-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
                                             <?php endif; ?>
+                                            <a href="/admin/delete-user/<?php echo e($u->id); ?>" tite="Delete" class="label label-danger label-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </div>
                                     </td>
                                 </tr>

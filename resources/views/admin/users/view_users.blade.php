@@ -61,6 +61,7 @@
                                             @else
                                             <a href="/admin/uenable/{{ $u->id }}" title="Enable" class="label label-success label-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
                                             @endif
+                                            <a href="/admin/delete-user/{{ $u->id }}" tite="Delete" class="label label-danger label-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </div>
                                     </td>
                                 </tr>

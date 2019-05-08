@@ -31,8 +31,11 @@ class Controller extends BaseController
         foreach($footerProperties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
             $footerProperties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+            $propertyimage_count = PropertyImages::where(['property_id'=>$val->id])->count();
+            if($propertyimage_count > 0){
+                $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+                $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+            }
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
             if($country_count > 0){
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();

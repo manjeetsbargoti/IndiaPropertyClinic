@@ -51,20 +51,23 @@ class HomeLoanController extends Controller
         $footerProperties = Property::orderBy('created_at', 'desc')->limit(2)->get();
         $footerProperties = json_decode(json_encode($footerProperties));
 
-        foreach($footerProperties as $key => $val) {
-            $service_name = Services::where(['id'=>$val->service_id])->first();
-            // $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
-            $footerProperties[$key]->image_name = $propertyimage_name->image_name;
-            $country = DB::table('countries')->where(['id'=>$val->country])->first();
-            $footerProperties[$key]->country_name = $country->name;
-            $state = DB::table('states')->where(['id'=>$val->state])->first();
-            $footerProperties[$key]->state_name = $state->name;
-            $city = DB::table('cities')->where(['id'=>$val->city])->first();
-            $footerProperties[$key]->city_name = $city->name;
-        }
+        // foreach($footerProperties as $key => $val) {
+        //     $service_name = Services::where(['id'=>$val->service_id])->first();
+        //     // $properties[$key]->service_name = $service_name->service_name;
+        //     $propertyimage_count = PropertyImages::where(['property_id'=>$val->id])->count();
+        //     if($propertyimage_count > 0){
+        //         $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
+        //         $footerProperties[$key]->image_name = $propertyimage_name->image_name;
+        //     }
+        //     $country = DB::table('countries')->where(['id'=>$val->country])->first();
+        //     $footerProperties[$key]->country_name = $country->name;
+        //     $state = DB::table('states')->where(['id'=>$val->state])->first();
+        //     $footerProperties[$key]->state_name = $state->name;
+        //     $city = DB::table('cities')->where(['id'=>$val->city])->first();
+        //     $footerProperties[$key]->city_name = $city->name;
+        // }
 
-        return view('frontend.home_loan_application', compact('footerProperties', 'country', 'state', 'city'));
+        return view('frontend.home_loan_application');
     }
 
     // Home Loan Application

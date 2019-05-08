@@ -157,7 +157,7 @@ class AdminController extends Controller
             //     $message->to($email)->subject('Registration with India Property Clinic');
             // });
 
-            return redirect('/admin/users')->with('flash_message_success', 'User Added Successfully!');
+            return redirect('/admin/add-new-user')->with('flash_message_success', 'User Added Successfully!');
         }
 
         $servicetype = OtherServices::where(['parent_id' => 0])->get();
@@ -257,9 +257,9 @@ class AdminController extends Controller
             $data = $request->all();
 
             $user = new User;
-            // echo  "<pre>"; print_r($id); die;
+            // echo  "<pre>"; print_r($data); die;
             if (!empty($id)) {
-                User::where(['id' => $id])->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'email' => $data['email'], 'phonecode' => $data['phonecode'], 'phone' => $data['phone'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city']]);
+                User::where(['id' => $id])->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'email' => $data['email'], 'phonecode' => $data['phonecode'], 'phone' => $data['phone'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city'], 'usertype' => $data['usertype'], 'servicetypeid' => $data['servicetype']]);
                 return redirect('/admin/users')->with('flash_message_success', 'User updated Successfully!');
             }
         }
@@ -559,8 +559,17 @@ class AdminController extends Controller
                'provider' => $provider,
                'provider_id' => $getInfo->id
            ]);
-         }
-         return $user;
-      }
-    //   ['email' => $data['email'], 'password' => $data['password'], 'admin' => '1', 'status' => '1'
+        }
+        return $user;
+    }
+
+    // Delete User function
+    function deleteUser(Request $request, $id=null)
+    {
+        if (!empty($id)) {
+            User::where(['id' => $id])->delete();
+
+            return redirect()->back()->with('flash_message_success', 'User Deleted Successfully!');
+        }
+    }
 }
