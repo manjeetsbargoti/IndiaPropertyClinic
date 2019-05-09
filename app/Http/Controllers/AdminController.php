@@ -133,22 +133,27 @@ class AdminController extends Controller
     {
         if ($request->isMethod('POST')) {
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-            $user = new User;
 
-            $user->first_name = $data['first_name'];
-            $user->last_name = $data['last_name'];
-            $user->email = $data['email'];
-            $user->country = $data['country'];
-            $user->state = $data['state'];
-            $user->city = $data['city'];
-            $user->phonecode = $data['phonecode'];
-            $user->phone = $data['phone'];
-            $user->password = bcrypt($data['password']);
-            $user->usertype = $data['usertype'];
-            $user->servicetypeid = $data['servicetype'];
+            $userin = User::create([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'country' => $data['country'],
+                'state' => $data['state'],
+                'city' => $data['city'],
+                'phone' => $data['phone'],
+                'phonecode' => $data['phonecode'],
+                'password' => bcrypt($data['password']),
+                'usertype' => $data['usertype'],
+                'servicetypeid' => $data['servicetype'],
+            ]);
+            // echo "<pre>"; print_r($userin['id']); die;
 
-            $user->save();
+            $userin->save();
+
+            $id = $userin['id'];
+
+            // echo "<pre>"; print_r($userin); die;
 
             // User Register Email
             // $email = $data['email'];
@@ -156,8 +161,71 @@ class AdminController extends Controller
             // Mail::send('emails.register', $messageData, function($message) use($email){
             //     $message->to($email)->subject('Registration with India Property Clinic');
             // });
+            $userdetails = User::where(['id' => $id])->first();
+            $userdetails = json_decode(json_encode($userdetails));
+            $servicetype = OtherServices::where(['parent_id' => 0])->get();
+            $usertype = UserType::get();
+            $phonecode = DB::table('countries')->get();
+            $countryname = DB::table('countries')->get();
+            $statename = DB::table('states')->where(['country_id' => $userdetails->country])->get();
+            $cityname = DB::table('cities')->where(['state_id' => $userdetails->state])->get();
 
-            return redirect('/admin/add-new-user')->with('flash_message_success', 'User Added Successfully!');
+            // Select Country Name
+            $country_dropdown = "<option selected value=''>Select Country</option>";
+            foreach ($countryname as $cname) {
+                if ($cname->id == $userdetails->country) {
+                    $selected = "selected";
+                } else {
+                    $selected = "";
+                }
+                $country_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
+            }
+
+            // Select State Name
+            $state_dropdown = "<option selected value=''>Select State</option>";
+            foreach ($statename as $sname) {
+                if ($sname->id == $userdetails->state) {
+                    $selected = "selected";
+                } else {
+                    $selected = "";
+                }
+                $state_dropdown .= "<option value='" . $sname->id . "' " . $selected . ">" . $sname->name . "</option>";
+            }
+
+            // Select City Name
+            $city_dropdown = "<option selected value=''>Select City</option>";
+            foreach ($cityname as $cname) {
+                if ($cname->id == $userdetails->city) {
+                    $selected = "selected";
+                } else {
+                    $selected = "";
+                }
+                $city_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
+            }
+
+            // Selecct Service Type
+            $services_dropdown = "<option selected value=''>Select</option>";
+            foreach ($servicetype as $stype) {
+                if ($stype->id == $userdetails->servicetypeid) {
+                    $selected = "selected";
+                } else {
+                    $selected = "";
+                }
+                $services_dropdown .= "<option value='" . $stype->id . "' " . $selected . ">" . $stype->service_name . "</option>";
+            }
+
+            // Select Phone Code
+            $phone_code = "<option selected value=''>Select</option>";
+            foreach($phonecode as $pcode){
+                if($pcode->id == $userdetails->country){
+                    $selected = 'selected';
+                }else{
+                    $selected="";
+                }
+                $phone_code .= "<option value='" . $pcode->phonecode . "' " . $selected . ">" . $pcode->phonecode . " " . $pcode->iso3. "</option>";
+            }
+
+            return redirect()->route('edituser', ['id'=>$userin['id']])->with('flash_message_success', 'User Added Successfully!');
         }
 
         $servicetype = OtherServices::where(['parent_id' => 0])->get();

@@ -54,7 +54,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     // User Module by Admin (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
-    Route::match(['get', 'post'], '/admin/edit-user/{id}', 'AdminController@editUser');
+    Route::match(['get', 'post'], '/admin/edit-user/{id}', 'AdminController@editUser')->name('edituser');
     Route::get('/admin/users', 'AdminController@viewUser');
     Route::match(['get', 'post'], '/admin/udisable/{id}', 'AdminController@disableUser');
     Route::match(['get', 'post'], '/admin/uenable/{id}', 'AdminController@enableUser');

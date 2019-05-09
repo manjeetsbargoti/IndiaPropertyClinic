@@ -20,18 +20,6 @@
     <section class="content container-fluid">
         <div class="row">
             <div class="col-xs-12 col-md-8">
-                <?php if(Session::has('flash_message_success')): ?>
-                      <div class="alert alert-success alert-dismissible">
-                          <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                          <strong><?php echo session('flash_message_success'); ?></strong>
-                      </div>
-                  <?php endif; ?>
-                  <?php if(Session::has('flash_message_error')): ?>
-                      <div class="alert alert-error alert-dismissible">
-                          <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                          <strong><?php echo session('flash_message_error'); ?></strong>
-                      </div>
-                  <?php endif; ?>
                   <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_new_user" id="add_new_user" method="POST" action="<?php echo e(url('/admin/add-new-user')); ?>">

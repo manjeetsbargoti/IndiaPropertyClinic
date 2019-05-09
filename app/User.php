@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'usertype', 'provider', 'provider_id'
+        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'country', 'state', 'city', 'usertype', 'provider', 'provider_id'
     ];
 
     /**
@@ -44,7 +44,6 @@ class User extends Authenticatable
         if(is_null($check)){
             return static::create($input);
         }
-
         return $check;
     }
 }

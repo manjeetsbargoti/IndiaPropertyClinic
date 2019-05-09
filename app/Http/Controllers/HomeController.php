@@ -225,13 +225,17 @@ class HomeController extends Controller
                 $properties = Property::where([ 'city'=> $r['id']])->get();
             }elseif(empty( $data['search_text'])){
                 $properties = Property::where([ 'property_type_id'=>$data['property_type']])->get();
-            }else{
+            }elseif(!empty($city[0])){
                 $r = $city[0];
                 $properties = Property::where([[ 'city','=',$r['id']], [ 'property_type_id', '=', $data['property_type']]])->get();
+            }else{
+                $properties = 0;
             }
 
         $propertyImages = PropertyImages::get();
-        $properties = json_decode(json_encode($properties));
+        if(!empty($properties)){
+            $properties = json_decode(json_encode($properties));
+        }
 
         foreach($properties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
