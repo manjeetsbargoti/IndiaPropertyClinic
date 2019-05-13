@@ -59,8 +59,9 @@ class AdminController extends Controller
             $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
             if($propertyimage_count > 0){
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+                $property[$key]->image_name = $propertyimage_name->image_name;
             }
-            $property[$key]->image_name = $propertyimage_name->image_name;
+            
 
             $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
             if($country_count > 0){
