@@ -633,12 +633,62 @@ class AdminController extends Controller
     }
 
     // Delete User function
-    function deleteUser(Request $request, $id=null)
+    public function deleteUser(Request $request, $id=null)
     {
         if (!empty($id)) {
             User::where(['id' => $id])->delete();
 
             return redirect()->back()->with('flash_message_success', 'User Deleted Successfully!');
         }
+    }
+
+    // User Page view function
+    public function viewuserPage(Request $request, $id=null)
+    {
+        if(!empty($id))
+        {
+            $user_data = User::where(['id'=>$id])->get();
+            $user_data = json_decode(json_encode($user_data));
+
+            // $user_service = OtherServices::where(['id'=>$user_data['servicetypeid']])->get();
+            // $user_service = json_decode(json_encode($user_service));
+            // echo "<pre>"; print_r($user_data); die; 
+
+            foreach($user_data as $key => $val){
+                $user_service_count = OtherServices::where(['id'=>$val->servicetypeid])->count();
+                if($user_service_count > 0){
+                    $user_service = OtherServices::where(['id'=>$val->servicetypeid])->first();
+                    $user_data[$key]->service_name = $user_service->service_name;
+                    $user_data[$key]->service_url = $user_service->url;
+                }
+                $user_type_count = UserType::where(['usercode'=>$val->usertype])->count();
+                if($user_type_count > 0){
+                    $user_type = UserType::where(['usercode'=>$val->usertype])->first();
+                    $user_data[$key]->user_type = $user_type->usertype_name;
+                }
+
+                $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+                if($country_count > 0){
+                    $country_name = DB::table('countries')->where(['id'=>$val->country])->first();
+                    $user_data[$key]->country_name = $country_name->iso2;
+                }
+
+                $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
+                if($city_count > 0){
+                    $city_name = DB::table('cities')->where(['id'=>$val->city])->first();
+                    $user_data[$key]->city_name = $city_name->name;
+                }
+
+                $state_count = DB::table('states')->where(['id'=>$val->state])->count();
+                if($state_count > 0){
+                    $state_name = DB::table('states')->where(['id'=>$val->state])->first();
+                    $user_data[$key]->state_name = $state_name->name;
+                }
+            }
+
+            // echo "<pre>"; print_r($city_count); die; 
+        }
+
+        return view('frontend.templates.user1', compact('user_data'));
     }
 }

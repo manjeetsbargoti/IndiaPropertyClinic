@@ -47,7 +47,7 @@
                                     <td>{{ $property->property_code }}</td>
                                     <td>{{ $property->currency }} {{ $property->property_price }}</td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#property_{{ $property->id }}" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                        <a data-target="#property_{{ $property->id }}" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                                         <a href="{{ url('/admin/edit-property/'.$property->id) }}" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="{{ url('/admin/delete-property/'.$property->id) }}" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>

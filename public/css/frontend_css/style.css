@@ -3845,4 +3845,145 @@ ul.sublist {
     .verticalser_listsec {
         margin-bottom: 20px;
     }
+
+    /*==========================================*/
+/*============= VENDER PROFILE =============*/
+/*==========================================*/
+
+.vender_profile{
+    padding: 30px 0;
+    background: #f2f2f2;
+}
+.ven_leftside {
+    padding: 10px 10px 0 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+.ven_propic {
+    overflow: hidden;
+}
+.allphotos {
+    font-size: 15px;
+    background: #F15A27;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    margin-top: 15px;
+}
+.allphotos:hover{
+    background: #000;
+    color: #fff;
+}
+.contact_details ul {
+    margin:0;
+    padding: 0;
+}
+.contact_details li {
+    list-style: none;
+    display: block;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+.contact_details li:last-child {
+    border: none;
+}
+.vender_content {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+.vender_content h5 {
+    font-size: 18px;
+    color: #000;
+}
+.vender_services ul {
+    margin: 0;
+    padding: 0;
+}
+
+.vender_services ul li {
+    list-style: none;
+    width: 49%;
+    display: inline-block;
+}
+
+.vender_services ul li a {
+    padding: 2px 3px;
+    display: block;
+    color: #6b6b6b;
+    font-size: 13px;
+    font-weight: 500;
+}
+.vender_services {
+    margin-bottom: 0;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+}
+.vender_about {
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+.appointment {
+    background: #fff;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+.appointment h5 {
+    font-size: 18px;
+    text-align: center;
+    color: #000;
+    padding: 5px 0 15px 0;
+    margin: 0;
+}
+.appointment .table td, .appointment .table th {
+    padding: 2px 5px;
+}
+.appointment .table th {
+    color: #000;
+}
+
+.req_quote {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.req_quote h5 {
+    color: #000;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+    padding-bottom: 11px;
+}
+.req_quote ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.req_quote ul li {
+    width: 100%;
+    list-style: none;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    text-align: center;
+}
+
+.req_quote ul li h4 {
+    font-size: 19px;
+    margin-bottom: 3px;
+    color: #F15A27;
+}
+
+.req_quote p {
+    margin: 0;
+}
+
+.req_quote ul li:last-child {
+    border: none;
+}
  

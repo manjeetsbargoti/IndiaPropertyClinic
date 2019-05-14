@@ -392,7 +392,7 @@
                             <div class="owl-carousel dealerscarousel owl-theme">
                                 @foreach($dealer as $d)
                                 <div class="item">
-                                    <a href="#">
+                                    <a href="{{ url('/user-profile/'.$d->id) }}">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img src="/images/frontend_images/images/default.jpg"></div>
                                             <div class="dealers_txt">
@@ -523,31 +523,6 @@
                 @endforeach
             </ul>
         </div>
-    </div>
-
-    <div>
-    <p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()">Try It</button>
-
-<p id="demo"></p>
-
-<script>
-var x = document.getElementById("demo");
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else { 
-        x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-}
-
-function showPosition(position) {
-    x.innerHTML = "Latitude: " + position.coords.latitude + 
-    "<br>Longitude: " + position.coords.longitude;
-}
-</script>
     </div>
 </div>
 </div>

@@ -130,3 +130,6 @@ Route::get('/twitter', function () {
 });
 Route::get('/auth/redirect/{provider}', 'AdminController@redirect');
 Route::get('/auth/callback/{provider}', 'AdminController@callback');
+
+// User Page Routes
+Route::match(['get', 'post'], '/user-profile/{id}', 'AdminController@viewuserPage');
