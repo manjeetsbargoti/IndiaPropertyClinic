@@ -37,7 +37,7 @@
                                 <?php $i++ ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    @if($propertyimage_count > 0)
+                                    @if(!empty($property->image_name))
                                     <td><img width="60px" class="thumb" src="{{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}"></td>
                                     @else
                                     <td><img width="60px" class="thumb" src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}"></td>                                    

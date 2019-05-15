@@ -36,7 +36,7 @@
                                 <?php $i++ ?>
                                 <tr>
                                     <td><?php echo e($i); ?></td>
-                                    <?php if($propertyimage_count > 0): ?>
+                                    <?php if(!empty($property->image_name)): ?>
                                     <td><img width="60px" class="thumb" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?>"></td>
                                     <?php else: ?>
                                     <td><img width="60px" class="thumb" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>"></td>                                    
@@ -46,7 +46,7 @@
                                     <td><?php echo e($property->property_code); ?></td>
                                     <td><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                        <a data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal" title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
                                         <a href="<?php echo e(url('/admin/edit-property/'.$property->id)); ?>" title="Edit" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="<?php echo e(url('/admin/delete-property/'.$property->id)); ?>" title="Delete" class="btn btn-danger btn-xs"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>

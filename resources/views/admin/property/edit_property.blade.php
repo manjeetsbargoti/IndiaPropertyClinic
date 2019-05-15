@@ -532,9 +532,17 @@ function generate_string($input, $strength = 16) {
                                     </div>
                                     <div class="form-group">
                                         @foreach($propertyImage as $propImages)
-                                        <input type="hidden" name="current_image[]" multiple id="image" value="{{ $propImages->image_name }}">
-                                        <img width="150" style="padding: 0.5em 0.5em 0.5em 0;" src="{{ asset('/images/backend_images/property_images/large/'.$propImages->image_name)}}" alt="{{ $propImages->property_name }}">
+                                        @if(!empty($propImages->image_name))
+                                        <div class="abcd">
+                                            <input type="hidden" name="current_image[]" multiple id="image" value="{{ $propImages->image_name }}">           
+                                            <img src="{{ asset('/images/backend_images/property_images/large/'.$propImages->image_name)}}"> <a href="{{ url('/admin/delete-property-image/'.$propImages->id) }}"><i id="close" alt="delete" class="fa fa-close"></i></a>
+                                        </div>
+                                        @endif
                                         @endforeach
+
+                                        <div class="add_image">
+                                            <input type="button" id="add_more" class="btn btn-success" value="add image"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="box-footer">

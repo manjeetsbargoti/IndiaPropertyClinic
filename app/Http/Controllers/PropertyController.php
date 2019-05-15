@@ -48,25 +48,80 @@ class PropertyController extends Controller
                 return redirect()->back()->with('flash_message_error', 'Property Type is Missing!');
             }
 
-            if (empty($data['feature'])) { $feature = 0; } else { $feature = 1; }
-            if (empty($data['gym'])) { $gym = 0; } else { $gym = 1; }
-            if (empty($data['club_house'])) { $club_house = 0; } else { $club_house = 1; }
-            if (empty($data['play_area'])) { $play_area = 0; } else { $play_area = 1; }
-            if (empty($data['water_supply'])) { $water_supply = 0; } else { $water_supply = 1; }
-            if (empty($data['geyser'])) { $geyser = 0; } else { $geyser = 1; }
-            if (empty($data['visitor_arking'])) { $visitor_arking = 0; } else { $visitor_arking = 1; }
-            if (empty($data['garden'])) { $garden = 0; } else { $garden = 1; }
-            if (empty($data['waste_disposal'])) { $waste_disposal = 0; } else { $waste_disposal = 1; }
-            if (empty($data['power_backup'])) { $power_backup = 0; } else { $power_backup = 1; }
-            if (empty($data['swimming_pool'])) { $swimming_pool = 0; } else { $swimming_pool = 1; }
-            if (empty($data['water_storage'])) { $water_storage = 0; } else { $water_storage = 1; }
-            if (empty($data['security_personnel'])) { $security_personnel = 0; } else { $security_personnel = 1; }
-            if (empty($data['gated_community'])) { $gated_community = 0; } else { $gated_community = 1; }
+            if (empty($data['feature'])) {
+                $feature = 0;
+            } else {
+                $feature = 1;
+            }
+            if (empty($data['gym'])) {
+                $gym = 0;
+            } else {
+                $gym = 1;
+            }
+            if (empty($data['club_house'])) {
+                $club_house = 0;
+            } else {
+                $club_house = 1;
+            }
+            if (empty($data['play_area'])) {
+                $play_area = 0;
+            } else {
+                $play_area = 1;
+            }
+            if (empty($data['water_supply'])) {
+                $water_supply = 0;
+            } else {
+                $water_supply = 1;
+            }
+            if (empty($data['geyser'])) {
+                $geyser = 0;
+            } else {
+                $geyser = 1;
+            }
+            if (empty($data['visitor_arking'])) {
+                $visitor_arking = 0;
+            } else {
+                $visitor_arking = 1;
+            }
+            if (empty($data['garden'])) {
+                $garden = 0;
+            } else {
+                $garden = 1;
+            }
+            if (empty($data['waste_disposal'])) {
+                $waste_disposal = 0;
+            } else {
+                $waste_disposal = 1;
+            }
+            if (empty($data['power_backup'])) {
+                $power_backup = 0;
+            } else {
+                $power_backup = 1;
+            }
+            if (empty($data['swimming_pool'])) {
+                $swimming_pool = 0;
+            } else {
+                $swimming_pool = 1;
+            }
+            if (empty($data['water_storage'])) {
+                $water_storage = 0;
+            } else {
+                $water_storage = 1;
+            }
+            if (empty($data['security_personnel'])) {
+                $security_personnel = 0;
+            } else {
+                $security_personnel = 1;
+            }
+            if (empty($data['gated_community'])) {
+                $gated_community = 0;
+            } else {
+                $gated_community = 1;
+            }
 
             $user = new User;
             // Add Builder/Agent with Property
-            if(!empty($data['first_name']))
-            {
+            if (!empty($data['first_name'])) {
                 $builder = User::create([
                     'first_name'    => $data['first_name'],
                     'last_name'     => $data['last_name'],
@@ -146,7 +201,7 @@ class PropertyController extends Controller
                 'power_backup'      => $power_backup,
                 'swimming_pool'     => $swimming_pool,
                 'water_storage'     => $water_storage,
-                'security_personnel'=> $security_personnel,
+                'security_personnel' => $security_personnel,
                 'gated_community'   => $gated_community,
             ]);
 
@@ -161,7 +216,7 @@ class PropertyController extends Controller
                     // $image_name = $image_array[$i]->getClientOriginalName();
                     $image_size = $image_array[$i]->getClientSize();
                     $extension = $image_array[$i]->getClientOriginalExtension();
-                    $filename = 'india_property_clinic' . rand(1, 99999) . '.' . $extension;
+                    $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
                     $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
                     $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
                     $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
@@ -171,7 +226,7 @@ class PropertyController extends Controller
 
                     // Store image in property folder
                     $property->image = $filename;
-                    $propertyimage=PropertyImages::create([
+                    $propertyimage = PropertyImages::create([
                         'image_name' => $filename,
                         'image_size' => $image_size,
                         'property_id' => $value->id,
@@ -181,7 +236,7 @@ class PropertyController extends Controller
             } else {
                 $filename = "default.jpg";
                 $property->image = "default.jpg";
-                $propertyimage=PropertyImages::create([
+                $propertyimage = PropertyImages::create([
                     'image_name' => $filename,
                     'image_size' => '7.4',
                     'property_id' => $value->id,
@@ -191,13 +246,13 @@ class PropertyController extends Controller
             return redirect('/admin/add-new-property')->with('flash_message_success', 'Property Added Successfully!');
         }
 
-        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
-        $getAgent = User::where(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
+        $getBuilder = User::where(['usertype' => 'B'])->orderBy('first_name', 'desc')->get();
+        $getAgent = User::where(['usertype' => 'A'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
         $countryname = DB::table('countries')->pluck("name", "id");
         $phonecode = DB::table('countries')->get();
-        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent','phonecode'));
+        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent', 'phonecode'));
     }
 
     // Getting State List according to Country
@@ -230,16 +285,22 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
-            if($country_count > 0){
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            if ($country_count > 0) {
+                $country = DB::table('countries')->where(['id' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
         }
 
         return view('admin.property.view-property', compact('properties', 'propertyimage_count'));
-        
+    }
+
+    // Delete property Image function
+    public function deletePropertyImage(Request $request, $id = null)
+    {
+        PropertyImages::where(['id' => $id])->delete();
+        return redirect()->back()->with('flash_message_success', 'Property image Deleted Successfully!');
     }
 
     // View Single Property
@@ -268,7 +329,6 @@ class PropertyController extends Controller
             $pquery->save();
 
             return redirect()->back()->with('flash_message_success', 'Your Query for this Property Submitted Successfully!');
-
         }
 
         // $property = Property::get();
@@ -300,15 +360,15 @@ class PropertyController extends Controller
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
                 $properties[$key]->city_name = $city->name;
             }
-            $addby_count = User::where(['id'=>$val->add_by])->count();
-            if($addby_count > 0){
-                $addBy = User::where(['id'=>$val->add_by])->first();
+            $addby_count = User::where(['id' => $val->add_by])->count();
+            if ($addby_count > 0) {
+                $addBy = User::where(['id' => $val->add_by])->first();
                 $properties[$key]->addby_name = $addBy->first_name;
             }
-            $builder_count = User::where(['id'=>$val->builder])->count();
+            $builder_count = User::where(['id' => $val->builder])->count();
             // echo "<pre>"; print_r($builder_count); die;
-            if(!empty($builder_count)){
-                $buildername = User::where(['id'=>$val->builder])->first();
+            if (!empty($builder_count)) {
+                $buildername = User::where(['id' => $val->builder])->first();
                 $properties[$key]->builder_name = $buildername->first_name;
             }
         }
@@ -571,56 +631,152 @@ class PropertyController extends Controller
     // Edit Property Function
     public function editProperty(Request $request, $id = null)
     {
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $data = $request->all();
 
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
 
-            if (empty($data['feature'])) { $feature = 0; } else { $feature = 1; }
-            if (empty($data['gym'])) { $gym = 0; } else { $gym = 1; }
-            if (empty($data['club_house'])) { $club_house = 0; } else { $club_house = 1; }
-            if (empty($data['play_area'])) { $play_area = 0; } else { $play_area = 1; }
-            if (empty($data['water_supply'])) { $water_supply = 0; } else { $water_supply = 1; }
-            if (empty($data['geyser'])) { $geyser = 0; } else { $geyser = 1; }
-            if (empty($data['visitor_arking'])) { $visitor_arking = 0; } else { $visitor_arking = 1; }
-            if (empty($data['garden'])) { $garden = 0; } else { $garden = 1; }
-            if (empty($data['waste_disposal'])) { $waste_disposal = 0; } else { $waste_disposal = 1; }
-            if (empty($data['power_backup'])) { $power_backup = 0; } else { $power_backup = 1; }
-            if (empty($data['swimming_pool'])) { $swimming_pool = 0; } else { $swimming_pool = 1; }
-            if (empty($data['water_storage'])) { $water_storage = 0; } else { $water_storage = 1; }
-            if (empty($data['security_personnel'])) { $security_personnel = 0; } else { $security_personnel = 1; }
-            if (empty($data['gated_community'])) { $gated_community = 0; } else { $gated_community = 1; }
+            if (empty($data['feature'])) {
+                $feature = 0;
+            } else {
+                $feature = 1;
+            }
+            if (empty($data['gym'])) {
+                $gym = 0;
+            } else {
+                $gym = 1;
+            }
+            if (empty($data['club_house'])) {
+                $club_house = 0;
+            } else {
+                $club_house = 1;
+            }
+            if (empty($data['play_area'])) {
+                $play_area = 0;
+            } else {
+                $play_area = 1;
+            }
+            if (empty($data['water_supply'])) {
+                $water_supply = 0;
+            } else {
+                $water_supply = 1;
+            }
+            if (empty($data['geyser'])) {
+                $geyser = 0;
+            } else {
+                $geyser = 1;
+            }
+            if (empty($data['visitor_arking'])) {
+                $visitor_arking = 0;
+            } else {
+                $visitor_arking = 1;
+            }
+            if (empty($data['garden'])) {
+                $garden = 0;
+            } else {
+                $garden = 1;
+            }
+            if (empty($data['waste_disposal'])) {
+                $waste_disposal = 0;
+            } else {
+                $waste_disposal = 1;
+            }
+            if (empty($data['power_backup'])) {
+                $power_backup = 0;
+            } else {
+                $power_backup = 1;
+            }
+            if (empty($data['swimming_pool'])) {
+                $swimming_pool = 0;
+            } else {
+                $swimming_pool = 1;
+            }
+            if (empty($data['water_storage'])) {
+                $water_storage = 0;
+            } else {
+                $water_storage = 1;
+            }
+            if (empty($data['security_personnel'])) {
+                $security_personnel = 0;
+            } else {
+                $security_personnel = 1;
+            }
+            if (empty($data['gated_community'])) {
+                $gated_community = 0;
+            } else {
+                $gated_community = 1;
+            }
 
             // echo "<pre>"; print_r($data); die;
 
-            if(!empty($id)){
-                // Update Property Details
-                Property::where(['id'=>$id])->update(['property_name'=>$data['property_name'], 'property_url'=>$data['slug'], 'service_id'=>$data['property_for'], 'property_type_id'=>$data['property_type'], 'property_price'=>$data['property_price'], 'description'=>$data['description'], 'featured'=>$feature, 
-                'map_pass'=>$data['map_passed'], 'open_sides'=>$data['open_sides'], 'parea'=>$data['property_area'], 'widthroad'=>$data['width_road_facing'], 'furnish_type'=>$data['furnish_type'], 'floorno'=>$data['floor_no'], 'total_floors'=>$data['total_floors'], 'apple_trees'=>$data['trees'], 'transaction_type'=>$data['transection_type'], 'construction_status'=>$data['construction_status'],
-                'bedrooms'=>$data['bedrooms'], 'bathrooms'=>$data['bathrooms'], 'balconies'=>$data['balconies'], 'p_washrooms'=>$data['p_washroom'], 'cafeteria'=>$data['cafeteria'], 'road_facing'=>$data['roadfacing'], 'c_shop'=>$data['corner_shop'], 'wall_made'=>$data['boundrywall'], 'p_showroom'=>$data['pshowroom'], 'property_age'=>$data['property_age'],
-                'address1'=>$data['property_address1'], 'address2'=>$data['property_address2'], 'locality'=>$data['locality'], 'country'=>$data['country'], 'state'=>$data['state'], 'city'=>$data['city'], 'zipcode'=>$data['zipcode'], 'add_by'=>$add_by, 'builder'=>$data['builder'], 'agent'=>$data['agent']]);
-                // Update Amenities
-                Amenities::where(['property_id'=>$id])->update(['gym'=>$gym, 'club_house'=>$club_house, 'play_area'=>$play_area, 'water_supply'=>$water_supply, 'geyser'=>$geyser, 'visitor_arking'=>$visitor_arking, 'garden'=>$garden, 
-                'waste_disposal'=>$waste_disposal, 'power_backup'=>$power_backup, 'swimming_pool'=>$swimming_pool, 'water_storage'=>$water_storage, 'security_personnel'=>$security_personnel, 'gated_community'=>$gated_community]);
-                // Update Images
-                PropertyImages::where(['property_id'=>$id])->update([]);
+            if ($request->hasFile('file')) {
+                $image_array = Input::file('file');
+                $array_len = count($image_array);
+                for ($i = 0; $i < $array_len; $i++) {
+                    // if($image_tmp->isValid()){
+                    $image_size = $image_array[$i]->getClientSize();
+                    $extension = $image_array[$i]->getClientOriginalExtension();
+                    $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                    $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                    $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                    $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                    // Resize image
+                    Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+                    // Store image in property folder
+                    PropertyImages::create([
+                        'image_name' => $filename,
+                        'image_size' => $image_size,
+                        'property_id' => $id
+                    ]);
+                    // } 
+                    if (!empty($filename)) {
+                        PropertyImages::where(['property_id' => $id])->update(['image_name' => $filename]);
+                    }
+                }
+            } else {
+                $propertyimg_count = PropertyImages::where(['property_id' => $id])->count();
+                if(empty($propertyimg_count)) {
+                    $filename = "default.jpg";
+                    PropertyImages::create([
+                        'image_name' => $filename,
+                        'image_size' => '75',
+                        'property_id' => $id
+                    ]);
+                }
             }
+
+            // if(!empty($id)){
+            // Update Property Details
+            Property::where(['id' => $id])->update([
+                'property_name' => $data['property_name'], 'property_url' => $data['slug'], 'service_id' => $data['property_for'], 'property_type_id' => $data['property_type'], 'property_price' => $data['property_price'], 'description' => $data['description'], 'featured' => $feature,
+                'map_pass' => $data['map_passed'], 'open_sides' => $data['open_sides'], 'parea' => $data['property_area'], 'widthroad' => $data['width_road_facing'], 'furnish_type' => $data['furnish_type'], 'floorno' => $data['floor_no'], 'total_floors' => $data['total_floors'], 'apple_trees' => $data['trees'], 'transaction_type' => $data['transection_type'], 'construction_status' => $data['construction_status'],
+                'bedrooms' => $data['bedrooms'], 'bathrooms' => $data['bathrooms'], 'balconies' => $data['balconies'], 'p_washrooms' => $data['p_washroom'], 'cafeteria' => $data['cafeteria'], 'road_facing' => $data['roadfacing'], 'c_shop' => $data['corner_shop'], 'wall_made' => $data['boundrywall'], 'p_showroom' => $data['pshowroom'], 'property_age' => $data['property_age'],
+                'address1' => $data['property_address1'], 'address2' => $data['property_address2'], 'locality' => $data['locality'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city'], 'zipcode' => $data['zipcode'], 'add_by' => $add_by, 'builder' => $data['builder'], 'agent' => $data['agent']
+            ]);
+            // Update Amenities
+            Amenities::where(['property_id' => $id])->update([
+                'gym' => $gym, 'club_house' => $club_house, 'play_area' => $play_area, 'water_supply' => $water_supply, 'geyser' => $geyser, 'visitor_arking' => $visitor_arking, 'garden' => $garden,
+                'waste_disposal' => $waste_disposal, 'power_backup' => $power_backup, 'swimming_pool' => $swimming_pool, 'water_storage' => $water_storage, 'security_personnel' => $security_personnel, 'gated_community' => $gated_community
+            ]);
+            // Update Images
+            // }
 
             return redirect('/admin/properties')->with('flash_message_success', 'Property Updated Successfulley');
         }
 
         // Get Properties
-        $properties = Property::where(['id'=>$id])->first();
+        $properties = Property::where(['id' => $id])->first();
         $properties = json_decode(json_encode($properties));
         // Get Property Images
-        $propertyImage = PropertyImages::where(['property_id'=>$id])->get();
+        $propertyImage = PropertyImages::where(['property_id' => $id])->get();
 
         // Get Property Amenities
-        foreach($properties as $key => $val){
-            $pamenities_count = Amenities::where(['property_id'=>$id])->count();
-            if($pamenities_count > 0){
-                $pamenities = Amenities::where(['property_id'=>$id])->first();
+        foreach ($properties as $key => $val) {
+            $pamenities_count = Amenities::where(['property_id' => $id])->count();
+            if ($pamenities_count > 0) {
+                $pamenities = Amenities::where(['property_id' => $id])->first();
                 $properties->gym = $pamenities->gym;
                 $properties->club_house = $pamenities->club_house;
                 $properties->play_area = $pamenities->play_area;
@@ -640,86 +796,86 @@ class PropertyController extends Controller
         // Select Property for
         $propertyfor = Services::where('parent_id', '!=', '0')->get();
         $propertyfor_dropdown = "<option selected value=''>Property for</option>";
-        foreach($propertyfor as $pf){
-            if($pf->id == $properties->service_id){
+        foreach ($propertyfor as $pf) {
+            if ($pf->id == $properties->service_id) {
                 $selected = "selected";
-            }else{
+            } else {
                 $selected = "";
             }
-            $propertyfor_dropdown .= "<option value='".$pf->id."' ".$selected.">".$pf->service_name."</option>";
+            $propertyfor_dropdown .= "<option value='" . $pf->id . "' " . $selected . ">" . $pf->service_name . "</option>";
         }
 
         // Select Property Type
         $propertytype = PropertyTypes::where('status', '1')->get();
         $propertytype_dropdown = "<option selected value=''>Property Type</option>";
-        foreach($propertytype as $pt){
-            if($pt->property_type_code == $properties->property_type_id){
+        foreach ($propertytype as $pt) {
+            if ($pt->property_type_code == $properties->property_type_id) {
                 $selected = "selected";
-            }else{
+            } else {
                 $selected = "";
             }
-            $propertytype_dropdown .= "<option value='".$pt->property_type_code."' ".$selected.">".$pt->property_type."</option>";
+            $propertytype_dropdown .= "<option value='" . $pt->property_type_code . "' " . $selected . ">" . $pt->property_type . "</option>";
         }
 
         // Select Builder
-        $getBuilder = User::where(['usertype'=>'B'])->orderBy('first_name', 'desc')->get();
+        $getBuilder = User::where(['usertype' => 'B'])->orderBy('first_name', 'desc')->get();
         $builder_dropdown = "<option selected value=''>Select Builder</option>";
-        foreach($getBuilder as $gb){
-            if($gb->id == $properties->builder){
+        foreach ($getBuilder as $gb) {
+            if ($gb->id == $properties->builder) {
                 $selected = "selected";
-            }else {
+            } else {
                 $selected = "";
             }
-            $builder_dropdown .= "<option value='".$gb->id."' ".$selected.">".$gb->first_name." ".$gb->last_name."</option>";
+            $builder_dropdown .= "<option value='" . $gb->id . "' " . $selected . ">" . $gb->first_name . " " . $gb->last_name . "</option>";
         }
 
         // Select Agent
-        $getAgent = User::where(['usertype'=>'A'])->orderBy('first_name', 'desc')->get();
+        $getAgent = User::where(['usertype' => 'A'])->orderBy('first_name', 'desc')->get();
         $agent_dropdown = "<option selected value=''>Select Agent</option>";
-        foreach($getAgent as $ga){
-            if($ga->id == $properties->agent){
+        foreach ($getAgent as $ga) {
+            if ($ga->id == $properties->agent) {
                 $selected = "selected";
-            }else {
+            } else {
                 $selected = "";
             }
-            $agent_dropdown .= "<option value='".$ga->id."' ".$selected.">".$ga->first_name." ".$ga->last_name."</option>";
+            $agent_dropdown .= "<option value='" . $ga->id . "' " . $selected . ">" . $ga->first_name . " " . $ga->last_name . "</option>";
         }
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
 
         // Country Dropdown
         $countryname = DB::table('countries')->get();
         $country_dropdown = "<option selected value=''>Select Country</option>";
-        foreach($countryname as $cont){
-            if($cont->id == $properties->country){
+        foreach ($countryname as $cont) {
+            if ($cont->id == $properties->country) {
                 $selected = "selected";
-            }else {
+            } else {
                 $selected = "";
             }
-            $country_dropdown .= "<option value='".$cont->id."' ".$selected.">".$cont->name."</option>";
+            $country_dropdown .= "<option value='" . $cont->id . "' " . $selected . ">" . $cont->name . "</option>";
         }
 
         // State Dropdown
-        $statename = DB::table('states')->where(['country_id'=>$properties->country])->get();
+        $statename = DB::table('states')->where(['country_id' => $properties->country])->get();
         $state_dropdown = "<option selected value=''>Select State</option>";
-        foreach($statename as $stn){
-            if($stn->id == $properties->state){
+        foreach ($statename as $stn) {
+            if ($stn->id == $properties->state) {
                 $selected = "selected";
-            }else {
+            } else {
                 $selected = "";
             }
-            $state_dropdown .= "<option value='".$stn->id."' ".$selected.">".$stn->name."</option>";
+            $state_dropdown .= "<option value='" . $stn->id . "' " . $selected . ">" . $stn->name . "</option>";
         }
 
         // City Dropdown
-        $cityname = DB::table('cities')->where(['state_id'=>$properties->state])->get();
+        $cityname = DB::table('cities')->where(['state_id' => $properties->state])->get();
         $city_dropdown = "<option selected value=''>Select City</option>";
-        foreach($cityname as $city){
-            if($city->id == $properties->city){
+        foreach ($cityname as $city) {
+            if ($city->id == $properties->city) {
                 $selected = "selected";
-            }else {
+            } else {
                 $selected = "";
             }
-            $city_dropdown .= "<option value='".$city->id."' ".$selected.">".$city->name."</option>";
+            $city_dropdown .= "<option value='" . $city->id . "' " . $selected . ">" . $city->name . "</option>";
         }
 
         // Select Country Phone Code
@@ -746,5 +902,4 @@ class PropertyController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
-
 }

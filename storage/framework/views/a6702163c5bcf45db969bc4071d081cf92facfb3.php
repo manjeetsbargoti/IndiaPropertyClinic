@@ -29,7 +29,7 @@ function generate_string($input, $strength = 16) {
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Add New Property</h1>
+        <h1>Edit Property</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Edit Property</li>
@@ -40,18 +40,6 @@ function generate_string($input, $strength = 16) {
     <section class="content container-fluid">
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <?php if(Session::has('flash_message_success')): ?>
-                    <div class="alert alert-success alert-dismissible">
-                        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                        <strong><?php echo session('flash_message_success'); ?></strong>
-                    </div>
-                <?php endif; ?>
-                <?php if(Session::has('flash_message_error')): ?>
-                    <div class="alert alert-error alert-dismissible">
-                        <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                        <strong><?php echo session('flash_message_error'); ?></strong>
-                    </div>
-                <?php endif; ?>
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -544,9 +532,17 @@ function generate_string($input, $strength = 16) {
                                     </div>
                                     <div class="form-group">
                                         <?php $__currentLoopData = $propertyImage; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $propImages): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <input type="hidden" name="current_image[]" multiple id="image" value="<?php echo e($propImages->image_name); ?>">
-                                        <img width="150" style="padding: 0.5em 0.5em 0.5em 0;" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$propImages->image_name)); ?>" alt="<?php echo e($propImages->property_name); ?>">
+                                        <?php if(!empty($propImages->image_name)): ?>
+                                        <div class="abcd">
+                                            <input type="hidden" name="current_image[]" multiple id="image" value="<?php echo e($propImages->image_name); ?>">           
+                                            <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$propImages->image_name)); ?>"> <a href="<?php echo e(url('/admin/delete-property-image/'.$propImages->id)); ?>"><i id="close" alt="delete" class="fa fa-close"></i></a>
+                                        </div>
+                                        <?php endif; ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                        <div class="add_image">
+                                            <input type="button" id="add_more" class="btn btn-success" value="add image"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="box-footer">
