@@ -185,7 +185,7 @@
                                             <?php if(!empty($property->property_price)): ?>
                                                 <h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5>
                                             <?php else: ?>
-                                            <a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Get Price</a>
+                                                <a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Get Price</a>
                                             <?php endif; ?>
                                             </li>
                                             <li><a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Full Info</a></li>
@@ -215,4 +215,4 @@
 </div>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/viewall_properties.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.frontLayout.frontend_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/viewall_properties.blade.php ENDPATH**/ ?>

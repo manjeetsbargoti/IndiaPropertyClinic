@@ -156,9 +156,6 @@
                                     <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
-                                <div class="rateing">
-                                    <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
-                                </div>
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i> 
                                     <?php if(!empty($property->city_name)): ?>
@@ -216,4 +213,4 @@
 </div>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_service.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.frontLayout.frontend_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_service.blade.php ENDPATH**/ ?>

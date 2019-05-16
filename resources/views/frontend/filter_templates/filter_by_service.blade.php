@@ -1,4 +1,4 @@
-@extends('layouts.frontLayout.frontend_design')
+@extends('layouts.frontLayout.frontend_design2')
 @section('content')
 
 <div class="smart_container">
@@ -156,9 +156,6 @@
                                     <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$carousal->image_name)}}"></div>
                                     @endif
                                     @endforeach
-                                </div>
-                                <div class="rateing">
-                                    <i class="staricon"><img src="/images/frontend_images/images/star.svg"></i><span class="autorate">3.5</span> / 5
                                 </div>
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i> 

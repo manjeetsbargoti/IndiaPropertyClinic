@@ -548,7 +548,7 @@ function generate_string($input, $strength = 16) {
                                     </div>
                                     <div class="form-group">
                                         <!-- <label for="Property Images">Add Images</label> -->
-                                        <!-- <input type="file" id="property_images" name="property_images"> -->
+                                        <input type="file" id="property_images" name="property_images">
                                         <div class="add_image">
                                             <input type="button" id="add_more" class="btn btn-info" value="add image"/>
                                             <!-- <i class="fas fa-camera"></i> -->
