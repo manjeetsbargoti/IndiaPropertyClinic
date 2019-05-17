@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">{{ $property->property_name }}</li>
                         </ol>
                     </nav>
-                    <p><span>@if(!empty($property->city_name)) {{ $property->city_name }},@endif <a href="{{ url('/view-properties/country_id='.$property->country) }}">@if(!empty($property->country_name)) {{ $property->country_name }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/view-properties/state_id='.$property->state) }}">@if(!empty($property->state_name)) {{ $property->state_name }} @endif</a> </p>
+                    <p><span>@if(!empty($property->city_name)) {{ $property->city_name }},@endif <a href="{{ url('/view-properties/'.$property->country) }}">@if(!empty($property->country_name)) {{ $property->country_name }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/view-properties/state_id='.$property->state) }}">@if(!empty($property->state_name)) {{ $property->state_name }} @endif</a> </p>
                 </div>
             <div class="row">
             

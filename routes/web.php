@@ -104,9 +104,9 @@ Route::get('/services/{url}', 'RepairServiceController@SingleRepairService');
 
 // Search by City, State and Country
 Route::get('/view-properties/state_id={state_id}', 'PropertyController@searchByState');
-Route::get('/view-properties/country_id={country_id}', 'PropertyController@searchByCountry');
 Route::get('/view-properties/city_id={city_id}', 'PropertyController@searchByCity');
 Route::get('/view-properties/for={id}', 'PropertyController@searchByService');
+Route::get('/view-properties/{country_id}', 'PropertyController@searchByCountry');
 
 Route::get('/logout', 'AdminController@logout');
 

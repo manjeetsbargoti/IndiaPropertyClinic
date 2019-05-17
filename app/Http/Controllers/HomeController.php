@@ -57,9 +57,9 @@ class HomeController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
             if($country_count > 0){
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
@@ -78,9 +78,9 @@ class HomeController extends Controller
         foreach($featureProperty as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
             $featureProperty[$key]->service_name = $service_name->service_name;
-            $country_countf = DB::table('countries')->where(['id'=>$val->country])->count();
+            $country_countf = DB::table('countries')->where(['iso2'=>$val->country])->count();
             if($country_countf > 0){
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $featureProperty[$key]->country_name = $country->name;
                 $featureProperty[$key]->currency = $country->currency;
             }

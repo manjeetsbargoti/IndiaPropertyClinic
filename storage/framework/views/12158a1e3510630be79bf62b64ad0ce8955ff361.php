@@ -175,46 +175,36 @@ $country = Controller::countries();
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-3">
-                                    <ul class="nav flex-column" id="myTab" role="tablist">
-                                        <?php $counter = 0; ?>
-                                        <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php $counter++; ?>
-                                        <li class="nav-item">
-                                            <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>"
-                                                id="cont<?php echo e($c->continent_id); ?>-tab" data-toggle="tab"
-                                                href="#continent<?php echo e($c->continent_id); ?>" role="tab"
-                                                aria-controls="cont<?php echo e($c->continent_id); ?>tab"
-                                                aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span
-                                                    class="mapicon">
-                                                    <img
-                                                        src="/images/frontend_images/images/<?php echo e($c->icon_image); ?>"></span><?php echo e($c->name); ?></a>
-                                        </li>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </ul>
+                                <ul class="nav flex-column" id="myTab" role="tablist">
+                                    <?php $counter = 0; ?>
+                                    <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $counter++; ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont<?php echo e($c->code); ?>-tab" data-toggle="tab" href="#<?php echo e($c->code); ?>" role="tab" aria-controls="cont<?php echo e($c->code); ?>tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon">
+                                        <img src="/images/frontend_images/images/<?php echo e($c->icon_image); ?>"></span><?php echo e($c->name); ?></a>
+                                    </li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </ul>
                                 </div>
                                 <div class="col-lg-9">
-                                    <div class="tab-content" id="myTabContent">
-                                        <?php $counter = 0; ?>
-                                        <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php $counter++; ?>
-                                        <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>"
-                                            id="continent<?php echo e($c->continent_id); ?>" role="tabpanel"
-                                            aria-labelledby="cont<?php echo e($c->continent_id); ?>-tab">
-                                            <ul class="country_list">
+                                        <div class="tab-content" id="myTabContent">
+                                            <?php $counter = 0; ?>
+                                            <?php $__currentLoopData = $continent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $counter++; ?>
+                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="<?php echo e($c->code); ?>" role="tabpanel" aria-labelledby="cont<?php echo e($c->code); ?>-tab">
+                                                <ul class="country_list">
                                                 <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <?php if($coun->continent_id == $c->continent_id): ?>
-                                                <li>
-                                                    <a href="<?php echo e(url('/view-properties/country_id='.$coun->id)); ?>"
-                                                        style="margin: 0.2em 0em;"
-                                                        class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
-                                                </li>
+                                                <?php if($coun->continent == $c->code): ?>
+                                                    <li>
+                                                        <a href="<?php echo e(url('/view-properties/'.$coun->iso2)); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
+                                                    </li>
                                                 <?php endif; ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </ul>
+                                                </ul>
+                                            </div>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>

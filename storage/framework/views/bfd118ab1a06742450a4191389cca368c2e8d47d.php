@@ -18,7 +18,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><?php echo e($property->property_name); ?></li>
                         </ol>
                     </nav>
-                    <p><span><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <a href="<?php echo e(url('/view-properties/country_id='.$property->country)); ?>"><?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/view-properties/state_id='.$property->state)); ?>"><?php if(!empty($property->state_name)): ?> <?php echo e($property->state_name); ?> <?php endif; ?></a> </p>
+                    <p><span><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <a href="<?php echo e(url('/view-properties/'.$property->country)); ?>"><?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/view-properties/state_id='.$property->state)); ?>"><?php if(!empty($property->state_name)): ?> <?php echo e($property->state_name); ?> <?php endif; ?></a> </p>
                 </div>
             <div class="row">
             
@@ -226,4 +226,4 @@
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/view_single_property.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.frontLayout.frontend_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/view_single_property.blade.php ENDPATH**/ ?>

@@ -123,7 +123,7 @@ $country = Controller::countries();
             </li>
             @endforeach
             <li class="nav-item">
-                <a class="nav-link" href="#">Tools & Advice</a>
+                <a class="nav-link" href="#">Tools & </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Packages</a>
@@ -167,7 +167,7 @@ $country = Controller::countries();
                                         @foreach($continent as $c)
                                         <?php $counter++; ?>
                                             <li class="nav-item">
-                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->continent_id }}-tab" data-toggle="tab" href="#continent{{ $c->continent_id }}" role="tab" aria-controls="cont{{ $c->continent_id }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon">
+                                                <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->code }}-tab" data-toggle="tab" href="#{{ $c->code }}" role="tab" aria-controls="cont{{ $c->code }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon">
                                                 <img src="/images/frontend_images/images/{{ $c->icon_image }}"></span>{{ $c->name }}</a>
                                             </li>
                                         @endforeach
@@ -178,12 +178,12 @@ $country = Controller::countries();
                                             <?php $counter = 0; ?>
                                             @foreach($continent as $c)
                                             <?php $counter++; ?>
-                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="continent{{ $c->continent_id }}" role="tabpanel" aria-labelledby="cont{{ $c->continent_id }}-tab">
+                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="{{ $c->code }}" role="tabpanel" aria-labelledby="cont{{ $c->code }}-tab">
                                                 <ul class="country_list">
                                                 @foreach($country as $coun)
-                                                @if($coun->continent_id == $c->continent_id)
+                                                @if($coun->continent == $c->code)
                                                     <li>
-                                                        <a href="{{ url('/view-properties/country_id='.$coun->id) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
+                                                        <a href="{{ url('/view-properties/'.$coun->iso2) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
                                                     </li>
                                                 @endif
                                                 @endforeach

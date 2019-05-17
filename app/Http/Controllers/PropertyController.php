@@ -250,7 +250,7 @@ class PropertyController extends Controller
         $getAgent = User::where(['usertype' => 'A'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
-        $countryname = DB::table('countries')->pluck("name", "id");
+        $countryname = DB::table('countries')->get();
         $phonecode = DB::table('countries')->get();
         return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent', 'phonecode'));
     }
@@ -258,7 +258,7 @@ class PropertyController extends Controller
     // Getting State List according to Country
     public function getStateList(Request $request)
     {
-        $states = DB::table("states")->where("country_id", $request->country_id)->pluck("name", "id");
+        $states = DB::table("states")->where("country", $request->country_id)->pluck("name", "id");
         return response()->json($states);
     }
 
@@ -285,9 +285,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
@@ -344,9 +344,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
@@ -395,9 +395,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $posts[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
             }
@@ -439,7 +439,8 @@ class PropertyController extends Controller
 
     public function searchByCountry($country_id = null)
     {
-        $countryname = DB::table('countries')->where(['id' => $country_id])->pluck('name');
+        $countryname = DB::table('countries')->where(['iso2' => $country_id])->pluck('name');
+        // echo "<pre>"; print_r($countryname); die;
         $properties = Property::where(['country' => $country_id])->get();
         $posts = Property::where(['country' => $country_id])->paginate($this->posts_per_page);
         $propertyImages = PropertyImages::get();
@@ -453,9 +454,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $posts[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
             }
@@ -479,7 +480,7 @@ class PropertyController extends Controller
 
         if (!empty($properties)) {
             $contRow = count($properties);
-            // echo "<pre>"; print_r($contRow); die;
+            
         } else {
             $contRow = 0;
         }
@@ -493,8 +494,8 @@ class PropertyController extends Controller
         $cityname = DB::table('cities')->where(['id' => $city_id])->pluck('name');
         $properties = Property::where(['city' => $city_id])->get();
         $posts = Property::where(['city' => $city_id])->paginate($this->posts_per_page);
+        // echo "<pre>"; print_r($posts); die;
         $propertyImages = PropertyImages::get();
-        $properties = json_decode(json_encode($properties));
 
         foreach ($posts as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -504,9 +505,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $posts[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
             }
@@ -543,7 +544,8 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'propertyImages', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
+        // echo "<pre>"; print_r($properties); die;
+        return view('frontend.filter_templates.filter_by_csc', compact('posts', 'propertyImages', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
     }
 
     // Search By Service
@@ -552,6 +554,7 @@ class PropertyController extends Controller
         $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->get();
         $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
+        // echo "<pre>"; print_r($properties); die;
 
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -561,9 +564,9 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id' => $val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
-                $country = DB::table('countries')->where(['id' => $val->country])->first();
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
@@ -851,7 +854,7 @@ class PropertyController extends Controller
             } else {
                 $selected = "";
             }
-            $country_dropdown .= "<option value='" . $cont->id . "' " . $selected . ">" . $cont->name . "</option>";
+            $country_dropdown .= "<option value='" . $cont->iso2 . "' " . $selected . ">" . $cont->name . "</option>";
         }
 
         // State Dropdown

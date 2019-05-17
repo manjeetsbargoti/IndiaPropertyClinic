@@ -491,13 +491,14 @@
             <ul class="continents">
                 @foreach($continents as $continent)
                 <li data-toggle="tooltip" data-placement="top" title="{{ $continent->name }}">
-                    <a href="#{{ $continent->code }}_{{ $continent->continent_id }}" data-toggle="modal">
+                    <a href="#_{{ $continent->code }}" data-toggle="modal">
                         <img src="/images/frontend_images/images/{{ $continent->icon_image }}">
                         <p>{{ $continent->name }}</p>
                     </a>
                 </li>
-
-                <div class="modal fade bd-example-modal-lg" id="{{ $continent->code }}_{{ $continent->continent_id }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                
+                    
+                <div class="modal fade bd-example-modal-lg" id="_{{ $continent->code }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -509,9 +510,9 @@
                             <div class="modal-body">
                                 <ul class="country_list">
                                     @foreach($countries as $country)
-                                    @if($country->continent_id == $continent->continent_id)
+                                    @if($country->continent == $continent->code)
                                     <li>
-                                        <a href="{{ url('/view-properties/country_id='.$country->id) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $country->name }}</a>
+                                        <a href="{{ url('/view-properties/'.$country->iso2) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $country->name }}</a>
                                     </li>
                                     @endif
                                     @endforeach

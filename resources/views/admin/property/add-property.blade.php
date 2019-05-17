@@ -509,8 +509,8 @@ function generate_string($input, $strength = 16) {
                                                 <label for="Country">Country</label>
                                                 <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select Country</option>
-                                                    @foreach($countryname as $key => $country)
-                                                    <option value="{{ $key }}">{{ $country }}</option>
+                                                    @foreach($countryname as $country)
+                                                    <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

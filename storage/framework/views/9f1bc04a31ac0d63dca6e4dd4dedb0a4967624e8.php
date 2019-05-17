@@ -492,13 +492,14 @@
             <ul class="continents">
                 <?php $__currentLoopData = $continents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $continent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <li data-toggle="tooltip" data-placement="top" title="<?php echo e($continent->name); ?>">
-                    <a href="#<?php echo e($continent->code); ?>_<?php echo e($continent->continent_id); ?>" data-toggle="modal">
+                    <a href="#_<?php echo e($continent->code); ?>" data-toggle="modal">
                         <img src="/images/frontend_images/images/<?php echo e($continent->icon_image); ?>">
                         <p><?php echo e($continent->name); ?></p>
                     </a>
                 </li>
-
-                <div class="modal fade bd-example-modal-lg" id="<?php echo e($continent->code); ?>_<?php echo e($continent->continent_id); ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                
+                    
+                <div class="modal fade bd-example-modal-lg" id="_<?php echo e($continent->code); ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -510,9 +511,9 @@
                             <div class="modal-body">
                                 <ul class="country_list">
                                     <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($country->continent_id == $continent->continent_id): ?>
+                                    <?php if($country->continent == $continent->code): ?>
                                     <li>
-                                        <a href="<?php echo e(url('/view-properties/country_id='.$country->id)); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
+                                        <a href="<?php echo e(url('/view-properties/'.$country->iso2)); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
                                     </li>
                                     <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
