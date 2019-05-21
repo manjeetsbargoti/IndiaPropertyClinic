@@ -1,5 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <style type="text/css">
    .box{width:600px;margin:0 auto;border:1px solid #ccc;}
@@ -23,8 +22,9 @@
             <div class="col-xs-12 col-md-8">
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="{{ url('/admin/add-new-user') }}">
-                    {{ csrf_field() }}
+                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="<?php echo e(url('/admin/add-new-user')); ?>">
+                    <?php echo e(csrf_field()); ?>
+
                       <div class="box-body">
                         <div class="row">
                             <div class="col-xs-12 col-md-6">
@@ -49,9 +49,9 @@
                                 <div class="form-group">
                                     <label>Code</label>
                                     <select name="phonecode" id="phonecode" class="form-control">
-                                    @foreach($phonecode as $code)
-                                        <option value="{{ $code->phonecode }}">{{ $code->phonecode }} &nbsp;{{ $code->iso3 }}</option>
-                                    @endforeach    
+                                    <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->phonecode); ?> &nbsp;<?php echo e($code->iso3); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
                                     </select>
                                 </div>
                             </div>
@@ -66,9 +66,9 @@
                                   <label for="Country">Country</label>
                                   <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                       <option value="" selected>Select Country</option>
-                                      @foreach($countryname as $count)
-                                      <option value="{{ $count->iso2 }}">{{ $count->name }}</option>
-                                      @endforeach
+                                      <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $count): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                      <option value="<?php echo e($count->iso2); ?>"><?php echo e($count->name); ?></option>
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                   </select>
                               </div>
                             </div>
@@ -102,20 +102,20 @@
                             <div class="col-xs-12 col-md-12">
                                 <label>User is..</label>
                                 <div class="form-group">
-                                    @foreach($usertype as $type)
-                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $type->usercode }}">
-                                        <label class="form-check-label" for="usertype">{{ $type->usertype_name }}</label> &nbsp;&nbsp;
-                                    @endforeach
+                                    <?php $__currentLoopData = $usertype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="<?php echo e($type->usercode); ?>">
+                                        <label class="form-check-label" for="usertype"><?php echo e($type->usertype_name); ?></label> &nbsp;&nbsp;
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-6" id="vendorService">
+                            <div class="col-xs-12 col-md-6">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
                                     <select class="form-control" name="servicetype" id="servicetype">
                                         <option value="" selected>Select Service</option>
-                                        @foreach($servicetype as $service)
-                                        <option value="{{ $service->id }}">{{ $service->service_name }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $servicetype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($service->id); ?>"><?php echo e($service->service_name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -135,4 +135,5 @@
 </div>
 <!-- /.content-wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/users/add_new_user.blade.php ENDPATH**/ ?>

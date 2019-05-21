@@ -7,29 +7,29 @@
   <title>India Property Clinic</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/bootstrap/dist/css/bootstrap.min.css')); ?>">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/font-awesome/css/font-awesome.min.css')); ?>">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="{{ asset('bower_components/Ionicons/css/ionicons.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/Ionicons/css/ionicons.min.css')); ?>">
   <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')); ?>">
   <!-- daterange picker -->
-  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/bootstrap-daterangepicker/daterangepicker.css')); ?>">
   <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')); ?>">
   <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="{{ asset('plugins/iCheck/all.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('plugins/iCheck/all.css')); ?>">
   <!-- Bootstrap Color Picker -->
-  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')); ?>">
   <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('plugins/timepicker/bootstrap-timepicker.min.css')); ?>">
   <!-- Select2 -->
-  <link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('bower_components/select2/dist/css/select2.min.css')); ?>">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dist/css/AdminLTE.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/skins/_all-skins.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/custom.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('dist/css/AdminLTE.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('dist/css/skins/_all-skins.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('dist/css/custom.css')); ?>">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
@@ -63,13 +63,13 @@ desired effect
 
     <div class='notifications top-right'></div>
 
-    @include('layouts.adminLayout.admin_header')
+    <?php echo $__env->make('layouts.adminLayout.admin_header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    @include('layouts.adminLayout.admin_sidebar')
+    <?php echo $__env->make('layouts.adminLayout.admin_sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    @yield('content')
+    <?php echo $__env->yieldContent('content'); ?>
 
-    @include('layouts.adminLayout.admin_footer')
+    <?php echo $__env->make('layouts.adminLayout.admin_footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
   </div>
   <!-- ./wrapper -->
@@ -77,59 +77,59 @@ desired effect
   <!-- REQUIRED JS SCRIPTS -->
 
   <!-- jQuery 3 -->
-  <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/jquery/dist/jquery.min.js')); ?>"></script>
   <!-- AdminLTE App -->
-  <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+  <script src="<?php echo e(asset('dist/js/adminlte.min.js')); ?>"></script>
   <!-- Bootstrap 3.3.7 -->
-  <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
   <!-- DataTables -->
-  <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-  <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/datatables.net/js/jquery.dataTables.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')); ?>"></script>
   <!-- Sparkline -->
-  <script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js')); ?>"></script>
   <!-- jvectormap  -->
-  <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-  <script src="{{ asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
+  <script src="<?php echo e(asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')); ?>"></script>
   <!-- SlimScroll -->
-  <script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')); ?>"></script>
   <!-- ChartJS -->
-  <script src="{{ asset('bower_components/chart.js/Chart.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/chart.js/Chart.js')); ?>"></script>
   <!-- Select2 -->
-  <script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/select2/dist/js/select2.full.min.js')); ?>"></script>
   <!-- InputMask -->
-  <script src="{{ asset('plugins/input-mask/jquery.inputmask.js') }}"></script>
-  <script src="{{ asset('plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-  <script src="{{ asset('plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+  <script src="<?php echo e(asset('plugins/input-mask/jquery.inputmask.js')); ?>"></script>
+  <script src="<?php echo e(asset('plugins/input-mask/jquery.inputmask.date.extensions.js')); ?>"></script>
+  <script src="<?php echo e(asset('plugins/input-mask/jquery.inputmask.extensions.js')); ?>"></script>
   <!-- date-range-picker -->
-  <script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
-  <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/moment/min/moment.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('bower_components/bootstrap-daterangepicker/daterangepicker.js')); ?>"></script>
   <!-- bootstrap datepicker -->
-  <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')); ?>"></script>
   <!-- bootstrap color picker -->
-  <script src="{{ asset('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js')); ?>"></script>
   <!-- bootstrap time picker -->
-  <script src="{{ asset('plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+  <script src="<?php echo e(asset('plugins/timepicker/bootstrap-timepicker.min.js')); ?>"></script>
   <!-- SlimScroll -->
-  <script src="{{ asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')); ?>"></script>
   <!-- iCheck 1.0.1 -->
-  <script src="{{ asset('plugins/iCheck/icheck.min.js') }}"></script>
+  <script src="<?php echo e(asset('plugins/iCheck/icheck.min.js')); ?>"></script>
   <!-- FastClick -->
-  <script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
+  <script src="<?php echo e(asset('bower_components/fastclick/lib/fastclick.js')); ?>"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
 
   <!-- CK Editor -->
-  <!-- <script src="{{ asset('bower_components/ckeditor/ckeditor.js') }}"></script> -->
-  <!-- <script src="{{ asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script> -->
+  <!-- <script src="<?php echo e(asset('bower_components/ckeditor/ckeditor.js')); ?>"></script> -->
+  <!-- <script src="<?php echo e(asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')); ?>"></script> -->
   <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 
   <!-- Custom js for Admin -->
-  <script src="{{ asset('dist/js/custom.js') }}"></script>
+  <script src="<?php echo e(asset('dist/js/custom.js')); ?>"></script>
 
   <script>
     // Creating Property URL
     $('#property_name').change(function(e) {
-      $.get('{{ url("/add-new-property/check_slug") }}', {
+      $.get('<?php echo e(url("/add-new-property/check_slug")); ?>', {
           'property_name': $(this).val()
         },
         function(data) {
@@ -140,7 +140,7 @@ desired effect
 
     // Creating Repair Service URL
     $('#rservice_name').change(function(e) {
-      $.get('{{ url("/repair-services/check_slug") }}', {
+      $.get('<?php echo e(url("/repair-services/check_slug")); ?>', {
           'rservice_name': $(this).val()
         },
         function(data) {
@@ -160,7 +160,7 @@ desired effect
         $('#email').addClass('has-error');
       } else {
         $.ajax({
-          url: "{{ url('/checkemail') }}",
+          url: "<?php echo e(url('/checkemail')); ?>",
           method: "POST",
           data: {
             email: email,
@@ -190,7 +190,7 @@ desired effect
       //   $('#phone').addClass('has-error');
       // } else {
         $.ajax({
-          url: "{{ url('/checkuserphone') }}",
+          url: "<?php echo e(url('/checkuserphone')); ?>",
           method: "POST",
           data: {
             phone: phone,
@@ -235,34 +235,34 @@ desired effect
   </script>
 
   <script>
-    @if(Session::has('flash_message_success'))
+    <?php if(Session::has('flash_message_success')): ?>
     $('.top-right').notify({
       message: {
-        text: "{{ Session::get('flash_message_success') }}"
+        text: "<?php echo e(Session::get('flash_message_success')); ?>"
       },
       // fadeOut: { enabled: true, delay: 3000 }
       transition: 'fade'
     }).show();
-    @php
+    <?php
     Session::forget('flash_message_success');
-    @endphp
-    @endif
+    ?>
+    <?php endif; ?>
 
-    @if(Session::has('flash_message_error'))
+    <?php if(Session::has('flash_message_error')): ?>
     $('.top-right').notify({
       message: {
-        text: "{{ Session::get('flash_message_error') }}"
+        text: "<?php echo e(Session::get('flash_message_error')); ?>"
       },
       // fadeOut: { enabled: true, delay: 3000 },
       type: 'error',
       transition: 'fade'
     }).show();
-    @php
+    <?php
     Session::forget('flash_message_error');
-    @endphp
-    @endif
+    ?>
+    <?php endif; ?>
   </script>
 
 </body>
 
-</html>
+</html><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/adminLayout/admin_design.blade.php ENDPATH**/ ?>

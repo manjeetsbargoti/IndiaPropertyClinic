@@ -849,7 +849,7 @@ class PropertyController extends Controller
         $countryname = DB::table('countries')->get();
         $country_dropdown = "<option selected value=''>Select Country</option>";
         foreach ($countryname as $cont) {
-            if ($cont->id == $properties->country) {
+            if ($cont->iso2 == $properties->country) {
                 $selected = "selected";
             } else {
                 $selected = "";
@@ -858,7 +858,7 @@ class PropertyController extends Controller
         }
 
         // State Dropdown
-        $statename = DB::table('states')->where(['country_id' => $properties->country])->get();
+        $statename = DB::table('states')->where(['country' => $properties->country])->get();
         $state_dropdown = "<option selected value=''>Select State</option>";
         foreach ($statename as $stn) {
             if ($stn->id == $properties->state) {

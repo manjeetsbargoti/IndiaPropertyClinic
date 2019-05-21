@@ -168,18 +168,18 @@ class AdminController extends Controller
             $usertype = UserType::get();
             $phonecode = DB::table('countries')->get();
             $countryname = DB::table('countries')->get();
-            $statename = DB::table('states')->where(['country_id' => $userdetails->country])->get();
+            $statename = DB::table('states')->where(['country' => $userdetails->country])->get();
             $cityname = DB::table('cities')->where(['state_id' => $userdetails->state])->get();
 
             // Select Country Name
             $country_dropdown = "<option selected value=''>Select Country</option>";
             foreach ($countryname as $cname) {
-                if ($cname->id == $userdetails->country) {
+                if ($cname->iso2 == $userdetails->country) {
                     $selected = "selected";
                 } else {
                     $selected = "";
                 }
-                $country_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
+                $country_dropdown .= "<option value='" . $cname->iso2 . "' " . $selected . ">" . $cname->name . "</option>";
             }
 
             // Select State Name
@@ -232,7 +232,7 @@ class AdminController extends Controller
         $servicetype = OtherServices::where(['parent_id' => 0])->get();
         $usertype = UserType::get();
         $phonecode = DB::table('countries')->get();
-        $countryname = DB::table('countries')->pluck("name", "id");
+        $countryname = DB::table('countries')->get();
         return view("admin.users.add_new_user", compact('phonecode', 'usertype', 'servicetype', 'countryname'));
     }
 
@@ -339,18 +339,18 @@ class AdminController extends Controller
         $usertype = UserType::get();
         $phonecode = DB::table('countries')->get();
         $countryname = DB::table('countries')->get();
-        $statename = DB::table('states')->where(['country_id' => $userdetails->country])->get();
+        $statename = DB::table('states')->where(['country' => $userdetails->country])->get();
         $cityname = DB::table('cities')->where(['state_id' => $userdetails->state])->get();
 
         // Select Country Name
         $country_dropdown = "<option selected value=''>Select Country</option>";
         foreach ($countryname as $cname) {
-            if ($cname->id == $userdetails->country) {
+            if ($cname->iso2 == $userdetails->country) {
                 $selected = "selected";
             } else {
                 $selected = "";
             }
-            $country_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
+            $country_dropdown .= "<option value='" . $cname->iso2 . "' " . $selected . ">" . $cname->name . "</option>";
         }
 
         // Select State Name
@@ -536,6 +536,21 @@ class AdminController extends Controller
         if ($request->get('email')) {
             $email = $request->get('email');
             $data = User::where('email', $email)->count();
+            if ($data > 0) {
+                echo 'not_unique';
+            } else {
+                echo 'unique';
+            }
+        }
+    }
+
+    // Check User Phone
+    public function checkPhone(Request $request)
+    {
+        if ($request->get('phone')) {
+            $phone = $request->get('phone');
+            $data = User::where('phone', $phone)->count();
+            // echo "<pre>"; print_r($data); die;
             if ($data > 0) {
                 echo 'not_unique';
             } else {

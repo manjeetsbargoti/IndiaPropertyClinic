@@ -251,5 +251,42 @@ $('#email').blur(function()
  });
 </script>
 
+<script>
+// Check User Phone
+$('#phone').blur(function()
+{
+  var error_phone = '';
+  var phone = $('#phone').val();
+  var _token = $('input[name="_token"]').val();
+//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if(!filter.test(phone))
+  {    
+   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
+   $('#phone').addClass('has-error');
+  }
+  else
+  {
+   $.ajax({
+    url:"{{ url('/checkphone') }}",
+    method:"POST",
+    data:{phone:phone, _token:_token},
+    success:function(result)
+    {
+     if(result == 'unique')
+     {
+      $('#error_phone').html('<label class="text-success">Phone Available</label>');
+      $('#phone').removeClass('has-error');
+     }
+     else
+     {
+      $('#error_phone').html('<label class="text-danger">Phone already exist.</label>');
+      $('#phone').addClass('has-error');
+     }
+    }
+   })
+  }
+ });
+</script>
+
   </body>
 </html>
