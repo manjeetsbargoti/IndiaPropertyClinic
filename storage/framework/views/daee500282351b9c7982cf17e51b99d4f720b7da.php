@@ -244,6 +244,11 @@ $footerProperties = Controller::footersection();
 
         <div class="container">
             <div class="copyright">
+                <div class="row">
+                    <div class="col-sm-12">
+                    <p align="justify">India Property Clinic holds no responsibility or liability for the information provided by the property builder/agent/owner on this page. You are requested to cross-check the validity of the information offered here before making any investment in the properties listed here. The team members at  India Property Clinic, including its directors, employees, sales agent, or any other member will not be held liable for any loss, expense, cost, or action taken by or against you regarding these properties. All trademarks, logos and names are properties of their respective owners.</p>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-lg-8">
                     <div class="copyright_menu">

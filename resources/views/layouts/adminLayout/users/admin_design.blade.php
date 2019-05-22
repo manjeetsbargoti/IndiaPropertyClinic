@@ -119,5 +119,142 @@ desired effect
 <!-- Custom js for Admin -->
 <script src="{{ asset('dist/js/custom.js') }}"></script>
 
+<script>
+    // Creating Property URL
+    $('#property_name').change(function(e) {
+      $.get('{{ url("/add-new-property/check_slug") }}', {
+          'property_name': $(this).val()
+        },
+        function(data) {
+          $('#slug').val(data.slug);
+        }
+      );
+    });
+
+    // Creating Repair Service URL
+    $('#rservice_name').change(function(e) {
+      $.get('{{ url("/repair-services/check_slug") }}', {
+          'rservice_name': $(this).val()
+        },
+        function(data) {
+          $('#slug').val(data.slug);
+        });
+    });
+
+
+    // Check User Email
+    $('#email').blur(function() {
+      var error_email = '';
+      var email = $('#email').val();
+      var _token = $('input[name="_token"]').val();
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (!filter.test(email)) {
+        $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+        $('#email').addClass('has-error');
+      } else {
+        $.ajax({
+          url: "{{ url('/checkemail') }}",
+          method: "POST",
+          data: {
+            email: email,
+            _token: _token
+          },
+          success: function(result) {
+            if (result == 'unique') {
+              $('#error_email').html('<label class="text-success">Email Available</label>');
+              $('#email').removeClass('has-error');
+            } else {
+              $('#error_email').html('<label class="text-danger">Email already exist.</label>');
+              $('#email').addClass('has-error');
+            }
+          }
+        })
+      }
+    });
+
+    // Check User Phone Number
+    $('#phone').blur(function() {
+      var error_phone = '';
+      var phone = $('#phone').val();
+      var _token = $('input[name="_token"]').val();
+      // var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      // if (!filter.test(phone)) {
+      //   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
+      //   $('#phone').addClass('has-error');
+      // } else {
+        $.ajax({
+          url: "{{ url('/checkuserphone') }}",
+          method: "POST",
+          data: {
+            phone: phone,
+            _token: _token
+          },
+          success: function(res) {
+            if (res == 'unique') {
+              $('#error_phone').html('<label class="text-success">Phone Available</label>');
+              $('#phone').removeClass('has-error');
+            } else{
+              $('#error_phone').html('<label class="text-danger">Phone already exist.</label>');
+              $('#phone').addClass('has-error');
+            }
+          }
+        })
+      // }
+    });
+  </script>
+
+  <script>
+    $('#new_pwd').click(function() {
+      var current_pwd = $('#current_pwd').val();
+      // alert(current_pwd);
+      $.ajax({
+        type: 'get',
+        url: '/admin/check-pwd',
+        data: {
+          current_pwd: current_pwd
+        },
+        success: function(resp) {
+          if (resp == "false") {
+            $('#chkPwd').html('<font color=red>Current Password is Incorrect!</font>');
+          } else {
+            $('#chkPwd').html('<font color=green>Current Password is Correct!</font>');
+          }
+        },
+        error: function() {
+          alert("error");
+        }
+      });
+    });
+  </script>
+
+  <script>
+    @if(Session::has('flash_message_success'))
+    $('.top-right').notify({
+      message: {
+        text: "{{ Session::get('flash_message_success') }}"
+      },
+      // fadeOut: { enabled: true, delay: 3000 }
+      transition: 'fade'
+    }).show();
+    @php
+    Session::forget('flash_message_success');
+    @endphp
+    @endif
+
+    @if(Session::has('flash_message_error'))
+    $('.top-right').notify({
+      message: {
+        text: "{{ Session::get('flash_message_error') }}"
+      },
+      // fadeOut: { enabled: true, delay: 3000 },
+      type: 'error',
+      transition: 'fade'
+    }).show();
+    @php
+    Session::forget('flash_message_error');
+    @endphp
+    @endif
+  </script>
+
 </body>
 </html>

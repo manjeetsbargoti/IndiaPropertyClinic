@@ -51,7 +51,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form method="POST" action="{{ url('admin') }}" id="loginform" method="post">
+    <form method="POST" action="{{ url('admin') }}" id="loginform">
       {{ csrf_field() }}
       <div class="form-group has-feedback">
         <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email" value="{{ old('email') }}" required autofocus>

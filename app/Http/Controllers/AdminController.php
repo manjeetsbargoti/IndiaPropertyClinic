@@ -26,21 +26,24 @@ class AdminController extends Controller
 {
     public function adminLogin(Request $request, $guard = null)
     {
-        $userData = Auth::user();
+        // $userData = Auth::user();
 
+        // $data = $request->all();
+        
         // if (Auth::guard($guard)->check() && $userData->admin == 1) {
         //     Session::put('Auth', $userData['email']);
         //     return redirect('/admin/dashboard');
         // }
         if ($request->isMethod('post')) {
             $data = $request->input();
+            // echo "<pre>"; print_r($data); die;
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => '1', 'status' => '1'])) {
-                return redirect('/admin/dashboard')->with(compact('userData'));
+                return redirect('/admin/dashboard')->with('flash_message_success', 'Login Successfull!');
             } else {
                 return redirect('/admin')->with('flash_message_error', 'Invelid Email Address or Password!');
             }
         }
-        return view('admin.admin_login');
+        return view('admin.admin_login2');
     }
 
     public function dashboard(Request $request)
