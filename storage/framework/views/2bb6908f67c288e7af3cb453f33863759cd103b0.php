@@ -8,7 +8,7 @@
     <!-- for Google -->
     <meta name="title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
     <meta name="description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
-    <meta name="keywords" content="<?php if(!empty($property->city_name)): ?><?php echo e('Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name); ?> <?php else: ?> <?php echo e(config('app.name')); ?> <?php endif; ?>"/>
+    <meta name="keywords" content="<?php if(!empty($property->city_name)): ?><?php echo e('Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name); ?><?php else: ?> <?php echo e(config('app.name')); ?> <?php endif; ?>"/>
     <link rel="canonical" href="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 
@@ -24,6 +24,10 @@
     <meta name="twitter:title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
     <meta name="twitter:description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
     <meta name="twitter:image" content="<?php if($property->image_name): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php endif; ?>" />
+
+    <?php
+            // echo"<pre>"; print_r($property); die;
+    ?>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -45,7 +49,7 @@
 </head>
 <body >
 
-<?php echo $__env->make('layouts.frontLayout.header_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php echo $__env->make('layouts.frontLayout.header_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <?php echo $__env->yieldContent('content'); ?>
 
@@ -248,42 +252,5 @@ $('#email').blur(function()
  });
 </script>
 
-<script>
-// Check User Phone
-$('#phone').blur(function()
-{
-  var error_phone = '';
-  var phone = $('#phone').val();
-  var _token = $('input[name="_token"]').val();
-//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if(!filter.test(phone))
-  {    
-   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
-   $('#phone').addClass('has-error');
-  }
-  else
-  {
-   $.ajax({
-    url:"<?php echo e(url('/checkphone')); ?>",
-    method:"POST",
-    data:{phone:phone, _token:_token},
-    success:function(result)
-    {
-     if(result == 'unique')
-     {
-      $('#error_phone').html('<label class="text-success">Phone Available</label>');
-      $('#phone').removeClass('has-error');
-     }
-     else
-     {
-      $('#error_phone').html('<label class="text-danger">Phone already exist.</label>');
-      $('#phone').addClass('has-error');
-     }
-    }
-   })
-  }
- });
-</script>
-
   </body>
-</html><?php /**PATH D:\IndiaPropertyClinic\resources\views/layouts/frontLayout/frontend_design.blade.php ENDPATH**/ ?>
+</html><?php /**PATH D:\IndiaPropertyClinic\resources\views/layouts/frontLayout/frontend_design2.blade.php ENDPATH**/ ?>

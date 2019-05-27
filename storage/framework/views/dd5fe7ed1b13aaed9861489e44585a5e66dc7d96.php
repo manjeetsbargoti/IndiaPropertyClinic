@@ -248,7 +248,7 @@
                                                         <ul>
                                                             <li>
                                                                 <?php if(!empty($property->property_price)): ?>
-                                                                    <h5><span><?php if(!empty($property->currency)): ?><?php echo e($property->currency); ?><?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
+                                                                    <h5><span><?php echo e($property->currency); ?></span> <?php echo e($property->property_price); ?></h5>
                                                                 <?php else: ?>
                                                                     <a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Get Price</a>
                                                                 <?php endif; ?>
