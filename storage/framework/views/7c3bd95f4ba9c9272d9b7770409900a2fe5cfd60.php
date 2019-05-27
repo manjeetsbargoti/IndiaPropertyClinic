@@ -6,32 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- for Google -->
-    <?php if(!empty($meta_title)): ?><meta name="title" content="<?php echo e($meta_title); ?>"/><?php endif; ?>
-
-    <?php if(!empty($meta_description)): ?><meta name="description" content="<?php echo e($meta_description); ?>"/><?php endif; ?>
-    
-    <?php if(!empty($meta_keywords)): ?><meta name="keywords" content="<?php echo e($meta_keywords); ?>"/><?php endif; ?>
-    
-    <?php if(!empty($meta_keywords)): ?><link rel="canonical" href="" /><?php endif; ?>
+    <meta name="title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
+    <meta name="description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
+    <meta name="keywords" content="<?php if(!empty($property->city_name)): ?><?php echo e('Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name); ?> <?php else: ?> <?php echo e(config('app.name')); ?> <?php endif; ?>"/>
+    <link rel="canonical" href="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 
     <!-- for Facebook -->
-    <meta property="og:title" content="" />
+    <meta property="og:title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
     <meta property="og:type" content="article" />
-    <meta property="og:description" content="" />
-    <meta property="og:image" content="" />
-    <meta property="og:url" content="" />
+    <meta property="og:description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
+    <meta property="og:image" content="<?php if($property->image_name): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php endif; ?>" />
+    <meta property="og:url" content="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
 
     <!-- for Twitter -->
-    <meta name="twitter:card" content="" />
-    <meta name="twitter:title" content="" />
-    <meta name="twitter:description" content="" />
-    <meta name="twitter:image" content="" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
+    <meta name="twitter:description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
+    <meta name="twitter:image" content="<?php if($property->image_name): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php endif; ?>" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title><?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?> <?php else: ?> India Property Clinic <?php endif; ?></title>
+    <title><?php echo e(config('app.name', 'IPC')); ?></title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>">

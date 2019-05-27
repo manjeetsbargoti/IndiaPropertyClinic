@@ -77,6 +77,13 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     // Add Missing City
     Route::match(['get', 'post'], '/admin/add-city', 'AdminController@addCity');
 
+    // System Options Routes
+    Route::get('/admin/options', 'SystemController@getOptions');
+    Route::get('/admin/robots.txt','SystemController@getRobot');
+    Route::post('/admin/robots.txt','SystemController@postRobot');
+    Route::get('/admin/htaccess','SystemController@getHtaccess');
+    Route::post('/admin/htaccess','SystemController@postHtaccess');
+
     // Admin Logout Function
     Route::get('/get-out', 'AdminController@getOut');
 

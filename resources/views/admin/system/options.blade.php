@@ -25,25 +25,31 @@
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Name</label>
-                                  <input type="text" name="site_name" id="site_name" class="form-control" placeholder="Site Name">
+                                  <input type="text" name="site_name" id="site_name" class="form-control" placeholder="Site Name" value="{{ config('app.name') }}">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Url</label>
-                                  <input type="text" name="site_url" id="site_url" class="form-control" placeholder="Site Url">
+                                  <input type="text" name="site_url" id="site_url" class="form-control" placeholder="Site Url" value="{{ config('app.url') }}">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Site Logo</label>
-                                  <input type="file" name="site_logo" id="site_logo" class="form-control" placeholder="Site Logo">
+                                    <label>Site Logo</label>
+                                    <input type="file" name="site_logo" id="site_logo"  accept="image/*" class="form-control" placeholder="Site Logo">
+                                    <div class="help-block">
+                                        <span>Current: <a href="{{asset(config('app.logo'))}}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Site Favicon</label> <span class="pull-right" id="error_phone"></span>
-                                  <input type="file" name="site_icon" id="site_icon" class="form-control" placeholder="Site icon">
+                                    <label>Site Favicon</label>
+                                    <input type="file" name="site_icon" id="site_icon" accept=".ico" class="form-control" placeholder="Site icon">
+                                    <div class="help-block">
+                                        <span>Current: <a href="{{asset(config('app.favicon'))}}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
