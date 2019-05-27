@@ -1034,6 +1034,7 @@ return array(
     'Illuminate\\Database\\Capsule\\Manager' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Capsule/Manager.php',
     'Illuminate\\Database\\Concerns\\BuildsQueries' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php',
     'Illuminate\\Database\\Concerns\\ManagesTransactions' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php',
+    'Illuminate\\Database\\ConfigurationUrlParser' => $vendorDir . '/laravel/framework/src/Illuminate/Database/ConfigurationUrlParser.php',
     'Illuminate\\Database\\Connection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Connection.php',
     'Illuminate\\Database\\ConnectionInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Database/ConnectionInterface.php',
     'Illuminate\\Database\\ConnectionResolver' => $vendorDir . '/laravel/framework/src/Illuminate/Database/ConnectionResolver.php',
