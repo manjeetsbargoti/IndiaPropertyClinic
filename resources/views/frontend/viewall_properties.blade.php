@@ -14,11 +14,11 @@
                             <div class="shortby_inn">
                             <h6>Relevance</h6>
                             <select>
-                                <option>Latest</option>
-                                <option>Old</option>
-                                <option>Latest</option>
-                                <option>Latest</option>
-                                <option>Latest</option>
+                                <option value>Relevance</option>
+                                <option>Price - Low to High</option>
+                                <option>Price - High to Low</option>
+                                <option>Most Recent</option>
+                                <option>Owner Properties</option>
                             </select>
                         </div>
                         </div>

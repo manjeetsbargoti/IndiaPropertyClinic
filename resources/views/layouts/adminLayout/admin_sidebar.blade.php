@@ -46,7 +46,6 @@
             <li><a href="{{ url('/admin/custom-code') }}"><i class="fa fa-circle-o text-yellow"></i>Custom Code</a></li>
           </ul>
         </li>
-        @if("\App\User::where('admin', '1')->first()"  == 1)
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Users</span>
             <span class="pull-right-container">
@@ -60,7 +59,6 @@
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i>View User Type</a></li>
           </ul>
         </li>
-        @endif
         <li class="treeview">
           <a href="#"><i class="fa fa-gears"></i> <span>Property Services</span>
             <span class="pull-right-container">
