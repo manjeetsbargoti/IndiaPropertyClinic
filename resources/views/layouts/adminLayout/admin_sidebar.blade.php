@@ -33,6 +33,7 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        @if ("\App\User::where('admin', '1')->first()"  == 1 )
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>System</span>
             <span class="pull-right-container">
@@ -45,6 +46,7 @@
             <li><a href="{{ url('/admin/htaccess') }}"><i class="fa fa-circle-o text-yellow"></i>.htaccess</a></li>
           </ul>
         </li>
+        @endif
         @if ("\App\User::where('admin', '1')->first()"  == 1 )
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Users</span>
