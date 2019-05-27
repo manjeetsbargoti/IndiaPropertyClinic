@@ -106,7 +106,9 @@
                                 <label>User is..</label>
                                 <div class="form-group">
                                         <input class="form-check-input" name="usertype" id="usertype" type="radio" <?php if($userdetails->usertype == 'U'): ?> checked <?php endif; ?> value="U">
-                                        <label class="form-check-label" for="usertype">Buyer/Owner</label> &nbsp;&nbsp;
+                                        <label class="form-check-label" for="usertype">Buyer</label> &nbsp;&nbsp;
+                                        <input class="form-check-input" name="usertype" id="usertype" type="radio" <?php if($userdetails->usertype == 'O'): ?> checked <?php endif; ?> value="O">
+                                        <label class="form-check-label" for="usertype">Owner</label> &nbsp;&nbsp;
                                         <input class="form-check-input" name="usertype" id="usertype" type="radio" <?php if($userdetails->usertype == 'A'): ?> checked <?php endif; ?> value="A">
                                         <label class="form-check-label" for="usertype">Agent</label> &nbsp;&nbsp;
                                         <input class="form-check-input" name="usertype" id="usertype" type="radio" <?php if($userdetails->usertype == 'B'): ?> checked <?php endif; ?> value="B">
@@ -115,6 +117,7 @@
                                         <label class="form-check-label" for="usertype">Vendor</label> &nbsp;&nbsp;
                                 </div>
                             </div>
+                            <?php if($userdetails->usertype == 'V'): ?>
                             <div class="col-xs-12 col-md-6">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
@@ -123,6 +126,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <?php endif; ?>
                         </div>
                       </div>
                       <!-- /.box-body -->

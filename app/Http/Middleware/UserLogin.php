@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+use App\User;
 use Closure;
 Use Session;
 
@@ -13,11 +14,17 @@ class UserLogin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role=null)
     {
-        if(empty(Session::has('UserSession')))
-        {
-            return redirect('/login');
+        // if(empty(Session::has('UserSession')))
+        // {
+        //     return redirect('/login');
+        // }
+        // return $next($request);
+
+        if(!$request->user()->hasRole($role)){
+            // return redirect()->guest('/login');
+            return redirect('/');
         }
         return $next($request);
     }

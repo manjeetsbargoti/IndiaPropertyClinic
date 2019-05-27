@@ -184,11 +184,10 @@ desired effect
       var error_phone = '';
       var phone = $('#phone').val();
       var _token = $('input[name="_token"]').val();
-      // var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      // if (!filter.test(phone)) {
-      //   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
-      //   $('#phone').addClass('has-error');
-      // } else {
+      if (document.getElementById('phone').value === '') {
+        $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
+        $('#phone').addClass('has-error');
+      } else {
         $.ajax({
           url: "<?php echo e(url('/checkuserphone')); ?>",
           method: "POST",
@@ -206,7 +205,7 @@ desired effect
             }
           }
         })
-      // }
+      }
     });
   </script>
 

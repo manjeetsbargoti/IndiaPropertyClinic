@@ -26,14 +26,16 @@ class AdminController extends Controller
 {
     public function adminLogin(Request $request, $guard = null)
     {
-        // $userData = Auth::user();
+        $userData = Auth::user();
+        // echo "<pre>"; print_r($userData); die;
 
         // $data = $request->all();
         
-        // if (Auth::guard($guard)->check() && $userData->admin == 1) {
-        //     Session::put('Auth', $userData['email']);
-        //     return redirect('/admin/dashboard');
-        // }
+
+        if (Auth::guard($guard)->check() && $userData->admin == 1) {
+            Session::put('Auth', $userData['email']);
+            return redirect('/admin/dashboard');
+        }
         if ($request->isMethod('post')) {
             $data = $request->input();
             // echo "<pre>"; print_r($data); die;

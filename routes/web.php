@@ -10,13 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-use App\Http\Controllers\PropertyController;
+
+Auth::routes();
 
 Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 
-Route::group(['middleware' => ['admin']], function () {
+Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/profile', 'AdminController@adminProfile');
     // Route::get('/admin/settings', 'AdminController@settings');
@@ -81,9 +82,7 @@ Route::group(['middleware' => ['admin']], function () {
 
 });
 
-Auth::routes();
-
-Route::group(['middleware' => ['userlogin']], function () {
+Route::group(['middleware' => ['auth', 'admin:0']], function () {
     Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
 
 });
