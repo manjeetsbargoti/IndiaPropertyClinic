@@ -11,7 +11,6 @@ class SystemController extends Controller
         return view('admin.system.options');
     }
 
-
     // Get Robots.txt
     public function getRobot(){
         $data['robots'] = file_get_contents(public_path('robots.txt'));
@@ -33,6 +32,20 @@ class SystemController extends Controller
     // Save .htaccess
     public function postHtaccess(Request $request){
         file_put_contents(public_path('.htaccess'),$request->htaccess);
+        return back();
+    }
+
+    // Get Custom Codes
+    public function getCode(){
+        $data['header'] = file_get_contents(resource_path('views/admin/system/partials/code_head.blade.php'));
+        $data['footer'] = file_get_contents(resource_path('views/admin/system/partials/code_footer.blade.php'));
+        return view('admin.system.code',$data);
+    }
+
+    // Save Custom Codes
+    public function postCodes(Request $request){
+        file_put_contents(resource_path('views/admin/system/partials/code_head.blade.php'),$request->custom_code_header);
+        file_put_contents(resource_path('views/admin/system/partials/code_footer.blade.php'),$request->custom_code_footer);
         return back();
     }
 }

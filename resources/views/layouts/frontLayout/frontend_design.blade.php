@@ -41,6 +41,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
+
+    @include('admin.system.partials.code_head')
     
 </head>
 <body >
@@ -284,6 +286,8 @@ $('#phone').blur(function()
   }
  });
 </script>
+
+    @include('admin.system.partials.code_footer')
 
   </body>
 </html>

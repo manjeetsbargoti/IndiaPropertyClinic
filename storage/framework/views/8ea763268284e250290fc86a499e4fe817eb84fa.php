@@ -157,7 +157,11 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
+                <?php if("\App\User::where('admin', '1')->first()"  == 1): ?>
                 <a href="<?php echo e(url('/admin/profile')); ?>" class="btn btn-default btn-flat">Profile</a>
+                <?php else: ?>
+                <a href="<?php echo e(url('/My-Account')); ?>" class="btn btn-default btn-flat">Profile</a>
+                <?php endif; ?>
               </div>
               <div class="pull-right">
                 <a href="<?php echo e(url('/get-out')); ?>" class="btn btn-default btn-flat">Sign out</a>

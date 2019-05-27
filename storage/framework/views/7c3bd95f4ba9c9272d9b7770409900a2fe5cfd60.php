@@ -41,6 +41,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/owl.carousel.js')); ?>"></script>
+
+    <?php echo $__env->make('admin.system.partials.code_head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     
 </head>
 <body >
@@ -284,6 +286,8 @@ $('#phone').blur(function()
   }
  });
 </script>
+
+    <?php echo $__env->make('admin.system.partials.code_footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
   </body>
 </html><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/frontend_design.blade.php ENDPATH**/ ?>

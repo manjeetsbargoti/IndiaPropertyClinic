@@ -83,6 +83,9 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::post('/admin/robots.txt','SystemController@postRobot');
     Route::get('/admin/htaccess','SystemController@getHtaccess');
     Route::post('/admin/htaccess','SystemController@postHtaccess');
+    Route::get('/admin/custom-code','SystemController@getCode');
+    Route::post('/admin/custom-code','SystemController@postCodes');
+
 
     // Admin Logout Function
     Route::get('/get-out', 'AdminController@getOut');

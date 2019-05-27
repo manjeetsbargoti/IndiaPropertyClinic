@@ -5,25 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- for Google -->
-    <meta name="title" content="@if(!empty($property->property_name)){{ $property->property_name.' | '.config('app.name') }}@else {{ config('app.name') }}@endif"/>
-    <meta name="description" content="@if(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@else {{ config('app.name') }}@endif"/>
-    <meta name="keywords" content="@if(!empty($property->city_name)){{ 'Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name }}@else {{ config('app.name') }} @endif"/>
-    <link rel="canonical" href="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@else {{ config('app.name') }}@endif" />
-    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
-
-    <!-- for Facebook -->
-    <meta property="og:title" content="@if(!empty($property->property_name)){{ $property->property_name.' | '.config('app.name') }}@else {{ config('app.name') }}@endif" />
-    <meta property="og:type" content="article" />
-    <meta property="og:description" content="@if(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@else {{ config('app.name') }}@endif" />
-    <meta property="og:image" content="@if($property->image_name){{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}@endif" />
-    <meta property="og:url" content="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@else {{ config('app.name') }}@endif" />
-
-    <!-- for Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="@if(!empty($property->property_name)){{ $property->property_name.' | '.config('app.name') }}@else {{ config('app.name') }}@endif" />
-    <meta name="twitter:description" content="@if(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@else {{ config('app.name') }}@endif" />
-    <meta name="twitter:image" content="@if($property->image_name){{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}@endif" />
 
     <?php
             // echo"<pre>"; print_r($property); die;
@@ -46,6 +27,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
     
+    @include('admin.system.partials.code_head')
+
 </head>
 <body >
 
@@ -251,6 +234,8 @@ $('#email').blur(function()
   }
  });
 </script>
+
+@include('admin.system.partials.code_footer')
 
   </body>
 </html>

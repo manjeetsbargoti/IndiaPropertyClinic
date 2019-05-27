@@ -5,25 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- for Google -->
-    <meta name="title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
-    <meta name="description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>"/>
-    <meta name="keywords" content="<?php if(!empty($property->city_name)): ?><?php echo e('Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name); ?><?php else: ?> <?php echo e(config('app.name')); ?> <?php endif; ?>"/>
-    <link rel="canonical" href="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
-
-    <!-- for Facebook -->
-    <meta property="og:title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta property="og:type" content="article" />
-    <meta property="og:description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta property="og:image" content="<?php if($property->image_name): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php endif; ?>" />
-    <meta property="og:url" content="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-
-    <!-- for Twitter -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="<?php if(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="twitter:description" content="<?php if(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="twitter:image" content="<?php if($property->image_name): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php endif; ?>" />
 
     <?php
             // echo"<pre>"; print_r($property); die;
@@ -46,6 +27,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/owl.carousel.js')); ?>"></script>
     
+    <?php echo $__env->make('admin.system.partials.code_head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
 </head>
 <body >
 
@@ -251,6 +234,8 @@ $('#email').blur(function()
   }
  });
 </script>
+
+<?php echo $__env->make('admin.system.partials.code_footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
   </body>
 </html><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/frontend_design2.blade.php ENDPATH**/ ?>

@@ -45,8 +45,11 @@
                             </div>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Site Favicon</label>
-                                  <input type="file" name="site_icon" id="site_icon"  accept="image/*" class="form-control" placeholder="Site icon">
+                                    <label>Site Favicon</label>
+                                    <input type="file" name="site_icon" id="site_icon" accept=".ico" class="form-control" placeholder="Site icon">
+                                    <div class="help-block">
+                                        <span>Current: <a href="<?php echo e(asset(config('app.favicon'))); ?>" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -43,9 +43,10 @@
             <li><a href="<?php echo e(url('/admin/options')); ?>"><i class="fa fa-circle-o text-yellow"></i>Site Options</a></li>
             <li><a href="<?php echo e(url('/admin/robots.txt')); ?>"><i class="fa fa-circle-o text-yellow"></i>Robots.txt</a></li>
             <li><a href="<?php echo e(url('/admin/htaccess')); ?>"><i class="fa fa-circle-o text-yellow"></i>.htaccess</a></li>
+            <li><a href="<?php echo e(url('/admin/custom-code')); ?>"><i class="fa fa-circle-o text-yellow"></i>Custom Code</a></li>
           </ul>
         </li>
-        <?php if("\App\User::where('admin', '1')->first()"  == 1 ): ?>
+        <?php if("\App\User::where('admin', '1')->first()"  == 1): ?>
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Users</span>
             <span class="pull-right-container">

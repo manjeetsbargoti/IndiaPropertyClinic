@@ -413,4 +413,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.adminLayout.users.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/auth/users/user_account.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/auth/users/user_account.blade.php ENDPATH**/ ?>

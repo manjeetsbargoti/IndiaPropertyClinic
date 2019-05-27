@@ -1,18 +1,17 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
-    <div class = "wrapper" >
+    <!-- <div class = "wrapper" > -->
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Welcome, <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
+        User Profile
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Users</a></li>
+        <li><a href="#">Examples</a></li>
         <li class="active">User profile</li>
       </ol>
     </section>
@@ -26,12 +25,11 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-              <h3 class="profile-username text-center">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h3>
-                @foreach($users as $u)
-              <p class="text-muted text-center">{{ $u->user_type }}, {{ $u->service_name }}</p>
-              @endforeach
+              <h3 class="profile-username text-center">Nina Mcintire</h3>
+
+              <p class="text-muted text-center">Software Engineer</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
@@ -69,20 +67,9 @@
               <hr>
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                @foreach($users as $u)
-                    <p class="text-muted">
-                        @if($city_count > 0)
-                            <span>{{ $u->city_name }},</span> 
-                        @else
-                            <span title="Update Your City">City,</span>
-                        @endif
-                        @if($state_count > 0)
-                            <span>{{ $u->state_name }}</span> 
-                        @else
-                            <span title="Update Your State">State</span>
-                        @endif
-                    </p>
-                @endforeach
+
+              <p class="text-muted">Malibu, California</p>
+
               <hr>
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
@@ -370,17 +357,20 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="change_password">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="<?php echo e(url('/admin/update-pwd')); ?>">
+                <?php echo e(csrf_field()); ?>
+
                   <div class="form-group">
                     <label for="Current Password" class="col-sm-2 control-label">Current Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="current_password">
+                      <input type="password" class="form-control" name="current_pwd" id="current_pwd">
+                      <span id="chkPwd"></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="New Password" class="col-sm-2 control-label">New Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="new_password">
+                      <input type="password" class="form-control" name="new_pwd" id="new_pwd">
                     </div>
                   </div>
                   <div class="form-group">
@@ -410,7 +400,9 @@
     <!-- /.content -->
   </div>
     <!-- /.content-wrapper -->
-        
 
 
-@endsection
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/admin_profile.blade.php ENDPATH**/ ?>

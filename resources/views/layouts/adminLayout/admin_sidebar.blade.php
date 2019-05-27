@@ -43,9 +43,10 @@
             <li><a href="{{ url('/admin/options') }}"><i class="fa fa-circle-o text-yellow"></i>Site Options</a></li>
             <li><a href="{{ url('/admin/robots.txt') }}"><i class="fa fa-circle-o text-yellow"></i>Robots.txt</a></li>
             <li><a href="{{ url('/admin/htaccess') }}"><i class="fa fa-circle-o text-yellow"></i>.htaccess</a></li>
+            <li><a href="{{ url('/admin/custom-code') }}"><i class="fa fa-circle-o text-yellow"></i>Custom Code</a></li>
           </ul>
         </li>
-        @if ("\App\User::where('admin', '1')->first()"  == 1 )
+        @if("\App\User::where('admin', '1')->first()"  == 1)
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Users</span>
             <span class="pull-right-container">
