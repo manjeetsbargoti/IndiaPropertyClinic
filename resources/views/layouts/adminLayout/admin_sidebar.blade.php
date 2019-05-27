@@ -33,7 +33,19 @@
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        @if (Auth::check() && Auth::user()->admin)
+        <li class="treeview">
+          <a href="#"><i class="fa fa-users"></i> <span>System</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('/admin/options') }}"><i class="fa fa-circle-o text-yellow"></i>Site Options</a></li>
+            <li><a href="{{ url('/admin/robots.txt') }}"><i class="fa fa-circle-o text-yellow"></i>Robots.txt</a></li>
+            <li><a href="{{ url('/admin/htaccess') }}"><i class="fa fa-circle-o text-yellow"></i>.htaccess</a></li>
+          </ul>
+        </li>
+        @if ("\App\User::where('admin', '1')->first()"  == 1 )
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Users</span>
             <span class="pull-right-container">
