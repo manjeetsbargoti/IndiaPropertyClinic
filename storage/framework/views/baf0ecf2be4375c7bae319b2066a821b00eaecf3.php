@@ -17,17 +17,18 @@
             <div class="col-xs-12 col-md-8">
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="site_options" id="site_options" method="POST" action="<?php echo e(url('/admin/options')); ?>">
+                    <form method="POST" enctype="multipart/form-data">
                     <?php echo e(csrf_field()); ?>
 
                       <div class="box-body">
                         <div class="row">
+                          <?php // echo $options; ?>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Name</label>
                                   <input type="text" name="site_name" id="site_name" class="form-control" placeholder="Site Name" value="<?php echo e(config('app.name')); ?>">
                                 </div>
-                            </div>
+                            </div>  
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Url</label>

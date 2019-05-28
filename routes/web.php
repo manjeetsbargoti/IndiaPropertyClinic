@@ -79,12 +79,15 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
 
     // System Options Routes
     Route::get('/admin/options', 'SystemController@getOptions');
+    Route::post('/admin/options','SystemController@postOption');
     Route::get('/admin/robots.txt','SystemController@getRobot');
     Route::post('/admin/robots.txt','SystemController@postRobot');
     Route::get('/admin/htaccess','SystemController@getHtaccess');
     Route::post('/admin/htaccess','SystemController@postHtaccess');
     Route::get('/admin/custom-code','SystemController@getCode');
     Route::post('/admin/custom-code','SystemController@postCodes');
+    Route::get('/admin/editor','SystemController@getStyle');
+    Route::post('/admin/editor','SystemController@postStyle');
 
 
     // Admin Logout Function

@@ -4,10 +4,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Custom Code</h1>
+      <h1>Editor</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Custome Code</li>
+        <li class="active">Style.css</li>
       </ol>
     </section>
 
@@ -24,14 +24,8 @@
                         <div class="row">
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Custom Code: Header</label>
-                                  <textarea name="custom_code_header" id="custom_code_header" cols="30" rows="7" class="form-control"><?php echo $header; ?></textarea>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-md-12">
-                                <div class="form-group">
-                                  <label>Custom Code: Footer</label>
-                                  <textarea name="custom_code_footer" id="custom_code_footer" cols="30" rows="7" class="form-control"><?php echo $footer; ?></textarea>
+                                  <label>Style.css</label>
+                                  <textarea name="style_css" id="style_css" cols="30" rows="20" class="form-control"><?php echo $styles; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -51,4 +45,4 @@
 <!-- /.content-wrapper -->
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/system/code.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/system/editor.blade.php ENDPATH**/ ?>

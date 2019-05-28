@@ -34,27 +34,28 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>System</span>
+          <a href="#"><i class="fa fa-cogs text-green"></i> <span>System</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo e(url('/admin/options')); ?>"><i class="fa fa-circle-o text-yellow"></i>Site Options</a></li>
-            <li><a href="<?php echo e(url('/admin/robots.txt')); ?>"><i class="fa fa-circle-o text-yellow"></i>Robots.txt</a></li>
-            <li><a href="<?php echo e(url('/admin/htaccess')); ?>"><i class="fa fa-circle-o text-yellow"></i>.htaccess</a></li>
-            <li><a href="<?php echo e(url('/admin/custom-code')); ?>"><i class="fa fa-circle-o text-yellow"></i>Custom Code</a></li>
+            <li><a href="<?php echo e(url('/admin/options')); ?>"><i class="fa fa-sliders text-yellow"></i>Site Options</a></li>
+            <li><a href="<?php echo e(url('/admin/robots.txt')); ?>"><i class="fa fa-file text-yellow"></i>Robots.txt</a></li>
+            <li><a href="<?php echo e(url('/admin/htaccess')); ?>"><i class="fa fa-file text-yellow"></i>.htaccess</a></li>
+            <li><a href="<?php echo e(url('/admin/custom-code')); ?>"><i class="fa fa-code text-yellow"></i>Custom Code</a></li>
+            <li><a href="<?php echo e(url('/admin/editor')); ?>"><i class="fa fa-terminal text-yellow"></i>Editor</a></li>
           </ul>
         </li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-users"></i> <span>Users</span>
+          <a href="#"><i class="fa fa-users text-red"></i> <span>Users</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo e(url('/admin/users')); ?>"><i class="fa fa-circle-o text-yellow"></i>All Users</a></li>
-            <li><a href="<?php echo e(url('/admin/add-new-user')); ?>"><i class="fa fa-circle-o text-yellow"></i>Add User</a></li>
+            <li><a href="<?php echo e(url('/admin/add-new-user')); ?>"><i class="fa fa-user-plus text-yellow"></i>Add User</a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i>Add User Type</a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i>View User Type</a></li>
           </ul>
@@ -126,7 +127,16 @@
             <li><a href="<?php echo e(url('/admin/add-city')); ?>"><i class="fa fa-building text-green"></i> <span>Add City</span></a></li>
           </ul>
         </li>
-        
+        <li class="treeview">
+          <a href="#"><i class="fa fa-rocket text-green"></i> <span>SEO Tools</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo e(url('/admin/sitemap')); ?>"><i class="fa fa-map text-yellow"></i> <span>Sitemap</span></a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

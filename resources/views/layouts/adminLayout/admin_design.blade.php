@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app()->getLocale() }}">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>India Property Clinic</title>
+  <title>{{ config('app.name', 'IPC Property Portal') }}</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">

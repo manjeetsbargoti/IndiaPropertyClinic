@@ -2,13 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Option;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class SystemController extends Controller
 {
     // Get System Options
     public function getOptions(){
-        return view('admin.system.options');
+        $data['options'] = Option::get();
+        return view('admin.system.options',$data);
+    }
+
+    // Update System Options
+    public function postOption(Request $request){
+        $option = Option::where('key','=','app.name')->first();
+        $option->value =$request->site_name?:$option->value;
+        $option->save();
+
+        $option = Option::where('key','=','app.url')->first();
+        $option->value =$request->site_url?:$option->value;
+        $option->save();
+
+        if(isset($request->site_logo)){
+            $request->site_logo->move(public_path(), 'logo.svg');
+        }
+
+        if(isset($request->site_icon)){
+            $request->site_icon->move(public_path(), 'favicon.ico');
+        }
+
+        return back()->with(['flash_message_success' =>'Updated']);
     }
 
     // Get Robots.txt
@@ -20,6 +44,18 @@ class SystemController extends Controller
     // Save Robot.txt
     public function postRobot(Request $request){
         file_put_contents(public_path('robots.txt'),$request->robots_txt);
+        return back();
+    }
+
+    // Get Style.css
+    public function getStyle(){
+        $data['styles'] = file_get_contents(public_path('css/frontend_css/style.css'));
+        return view('admin.system.editor', $data);
+    }
+
+    // Save Style.css
+    public function postStyle(Request $request){
+        file_put_contents(public_path('css/frontend_css/style.css'),$request->style_css);
         return back();
     }
 

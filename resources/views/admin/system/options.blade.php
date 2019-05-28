@@ -18,16 +18,17 @@
             <div class="col-xs-12 col-md-8">
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="site_options" id="site_options" method="POST" action="{{ url('/admin/options') }}">
+                    <form method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                       <div class="box-body">
                         <div class="row">
+                          <?php // echo $options; ?>
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Name</label>
-                                  <input type="text" name="site_name" id="site_name" class="form-control" placeholder="Site Name" value="{{ config('app.name') }}">
+                                  <input type="text" name="site_name" id="site_name" class="form-control" placeholder="Site Name" value="{{config('app.name')}}">
                                 </div>
-                            </div>
+                            </div>  
                             <div class="col-xs-12 col-md-12">
                                 <div class="form-group">
                                   <label>Site Url</label>
@@ -39,7 +40,7 @@
                                     <label>Site Logo</label>
                                     <input type="file" name="site_logo" id="site_logo"  accept="image/*" class="form-control" placeholder="Site Logo">
                                     <div class="help-block">
-                                        <span>Current: <a href="{{asset(config('app.logo'))}}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                        <span>Current: <a href="{{ asset(config('app.logo')) }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +49,7 @@
                                     <label>Site Favicon</label>
                                     <input type="file" name="site_icon" id="site_icon" accept=".ico" class="form-control" placeholder="Site icon">
                                     <div class="help-block">
-                                        <span>Current: <a href="{{asset(config('app.favicon'))}}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                        <span>Current: <a href="{{ asset(config('app.favicon')) }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
                                     </div>
                                 </div>
                             </div>

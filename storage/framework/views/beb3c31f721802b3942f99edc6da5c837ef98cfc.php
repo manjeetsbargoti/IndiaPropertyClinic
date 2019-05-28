@@ -78,7 +78,7 @@ $country = Controller::countries();
             <div class="col-lg-12">
                 <div class="mobile_menu">
                     <div class="burger_menu"><a href="#menu"><i class="fas fa-bars barmenu"></i></a></div>
-                    <div class="moblogo"><a href="#"><img src="/images/frontend_images/images/logo.svg"></a></li>
+                    <div class="moblogo"><a href="#"><img src="<?php echo e(asset(config('app.logo'))); ?>"></a></li>
                     </div>
                     <div class="mobuser_profile">
                         <div class="dropdown">
@@ -114,7 +114,7 @@ $country = Controller::countries();
     <!-- Main Menu desktop menu start -->
     <nav id="myHeader" class="navbar navbar-expand-lg navbar-light custom_nav followMeBar">
         <div class="container">
-            <a class="navbar-brand" href="/"><img src="/images/frontend_images/images/logo.svg"></a>
+            <a class="navbar-brand" href="/"><img src="<?php echo e(asset(config('app.logo'))); ?>"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

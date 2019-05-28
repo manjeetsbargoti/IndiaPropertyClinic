@@ -35,7 +35,8 @@ class AdminController extends Controller
         if (Auth::guard($guard)->check() && $userData->admin == 1) {
             Session::put('Auth', $userData['email']);
             return redirect('/admin/dashboard');
-        }
+        }  
+        
         if ($request->isMethod('post')) {
             $data = $request->input();
             // echo "<pre>"; print_r($data); die;

@@ -5,6 +5,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- for Google -->
+    <meta name="title" content=""/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <link rel="canonical" href="" />
+    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
+
+    <!-- for Facebook -->
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="article" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+
+    <!-- for Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="" />
 
     <?php
             // echo"<pre>"; print_r($property); die;
@@ -14,6 +33,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'IPC') }}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">
