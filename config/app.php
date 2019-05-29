@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Calcutta',
 
     /*
     |--------------------------------------------------------------------------
@@ -182,6 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         SSD\Currency\CurrencyServiceProvider::class,
+        // Roumen\Sitemap\SitemapServiceProvider::class,
 
         /*
          * Package Service Providers...

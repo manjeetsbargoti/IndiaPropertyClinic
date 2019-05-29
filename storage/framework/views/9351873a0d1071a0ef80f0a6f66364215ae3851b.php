@@ -34,6 +34,9 @@
 
     <title><?php echo e(config('app.name', 'IPC')); ?></title>
 
+    <!-- Favicon -->
+    <link rel="icon" href="<?php echo e(asset(config('app.favicon'))); ?>" type="image/x-icon"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">

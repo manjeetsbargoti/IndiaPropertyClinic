@@ -40,7 +40,7 @@
                                     <label>Site Logo</label>
                                     <input type="file" name="site_logo" id="site_logo"  accept="image/*" class="form-control" placeholder="Site Logo">
                                     <div class="help-block">
-                                        <span>Current: <a href="{{ asset(config('app.logo')) }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                        <span><a href="{{ asset(config('app.logo')) }}" target="_blank"><img src="{{ asset(config('app.logo')) }}"></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     <label>Site Favicon</label>
                                     <input type="file" name="site_icon" id="site_icon" accept=".ico" class="form-control" placeholder="Site icon">
                                     <div class="help-block">
-                                        <span>Current: <a href="{{ asset(config('app.favicon')) }}" target="_blank"><i class="fa fa-external-link"></i></a></span>
+                                        <span><a href="{{ asset(config('app.favicon')) }}" target="_blank"><img src="{{ asset(config('app.favicon')) }}"></a></span>
                                     </div>
                                 </div>
                             </div>

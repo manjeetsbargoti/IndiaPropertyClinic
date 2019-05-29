@@ -88,6 +88,8 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::post('/admin/custom-code','SystemController@postCodes');
     Route::get('/admin/editor','SystemController@getStyle');
     Route::post('/admin/editor','SystemController@postStyle');
+    Route::get('/admin/sitemap', 'SystemController@getSitemap');
+    Route::post('/admin/sitemap', 'SystemController@postSitemap');
 
 
     // Admin Logout Function

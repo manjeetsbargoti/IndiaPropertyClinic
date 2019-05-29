@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Amenities' => $baseDir . '/app/Amenities.php',
     'App\\Cities' => $baseDir . '/app/Cities.php',
+    'App\\Console\\Commands\\GenerateSitemap' => $baseDir . '/app/Console/Commands/GenerateSitemap.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\HomeLoan' => $baseDir . '/app/HomeLoan.php',
@@ -1790,6 +1791,9 @@ return array(
     'Laravel\\Tinker\\Console\\TinkerCommand' => $vendorDir . '/laravel/tinker/src/Console/TinkerCommand.php',
     'Laravel\\Tinker\\TinkerCaster' => $vendorDir . '/laravel/tinker/src/TinkerCaster.php',
     'Laravel\\Tinker\\TinkerServiceProvider' => $vendorDir . '/laravel/tinker/src/TinkerServiceProvider.php',
+    'Laravelium\\Sitemap\\Model' => $vendorDir . '/laravelium/sitemap/src/Laravelium/Sitemap/Model.php',
+    'Laravelium\\Sitemap\\Sitemap' => $vendorDir . '/laravelium/sitemap/src/Laravelium/Sitemap/Sitemap.php',
+    'Laravelium\\Sitemap\\SitemapServiceProvider' => $vendorDir . '/laravelium/sitemap/src/Laravelium/Sitemap/SitemapServiceProvider.php',
     'League\\Flysystem\\AdapterInterface' => $vendorDir . '/league/flysystem/src/AdapterInterface.php',
     'League\\Flysystem\\Adapter\\AbstractAdapter' => $vendorDir . '/league/flysystem/src/Adapter/AbstractAdapter.php',
     'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => $vendorDir . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',

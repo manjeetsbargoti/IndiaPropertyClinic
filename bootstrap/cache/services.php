@@ -29,17 +29,18 @@
     25 => 'Intervention\\Image\\ImageServiceProvider',
     26 => 'Laravel\\Socialite\\SocialiteServiceProvider',
     27 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    28 => 'Carbon\\Laravel\\ServiceProvider',
-    29 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    30 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
+    28 => 'Laravelium\\Sitemap\\SitemapServiceProvider',
+    29 => 'Carbon\\Laravel\\ServiceProvider',
+    30 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     31 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
-    32 => 'Intervention\\Image\\ImageServiceProvider',
-    33 => 'Laravel\\Socialite\\SocialiteServiceProvider',
-    34 => 'SSD\\Currency\\CurrencyServiceProvider',
-    35 => 'App\\Providers\\AppServiceProvider',
-    36 => 'App\\Providers\\AuthServiceProvider',
-    37 => 'App\\Providers\\EventServiceProvider',
-    38 => 'App\\Providers\\RouteServiceProvider',
+    32 => 'UniSharp\\LaravelFilemanager\\LaravelFilemanagerServiceProvider',
+    33 => 'Intervention\\Image\\ImageServiceProvider',
+    34 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    35 => 'SSD\\Currency\\CurrencyServiceProvider',
+    36 => 'App\\Providers\\AppServiceProvider',
+    37 => 'App\\Providers\\AuthServiceProvider',
+    38 => 'App\\Providers\\EventServiceProvider',
+    39 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -175,6 +176,8 @@
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'sitemap' => 'Laravelium\\Sitemap\\SitemapServiceProvider',
+    'Laravelium\\Sitemap\\Sitemap' => 'Laravelium\\Sitemap\\SitemapServiceProvider',
     'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
   ),
   'when' => 
@@ -219,6 +222,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'Laravelium\\Sitemap\\SitemapServiceProvider' => 
     array (
     ),
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 

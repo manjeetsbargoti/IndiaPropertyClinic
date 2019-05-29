@@ -84,4 +84,44 @@ class SystemController extends Controller
         file_put_contents(resource_path('views/admin/system/partials/code_footer.blade.php'),$request->custom_code_footer);
         return back();
     }
+
+    // Get Sitemap
+    public function getSitemap(){
+        $data['options'] = Option::get();
+        return view('admin.system.seo.sitemap', $data);
+    }
+
+    // Generate andSave Sitemap
+    public function postSitemap(Request $request){
+
+        // $data = $request->all();
+        // dd($data);
+
+        $option = Option::where('key','=','sitemap_add_properties')->first();
+        $option->value =$request->sitemap_add_properties?:$option->value;
+        $option->save();
+
+        $option = Option::where('key','=','sitemap_add_categories')->first();
+        $option->value = $request->sitemap_add_categories?:$option->value;
+        $option->save();
+
+        $option = Option::where('key','=','sitemap_add_services')->first();
+        $option->value = $request->sitemap_add_services?:$option->value;
+        $option->save();
+
+        $option = Option::where('key','=','sitemap_links')->first();
+        $option->value = $request->sitemap_links?:$option->value;
+        $option->save();
+
+        $option = Option::where('key','=','sitemap_created_at')->first();
+        $option->value = $request->sitemap_created_at?:$option->value;
+        $option->save();
+        // dd($option2);
+
+        if($request->submit){
+            Artisan::call('generate:sitemap');
+        }
+
+        return back();
+    }
 }
