@@ -59,6 +59,7 @@ class GenerateSitemap extends Command
                 $ctr = $ctr + 1;
 
                 $sitemap_properties->store('xml', 'sitemaps/sitemap-properties-' . $ctr);
+                $sitemap_properties->store('html', 'sitemaps/sitemap-properties-' . $ctr);
                 $sitemap->addSitemap($base_url . '/sitemaps/sitemap-properties-' . $ctr. '.xml');
                 $sitemap->addSitemap($base_url . '/sitemaps/sitemap-properties-' . $ctr. '.html');
             });
@@ -75,6 +76,7 @@ class GenerateSitemap extends Command
                 $ctr = $ctr + 1;
 
                 $sitemap_services->store('xml', 'sitemaps/sitemap-services-' .$ctr);
+                $sitemap_services->store('html', 'sitemaps/sitemap-services-' .$ctr);
                 $sitemap->addSitemap($base_url . '/sitemaps/sitemap-services-' .$ctr. '.xml');
                 $sitemap->addSitemap($base_url . '/sitemaps/sitemap-services-' .$ctr. '.html');
             });
