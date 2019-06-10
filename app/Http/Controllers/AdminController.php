@@ -7,6 +7,7 @@ use Session;
 use App\User;
 use Socialite;
 use Exception;
+use App\State;
 use App\Cities;
 use App\Property;
 use App\Services;
@@ -587,6 +588,25 @@ class AdminController extends Controller
         $countryname = DB::table('countries')->pluck("name", "id");
 
         return view('admin.csc_temp.add_city', compact('countryname'));
+    }
+
+    // Add Missing State
+    public function addState(Request $request)
+    {
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            State::create([
+                'name'      => $data['state_name'],
+                'country_id'    => $data['country_id'],
+                'country'       => $data['country_iso2'],
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'State Added Successfully!');
+        }
+
+        $countryname = DB::table('countries')->get();
+        return view('admin.csc_temp.add_state', compact('countryname'));
     }
 
     // CheckPassword function

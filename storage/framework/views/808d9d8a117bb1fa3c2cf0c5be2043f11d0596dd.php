@@ -140,8 +140,10 @@
                       </span>
                   </a>
                   <ul class="treeview-menu">
-                      <li><a href="<?php echo e(url('/admin/add-city')); ?>"><i class="fa fa-building text-green"></i> <span>Add
-                                  City</span></a></li>
+                        <li><a href="<?php echo e(url('/admin/add-city')); ?>"><i class="fa fa-building text-green"></i> <span>Add
+                            City</span></a></li>
+                        <li><a href="<?php echo e(url('/admin/add-state')); ?>"><i class="fa fa-building text-green"></i> <span>Add
+                            State</span></a></li>
                   </ul>
               </li>
               <li class="treeview">
