@@ -91,6 +91,8 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::post('/admin/editor','SystemController@postStyle');
     Route::get('/admin/sitemap', 'SystemController@getSitemap');
     Route::post('/admin/sitemap', 'SystemController@postSitemap');
+    Route::match(['get','post'], '/admin/new-contact', 'SystemController@newContact');
+    Route::get('/admin/contacts', 'SystemController@contactList');
 
 
     // Admin Logout Function
@@ -119,10 +121,10 @@ Route::match(['get', 'post'], '/properties/{url}', 'PropertyController@viewSingl
 Route::get('/services/{url}', 'RepairServiceController@SingleRepairService');
 
 // Search by City, State and Country
-Route::get('/view-properties/state_id={state_id}', 'PropertyController@searchByState');
-Route::get('/view-properties/city_id={city_id}', 'PropertyController@searchByCity');
-Route::get('/view-properties/for={id}', 'PropertyController@searchByService');
-Route::get('/view-properties/{country_id}', 'PropertyController@searchByCountry');
+Route::get('/state/{state_id}/properties', 'PropertyController@searchByState');
+Route::get('/city/{city_id}/properties', 'PropertyController@searchByCity');
+Route::get('/properties/{id}/{name}', 'PropertyController@searchByService');
+Route::get('/country/{country_id}/properties', 'PropertyController@searchByCountry');
 
 Route::get('/logout', 'AdminController@logout');
 

@@ -272,9 +272,9 @@ class PropertyController extends Controller
     // Showing Listed Properties By Admin
     public function viewProperty()
     {
-        $properties = Property::orderBy('created_at', 'desc')->get();
-        $propertyImages = PropertyImages::get();
-        $properties = json_decode(json_encode($properties));
+        $properties = Property::orderBy('created_at', 'desc')->paginate(10);
+        $propertyImages = PropertyImages::paginate(10);
+        // $properties = json_decode(json_encode($properties));
         $propertyImages = json_decode(json_encode($propertyImages));
 
         foreach ($properties as $key => $val) {
@@ -551,9 +551,9 @@ class PropertyController extends Controller
     // Search By Service
     public function searchByService($id = null)
     {
-        $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->get();
+        $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->paginate(18);
         $propertyImages = PropertyImages::get();
-        $properties = json_decode(json_encode($properties));
+        // $properties = json_decode(json_encode($properties));
         // echo "<pre>"; print_r($properties); die;
 
         foreach ($properties as $key => $val) {

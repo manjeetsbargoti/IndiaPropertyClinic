@@ -125,16 +125,16 @@ $country = Controller::countries();
                     <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="<?php echo e(url('/view-properties/for='.$mainnav->id)); ?>"><?php echo e($mainnav->service_name); ?> <span
+                            href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?> <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Tools & </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Packages</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="user_profile">
                     <div class="dropdown">
@@ -202,7 +202,7 @@ $country = Controller::countries();
                                                 <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <?php if($coun->continent == $c->code): ?>
                                                 <li>
-                                                    <a href="<?php echo e(url('/view-properties/'.$coun->iso2)); ?>"
+                                                    <a href="<?php echo e(url('/country/'.$coun->iso2.'/properties')); ?>"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
                                                 </li>

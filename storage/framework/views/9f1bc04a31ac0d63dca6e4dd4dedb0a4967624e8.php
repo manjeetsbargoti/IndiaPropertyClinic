@@ -513,7 +513,7 @@
                                     <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($country->continent == $continent->code): ?>
                                     <li>
-                                        <a href="<?php echo e(url('/view-properties/'.$country->iso2)); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
+                                        <a href="<?php echo e(url('/country/'.$country->iso2.'/properties')); ?>" style="margin: 0.2em 0em;" class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
                                     </li>
                                     <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

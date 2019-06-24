@@ -125,16 +125,16 @@ $country = Controller::countries();
                     @foreach($mainnavservice as $mainnav)
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="{{ url('/view-properties/for='.$mainnav->id) }}">{{ $mainnav->service_name }} <span
+                            href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }} <span
                                 class="sr-only">(current)</span></a>
                     </li>
                     @endforeach
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Tools & </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Packages</a>
-                    </li>
+                    </li> -->
                 </ul>
                 <div class="user_profile">
                     <div class="dropdown">
@@ -202,7 +202,7 @@ $country = Controller::countries();
                                                 @foreach($country as $coun)
                                                 @if($coun->continent == $c->code)
                                                 <li>
-                                                    <a href="{{ url('/view-properties/'.$coun->iso2) }}"
+                                                    <a href="{{ url('/country/'.$coun->iso2.'/properties') }}"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark">{{ $coun->name }}</a>
                                                 </li>

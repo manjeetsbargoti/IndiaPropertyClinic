@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Option;
+use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -123,5 +124,29 @@ class SystemController extends Controller
         }
 
         return back();
+    }
+
+    // Add New Contact
+    public function newContact(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo"<pre>"; print_r($data); die;
+
+            Contact::create([
+                'name'          => $data['contact_name'],
+                'phone'         => $data['phone'],
+                'description'   => $data['description']
+            ]);
+            return redirect()->back()->with('flash_message_success', 'Contact Added Successfully!');
+        }
+        return view('admin.contact.add_contact');
+    }
+
+    // View Contact List
+    public function contactList()
+    {
+        return view('admin.contact.contact_list');
     }
 }

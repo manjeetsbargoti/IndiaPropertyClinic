@@ -199,9 +199,10 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
-                <!-- <div class="product_loadding">
-                    <img src="/images/frontend_images/images/loadder.svg">
-                </div> -->
+                <div class="product_loadding">
+                    <?php echo $properties->render(); ?>
+
+                </div>
 
             </div>
         </div>

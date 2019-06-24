@@ -52,10 +52,10 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'desc')->take(10)->get();
         $actusers = User::where(['status' => 1])->orderBy('created_at', 'desc')->get();
         $inactusers = User::where(['status' => 0])->orderBy('created_at', 'desc')->get();
-        $property = Property::orderBy('created_at', 'desc')->get();
+        $property = Property::orderBy('created_at', 'desc')->take(10)->get();
         $propertyImages = PropertyImages::get();
         $property = json_decode(json_encode($property));
         $propertyImages = json_decode(json_encode($propertyImages));
@@ -286,8 +286,8 @@ class AdminController extends Controller
     // View All User
     public function viewUser(Request $request)
     {
-        $user = User::where(['admin' => 0])->orderBy('created_at', 'desc')->get();
-        $user = json_decode(json_encode($user));
+        $user = User::where(['admin' => 0])->orderBy('created_at', 'desc')->paginate(10);
+        // $user = json_decode(json_encode($user));
 
         foreach ($user as $key => $val) {
             $usertype = UserType::where(['usercode' => $val->usertype])->first();

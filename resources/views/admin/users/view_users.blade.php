@@ -37,31 +37,41 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <?php $i = 0 ?>
-                                @foreach($user as $u)
-                                <?php $i++ ?>
+                                    <?php $i = 0 ?>
+                                    @foreach($user as $u)
+                                    <?php $i++ ?>
                                     <td>{{ $i }}</td>
                                     <td>{{ $u->first_name }} {{ $u->last_name }}</td>
                                     <td>{{ $u->email}}</td>
-                                    <td>@if(!empty($u->phone)) {{$u->phonecode}}-{{ $u->phone}} @else <a href="/admin/edit-user/{{ $u->id }}" tite="Edit" class="label label-danger label-sm">Add Phone</a> @endif</td>
+                                    <td>@if(!empty($u->phone)) {{$u->phonecode}}-{{ $u->phone}} @else <a
+                                            href="/admin/edit-user/{{ $u->id }}" tite="Edit"
+                                            class="label label-danger label-sm">Add Phone</a> @endif</td>
                                     <td>@if(!empty($u->usertype_name)) {{ $u->usertype_name }} @else User @endif</td>
                                     <td>
-                                    @if(!empty($u->service_name))
+                                        @if(!empty($u->service_name))
                                         {{ $u->service_name }}
-                                    @else
+                                        @else
                                         Service
-                                    @endif
+                                        @endif
                                     </td>
                                     <td>{{ date('d M, Y', strtotime($u->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/edit-user/{{ $u->id }}" tite="Edit" class="label label-warning label-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="/admin/edit-user/{{ $u->id }}" tite="Edit"
+                                                class="label label-warning label-sm"><i class="fa fa-pencil-square-o"
+                                                    aria-hidden="true"></i></a>
                                             @if($u->status == 1)
-                                            <a href="/admin/udisable/{{ $u->id }}" title="Disable" class="label label-danger label-sm"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                            <a href="/admin/udisable/{{ $u->id }}" title="Disable"
+                                                class="label label-danger label-sm"><i class="fa fa-times"
+                                                    aria-hidden="true"></i></a>
                                             @else
-                                            <a href="/admin/uenable/{{ $u->id }}" title="Enable" class="label label-success label-sm"><i class="fa fa-check-square-o" aria-hidden="true"></i></a>
+                                            <a href="/admin/uenable/{{ $u->id }}" title="Enable"
+                                                class="label label-success label-sm"><i class="fa fa-check-square-o"
+                                                    aria-hidden="true"></i></a>
                                             @endif
-                                            <a href="/admin/delete-user/{{ $u->id }}" tite="Delete" class="label label-danger label-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                            <a href="/admin/delete-user/{{ $u->id }}" tite="Delete"
+                                                class="label label-danger label-sm"><i class="fa fa-trash"
+                                                    aria-hidden="true"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -81,6 +91,17 @@
                             </tfoot>
                         </table>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="dataTables_info_1" id="allusers-table_info_1" role="status" aria-live="polite">
+                                Showing 1 to 10 of 10 entries</div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="dataTables_paginate paging_simple_numbers_1" id="allusers-table_paginate_1">
+                                {!! $user->render() !!}
+                            </div>
+                        </div>
+                    </div>
                     <!-- /.box-body -->
                 </div>
             </div>
@@ -89,5 +110,20 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<style>
+.dataTables_info,
+.paging_simple_numbers {
+    display: none;
+}
+
+.pagination {
+    margin: 10px 20px 20px 0px;
+    float: right;
+}
+
+.dataTables_info_1 {
+    margin: 20px;
+}
+</style>
 
 @endsection

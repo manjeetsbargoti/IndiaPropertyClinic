@@ -140,7 +140,7 @@ $country = Controller::countries();
                 <ul class="navbar-nav ml-auto">
                     @foreach($mainnavservice as $mainnav)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/view-properties/for='.$mainnav->id) }}">{{ $mainnav->service_name }} <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }} <span class="sr-only">(current)</span></a>
                     </li>
                     @endforeach
                 </ul>
@@ -195,7 +195,7 @@ $country = Controller::countries();
                                                 @foreach($country as $coun)
                                                 @if($coun->continent == $c->code)
                                                     <li>
-                                                        <a href="{{ url('/view-properties/'.$coun->iso2) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
+                                                        <a href="{{ url('/country/'.$coun->iso2.'/properties') }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
                                                     </li>
                                                 @endif
                                                 @endforeach

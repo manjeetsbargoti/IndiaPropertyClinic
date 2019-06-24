@@ -512,7 +512,7 @@
                                     @foreach($countries as $country)
                                     @if($country->continent == $continent->code)
                                     <li>
-                                        <a href="{{ url('/view-properties/'.$country->iso2) }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $country->name }}</a>
+                                        <a href="{{ url('/country/'.$country->iso2.'/properties') }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $country->name }}</a>
                                     </li>
                                     @endif
                                     @endforeach

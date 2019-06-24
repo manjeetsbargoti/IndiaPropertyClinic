@@ -54,6 +54,17 @@
                   </ul>
               </li>
               <li class="treeview">
+                  <a href="#"><i class="fa fa-phone text-yellow"></i> <span>Contacts</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                        <li><a href="<?php echo e(url('/admin/contacts')); ?>"><i class="fa fa-building text-green"></i> <span>Contact List</span></a></li>
+                        <li><a href="<?php echo e(url('/admin/new-contact')); ?>"><i class="fa fa-building text-green"></i> <span>Add Contact</span></a></li>
+                  </ul>
+              </li>
+              <li class="treeview">
                   <a href="#"><i class="fa fa-users text-red"></i> <span>Users</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
@@ -140,10 +151,10 @@
                       </span>
                   </a>
                   <ul class="treeview-menu">
-                        <li><a href="<?php echo e(url('/admin/add-city')); ?>"><i class="fa fa-building text-green"></i> <span>Add
-                            City</span></a></li>
-                        <li><a href="<?php echo e(url('/admin/add-state')); ?>"><i class="fa fa-building text-green"></i> <span>Add
-                            State</span></a></li>
+                      <li><a href="<?php echo e(url('/admin/add-city')); ?>"><i class="fa fa-building text-green"></i> <span>Add
+                                  City</span></a></li>
+                      <li><a href="<?php echo e(url('/admin/add-state')); ?>"><i class="fa fa-building text-green"></i> <span>Add
+                                  State</span></a></li>
                   </ul>
               </li>
               <li class="treeview">
