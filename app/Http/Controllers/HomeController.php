@@ -42,8 +42,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $properties = Property::orderBy('id', 'asc')->get();
-        $featureProperty = Property::where(['featured'=>1])->get();
+        $properties = Property::orderBy('id', 'asc')->take(10)->get();
+        $featureProperty = Property::where(['featured'=>1])->take(4)->get();
         $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();
         $otherServices = OtherServices::get();
@@ -132,8 +132,9 @@ class HomeController extends Controller
     // View All Properties
     public function viewAll()
     {
-        $properties = Property::orderBy('created_at', 'desc')->get();
-        $posts = Property::orderBy('created_at', 'desc')->paginate($this->posts_per_page);
+        $property_count = Property::count();
+        $properties = Property::orderBy('created_at', 'desc')->paginate(24);
+        $posts = Property::orderBy('created_at', 'desc')->paginate(24);
         $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
 
@@ -145,10 +146,10 @@ class HomeController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
                 $posts[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
             if($country_count > 0)
             {
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
             }
@@ -182,7 +183,7 @@ class HomeController extends Controller
         }
         
         if(!empty($properties)){
-            $contRow = count($properties);
+            $contRow = $property_count;
             // echo "<pre>"; print_r($contRow); die;
         }
         return view('frontend.viewall_properties', compact('properties', 'propertyImages', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount'));
@@ -245,9 +246,9 @@ class HomeController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
             if($country_count > 0){
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $properties[$key]->country_name = $country->name;
                 $properties[$key]->currency = $country->currency;
             }
@@ -285,7 +286,7 @@ class HomeController extends Controller
             $contRow = 0;
         }
 
-        // echo "<pre>"; print_r($scityname); die;
+        // echo "<pre>"; print_r($city_count); die;
         return view('frontend.filter_templates.search_result')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
         }
     }
