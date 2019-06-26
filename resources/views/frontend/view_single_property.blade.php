@@ -27,18 +27,18 @@
                     <div class="outer">
                     
                             <div id="big" class="owl-carousel owl-theme">
-                            @foreach($propertyImages as $carousal)
-                                @if($property->id==$carousal->property_id)
-                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$carousal->image_name)}}"></div>
-                                @endif
-                            @endforeach
+                                @foreach(explode(',', $property->images) as $image)
+                                    <div class="item">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                    </div>
+                                @endforeach
                             </div>
                             <div id="thumbs" class="owl-carousel owl-theme">
-                            @foreach($propertyImages as $carousal)
-                                @if($property->id==$carousal->property_id)
-                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$carousal->image_name)}}"></div>
-                                @endif
-                            @endforeach
+                                @foreach(explode(',', $property->images) as $image)
+                                    <div class="item">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                    </div>
+                                @endforeach
                             </div>
                             
                             </div>

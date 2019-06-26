@@ -158,10 +158,10 @@
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
-                                    <?php $__currentLoopData = $propertyImages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $carousal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <?php if($property->id==$carousal->property_id): ?>
-                                    <div class="item"><img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$carousal->image_name)); ?>"></div>
-                                    <?php endif; ?>
+                                    <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <div class="item">
+                                            <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>">
+                                        </div>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                                 <div class="bottom_strip">

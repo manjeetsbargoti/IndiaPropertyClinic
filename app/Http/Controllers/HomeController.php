@@ -42,7 +42,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $properties = Property::orderBy('id', 'asc')->take(10)->get();
+        $properties = Property::orderBy('id', 'asc')->take(100)->get();
         $featureProperty = Property::where(['featured'=>1])->take(4)->get();
         $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();

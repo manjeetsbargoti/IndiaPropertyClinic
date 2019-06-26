@@ -242,8 +242,8 @@
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
                                             <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <div class="item"><img
-                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>">
+                                            <div class="item">
+                                                <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>">
                                             </div>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
@@ -350,13 +350,10 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    <?php $__currentLoopData = \App\Property::where('property_type_id', 1007)->orWhere('property_type_id',
-                    1008)->orderBy('created_at', 'desc')->take(3)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <?php if($property->property_type_id==1007 || $property->property_type_id==1008 ||
-                    $property->property_type_id==1009 || $property->property_type_id==1010 ||
-                    $property->property_type_id==1011 || $property->property_type_id==1012): ?>
+                    <?php $__currentLoopData = \App\Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(3)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php $counter++;?>
-                    <?php if($counter <= 3): ?> <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <?php if($counter <= 3): ?> 
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
@@ -368,11 +365,11 @@
                                 </div>
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i>
-                                        <?php if(!empty($property->city_name)): ?>
-                                        <span><?php echo e($property->city_name); ?>,</span>
+                                        <?php if(!empty($property->city)): ?>
+                                        <span><?php $__currentLoopData = \App\Cities::where('id', $property->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($c->name); ?>, <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
                                         <?php endif; ?>
-                                        <?php if(!empty($property->country_name)): ?>
-                                        <span><?php echo e($property->country_name); ?></span>
+                                        <?php if(!empty($property->country)): ?>
+                                        <span><?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($ct->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
                                         <?php endif; ?>
                                     </h6>
                                     <p><?php echo e($property->parea); ?> Square Ft</p>
@@ -400,8 +397,7 @@
                                         <ul>
                                             <li>
                                                 <?php if(!empty($property->property_price)): ?>
-                                                <h5><span><?php if(!empty($property->currency)): ?> <?php echo e($property->currency); ?>
-
+                                                <h5><span><?php if(!empty($property->country)): ?> <?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($ct->currency); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                         <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
                                                 <?php else: ?>
                                                 <a href="/properties/<?php echo e($property->property_url); ?>"
@@ -416,7 +412,6 @@
                             </div>
                         </div>
                 </div>
-                <?php endif; ?>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>

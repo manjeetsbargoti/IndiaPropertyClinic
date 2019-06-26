@@ -98,6 +98,9 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     // Admin Logout Function
     Route::get('/get-out', 'AdminController@getOut');
 
+    // Getting property images from Property Images table and uploading to Property table
+    Route::match(['get', 'post'], '/admin/update-pimages', 'SystemController@pImages');
+
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {

@@ -25,7 +25,7 @@ class Controller extends BaseController
 
     public static function footersection()
     {
-        $footerProperties = Property::orderBy('created_at', 'desc')->get();
+        $footerProperties = Property::orderBy('created_at', 'desc')->take(2)->get();
         $footerProperties = json_decode(json_encode($footerProperties));
 
         foreach($footerProperties as $key => $val) {
