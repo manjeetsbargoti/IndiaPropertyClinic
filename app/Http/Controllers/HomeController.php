@@ -42,12 +42,20 @@ class HomeController extends Controller
 
     public function index()
     {
-        $properties = Property::orderBy('id', 'asc')->take(100)->get();
+        $properties1 = Property::where('service_id', 2)->orderBy('id', 'asc')->take(4)->get();
+        $properties1 = json_decode(json_encode($properties1));
+        $properties2 = Property::where('service_id', 3)->orderBy('id', 'asc')->take(4)->get();
+        $properties2 = json_decode(json_encode($properties2));
+        $properties3 = Property::where('service_id', 4)->orderBy('id', 'asc')->take(4)->get();
+        $properties3 = json_decode(json_encode($properties3));
+        $properties = array_merge($properties1, $properties2, $properties3);
         $featureProperty = Property::where(['featured'=>1])->take(4)->get();
         $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();
         $otherServices = OtherServices::get();
-        $properties = json_decode(json_encode($properties));
+        // $properties = json_decode(json_encode($properties));
+
+        // echo "<pre>"; print_r($properties); die;
 
         foreach($properties as $key => $val) {
             $service_name = Services::where(['id'=>$val->service_id])->first();
