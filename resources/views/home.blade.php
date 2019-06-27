@@ -126,8 +126,7 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 @foreach(explode(',', $property->images) as $image)
-                                <div class="item"><img
-                                        src="{{ asset('/images/backend_images/property_images/large/'.$image) }}"></div>
+                                <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$image)}}"></div>
                                 @endforeach
                             </div>
                             <div class="rateing">

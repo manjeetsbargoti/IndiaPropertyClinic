@@ -128,8 +128,7 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="item"><img
-                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>"></div>
+                                <div class="item"><img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>"></div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <div class="rateing">
