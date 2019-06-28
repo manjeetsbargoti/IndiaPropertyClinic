@@ -672,10 +672,10 @@ i.staricon {
     bottom: 0;
 }
 .rent{
-    background: url(../images/rent.svg) no-repeat;
+    background: url(../../images/frontend_images/images/rent.svg) no-repeat;
 }
 .sale{
-    background: url(../images/sale.svg) no-repeat;
+    background: url(../../images/frontend_images/images/sale.svg) no-repeat;
 }
 .protxt_top {
     width: 100%;
@@ -3771,17 +3771,17 @@ ul.sublist {
     }
     
     div#searchlist {
-    background: #fff;
-    position: absolute;
-    z-index: 9;
-    width: 100%;
-    padding: 0;
-    max-height: 220px;
-    overflow-y: auto;
-    box-shadow: 0 5px 6px rgba(0,0,0,0.5);
-    top: 44px;
-    left: 0;
-    }
+        background: #fff;
+        position: absolute;
+        z-index: 9;
+        width: 54.473%;
+        padding: 0;
+        max-height: 215px;
+        overflow-y: auto;
+        box-shadow: 0 5px 6px rgba(0,0,0,0.5);
+        top: 168px;
+        left: 26px;
+        }
     
     ul.jiodropdown {
     margin: 0;

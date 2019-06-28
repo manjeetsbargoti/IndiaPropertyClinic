@@ -200,7 +200,7 @@ $(document).ready(function(){
     }
   });
 
-  $(document).on('click', 'li', function(){ 
+  $(document).on('click', '#type_search', function(){ 
     $('#search_name').val($(this).text()); 
     $('#searchlist').fadeOut(); 
   }); 

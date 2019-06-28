@@ -155,3 +155,6 @@ Route::get('/auth/callback/{provider}', 'AdminController@callback');
 
 // User Page Routes
 Route::match(['get', 'post'], '/user-profile/{id}', 'AdminController@viewuserPage');
+
+// Sidebar filter
+Route::get('/properties_filter', 'HomeController@filter');

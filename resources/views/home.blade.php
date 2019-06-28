@@ -47,12 +47,13 @@
                                             <div class="row search_field">
                                                 <div class="col-12 col-sm-12 col-md-7 p-0">
                                                     <div class="jiosearch_outer">
+                                                        <input type="hidden" value="{{ $service->id }}"
+                                                            name="property_cat">
                                                         <input type="text" name="search_text" id="search_name"
                                                             class="search_location"
                                                             placeholder="Type Location or Project/Society or Keyword">
-                                                        <div id="searchlist">
-                                                        </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="col-12 col-sm-12 col-md-3 padding_none">
                                                     <select name="property_type">
@@ -72,6 +73,7 @@
                                     </div>
                                     @endif
                                     @endforeach
+                                    <div id="searchlist"></div>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +128,8 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 @foreach(explode(',', $property->images) as $image)
-                                <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$image)}}"></div>
+                                <div class="item"><img
+                                        src="{{ asset('/images/backend_images/property_images/large/'.$image)}}"></div>
                                 @endforeach
                             </div>
                             <div class="rateing">
@@ -239,7 +242,8 @@
                                         <div class="owl-carousel product-slide owl-theme">
                                             @foreach(explode(',', $property->images) as $image)
                                             <div class="item">
-                                                <img src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                                <img
+                                                    src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
                                             </div>
                                             @endforeach
                                         </div>
@@ -346,10 +350,10 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    @foreach(\App\Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(3)->get() as $property)
+                    @foreach(\App\Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(3)->get() as
+                    $property)
                     <?php $counter++;?>
-                    @if($counter <= 3) 
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    @if($counter <= 3) <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
@@ -362,10 +366,12 @@
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i>
                                         @if(!empty($property->city))
-                                        <span>@foreach(\App\Cities::where('id', $property->city)->get() as $c) {{ $c->name }}, @endforeach</span>
+                                        <span>@foreach(\App\Cities::where('id', $property->city)->get() as $c)
+                                            {{ $c->name }}, @endforeach</span>
                                         @endif
                                         @if(!empty($property->country))
-                                        <span>@foreach(\App\Country::where('iso2', $property->country)->get() as $ct) {{ $ct->name }} @endforeach</span>
+                                        <span>@foreach(\App\Country::where('iso2', $property->country)->get() as $ct)
+                                            {{ $ct->name }} @endforeach</span>
                                         @endif
                                     </h6>
                                     <p>{{ $property->parea }} Square Ft</p>
@@ -393,7 +399,9 @@
                                         <ul>
                                             <li>
                                                 @if(!empty($property->property_price))
-                                                <h5><span>@if(!empty($property->country)) @foreach(\App\Country::where('iso2', $property->country)->get() as $ct) {{ $ct->currency }} @endforeach
+                                                <h5><span>@if(!empty($property->country))
+                                                        @foreach(\App\Country::where('iso2', $property->country)->get()
+                                                        as $ct) {{ $ct->currency }} @endforeach
                                                         @endif</span> {{ $property->property_price }}</h5>
                                                 @else
                                                 <a href="/properties/{{ $property->property_url }}"
