@@ -171,9 +171,7 @@ class SystemController extends Controller
     {
         $properties = Property::select('id')->orderBy('id', 'asc')->get();
         $properties = json_decode(json_encode($properties));
-
         
-
         // echo "<pre>"; print_r($prop_img_data); die;
 
         foreach ($properties as $property) {

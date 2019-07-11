@@ -27,9 +27,9 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     // Admin Property Module (Add/Update/View/Delete)
     Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty');
     Route::get('/admin/properties', 'PropertyController@viewProperty');
-    Route::match(['get', 'post'], '/admin/edit-property/{id}', 'PropertyController@editProperty');
+    Route::match(['get', 'post'], '/admin/property/{id}/edit', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
-    Route::match(['get', 'post'], '/admin/delete-property/{id}', 'PropertyController@deleteProperty');
+    Route::match(['get', 'post'], '/admin/property/{id}/delete', 'PropertyController@deleteProperty');
     Route::get('/admin/delete-property-image/{id}', 'PropertyController@deletePropertyImage');
 
     // Routes for Getting State List and City List Dynamically

@@ -78,7 +78,8 @@ $country = Controller::countries();
             <div class="col-lg-12">
                 <div class="mobile_menu">
                     <div class="burger_menu"><a href="#menu"><i class="fas fa-bars barmenu"></i></a></div>
-                    <div class="moblogo"><a href="{{ url('/') }}"><img src="/images/frontend_images/images/logo.svg"></a></li>
+                    <div class="moblogo"><a href="{{ url('/') }}"><img
+                                src="/images/frontend_images/images/logo.svg"></a></li>
                     </div>
                     <div class="mobuser_profile">
                         <div class="dropdown">
@@ -123,14 +124,15 @@ $country = Controller::countries();
                 <form action="{{ url('/search-result') }}" method="post">
                     {{ csrf_field() }}
                     <div class="jiosearch_outer">
-                        <select name="property_for">
+                        <select name="property_cat">
                             @foreach($mainnavservice as $mainnav)
-                                <option value="{{ $mainnav->id }}">{{ $mainnav->service_name }}</option>
+                            <option value="{{ $mainnav->id }}">{{ $mainnav->service_name }}</option>
                             @endforeach
                             <!-- <option>Rent</option>
                             <option>Sell</option> -->
                         </select>
-                        <input type="text" name="search_text" id="search_name" class="search_location" data-role="tagsinput" placeholder="Search here...">
+                        <input type="text" name="search_text" id="search_name" class="search_location"
+                            data-role="tagsinput" placeholder="Search here...">
                         <div id="searchlist"></div>
                         <button type="submit">Search</button>
                     </div>
@@ -140,16 +142,21 @@ $country = Controller::countries();
                 <ul class="navbar-nav ml-auto">
                     @foreach($mainnavservice as $mainnav)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }} <span class="sr-only">(current)</span></a>
+                        <a class="nav-link"
+                            href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }}
+                            <span class="sr-only">(current)</span></a>
                     </li>
                     @endforeach
                 </ul>
                 <div class="user_profile">
                     <div class="dropdown">
                         @guest
-                        <button class="btn btn-link"><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></button>
+                        <button class="btn btn-link"><a href="{{ url('/login') }}"><i class="fas fa-sign-in-alt"></i>
+                                {{ __('Login') }}</a></button>
                         @else
-                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></button>
+                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                class="fas fa-user"></i></button>
                         @endguest
                         <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                             <ul>
@@ -157,7 +164,9 @@ $country = Controller::countries();
                                 @guest
                                 @else
                                 <li><a>{{ Auth::user()->first_name }}</a></li>
-                                <li><a href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a
+                                        href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i
+                                            class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
                                 <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
@@ -174,36 +183,45 @@ $country = Controller::countries();
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-3">
-                                <ul class="nav flex-column" id="myTab" role="tablist">
-                                    <?php $counter = 0; ?>
-                                    @foreach($continent as $c)
-                                    <?php $counter++; ?>
-                                    <li class="nav-item">
-                                        <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>" id="cont{{ $c->code }}-tab" data-toggle="tab" href="#{{ $c->code }}" role="tab" aria-controls="cont{{ $c->code }}tab" aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span class="mapicon">
-                                        <img src="/images/frontend_images/images/{{ $c->icon_image }}"></span>{{ $c->name }}</a>
-                                    </li>
-                                    @endforeach
-                                </ul>
+                                    <ul class="nav flex-column" id="myTab" role="tablist">
+                                        <?php $counter = 0; ?>
+                                        @foreach($continent as $c)
+                                        <?php $counter++; ?>
+                                        <li class="nav-item">
+                                            <a class="nav-link show <?= ($counter == 1) ? 'active' : ''?>"
+                                                id="cont{{ $c->code }}-tab" data-toggle="tab" href="#{{ $c->code }}"
+                                                role="tab" aria-controls="cont{{ $c->code }}tab"
+                                                aria-selected="<?=($counter == 1) ? 'true' : ''?>"><span
+                                                    class="mapicon">
+                                                    <img
+                                                        src="/images/frontend_images/images/{{ $c->icon_image }}"></span>{{ $c->name }}</a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
                                 <div class="col-lg-9">
-                                        <div class="tab-content" id="myTabContent">
-                                            <?php $counter = 0; ?>
-                                            @foreach($continent as $c)
-                                            <?php $counter++; ?>
-                                            <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>" id="{{ $c->code }}" role="tabpanel" aria-labelledby="cont{{ $c->code }}-tab">
-                                                <ul class="country_list">
+                                    <div class="tab-content" id="myTabContent">
+                                        <?php $counter = 0; ?>
+                                        @foreach($continent as $c)
+                                        <?php $counter++; ?>
+                                        <div class="tab-pane fade show <?= ($counter == 1) ? 'active' : ''?>"
+                                            id="{{ $c->code }}" role="tabpanel"
+                                            aria-labelledby="cont{{ $c->code }}-tab">
+                                            <ul class="country_list">
                                                 @foreach($country as $coun)
                                                 @if($coun->continent == $c->code)
-                                                    <li>
-                                                        <a href="{{ url('/country/'.$coun->iso2.'/properties') }}" style="margin: 0.2em 0em;" class="btn btn-outline-dark">{{ $coun->name }}</a>
-                                                    </li>
+                                                <li>
+                                                    <a href="{{ url('/country/'.$coun->iso2.'/properties') }}"
+                                                        style="margin: 0.2em 0em;"
+                                                        class="btn btn-outline-dark">{{ $coun->name }}</a>
+                                                </li>
                                                 @endif
                                                 @endforeach
-                                                </ul>
-                                            </div>
-                                            @endforeach
+                                            </ul>
                                         </div>
+                                        @endforeach
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -161,8 +161,8 @@
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
-                                    @foreach(explode(',', $property->images) as $image)
-                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$image)}}"></div>
+                                    @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
+                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}"></div>
                                     @endforeach
                                 </div>
                                 <div class="bottom_strip">

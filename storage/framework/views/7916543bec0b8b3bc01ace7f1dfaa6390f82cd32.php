@@ -21,21 +21,19 @@
                         <table id="allusers-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Property Id</th>
+                                    <th>Id</th>
                                     <th>Property Image</th>
                                     <th>Property Name</th>
                                     <th>Service Name</th>
-                                    <th>Property Code</th>
+                                    <th>Location</th>
                                     <th>Property Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 0 ?>
                                 <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php $i++ ?>
                                 <tr>
-                                    <td><?php echo e($i); ?></td>
+                                    <td><?php echo e($property->id); ?></td>
                                     <?php if(!empty($property->image_name)): ?>
                                     <td><img width="60px" class="thumb"
                                             src="<?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?>">
@@ -48,17 +46,17 @@
                                     <td><a target="_blank"
                                             href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><?php echo e($property->property_name); ?></a>
                                     </td>
-                                    <td><?php echo e($property->service_name); ?></td>
-                                    <td><?php echo e($property->property_code); ?></td>
+                                    <td><span class="label label-md label-success"><?php echo e($property->service_name); ?></span></td>
+                                    <td><?php if(!empty($property->city)): ?><?php $__currentLoopData = \App\Cities::where('id', $property->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php if(!empty($property->country)): ?><?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($country->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     <td><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></td>
                                     <td>
                                         <a data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal"
                                             title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle"
                                                 aria-hidden="true"></i></a>
-                                        <a href="<?php echo e(url('/admin/edit-property/'.$property->id)); ?>" title="Edit"
+                                        <a href="<?php echo e(url('/admin/property/'.$property->id.'/edit')); ?>" title="Edit"
                                             class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true"></i></a>
-                                        <a href="<?php echo e(url('/admin/delete-property/'.$property->id)); ?>" title="Delete"
+                                        <a href="<?php echo e(url('/admin/property/'.$property->id.'/delete')); ?>" title="Delete"
                                             class="btn btn-danger btn-xs"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></a>
                                     </td>
@@ -104,17 +102,6 @@
                                 <!-- /. Property information Model -->
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Property Id</th>
-                                    <th>Property Image</th>
-                                    <th>Property Name</th>
-                                    <th>Service Name</th>
-                                    <th>Property Code</th>
-                                    <th>Property Price</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <div class="row">

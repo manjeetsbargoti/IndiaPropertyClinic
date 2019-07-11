@@ -157,83 +157,7 @@ class AdminController extends Controller
             ]);
             // echo "<pre>"; print_r($userin['id']); die;
 
-            $userin->save();
-
-            $id = $userin['id'];
-
-            // echo "<pre>"; print_r($userin); die;
-
-            // User Register Email
-            // $email = $data['email'];
-            // $messageData = ['email'=>$data['email'], 'name'=>$data['first_name']];
-            // Mail::send('emails.register', $messageData, function($message) use($email){
-            //     $message->to($email)->subject('Registration with India Property Clinic');
-            // });
-            $userdetails = User::where(['id' => $id])->first();
-            $userdetails = json_decode(json_encode($userdetails));
-            $servicetype = OtherServices::where(['parent_id' => 0])->get();
-            $usertype = UserType::get();
-            $phonecode = DB::table('countries')->get();
-            $countryname = DB::table('countries')->get();
-            $statename = DB::table('states')->where(['country' => $userdetails->country])->get();
-            $cityname = DB::table('cities')->where(['state_id' => $userdetails->state])->get();
-
-            // Select Country Name
-            $country_dropdown = "<option selected value=''>Select Country</option>";
-            foreach ($countryname as $cname) {
-                if ($cname->iso2 == $userdetails->country) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                $country_dropdown .= "<option value='" . $cname->iso2 . "' " . $selected . ">" . $cname->name . "</option>";
-            }
-
-            // Select State Name
-            $state_dropdown = "<option selected value=''>Select State</option>";
-            foreach ($statename as $sname) {
-                if ($sname->id == $userdetails->state) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                $state_dropdown .= "<option value='" . $sname->id . "' " . $selected . ">" . $sname->name . "</option>";
-            }
-
-            // Select City Name
-            $city_dropdown = "<option selected value=''>Select City</option>";
-            foreach ($cityname as $cname) {
-                if ($cname->id == $userdetails->city) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                $city_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
-            }
-
-            // Selecct Service Type
-            $services_dropdown = "<option selected value=''>Select</option>";
-            foreach ($servicetype as $stype) {
-                if ($stype->id == $userdetails->servicetypeid) {
-                    $selected = "selected";
-                } else {
-                    $selected = "";
-                }
-                $services_dropdown .= "<option value='" . $stype->id . "' " . $selected . ">" . $stype->service_name . "</option>";
-            }
-
-            // Select Phone Code
-            $phone_code = "<option selected value=''>Select</option>";
-            foreach($phonecode as $pcode){
-                if($pcode->id == $userdetails->country){
-                    $selected = 'selected';
-                }else{
-                    $selected="";
-                }
-                $phone_code .= "<option value='" . $pcode->phonecode . "' " . $selected . ">" . $pcode->phonecode . " " . $pcode->iso3. "</option>";
-            }
-
-            return redirect()->route('edituser', ['id'=>$userin['id']])->with('flash_message_success', 'User Added Successfully!');
+            return redirect('/admin/users')->with('flash_message_success', 'User Added Successfully!');
         }
 
         $servicetype = OtherServices::where(['parent_id' => 0])->get();
@@ -576,16 +500,16 @@ class AdminController extends Controller
 
             $city = new Cities;
 
-            $city->state_id = $data['state'];
-            $city->country_id = $data['country'];
-            $city->name = $data['city_name'];
+            $city->state_id     = $data['state'];
+            $city->country_id   = $data['country_id'];
+            $city->name         = $data['city_name'];
 
             $city->save();
 
             return redirect()->back()->with('flash_message_success', 'City Added Successfully!');
         }
 
-        $countryname = DB::table('countries')->pluck("name", "id");
+        $countryname = DB::table('countries')->get();
 
         return view('admin.csc_temp.add_city', compact('countryname'));
     }
@@ -708,9 +632,9 @@ class AdminController extends Controller
                     $user_data[$key]->user_type = $user_type->usertype_name;
                 }
 
-                $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+                $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
                 if($country_count > 0){
-                    $country_name = DB::table('countries')->where(['id'=>$val->country])->first();
+                    $country_name = DB::table('countries')->where(['iso2'=>$val->country])->first();
                     $user_data[$key]->country_name = $country_name->iso2;
                 }
 

@@ -243,10 +243,10 @@
                                 <div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
-                                            <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="item">
                                                 <img
-                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>">
+                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                             </div>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
@@ -359,9 +359,9 @@
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
-                                    <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="item"><img
-                                            src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>">
+                                            src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                     </div>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
@@ -377,7 +377,12 @@
                                         <?php endif; ?>
                                     </h6>
                                     <p><?php echo e($property->parea); ?> Square Ft</p>
-                                    <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
+                                    <?php $__currentLoopData = \App\Services::where('id', $property->service_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span class="tagbtn rent">
+                                    <?php echo e($pt->service_name); ?>
+
+                                    </span>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                             <div class="product_text">

@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class PropertyController extends Controller
 {
@@ -32,8 +34,69 @@ class PropertyController extends Controller
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
 
+            // Upload image
+            if ($request->hasFile('file')) {
+                $image_array = Input::file('file');
+                // if($image_array->isValid()){
+                $array_len = count($image_array);
+                for ($i = 0; $i < $array_len; $i++) {
+                    // $image_name = $image_array[$i]->getClientOriginalName();
+                    $image_size = $image_array[$i]->getClientSize();
+                    $extension = $image_array[$i]->getClientOriginalExtension();
+                    // $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                    $filename = $image_array[$i]->getClientOriginalName();
+                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                    $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                    $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                    $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                    
+                    // $newfile = [];
+                    // $newfile2 = array_push($newfile, $filename);
+                    // Resize image
+                    // Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+
+                    // Store image in property folder
+                    // $property->image = $filename;
+                    
+
+                    // $propertyimage = [
+                    //     'image_name' => $filename,
+                    //     'image_size' => $image_size,
+                    //     'property_id' => $value->id,
+                    // ];
+                    // }
+
+                    // $t = array_merge($newfile, $newfile);
+
+                    // echo "<pre>"; print_r($t);
+
+                    echo "<pre>"; print_r($filename); 
+                    // echo "<pre>"; print_r($t);
+                }
+                // $files = implode(',', $image_array);
+
+                // $images = [];
+                // foreach($t as $im)
+                // {
+                //     array_push($images, $im);
+                // }
+
+
+                 die;
+            } else {
+                $filename = "default.jpg";
+                // $property->image = "default.jpg";
+                $propertyimage = PropertyImages::create([
+                    'image_name' => $filename,
+                    'image_size' => '7.4',
+                    // 'property_id' => $value->id,
+                ]);
+            }
+
+            
+
             // Data test code
-            // echo "<pre>"; print_r($data); die;
+            echo "<pre>"; print_r($data); die;
 
             $property = new Property;
             if (!empty($request->property_for)) {

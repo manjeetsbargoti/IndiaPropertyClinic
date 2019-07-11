@@ -8,7 +8,7 @@
                 <div class="col-12 col-md-3 col-lg-3">
                     <div class="ven_leftside">
                         <div class="ven_propic">
-                            <img src="../../images/backend_images/user_images/user2.jpg">
+                            <img src="<?php echo e(asset('/images/backend_images/user_images/user2.jpg')); ?>">
                         </div>
                         <div class="contact_details">
                             <ul>

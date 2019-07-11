@@ -240,10 +240,10 @@
                                 <div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
-                                            @foreach(explode(',', $property->images) as $image)
+                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                             <div class="item">
                                                 <img
-                                                    src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                                    src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                             </div>
                                             @endforeach
                                         </div>
@@ -357,9 +357,9 @@
                         <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
-                                    @foreach(explode(',', $property->images) as $image)
+                                    @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item"><img
-                                            src="{{ asset('/images/backend_images/property_images/large/'.$image)}}">
+                                            src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                     </div>
                                     @endforeach
                                 </div>
@@ -375,7 +375,11 @@
                                         @endif
                                     </h6>
                                     <p>{{ $property->parea }} Square Ft</p>
-                                    <span class="tagbtn rent">{{ $property->service_name }}</span>
+                                    @foreach(\App\Services::where('id', $property->service_id)->get() as $pt)
+                                    <span class="tagbtn rent">
+                                    {{ $pt->service_name }}
+                                    </span>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="product_text">

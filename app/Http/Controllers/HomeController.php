@@ -219,17 +219,16 @@ class HomeController extends Controller
         $scityID = $data['property_cat'];
         $scityname = json_decode(json_encode($scityname));
         $scityID = json_decode(json_encode($scityID));
-        // echo  '<pre>'; print_r($data); die;
         $city = Cities::where(['name' => rtrim($data['search_text'])])->get();
         $city = json_decode(json_encode($city), true);
 
-        if (empty($data['search_text'])) {
+        if (empty($data['search_text']) && !empty($data['property_type'])) {
             $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
+        } elseif (empty($data['search_text']) && empty($data['property_type'])) {
+            $properties = Property::where(['service_id' => $data['property_cat']])->get();
         } elseif (empty($data['property_type']) && !empty($city[0])) {
             $r = $city[0];
             $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->get();
-        } elseif (empty($data['search_text']) && empty($data['property_type'])) {
-            $properties = Property::where(['service_id' => $data['property_cat']])->get();
         } else {
             $r = null;
             $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
@@ -286,8 +285,6 @@ class HomeController extends Controller
         } else {
             $contRow = 0;
         }
-
-        // echo "<pre>"; print_r($scityname); die;
         return view('frontend.filter_templates.search_result')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
     }
 
@@ -386,8 +383,8 @@ class HomeController extends Controller
                     <div class="product_box">
                         <div class="product_img">
                             <div class="owl-carousel product-slide owl-theme">';
-                foreach (explode(',', $property->images) as $image) {
-                        echo '<div class="item"><img src="' . asset('/images/backend_images/property_images/large/' . $image) . '"></div>';
+                foreach (\App\PropertyImages::where('property_id', $property->id)->get() as $pimage) {
+                    echo '<div class="item"><img src="' . asset('/images/backend_images/property_images/large/' . $pimage->image_name) . '"></div>';
                 }
                 echo '</div>
                             <div class="bottom_strip">

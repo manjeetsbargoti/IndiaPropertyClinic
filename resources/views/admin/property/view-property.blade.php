@@ -22,21 +22,19 @@
                         <table id="allusers-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Property Id</th>
+                                    <th>Id</th>
                                     <th>Property Image</th>
                                     <th>Property Name</th>
                                     <th>Service Name</th>
-                                    <th>Property Code</th>
+                                    <th>Location</th>
                                     <th>Property Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $i = 0 ?>
                                 @foreach($properties as $property)
-                                <?php $i++ ?>
                                 <tr>
-                                    <td>{{ $i }}</td>
+                                    <td>{{ $property->id }}</td>
                                     @if(!empty($property->image_name))
                                     <td><img width="60px" class="thumb"
                                             src="{{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}">
@@ -49,17 +47,17 @@
                                     <td><a target="_blank"
                                             href="{{ url('/properties/'.$property->property_url) }}">{{ $property->property_name }}</a>
                                     </td>
-                                    <td>{{ $property->service_name }}</td>
-                                    <td>{{ $property->property_code }}</td>
+                                    <td><span class="label label-md label-success">{{ $property->service_name }}</span></td>
+                                    <td>@if(!empty($property->city))@foreach(\App\Cities::where('id', $property->city)->get() as $city){{ $city->name }},@endforeach @endif @if(!empty($property->country))@foreach(\App\Country::where('iso2', $property->country)->get() as $country){{ $country->name }} @endforeach @endif</td>
                                     <td>{{ $property->currency }} {{ $property->property_price }}</td>
                                     <td>
                                         <a data-target="#property_{{ $property->id }}" data-toggle="modal"
                                             title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle"
                                                 aria-hidden="true"></i></a>
-                                        <a href="{{ url('/admin/edit-property/'.$property->id) }}" title="Edit"
+                                        <a href="{{ url('/admin/property/'.$property->id.'/edit') }}" title="Edit"
                                             class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true"></i></a>
-                                        <a href="{{ url('/admin/delete-property/'.$property->id) }}" title="Delete"
+                                        <a href="{{ url('/admin/property/'.$property->id.'/delete') }}" title="Delete"
                                             class="btn btn-danger btn-xs"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></a>
                                     </td>
@@ -101,17 +99,6 @@
                                 <!-- /. Property information Model -->
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Property Id</th>
-                                    <th>Property Image</th>
-                                    <th>Property Name</th>
-                                    <th>Service Name</th>
-                                    <th>Property Code</th>
-                                    <th>Property Price</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <div class="row">

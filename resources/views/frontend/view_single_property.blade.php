@@ -27,16 +27,16 @@
                     <div class="outer">
                     
                             <div id="big" class="owl-carousel owl-theme">
-                                @foreach(explode(',', $property->images) as $image)
+                                @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                     </div>
                                 @endforeach
                             </div>
                             <div id="thumbs" class="owl-carousel owl-theme">
-                                @foreach(explode(',', $property->images) as $image)
+                                @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$image) }}">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                     </div>
                                 @endforeach
                             </div>
