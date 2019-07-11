@@ -228,6 +228,14 @@ function generate_string($input, $strength = 16) {
                                             </div>
                                         </div>
 
+                                        <div class="col-xs-12 col-md-12">
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" name="commercial" id="commercial" class="flat-green" value="1"> Commercial  <small class="text-purple pl-1">( If you check this set Commercial Property )</small>
+                                                </label>
+                                            </div>
+                                        </div>
+
                                         <div id="MapPassed" class="col-xs-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="Map Passed">Map Passed</label>

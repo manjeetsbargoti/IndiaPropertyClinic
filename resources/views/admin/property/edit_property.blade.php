@@ -200,10 +200,18 @@ function generate_string($input, $strength = 16) {
                                                 <textarea name="description" id="description" class="form-control my-editor">{{ $properties->description }}</textarea>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="feature" id="feature" class="flat-green" @if($properties->featured=='1') checked @endif value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Property )</small>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" name="commercial" id="commercial" class="flat-green" @if($properties->commercial=='1') checked @endif value="1"> Commercial  <small class="text-purple pl-1">( If you check this set Commercial Property )</small>
                                                 </label>
                                             </div>
                                         </div>
@@ -487,13 +495,13 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="Country">Country</label>
-                                                <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select name="country" id="country_pedit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     @if(!empty($country_dropdown))
                                                         <?php echo $country_dropdown; ?>
                                                     @else
                                                     <option value="" selected>Select Country</option>
-                                                        @foreach($countryname as $key => $country)
-                                                        <option value="{{ $key }}">{{ $country }}</option>
+                                                        @foreach($countryname as $country)
+                                                        <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
                                                         @endforeach
                                                     @endif
                                                 </select>
@@ -503,7 +511,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="State">State</label>
-                                                <select class="form-control select2 select2-hidden-accessible" name="state" id="state" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select class="form-control select2 select2-hidden-accessible" name="state" id="state_pedit" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <?php echo $state_dropdown; ?>
                                                 </select>
                                             </div>
@@ -512,11 +520,12 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="City">City</label>
-                                                <select class="form-control select2 select2-hidden-accessible" name="city" id="city" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select class="form-control select2 select2-hidden-accessible" name="city" id="city_pedit" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <?php echo $city_dropdown; ?>
                                                 </select>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="p_id" value="{{ $properties->id }}">
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">

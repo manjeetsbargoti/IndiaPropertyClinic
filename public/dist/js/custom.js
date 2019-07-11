@@ -292,6 +292,60 @@ $('#country').change(function(){
     }   
 });
 
+// Get State List on Country Select on property Edit Page
+$('#country_pedit').change(function(){
+    var countryID = $(this).val();   
+    var p_id    = $('#p_id').val();
+    var _token = $('input[name="_token"]').val(); 
+    if(countryID){
+        $.ajax({
+            type:"get",
+            url:"/admin/property/"+p_id+"/edit/get-state-list?country_id="+countryID,
+            data: {_token:_token},
+            success:function(res){               
+            if(res){
+                $("#state_pedit").empty();
+                $("#state_pedit").append('<option>Select State</option>');
+                $.each(res,function(key,value){
+                    $("#state_pedit").append('<option value="'+key+'">'+value+'</option>');
+                });
+            }else{
+                $("#state_pedit").empty();
+            }
+            }
+        });
+    }else{
+        $("#state_pedit").empty();
+        $("#city_pedit").empty();
+    }      
+    });
+
+// On Property Edit Get City List According to state
+$('#state_pedit').on('change',function(){
+    var stateID = $(this).val();
+    var p_id    = $('#p_id').val();
+    if(stateID){
+        $.ajax({
+            type:"GET",
+            url:"/admin/property/"+p_id+"/edit/get-city-list?state_id="+stateID,
+            success:function(res){               
+            if(res){
+                $("#city_pedit").empty();
+                $("#city_pedit").append('<option>Select City</option>');
+                $.each(res,function(key,value){
+                    $("#city_pedit").append('<option value="'+key+'">'+value+'</option>');
+                });
+            
+            }else{
+                $("#city_pedit").empty();
+            }
+            }
+        });
+    }else{
+        $("#city_pedit").empty();
+    }   
+  });
+
 
 // Multiple Property Image upload by admin or user
 var abc = 0; // Declaring and defining global increment variable.

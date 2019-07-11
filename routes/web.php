@@ -37,8 +37,8 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
-    Route::get('/admin/edit-property/get-state-list', 'PropertyController@getStateList');
-    Route::get('/admin/edit-property/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/property/{id}/edit/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/property/{id}/edit/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');

@@ -487,13 +487,13 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="Country">Country</label>
-                                                <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select name="country" id="country_pedit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <?php if(!empty($country_dropdown)): ?>
                                                         <?php echo $country_dropdown; ?>
                                                     <?php else: ?>
                                                     <option value="" selected>Select Country</option>
-                                                        <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($key); ?>"><?php echo e($country); ?></option>
+                                                        <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <option value="<?php echo e($country->iso2); ?>"><?php echo e($country->name); ?></option>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     <?php endif; ?>
                                                 </select>
@@ -503,7 +503,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="State">State</label>
-                                                <select class="form-control select2 select2-hidden-accessible" name="state" id="state" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select class="form-control select2 select2-hidden-accessible" name="state" id="state_pedit" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <?php echo $state_dropdown; ?>
                                                 </select>
                                             </div>
@@ -512,11 +512,12 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label for="City">City</label>
-                                                <select class="form-control select2 select2-hidden-accessible" name="city" id="city" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <select class="form-control select2 select2-hidden-accessible" name="city" id="city_pedit" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <?php echo $city_dropdown; ?>
                                                 </select>
                                             </div>
                                         </div>
+                                        <input type="hidden" id="p_id" value="<?php echo e($properties->id); ?>">
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
