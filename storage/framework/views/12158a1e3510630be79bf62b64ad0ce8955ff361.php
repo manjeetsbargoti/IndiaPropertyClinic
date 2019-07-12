@@ -14,9 +14,9 @@ $country = Controller::countries();
                 <div class="col-12 col-md-6">
                     <div class="user_contact">
                         <ul>
-                            <li><a href="tel:0123456780"><i class="fas fa-phone"></i> 012-345-6789</a></li>
-                            <li><a href="mailto: info@indiapropertyclinic.com"><i class="fas fa-envelope"></i>
-                                    info@indiapropertyclinic.com</a></li>
+                            <li><a href="tel:<?php echo e(config('app.phone')); ?>"><i class="fas fa-phone"></i> <?php echo e(config('app.phone')); ?></a></li>
+                            <li><a href="mailto:<?php echo e(config('app.email')); ?>"><i class="fas fa-envelope"></i>
+                            <?php echo e(config('app.email')); ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -129,8 +129,6 @@ $country = Controller::countries();
                             <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <option value="<?php echo e($mainnav->id); ?>"><?php echo e($mainnav->service_name); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            <!-- <option>Rent</option>
-                            <option>Sell</option> -->
                         </select>
                         <input type="text" name="search_text" id="search_name" class="search_location"
                             data-role="tagsinput" placeholder="Search here...">

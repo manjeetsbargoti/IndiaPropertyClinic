@@ -915,4 +915,18 @@ class PropertyController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
+
+    // Creating unique Slug
+    public function checkListSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Property::class, 'property_url', $request->property_name, ['unique' => true]);
+        // echo "<pre>"; print_r($slug); die;
+        return response()->json(['slug' => $slug]);
+    }
+
+    // List Property by New User
+    public function listProperty()
+    {
+        return view('frontend.list_property');
+    }
 }

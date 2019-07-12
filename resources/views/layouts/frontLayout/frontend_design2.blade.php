@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- for Google -->
-    <meta name="title" content=""/>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
+    <meta name="title" content="" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
     <link rel="canonical" href="" />
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 
@@ -35,7 +36,7 @@
     <title>{{ config('app.name', 'IPC') }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">
@@ -48,23 +49,26 @@
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+
+
     @include('admin.system.partials.code_head')
 
 </head>
-<body >
 
-@include('layouts.frontLayout.header_design2')
+<body>
 
-@yield('content')
+    @include('layouts.frontLayout.header_design2')
 
-@include('layouts.frontLayout.footer_design')
+    @yield('content')
+
+    @include('layouts.frontLayout.footer_design')
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    
-    
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="{{ asset('js/frontend_js/bootstrap.min.js') }}"></script>
@@ -74,23 +78,29 @@
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-main.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
     <script type="text/javascript">
     $(function() {
         $("#PropertyType").change(function() {
-            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1012" || $(this).val() == "1014" || $(this).val() == "1016") {
+            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1012" || $(this)
+                .val() == "1014" || $(this).val() == "1016") {
                 $("#MapPassed").show();
             } else {
                 $("#MapPassed").hide();
             }
 
-            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this).val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this).val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
+            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this)
+                .val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this)
+            .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
                 $("#OpenSides").show();
             } else {
                 $("#OpenSides").hide();
             }
 
-            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this).val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this).val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
+            if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this)
+                .val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this)
+            .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
                 $("#WidthRoadFacing").show();
             } else {
                 $("#WidthRoadFacing").hide();
@@ -102,37 +112,52 @@
             //     $("#BoundryWall").hide();
             // }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1018") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1018") {
                 $("#Bedrooms").show();
             } else {
                 $("#Bedrooms").hide();
             }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this).val() == "1018") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
+            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this).val() ==
+                "1018") {
                 $("#Bathrooms").show();
             } else {
                 $("#Bathrooms").hide();
             }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007") {
                 $("#Balconies").show();
             } else {
                 $("#Balconies").hide();
             }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013" || $(this).val() == "1018") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
+            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() ==
+                "1011" || $(this).val() == "1013" || $(this).val() == "1018") {
                 $("#FurnishStatus").show();
             } else {
                 $("#FurnishStatus").hide();
             }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1013") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this)
+            .val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() ==
+                "1013") {
                 $("#FloorNo").show();
             } else {
                 $("#FloorNo").hide();
             }
 
-            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this).val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() == "1015" || $(this).val() == "1018" || $(this).val() == "1013") {
+            if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
+                .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
+            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() ==
+                "1011" || $(this).val() == "1015" || $(this).val() == "1018" || $(this).val() == "1013"
+                ) {
                 $("#TotalFloor").show();
             } else {
                 $("#TotalFloor").hide();
@@ -144,7 +169,8 @@
                 $("#PWashroom").hide();
             }
 
-            if ($(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011") {
+            if ($(this).val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this)
+                .val() == "1011") {
                 $("#Cafeteria").show();
             } else {
                 $("#Cafeteria").hide();
@@ -168,7 +194,8 @@
                 $("#CornerShop").hide();
             }
 
-            if ($(this).val() == "1001" || $(this).val() == "1012" || $(this).val() == "1014" || $(this).val() == "1017") {
+            if ($(this).val() == "1001" || $(this).val() == "1012" || $(this).val() == "1014" || $(this)
+                .val() == "1017") {
                 $("#BoundryWall").show();
             } else {
                 $("#BoundryWall").hide();
@@ -184,80 +211,150 @@
     });
     </script>
 
-<script>
+    <script>
     //Homepage search js
-$(document).ready(function(){
-  $('.search_location').keyup(function(){ 
-    var query = $(this).val();
-    if(query != ''){
-      var _token = $('input[name="_token"]').val();
-      
-      $.ajax({
-        url:"/search",
-        method:"POST",
-        data:{query:query, _token:_token},
-        success:function(data){
-          $('#searchlist').fadeIn(); 
-          $('#searchlist').html(data);
+    $(document).ready(function() {
+        $('.search_location').keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                var _token = $('input[name="_token"]').val();
+
+                $.ajax({
+                    url: "/search",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#searchlist').fadeIn();
+                        $('#searchlist').html(data);
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', 'li', function() {
+            $('#search_name').val($(this).text());
+            $('#searchlist').fadeOut();
+        });
+
+        $(document).on('click', function() {
+            $('#searchlist').fadeOut();
+        });
+
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") {
+                $('#searchlist').fadeOut();
+            }
+        });
+    });
+    </script>
+    <script>
+    // Check User Email
+    $('#email').blur(function() {
+        var error_email = '';
+        var email = $('#email').val();
+        var _token = $('input[name="_token"]').val();
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+            $('#email').addClass('has-error');
+        } else {
+            $.ajax({
+                url: "{{ url('/checkuseremail') }}",
+                method: "POST",
+                data: {
+                    email: email,
+                    _token: _token
+                },
+                success: function(result) {
+                    if (result == 'unique') {
+                        $('#error_email').html(
+                            '<label class="text-success">Email Available</label>');
+                        $('#email').removeClass('has-error');
+                    } else {
+                        $('#error_email').html(
+                            '<label class="text-danger">Email already exist.</label>');
+                        $('#email').addClass('has-error');
+                    }
+                }
+            })
         }
-      });
-    }
-  });
+    });
+    </script>
 
-  $(document).on('click', 'li', function(){ 
-    $('#search_name').val($(this).text()); 
-    $('#searchlist').fadeOut(); 
-  }); 
+    <script>
+    // Country, State, City Ajax Fetch
+    $('#country').change(function() {
+        var countryID = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        if (countryID) {
+            $.ajax({
+                type: "get",
+                url: "get-state-list?country_id=" + countryID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#state").empty();
+                        $("#state").append('<option>Select State</option>');
+                        $.each(res, function(key, value) {
+                            $("#state").append('<option value="' + key + '">' + value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#state").empty();
+                    }
+                }
+            });
+        } else {
+            $("#state").empty();
+            $("#city").empty();
+        }
+    });
+    // Get City List According to state
+    $('#state').on('change', function() {
+        var stateID = $(this).val();
+        if (stateID) {
+            $.ajax({
+                type: "GET",
+                url: "get-city-list?state_id=" + stateID,
+                success: function(res) {
+                    if (res) {
+                        $("#city").empty();
+                        $("#city").append('<option>Select City</option>');
+                        $.each(res, function(key, value) {
+                            $("#city").append('<option value="' + key + '">' + value +
+                                '</option>');
+                        });
 
-  $(document).on('click', function(){ 
-    $('#searchlist').fadeOut(); 
-  });
+                    } else {
+                        $("#city").empty();
+                    }
+                }
+            });
+        } else {
+            $("#city").empty();
+        }
+    });
 
-  $(document).keyup(function(e) {
-    if (e.key === "Escape") { 
-      $('#searchlist').fadeOut(); 
-    }
-  });
-});
-</script>
-<script>
-// Check User Email
-$('#email').blur(function()
-{
-  var error_email = '';
-  var email = $('#email').val();
-  var _token = $('input[name="_token"]').val();
-  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if(!filter.test(email))
-  {    
-   $('#error_email').html('<label class="text-danger">Invalid Email</label>');
-   $('#email').addClass('has-error');
-  }
-  else
-  {
-   $.ajax({
-    url:"{{ url('/checkuseremail') }}",
-    method:"POST",
-    data:{email:email, _token:_token},
-    success:function(result)
-    {
-     if(result == 'unique')
-     {
-      $('#error_email').html('<label class="text-success">Email Available</label>');
-      $('#email').removeClass('has-error');
-     }
-     else
-     {
-      $('#error_email').html('<label class="text-danger">Email already exist.</label>');
-      $('#email').addClass('has-error');
-     }
-    }
-   })
-  }
- });
-</script>
+    // Creating Property URL
+    $('#property_name').change(function(e) {
+      $.get('{{ url("/list-property/check_slug") }}', {
+          'property_name': $(this).val()
+        },
+        function(data) {
+          $('#slug').val(data.slug);
+        }
+      );
+    });
+    </script>
 
-@include('admin.system.partials.code_footer')
 
-  </body>
+    @include('admin.system.partials.code_footer')
+
+</body>
+
 </html>

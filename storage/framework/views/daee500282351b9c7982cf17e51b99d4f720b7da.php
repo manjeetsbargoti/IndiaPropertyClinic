@@ -51,7 +51,7 @@ $footerProperties = Controller::footersection();
                 <li><a href="<?php echo e(url('/properties/3/rent-properties')); ?>">Rent</a></li>
                 <li><a href="<?php echo e(url('/properties/4/sell-properties')); ?>">Sell</a></li>
                 <li><a href="<?php echo e(url('/country/IN/properties')); ?>">Properties in India</a></li>
-                <li><a href="#">Home Loan</a></li>                                             
+                <li><a href="<?php echo e(url('/Apply-Home-Loan')); ?>">Home Loan</a></li>                                             
             </ul>
         </div>
     </div>
@@ -251,7 +251,7 @@ $footerProperties = Controller::footersection();
                             <li><a href="#">Contact Us</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Home Loan</a></li>
+                            <li><a href="<?php echo e(url('/Apply-Home-Loan')); ?>">Home Loan</a></li>
                         </ul>
                     
                     <p><?php if(!empty(config('app.copyright'))): ?> <?php echo e(config('app.copyright')); ?> <?php else: ?> Copyright &copy; <script>document.write(new Date().getFullYear());</script> | India Property Clinic. All Rights Reserved. <?php endif; ?></p>

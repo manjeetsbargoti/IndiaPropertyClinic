@@ -3196,7 +3196,7 @@ a.backtohome {
     color: #fff;
 }
 .venderbanner{
-    background: url(../images/bannervender.jpg) no-repeat center center;
+    background: url(../../images/frontend_images/images/bannervender.jpg) no-repeat center center;
     background-size: cover;
 }
 .subtxt {

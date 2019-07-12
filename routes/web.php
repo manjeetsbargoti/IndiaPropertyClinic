@@ -165,3 +165,8 @@ Route::get('/properties_filter', 'HomeController@filter');
 
 // List Your Property
 Route::match(['get','post'], '/list-property', 'PropertyController@listProperty');
+Route::match(['get', 'post'], '/list-property/check_slug', 'PropertyController@checkListSlug');
+
+// Routes for Getting State List and City List Dynamically
+Route::get('/get-state-list', 'PropertyController@getStateList');
+Route::get('/get-city-list', 'PropertyController@getCityList');
