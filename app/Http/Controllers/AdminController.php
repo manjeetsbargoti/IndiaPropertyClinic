@@ -70,9 +70,9 @@ class AdminController extends Controller
             }
             
 
-            $country_count = DB::table('countries')->where(['id'=>$val->country])->count();
+            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
             if($country_count > 0){
-                $country = DB::table('countries')->where(['id'=>$val->country])->first();
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $property[$key]->country_name = $country->name;
                 $property[$key]->currency = $country->currency;
             }

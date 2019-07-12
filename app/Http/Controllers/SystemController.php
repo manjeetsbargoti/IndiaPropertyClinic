@@ -190,4 +190,31 @@ class SystemController extends Controller
             }
         }
     }
+
+    // Website Contact Details
+    public function getContactInfo()
+    {
+        $data['options'] = Option::get();
+        return view('admin.system.contact_info', $data);
+    }
+
+    public function postContactInfo(Request $request)
+    {
+        $option = Option::where('key', '=', 'app.phone')->first();
+        $option->value = $request->phone ?: $option->value;
+        $option->save();
+
+        $option = Option::where('key', '=', 'app.email')->first();
+        $option->value = $request->email ?: $option->value;
+        $option->save();
+
+        $option = Option::where('key', '=', 'app.address')->first();
+        $option->value = $request->address ?: $option->value;
+        $option->save();
+
+        $option = Option::where('key', '=', 'app.copyright')->first();
+        $option->value = $request->copyright ?: $option->value;
+        $option->save();
+        return back()->with(['flash_message_success' => 'Contact info Updated!']);
+    }
 }

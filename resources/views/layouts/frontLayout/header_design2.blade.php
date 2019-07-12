@@ -14,9 +14,9 @@ $country = Controller::countries();
                 <div class="col-12 col-md-6">
                     <div class="user_contact">
                         <ul>
-                            <li><a href="tel:0123456780"><i class="fas fa-phone"></i> 012-345-6789</a></li>
-                            <li><a href="mailto: info@indiapropertyclinic.com"><i class="fas fa-envelope"></i>
-                                    info@indiapropertyclinic.com</a></li>
+                            <li><a href="tel:{{ config('app.phone') }}"><i class="fas fa-phone"></i> {{ config('app.phone') }}</a></li>
+                            <li><a href="mailto:{{ config('app.email') }}"><i class="fas fa-envelope"></i>
+                            {{ config('app.email') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -128,8 +128,6 @@ $country = Controller::countries();
                             @foreach($mainnavservice as $mainnav)
                             <option value="{{ $mainnav->id }}">{{ $mainnav->service_name }}</option>
                             @endforeach
-                            <!-- <option>Rent</option>
-                            <option>Sell</option> -->
                         </select>
                         <input type="text" name="search_text" id="search_name" class="search_location"
                             data-role="tagsinput" placeholder="Search here...">

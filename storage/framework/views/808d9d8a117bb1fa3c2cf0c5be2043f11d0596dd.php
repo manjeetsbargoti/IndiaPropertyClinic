@@ -44,6 +44,8 @@
                   <ul class="treeview-menu">
                       <li><a href="<?php echo e(url('/admin/options')); ?>"><i class="fa fa-sliders text-yellow"></i>Site
                               Options</a></li>
+                      <li><a href="<?php echo e(url('/admin/contact-info')); ?>"><i class="fa fa-phone text-yellow"></i>Contact
+                              Info</a></li>
                       <li><a href="<?php echo e(url('/admin/robots.txt')); ?>"><i class="fa fa-file text-yellow"></i>Robots.txt</a>
                       </li>
                       <li><a href="<?php echo e(url('/admin/htaccess')); ?>"><i class="fa fa-file text-yellow"></i>.htaccess</a>
@@ -60,8 +62,10 @@
                       </span>
                   </a>
                   <ul class="treeview-menu">
-                        <li><a href="<?php echo e(url('/admin/contacts')); ?>"><i class="fa fa-building text-green"></i> <span>Contact List</span></a></li>
-                        <li><a href="<?php echo e(url('/admin/new-contact')); ?>"><i class="fa fa-building text-green"></i> <span>Add Contact</span></a></li>
+                      <li><a href="<?php echo e(url('/admin/contacts')); ?>"><i class="fa fa-building text-green"></i> <span>Contact
+                                  List</span></a></li>
+                      <li><a href="<?php echo e(url('/admin/new-contact')); ?>"><i class="fa fa-building text-green"></i> <span>Add
+                                  Contact</span></a></li>
                   </ul>
               </li>
               <li class="treeview">

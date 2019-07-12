@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/vendor/sitemap/styles/sitemapindex.xsl" type="text/xsl"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/sitemap-properties-1.xml</loc>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/sitemap-properties-1.html</loc>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/sitemap-services-1.xml</loc>
+		</sitemap>
+	<sitemap>
+		<loc>http://localhost:8000/sitemaps/sitemap-services-1.html</loc>
+		</sitemap>
+</sitemapindex>

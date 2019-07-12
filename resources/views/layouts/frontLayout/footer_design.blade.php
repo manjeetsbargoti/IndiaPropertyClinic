@@ -47,13 +47,11 @@ $footerProperties = Controller::footersection();
     <div class="footer_menu">
         <div class="container">
             <ul>
-                <li><a href="#">Buy</a></li>
-                <li><a href="#">Rent</a></li>
-                <li><a href="#">Sell</a></li>
-                <li><a href="#">Tools & Advice</a></li>
-                <li><a href="#">Packages</a></li>
-                <li><a href="#">Properties in India</a></li>
-                <li><a href="#">Home Loan</a></li>                                             
+                <li><a href="{{ url('/properties/2/buy-properties') }}">Buy</a></li>
+                <li><a href="{{ url('/properties/3/rent-properties') }}">Rent</a></li>
+                <li><a href="{{ url('/properties/4/sell-properties') }}">Sell</a></li>
+                <li><a href="{{ url('/country/IN/properties') }}">Properties in India</a></li>
+                <li><a href="{{ url('/Apply-Home-Loan') }}">Home Loan</a></li>                                             
             </ul>
         </div>
     </div>
@@ -79,10 +77,10 @@ $footerProperties = Controller::footersection();
                         <div class="row">
                 <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div class="footer_box">
-                        <h5>INDIA PROPERTY CLINIC</h5>
-                        <p>A-16, 2 nd Floor, Sector 6, Noida, Uttar Pradesh 201301</p>
-                        <p>+91-9555396371</p>
-                        <p><a href="mailto:info@indiapropertyclinic.com">info@indiapropertyclinic.com</a></p>
+                        <h5>{{ config('app.name') }}</h5>
+                        <p>{{ config('app.address') }}</p>
+                        <p>{{ config('app.phone') }}</p>
+                        <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
                         <p><a href="#">https://indiapropertyclinic.com</a></p>
                     </div>
                 </div>
@@ -90,11 +88,9 @@ $footerProperties = Controller::footersection();
                     <div class="footer_box">
                         <h5>OTHER SERVICES</h5>
                         <div class="oter_ser">
-                            <a href="#">Plumbing Services</a>
-                            <a href="#">Welding Services</a>
-                            <a href="#">Carpenter Services</a>
-                            <a href="#">Architecture Services</a>
-                            <a href="#">Aluminium Fabricators Services</a>
+                            @foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
+                            <a href="{{ url('/services/'.$oths->url) }}">{{ $oths->service_name }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -169,9 +165,9 @@ $footerProperties = Controller::footersection();
                           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#footerAccordian">
                             <div class="card-body">
                                 <div class="footer_box">
-                                    <p>A-16, 2 nd Floor, Sector 6, Noida, Uttar Pradesh 201301</p>
-                                    <p>+91-9555396371</p>
-                                    <p><a href="mailto:info@indiapropertyclinic.com">info@indiapropertyclinic.com</a></p>
+                                    <p>{{ config('app.address') }}</p>
+                                    <p>{{ config('app.phone') }}</p>
+                                    <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
                                     <p><a href="#">https://indiapropertyclinic.com</a></p>
                                 </div>
                             </div>
@@ -190,11 +186,9 @@ $footerProperties = Controller::footersection();
                                 <div class="footer_box">
                                     <div class="oter_ser">
                                         
-                                    <a href="#">Plumbing Services</a>
-                                    <a href="#">Welding Services</a>
-                                    <a href="#">Carpenter Services</a>
-                                    <a href="#">Architecture Services</a>
-                                    <a href="#">Aluminium Fabricators Services</a>
+                                    <@foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
+                                        <a href="{{ url('/services/'.$oths->url) }}">{{ $oths->service_name }}</a>
+                                    @endforeach
                                         
                                     </div>
                                 </div>
@@ -257,10 +251,10 @@ $footerProperties = Controller::footersection();
                             <li><a href="#">Contact Us</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Home Loan</a></li>
+                            <li><a href="{{ url('/Apply-Home-Loan') }}">Home Loan</a></li>
                         </ul>
                     
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> | India Property Clinic. All Rights Reserved.</p>
+                    <p>@if(!empty(config('app.copyright'))) {{ config('app.copyright') }} @else Copyright &copy; <script>document.write(new Date().getFullYear());</script> | India Property Clinic. All Rights Reserved. @endif</p>
                 </div> 
                 </div>
                 <div class="col-lg-4">

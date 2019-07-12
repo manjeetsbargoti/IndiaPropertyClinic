@@ -94,6 +94,10 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::match(['get','post'], '/admin/new-contact', 'SystemController@newContact');
     Route::get('/admin/contacts', 'SystemController@contactList');
 
+    // Website Contact Details
+    Route::get('/admin/contact-info', 'SystemController@getContactInfo');
+    Route::post('/admin/contact-info','SystemController@postContactInfo');
+
 
     // Admin Logout Function
     Route::get('/get-out', 'AdminController@getOut');
@@ -158,3 +162,6 @@ Route::match(['get', 'post'], '/user-profile/{id}', 'AdminController@viewuserPag
 
 // Sidebar filter
 Route::get('/properties_filter', 'HomeController@filter');
+
+// List Your Property
+Route::match(['get','post'], '/list-property', 'PropertyController@listProperty');
