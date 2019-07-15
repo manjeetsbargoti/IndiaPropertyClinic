@@ -31,6 +31,8 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
     Route::match(['get', 'post'], '/admin/property/{id}/delete', 'PropertyController@deleteProperty');
     Route::get('/admin/delete-property-image/{id}', 'PropertyController@deletePropertyImage');
+    Route::match(['get', 'post'], '/admin/add-amenity', 'PropertyController@addAmenity');
+    Route::get('/admin/amenities', 'PropertyController@viewAmenity');
 
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list', 'PropertyController@getStateList');

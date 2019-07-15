@@ -121,7 +121,7 @@
                   </ul>
               </li>
               <li class="treeview">
-                  <a href="#"><i class="fa fa-building"></i> <span>Property</span>
+                  <a href="#"><i class="fa fa-building text-green"></i> <span>Property</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                       </span>
@@ -131,6 +131,8 @@
                               Properties</a></li>
                       <li><a href="<?php echo e(url('/admin/add-new-property')); ?>"><i class="fa fa-circle-o text-purple"></i>Add
                               Property</a></li>
+                        <li><a href="<?php echo e(url('/admin/amenities')); ?>"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
+                        <li><a href="<?php echo e(url('/admin/add-amenity')); ?>"><i class="fa fa-plus text-yellow"></i>Add Amenities</a></li>
                   </ul>
               </li>
 

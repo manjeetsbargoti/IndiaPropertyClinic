@@ -8,7 +8,7 @@ use App\User;
 use App\Property;
 use App\Services;
 use App\UserType;
-use App\Amenities;
+use App\Amenity;
 use App\PropertyTypes;
 use App\PropertyQuery;
 use App\PropertyImages;
@@ -30,6 +30,8 @@ class PropertyController extends Controller
     {
         if ($request->isMethod('POST')) {
             $data = $request->all();
+
+            // echo "<pre>"; print_r($data); die;
 
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
@@ -57,70 +59,11 @@ class PropertyController extends Controller
             } else {
                 $commercial = 1;
             }
-            if (empty($data['gym'])) {
-                $gym = 0;
-            } else {
-                $gym = 1;
-            }
-            if (empty($data['club_house'])) {
-                $club_house = 0;
-            } else {
-                $club_house = 1;
-            }
-            if (empty($data['play_area'])) {
-                $play_area = 0;
-            } else {
-                $play_area = 1;
-            }
-            if (empty($data['water_supply'])) {
-                $water_supply = 0;
-            } else {
-                $water_supply = 1;
-            }
-            if (empty($data['geyser'])) {
-                $geyser = 0;
-            } else {
-                $geyser = 1;
-            }
-            if (empty($data['visitor_arking'])) {
-                $visitor_arking = 0;
-            } else {
-                $visitor_arking = 1;
-            }
-            if (empty($data['garden'])) {
-                $garden = 0;
-            } else {
-                $garden = 1;
-            }
-            if (empty($data['waste_disposal'])) {
-                $waste_disposal = 0;
-            } else {
-                $waste_disposal = 1;
-            }
-            if (empty($data['power_backup'])) {
-                $power_backup = 0;
-            } else {
-                $power_backup = 1;
-            }
-            if (empty($data['swimming_pool'])) {
-                $swimming_pool = 0;
-            } else {
-                $swimming_pool = 1;
-            }
-            if (empty($data['water_storage'])) {
-                $water_storage = 0;
-            } else {
-                $water_storage = 1;
-            }
-            if (empty($data['security_personnel'])) {
-                $security_personnel = 0;
-            } else {
-                $security_personnel = 1;
-            }
-            if (empty($data['gated_community'])) {
-                $gated_community = 0;
-            } else {
-                $gated_community = 1;
+            if(!empty($data['amenity'])){
+                $amenities = $data['amenity'];
+                $amenity = implode(',', $amenities);
+            }else{
+                $amenity = '';
             }
 
             $user = new User;
@@ -156,6 +99,7 @@ class PropertyController extends Controller
                 'description'           => $data['description'],
                 'featured'              => $feature,
                 'commercial'            => $commercial,
+                'amenities'             => $amenity,
                 'map_pass'              => $data['map_passed'],
                 'open_sides'            => $data['open_sides'],
                 'parea'                 => $data['property_area'],
@@ -190,24 +134,6 @@ class PropertyController extends Controller
                 'service_id'            => $property_for,
                 'builder'               => $builder_id,
                 'agent'                 => $data['agent'],
-            ]);
-
-            // Add Amenities
-            $amenities = Amenities::create([
-                'property_id'       => $value->id,
-                'gym'               => $gym,
-                'club_house'        => $club_house,
-                'play_area'         => $play_area,
-                'water_supply'      => $water_supply,
-                'geyser'            => $geyser,
-                'visitor_arking'    => $visitor_arking,
-                'garden'            => $garden,
-                'waste_disposal'    => $waste_disposal,
-                'power_backup'      => $power_backup,
-                'swimming_pool'     => $swimming_pool,
-                'water_storage'     => $water_storage,
-                'security_personnel' => $security_personnel,
-                'gated_community'   => $gated_community,
             ]);
 
             // echo "<pre>"; print_r($value); die;
@@ -255,9 +181,10 @@ class PropertyController extends Controller
         $getAgent = User::where(['usertype' => 'A'])->orderBy('first_name', 'desc')->get();
         $servicetype = Services::where(['status' => 1, 'parent_id' => 1])->get();
         $propertytype = PropertyTypes::get();
+        $amenities = Amenity::where('status', 1)->orderBy('name', 'asc')->get();
         $countryname = DB::table('countries')->get();
         $phonecode = DB::table('countries')->get();
-        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent', 'phonecode'));
+        return view('admin.property.add-property', compact('propertytype', 'servicetype', 'countryname', 'getBuilder', 'getAgent', 'phonecode', 'amenities'));
     }
 
     // Getting State List according to Country
@@ -925,8 +852,47 @@ class PropertyController extends Controller
     }
 
     // List Property by New User
-    public function listProperty()
+    public function listProperty(Request $request)
     {
+        if($request->isMethod('post')){
+            $data = $request->all();
+
+            echo "<pre>"; print_r($data); die;
+        }
         return view('frontend.list_property');
+    }
+
+    // Add Amenity
+    public function addAmenity(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            if(!empty($data['status'])){
+                $status = 0;
+            }else {
+                $status = 1;
+            }
+
+            $amenity = Amenity::create([
+                'name'          => $data['amenity_name'],
+                'amenity_code'  => $data['amenity_code'],
+                'description'   => $data['description'],
+                'status'        => $status
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Amenity Added Successfully!');
+        }
+        return view('admin.property.add_amenities');
+    }
+
+    // View All Amenities in List
+    public function viewAmenity()
+    {
+        $amenities = Amenity::orderBy('created_at', 'desc')->get();
+
+        return view('admin.property.amenities', compact('amenities'));
     }
 }

@@ -574,109 +574,16 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-12">
+                                        <?php $__currentLoopData = $amenities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="gym" id="gym" class="flat-green" value="1"> Gym
-                                                </label>
-                                            </div>
-                                        </div>
+                                                    <input type="checkbox" name="amenity[]" id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>" class="flat-green" value="<?php echo e($a->amenity_code); ?>"> <?php echo e($a->name); ?>
 
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="club_house" id="club_house" class="flat-green" value="1"> Club House
                                                 </label>
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="play_area" id="play_area" class="flat-green" value="1"> Play Area
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="water_supply" id="water_supply" class="flat-green" value="1"> Water Supply
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="geyser" id="geyser" class="flat-green" value="1"> Hot water / Geyser
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="visitor_arking" id="visitor_arking" class="flat-green" value="1"> Visitor's Parking
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="garden" id="garden" class="flat-green" value="1"> Garden/ Greenery
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="waste_disposal" id="waste_disposal" class="flat-green" value="1"> Waste Disposal
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="power_backup" id="power_backup" class="flat-green" value="1"> Power Backup
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="swimming_pool" id="swimming_pool" class="flat-green" value="1"> Swimming Pool
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="water_storage" id="water_storage" class="custom-control-input" value="1"> Water Storage
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="security_personnel" id="security_personnel" class="custom-control-input" value="1"> Security Personnel
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="gated_community" id="gated_community" class="custom-control-input" value="1"> Gated Community
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                         <div class="box-footer">
                                             <input type="submit" class="btn btn-success btn-md btn-block" value="Submit Property">
