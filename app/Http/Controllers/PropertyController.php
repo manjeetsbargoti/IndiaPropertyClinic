@@ -582,71 +582,13 @@ class PropertyController extends Controller
             } else {
                 $commercial = 1;
             }
-            if (empty($data['gym'])) {
-                $gym = 0;
-            } else {
-                $gym = 1;
+            if(!empty($data['amenity'])){
+                $amenities = $data['amenity'];
+                $amenity = implode(',', $amenities);
+            }else{
+                $amenity = '';
             }
-            if (empty($data['club_house'])) {
-                $club_house = 0;
-            } else {
-                $club_house = 1;
-            }
-            if (empty($data['play_area'])) {
-                $play_area = 0;
-            } else {
-                $play_area = 1;
-            }
-            if (empty($data['water_supply'])) {
-                $water_supply = 0;
-            } else {
-                $water_supply = 1;
-            }
-            if (empty($data['geyser'])) {
-                $geyser = 0;
-            } else {
-                $geyser = 1;
-            }
-            if (empty($data['visitor_arking'])) {
-                $visitor_arking = 0;
-            } else {
-                $visitor_arking = 1;
-            }
-            if (empty($data['garden'])) {
-                $garden = 0;
-            } else {
-                $garden = 1;
-            }
-            if (empty($data['waste_disposal'])) {
-                $waste_disposal = 0;
-            } else {
-                $waste_disposal = 1;
-            }
-            if (empty($data['power_backup'])) {
-                $power_backup = 0;
-            } else {
-                $power_backup = 1;
-            }
-            if (empty($data['swimming_pool'])) {
-                $swimming_pool = 0;
-            } else {
-                $swimming_pool = 1;
-            }
-            if (empty($data['water_storage'])) {
-                $water_storage = 0;
-            } else {
-                $water_storage = 1;
-            }
-            if (empty($data['security_personnel'])) {
-                $security_personnel = 0;
-            } else {
-                $security_personnel = 1;
-            }
-            if (empty($data['gated_community'])) {
-                $gated_community = 0;
-            } else {
-                $gated_community = 1;
-            }
+            
 
             // echo "<pre>"; print_r($data); die;
 
@@ -687,21 +629,13 @@ class PropertyController extends Controller
                 }
             }
 
-            // if(!empty($id)){
             // Update Property Details
             Property::where(['id' => $id])->update([
-                'property_name' => $data['property_name'], 'property_url' => $data['slug'], 'service_id' => $data['property_for'], 'property_type_id' => $data['property_type'], 'property_price' => $data['property_price'], 'description' => $data['description'], 'featured' => $feature, 'commercial' => $commercial,
+                'property_name' => $data['property_name'], 'property_url' => $data['slug'], 'service_id' => $data['property_for'], 'property_type_id' => $data['property_type'], 'property_price' => $data['property_price'], 'description' => $data['description'], 'featured' => $feature, 'commercial' => $commercial, 'amenities'=>$amenity,
                 'map_pass' => $data['map_passed'], 'open_sides' => $data['open_sides'], 'parea' => $data['property_area'], 'widthroad' => $data['width_road_facing'], 'furnish_type' => $data['furnish_type'], 'floorno' => $data['floor_no'], 'total_floors' => $data['total_floors'], 'apple_trees' => $data['trees'], 'transaction_type' => $data['transection_type'], 'construction_status' => $data['construction_status'],
                 'bedrooms' => $data['bedrooms'], 'bathrooms' => $data['bathrooms'], 'balconies' => $data['balconies'], 'p_washrooms' => $data['p_washroom'], 'cafeteria' => $data['cafeteria'], 'road_facing' => $data['roadfacing'], 'c_shop' => $data['corner_shop'], 'wall_made' => $data['boundrywall'], 'p_showroom' => $data['pshowroom'], 'property_age' => $data['property_age'],
                 'address1' => $data['property_address1'], 'address2' => $data['property_address2'], 'locality' => $data['locality'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city'], 'zipcode' => $data['zipcode'], 'add_by' => $add_by, 'builder' => $data['builder'], 'agent' => $data['agent']
             ]);
-            // Update Amenities
-            Amenities::where(['property_id' => $id])->update([
-                'gym' => $gym, 'club_house' => $club_house, 'play_area' => $play_area, 'water_supply' => $water_supply, 'geyser' => $geyser, 'visitor_arking' => $visitor_arking, 'garden' => $garden,
-                'waste_disposal' => $waste_disposal, 'power_backup' => $power_backup, 'swimming_pool' => $swimming_pool, 'water_storage' => $water_storage, 'security_personnel' => $security_personnel, 'gated_community' => $gated_community
-            ]);
-            // Update Images
-            // }
 
             return redirect('/admin/properties')->with('flash_message_success', 'Property Updated Successfulley');
         }
@@ -711,27 +645,6 @@ class PropertyController extends Controller
         $properties = json_decode(json_encode($properties));
         // Get Property Images
         $propertyImage = PropertyImages::where(['property_id' => $id])->get();
-
-        // Get Property Amenities
-        foreach ($properties as $key => $val) {
-            $pamenities_count = Amenities::where(['property_id' => $id])->count();
-            if ($pamenities_count > 0) {
-                $pamenities = Amenities::where(['property_id' => $id])->first();
-                $properties->gym = $pamenities->gym;
-                $properties->club_house = $pamenities->club_house;
-                $properties->play_area = $pamenities->play_area;
-                $properties->water_supply = $pamenities->water_supply;
-                $properties->geyser = $pamenities->geyser;
-                $properties->visitor_arking = $pamenities->visitor_arking;
-                $properties->garden = $pamenities->garden;
-                $properties->waste_disposal = $pamenities->waste_disposal;
-                $properties->power_backup = $pamenities->power_backup;
-                $properties->swimming_pool = $pamenities->swimming_pool;
-                $properties->water_storage = $pamenities->water_storage;
-                $properties->security_personnel = $pamenities->security_personnel;
-                $properties->gated_community = $pamenities->gated_community;
-            }
-        }
 
         // Select Property for
         $propertyfor = Services::where('parent_id', '!=', '0')->get();
@@ -820,8 +733,9 @@ class PropertyController extends Controller
 
         // Select Country Phone Code
         $phonecode = DB::table('countries')->get();
+        $amenities = Amenity::where('status', 1)->orderBy('name', 'asc')->get();
         // echo "<pre>"; print_r($propertyImage); die;
-        return view('admin.property.edit_property', compact('properties', 'propertyImage', 'getBuilder', 'getAgent', 'servicetype', 'propertytype', 'countryname', 'phonecode', 'propertyfor_dropdown', 'propertytype_dropdown', 'builder_dropdown', 'agent_dropdown', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
+        return view('admin.property.edit_property', compact('properties', 'propertyImage', 'getBuilder', 'getAgent', 'servicetype', 'propertytype', 'countryname', 'phonecode', 'propertyfor_dropdown', 'propertytype_dropdown', 'builder_dropdown', 'agent_dropdown', 'country_dropdown', 'state_dropdown', 'city_dropdown', 'amenities'));
     }
 
     // Delete Property Function
@@ -862,37 +776,4 @@ class PropertyController extends Controller
         return view('frontend.list_property');
     }
 
-    // Add Amenity
-    public function addAmenity(Request $request)
-    {
-        if($request->isMethod('post'))
-        {
-            $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
-            if(!empty($data['status'])){
-                $status = 0;
-            }else {
-                $status = 1;
-            }
-
-            $amenity = Amenity::create([
-                'name'          => $data['amenity_name'],
-                'amenity_code'  => $data['amenity_code'],
-                'description'   => $data['description'],
-                'status'        => $status
-            ]);
-
-            return redirect()->back()->with('flash_message_success', 'Amenity Added Successfully!');
-        }
-        return view('admin.property.add_amenities');
-    }
-
-    // View All Amenities in List
-    public function viewAmenity()
-    {
-        $amenities = Amenity::orderBy('created_at', 'desc')->get();
-
-        return view('admin.property.amenities', compact('amenities'));
-    }
 }

@@ -45,12 +45,6 @@
                                             rows="5"></textarea>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group">
-                                        <label>Disable</label>
-                                        <input type="checkbox" name="status" id="status" value="0">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <!-- /.box-body -->

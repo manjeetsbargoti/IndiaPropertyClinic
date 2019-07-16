@@ -127,9 +127,10 @@
                     <div class="product_box featurepro_box">
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
-                                @foreach(explode(',', $property->images) as $image)
+                                @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                 <div class="item"><img
-                                        src="{{ asset('/images/backend_images/property_images/large/'.$image)}}"></div>
+                                        src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                </div>
                                 @endforeach
                             </div>
                             <div class="rateing">
@@ -240,7 +241,8 @@
                                 <div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
-                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
+                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as
+                                            $pimage)
                                             <div class="item">
                                                 <img
                                                     src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
@@ -335,7 +337,6 @@
 </div>
 
 <!-- Commercial Properties -->
-
 <div class="latest_product">
     <div class="container">
         <div class="row">
@@ -377,7 +378,7 @@
                                     <p>{{ $property->parea }} Square Ft</p>
                                     @foreach(\App\Services::where('id', $property->service_id)->get() as $pt)
                                     <span class="tagbtn rent">
-                                    {{ $pt->service_name }}
+                                        {{ $pt->service_name }}
                                     </span>
                                     @endforeach
                                 </div>
@@ -431,44 +432,7 @@
 </div>
 <!-- /.Commercial Properties -->
 
-<!-- Dealers -->
-
-<div class="latest_product">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-12 col-xl-12">
-                <div class="row">
-                    <div class="col-12 col-md-12 col-xl-12">
-                        <div class="globleheadding text-left">
-                            <h1>Builders/Agents</h1>
-                        </div>
-                        <div class="dealers_sec">
-                            <div class="owl-carousel dealerscarousel owl-theme">
-                                @foreach($dealer as $d)
-                                <div class="item">
-                                    <a href="{{ url('/user-profile/'.$d->id) }}">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
-                                            <div class="dealers_txt">
-                                                <h4>{{ $d->first_name }}</h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- /.Dealers -->
-
-
+<!-- Other Services -->
 <div class="oter_services">
     <div class="container">
         <div class="globleheadding white">
@@ -496,7 +460,7 @@
         </div>
     </div>
 </div>
-
+<!-- /. Other Services -->
 
 <div class="global_estate">
     <div class="container">
@@ -536,7 +500,7 @@
     </div>
 </div>
 
-
+<!-- Properties in Contenent -->
 <div class="top_countries">
     <div class="container">
         <div class="globleheadding">
@@ -587,7 +551,41 @@
     </div>
 </div>
 </div>
+<!-- /. Properties in Contenent -->
 
-
+<!-- Dealers -->
+<div class="latest_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="globleheadding text-left">
+                            <h1>Builders/Agents</h1>
+                        </div>
+                        <div class="dealers_sec">
+                            <div class="owl-carousel dealerscarousel owl-theme">
+                                @foreach($dealer as $d)
+                                <div class="item">
+                                    <a href="{{ url('/user-profile/'.$d->id) }}">
+                                        <div class="dealers_box">
+                                            <div class="dealers_img"><img
+                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                            <div class="dealers_txt">
+                                                <h4>{{ $d->first_name }}</h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.Dealers -->
 
 @endsection

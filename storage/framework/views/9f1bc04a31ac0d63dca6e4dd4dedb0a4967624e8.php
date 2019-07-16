@@ -129,9 +129,10 @@
                     <div class="product_box featurepro_box">
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
-                                <?php $__currentLoopData = explode(',', $property->images); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="item"><img
-                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$image)); ?>"></div>
+                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <div class="rateing">
@@ -338,7 +339,6 @@
 </div>
 
 <!-- Commercial Properties -->
-
 <div class="latest_product">
     <div class="container">
         <div class="row">
@@ -379,7 +379,7 @@
                                     <p><?php echo e($property->parea); ?> Square Ft</p>
                                     <?php $__currentLoopData = \App\Services::where('id', $property->service_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <span class="tagbtn rent">
-                                    <?php echo e($pt->service_name); ?>
+                                        <?php echo e($pt->service_name); ?>
 
                                     </span>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -433,44 +433,7 @@
 </div>
 <!-- /.Commercial Properties -->
 
-<!-- Dealers -->
-
-<div class="latest_product">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-12 col-xl-12">
-                <div class="row">
-                    <div class="col-12 col-md-12 col-xl-12">
-                        <div class="globleheadding text-left">
-                            <h1>Builders/Agents</h1>
-                        </div>
-                        <div class="dealers_sec">
-                            <div class="owl-carousel dealerscarousel owl-theme">
-                                <?php $__currentLoopData = $dealer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="item">
-                                    <a href="<?php echo e(url('/user-profile/'.$d->id)); ?>">
-                                        <div class="dealers_box">
-                                            <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
-                                            <div class="dealers_txt">
-                                                <h4><?php echo e($d->first_name); ?></h4>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- /.Dealers -->
-
-
+<!-- Other Services -->
 <div class="oter_services">
     <div class="container">
         <div class="globleheadding white">
@@ -498,7 +461,7 @@
         </div>
     </div>
 </div>
-
+<!-- /. Other Services -->
 
 <div class="global_estate">
     <div class="container">
@@ -538,7 +501,7 @@
     </div>
 </div>
 
-
+<!-- Properties in Contenent -->
 <div class="top_countries">
     <div class="container">
         <div class="globleheadding">
@@ -589,8 +552,42 @@
     </div>
 </div>
 </div>
+<!-- /. Properties in Contenent -->
 
-
+<!-- Dealers -->
+<div class="latest_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="globleheadding text-left">
+                            <h1>Builders/Agents</h1>
+                        </div>
+                        <div class="dealers_sec">
+                            <div class="owl-carousel dealerscarousel owl-theme">
+                                <?php $__currentLoopData = $dealer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="item">
+                                    <a href="<?php echo e(url('/user-profile/'.$d->id)); ?>">
+                                        <div class="dealers_box">
+                                            <div class="dealers_img"><img
+                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                            <div class="dealers_txt">
+                                                <h4><?php echo e($d->first_name); ?></h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.Dealers -->
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/home.blade.php ENDPATH**/ ?>

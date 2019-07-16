@@ -46,7 +46,7 @@ function generate_string($input, $strength = 16) {
                         <form enctype="multipart/form-data" method="post" action="<?php echo e(url('/admin/add-new-property')); ?>" name="add_property" id="add_property" novalidate="novalidate">
                         <?php echo e(csrf_field()); ?>
 
-                            <div class="col-sm-12 col-md-9">
+                            <div class="col-sm-12 col-md-8">
                                 <div class="row">
                                     <div class="property_basic col-sm-12 col-md-12">
                                         <div class="property_heading col-xs-12 col-md-12">
@@ -220,7 +220,7 @@ function generate_string($input, $strength = 16) {
                                                 <textarea name="description" id="description" class="form-control my-editor"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="feature" id="feature" class="flat-green" value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Property )</small>
@@ -228,7 +228,7 @@ function generate_string($input, $strength = 16) {
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-12 col-md-12">
+                                        <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="commercial" id="commercial" class="flat-green" value="1"> Commercial  <small class="text-purple pl-1">( If you check this set Commercial Property )</small>
@@ -566,7 +566,7 @@ function generate_string($input, $strength = 16) {
                                 </div>
                             </div>
                             
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="row">
                                     <div class="property_basic col-sm-12 col-md-12">
                                         <div class="property_heading col-xs-12 col-md-12">

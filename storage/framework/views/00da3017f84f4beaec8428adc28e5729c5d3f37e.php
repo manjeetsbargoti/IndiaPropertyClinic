@@ -47,17 +47,17 @@
                                         <div id="donate">
                                             
                                             <?php if($am->status == 1): ?>
-                                            <a href="/admin/amdisable/<?php echo e($am->id); ?>" title="Disable"
+                                            <a href="/admin/amenity/<?php echo e($am->id); ?>/disable" title="Disable"
                                                 class="label label-success label-sm">Enable</a>
                                             <?php else: ?>
-                                            <a href="/admin/amenable/<?php echo e($am->id); ?>" title="Enable"
+                                            <a href="/admin/amenity/<?php echo e($am->id); ?>/enable" title="Enable"
                                                 class="label label-danger label-sm">Disable</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
 
                                     <td>
-                                        <!-- <a href="<?php echo e(url('/admin/amenity/'.$am->id.'/edit')); ?>" class="label label-warning label-sm"><i class="fa fa-edit"></i></a> -->
+                                        <a href="<?php echo e(url('/admin/amenity/'.$am->id.'/edit')); ?>" class="label label-warning label-sm"><i class="fa fa-edit"></i></a>
                                         <a href="<?php echo e(url('/admin/amenity/'.$am->id.'/delete')); ?>" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

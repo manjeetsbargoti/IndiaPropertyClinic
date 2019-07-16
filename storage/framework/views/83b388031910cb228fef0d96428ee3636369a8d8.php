@@ -166,7 +166,7 @@
                                     <div class="form-group">
                                         <label class="checkbox_container"> I am posting this property 'exclusively' on
                                             IPC
-                                            <input type="checkbox" name="condition" id="condition_check">
+                                            <input type="checkbox" name="condition" id="condition_check" value="1">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>

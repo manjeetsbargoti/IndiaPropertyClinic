@@ -498,7 +498,7 @@ $(function () {
 // TinyMCE Text Editor for Description
 var editor_config = {
     height: 250,
-    width: 750,
+    // width: 750,
     path_absolute : "/",
     selector: "textarea.my-editor",
     branding: false,
