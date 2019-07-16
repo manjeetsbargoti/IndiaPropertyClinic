@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Image;
 use App\User;
+use App\Country;
 use App\Property;
 use App\Services;
 use App\UserType;
@@ -771,9 +772,85 @@ class PropertyController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
 
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+
+            $property = new Property;
+            if (!empty($request->property_for)) {
+                $property_for = $data['property_for'];
+            } else {
+                return redirect()->back()->with('flash_message_error', 'Property For is Missing!');
+            }
+
+            if (!empty($request->property_type)) {
+                $property_type = $data['property_type'];
+            } else {
+                return redirect()->back()->with('flash_message_error', 'Property Type is Missing!');
+            }
+
+            if (empty($data['featured'])) {
+                $feature = 0;
+            } else {
+                $feature = 1;
+            }
+            if (empty($data['commercial'])) {
+                $commercial = 0;
+            } else {
+                $commercial = 1;
+            }
+
+            // Add User with Property
+            if (!empty($data['name'])) {
+                $user = User::create([
+                    'first_name'    => $data['name'],
+                    'email'         => $data['email'],
+                    'phonecode'     => $data['phonecode'],
+                    'phone'         => $data['phone'],
+                    'usertype'      => $data['user_type'],
+                ]);
+            }
+
+            // echo "<pre>"; print_r($data); die;
+
+            $value = Property::create([
+                'property_name'         => $data['property_name'],
+                'property_url'          => $data['slug'],
+                'property_type_id'      => $property_type,
+                // 'property_code'         => $data['property_code'],
+                'property_price'        => $data['property_price'],
+                'description'           => $data['description'],
+                'featured'              => $feature,
+                'commercial'            => $commercial,
+                'map_pass'              => $data['map_passed'],
+                'open_sides'            => $data['open_sides'],
+                'parea'                 => $data['property_area'],
+                'furnish_type'          => $data['furnish_type'],
+                'floorno'               => $data['floor_no'],
+                'total_floors'          => $data['total_floors'],
+                'apple_trees'           => $data['trees'],
+                'parea'                 => $data['property_area'],
+                'transaction_type'      => $data['transection_type'],
+                'construction_status'   => $data['construnction_status'],
+                'bedrooms'              => $data['bedrooms'],
+                'bathrooms'             => $data['bathrooms'],
+                'balconies'             => $data['balconies'],
+                'p_washrooms'           => $data['p_washroom'],
+                'cafeteria'             => $data['cafeteria'],
+                'p_showroom'            => $data['pshowroom'],
+                'property_age'          => $data['property_age'],
+                'plotno'                => $data['houseno'],
+                'locality'              => $data['locality'],
+                'country'               => $data['country'],
+                'state'                 => $data['state'],
+                'city'                  => $data['city'],
+                'zipcode'               => $data['zipcode'],
+                'add_by'                => $user->id,
+                'service_id'            => $property_for,
+            ]);
         }
-        return view('frontend.list_property');
+
+        $phonecode = Country::get();
+
+        return view('frontend.list_property', compact('phonecode'));
     }
 
 }

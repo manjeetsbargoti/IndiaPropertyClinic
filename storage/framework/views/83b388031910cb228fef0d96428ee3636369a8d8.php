@@ -64,10 +64,20 @@
                                         <input type="text" id="name" name="name" class="form-control"
                                             placeholder="Enter your name">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="title_txt">Mobile</label>
-                                        <input type="tel" id="phone" name="phone" required class="form-control"
-                                            placeholder="Enter mobile number">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6 col-md-3 col-xs-6">
+                                            <label class="title_txt">Country Code</label>
+                                            <select name="phonecode" id="phonecode" class="form-control">
+                                                <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pcode): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($pcode->phonecode); ?>"><?php echo e($pcode->iso3); ?> <?php echo e($pcode->phonecode); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-6 col-md-9 col-xs-6">
+                                            <label class="title_txt">Mobile</label>
+                                            <input type="tel" id="phone" name="phone" required class="form-control"
+                                                placeholder="Enter mobile number">
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Email</label>
@@ -79,26 +89,28 @@
                                 </div>
                                 <div class="formboxed">
                                     <h6 class="formheading">About Property Details</h6>
-                                    <label class="title_txt">For</label>
+                                    <label class="title_txt">Property For</label>
                                     <div class="radioblock">
                                         <ul>
                                             <li>
                                                 <label class="radio_container">Sale
-                                                    <input type="radio" checked="checked" name="property_for">
-                                                    <span class="checkmark" value="4"></span>
+                                                    <input type="radio" id="PropertyFor4" checked="checked"
+                                                        name="property_for" value="4">
+                                                    <span class="checkmark"></span>
                                                 </label>
                                             </li>
                                             <li>
-                                                <label class="radio_container"> Rent
-                                                    <input type="radio" name="property_for">
-                                                    <span class="checkmark" value="3"></span>
+                                            <label class="radio_container">Rent
+                                                    <input type="radio" id="PropertyFor3"
+                                                        name="property_for" value="3">
+                                                    <span class="checkmark"><   /span>
                                                 </label>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Property Type</label>
-                                        <select id="PropertyType" class="form-control">
+                                        <select id="PropertyType" name="property_type" class="form-control">
                                             <?php $__currentLoopData = \App\PropertyTypes::get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($pt->property_type_code); ?>"><?php echo e($pt->property_type); ?>
 
