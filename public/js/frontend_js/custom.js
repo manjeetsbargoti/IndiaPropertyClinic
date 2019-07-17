@@ -561,7 +561,6 @@ $('.feature-slide').owlCarousel({
 });
 
 //  vender form //
-
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -607,11 +606,11 @@ function validateForm() {
   // This function deals with validation of the form fields
   var x, y, i, valid = true;
   x = document.getElementsByClassName("formtab");
-  y = x[currentTab].getElementsByTagName("input");
+  y = x[currentTab].getElementsByClassName("emptyformvalidation");
   // A loop that checks every input field in the current tab:
   for (i = 0; i < y.length; i++) {
     // If a field is empty...
-    if (y[i].value == "0") {
+    if (y[i].value == "") {
       // add an "invalid" class to the field:
       y[i].className += " invalid";
       // and set the current valid status to false
@@ -800,7 +799,6 @@ $('#registerForm').validate({
     }
   }
 })
-
 
 
 

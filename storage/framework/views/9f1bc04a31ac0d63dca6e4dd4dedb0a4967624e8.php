@@ -130,7 +130,7 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="item"><img
+                                <div class="item"><img height="180"
                                         src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -280,7 +280,7 @@
                                         </div>
                                         <div class="protxt_inn">
                                             <h6><?php echo e($property->property_name); ?></h6>
-                                            <p><?php echo str_limit($property->description, $limit=80); ?></p>
+                                            <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
                                             <div class="price_sec">
                                                 <ul>
                                                     <li>
@@ -360,8 +360,7 @@
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="item"><img
-                                            src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                    <div class="item"><img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                     </div>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
@@ -463,44 +462,6 @@
 </div>
 <!-- /. Other Services -->
 
-<div class="global_estate">
-    <div class="container">
-        <div class="global_estatein">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-01.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>3,17,077+</h1>
-                        <p>Properties & Counting...</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-02.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>3,000+</h1>
-                        <p>Properties Listed</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-03.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>5,175+</h1>
-                        <p>Sellers Contacted</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Properties in Contenent -->
 <div class="top_countries">
     <div class="container">
@@ -553,6 +514,44 @@
 </div>
 </div>
 <!-- /. Properties in Contenent -->
+
+<div class="global_estate">
+    <div class="container">
+        <div class="global_estatein">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-01.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>3,17,077+</h1>
+                        <p>Properties & Counting...</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-02.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>3,000+</h1>
+                        <p>Properties Listed</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-03.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>5,175+</h1>
+                        <p>Sellers Contacted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Dealers -->
 <div class="latest_product">

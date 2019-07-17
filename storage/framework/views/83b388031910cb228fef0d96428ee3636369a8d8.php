@@ -1,5 +1,10 @@
 <?php $__env->startSection('content'); ?>
 
+<style>
+   .box{width:600px;margin:0 auto;border:1px solid #ccc;}
+   .has-error{border-color:#FF0000 !important;background-color:#ffff99;}
+</style>
+
 <div class="vender_formsec">
     <div class="vender_header">
         <a class="backtohome" href="<?php echo e(url('/')); ?>">Back To Home</a>
@@ -8,6 +13,7 @@
         <div class="row h-100">
             <div class="col-12 col-md-8 col-lg-8 col-xl-8 vender_formleft p-0">
                 <div class="mainform">
+                    
                     <form id="regForm" enctype="multipart/form-data" name="listproperty" method="post"action="<?php echo e(url('/list-property')); ?>">
                     <?php echo e(csrf_field()); ?>
 
@@ -32,6 +38,18 @@
                         </div>
                         <div class="mainform_inn">
                             <!-- One "tab" for each step in the form: -->
+                            <?php if(Session::has('flash_message_success')): ?>
+                                <div class="alert alert-success alert-dismissible">
+                                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                                    <strong><?php echo session('flash_message_success'); ?></strong>
+                                </div>
+                            <?php endif; ?>   
+                            <?php if(Session::has('flash_message_error')): ?> 
+                                <div class="alert alert-error alert-dismissible">
+                                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                                    <strong><?php echo session('flash_message_error'); ?></strong>
+                                </div>
+                            <?php endif; ?>
                             <div class="formtab">
                                 <div class="formboxed">
                                     <h6 class="formheading">Personal Details</h6>
@@ -61,7 +79,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Name</label>
-                                        <input type="text" id="name" name="name" class="form-control"
+                                        <input type="text" id="ListName" name="name" class="form-control emptyformvalidation"
                                             placeholder="Enter your name">
                                     </div>
                                     <div class="row">
@@ -74,14 +92,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-sm-6 col-md-9 col-xs-6">
-                                            <label class="title_txt">Mobile</label>
-                                            <input type="tel" id="phone" name="phone" required class="form-control"
+                                            <label class="title_txt">Mobile</label><span class="float-right" id="error_listphone"></span>
+                                            <input type="tel" id="ListPhone" name="phone" class="form-control emptyformvalidation"
                                                 placeholder="Enter mobile number">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="title_txt">Email</label>
-                                        <input type="email" id="email" name="email" required class="form-control"
+                                        <label class="title_txt">Email</label><span class="float-right" id="error_email"></span>
+                                        <input type="email" id="ListEmail" name="email" required class="form-control emptyformvalidation"
                                             placeholder="Enter your email">
                                         <small id="emailHelp" class="form-text text-muted">We'll never share your email
                                             with anyone else.</small>
@@ -103,18 +121,17 @@
                                             <label class="radio_container">Rent
                                                     <input type="radio" id="PropertyFor3"
                                                         name="property_for" value="3">
-                                                    <span class="checkmark"><   /span>
+                                                    <span class="checkmark"></span>
                                                 </label>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Property Type</label>
-                                        <select id="PropertyType" name="property_type" class="form-control">
+                                        <select id="PropertyType" name="property_type" class="form-control emptyformvalidation">
+                                            <option value="" selected>Select Property Type</option>
                                             <?php $__currentLoopData = \App\PropertyTypes::get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($pt->property_type_code); ?>"><?php echo e($pt->property_type); ?>
-
-                                            </option>
+                                            <option value="<?php echo e($pt->property_type_code); ?>"><?php echo e($pt->property_type); ?></option>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </select>
                                     </div>
@@ -127,7 +144,7 @@
                                         <div class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">Country</label>
-                                                <select id="country" name="country" class="form-control">
+                                                <select id="country" name="country" class="form-control emptyformvalidation">
                                                     <option selected value="">Select Country</option>
                                                     <?php $__currentLoopData = \App\Country::get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($country->iso2); ?>"><?php echo e($country->name); ?></option>
@@ -138,7 +155,7 @@
                                         <div class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">State</label>
-                                                <select id="state" name="state" class="form-control">
+                                                <select id="state" name="state" class="form-control emptyformvalidation">
                                                     <option selected value="">Select State</option>
                                                 </select>
                                             </div>
@@ -146,8 +163,8 @@
                                         <div class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">City</label>
-                                                <select id="city" name="city" class="form-control">
-                                                    <option selected>Select City</option>
+                                                <select id="city" name="city" class="form-control emptyformvalidation">
+                                                    <option value="" selected>Select City</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -161,7 +178,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Locality</label>
-                                        <input type="text" class="form-control" name="locality" id="locality"
+                                        <input type="text" class="form-control emptyformvalidation" name="locality" id="locality"
                                             placeholder="Enter locality">
                                     </div>
                                     <div class="form-group">
@@ -193,7 +210,7 @@
                                             <div class="form-group">
                                                 <label class="title_txt">Property Name</label>
                                                 <input type="text" name="property_name" id="property_name"
-                                                    class="form-control" placeholder="Enter property name">
+                                                    class="form-control emptyformvalidation" placeholder="Enter property name">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-12 col-xl-12">
@@ -210,8 +227,8 @@
                                         <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                                             <div class="form-group">
                                                 <label class="title_txt">Property Description</label>
-                                                <textarea name="description" id="description"
-                                                    class="form-control my-editor" rows="10"></textarea>
+                                                <textarea name="description" id="ListPropertyDescription"
+                                                    class="form-control my-editor emptyformvalidation" rows="10"></textarea>
                                             </div>
                                         </div>
 

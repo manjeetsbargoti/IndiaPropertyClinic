@@ -42,14 +42,14 @@ class HomeController extends Controller
 
     public function index()
     {
-        $properties1 = Property::where('service_id', 2)->orderBy('id', 'asc')->take(4)->get();
+        $properties1 = Property::where('service_id', 2)->orderBy('id', 'desc')->take(4)->get();
         $properties1 = json_decode(json_encode($properties1));
-        $properties2 = Property::where('service_id', 3)->orderBy('id', 'asc')->take(4)->get();
+        $properties2 = Property::where('service_id', 3)->orderBy('id', 'desc')->take(4)->get();
         $properties2 = json_decode(json_encode($properties2));
-        $properties3 = Property::where('service_id', 4)->orderBy('id', 'asc')->take(4)->get();
+        $properties3 = Property::where('service_id', 4)->orderBy('id', 'desc')->take(4)->get();
         $properties3 = json_decode(json_encode($properties3));
         $properties = array_merge($properties1, $properties2, $properties3);
-        $featureProperty = Property::where(['featured' => 1])->take(4)->get();
+        $featureProperty = Property::where(['featured' => 1])->orderBy('created_at', 'desc')->take(4)->get();
         $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();
         $otherServices = OtherServices::get();
@@ -330,7 +330,6 @@ class HomeController extends Controller
         $breadcrumb = $posts->get();
         $posts = $posts->paginate($this->posts_per_page);
 
-
         $propertyImages = PropertyImages::get();
 
         foreach ($posts as $key => $val) {
@@ -358,7 +357,6 @@ class HomeController extends Controller
                 $posts[$key]->city_name = $city->name;
             }
         }
-
 
         if (!empty($breadcrumb)) {
             $contRow = $breadcrumb->count();

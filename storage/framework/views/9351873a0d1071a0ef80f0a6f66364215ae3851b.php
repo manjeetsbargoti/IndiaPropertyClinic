@@ -282,6 +282,67 @@
             })
         }
     });
+
+    // Check User Email for List Property
+    $('#ListEmail').blur(function() {
+      var error_email = '';
+      var email = $('#ListEmail').val();
+      var _token = $('input[name="_token"]').val();
+      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (!filter.test(email)) {
+        $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+        $('#ListEmail').addClass('has-error');
+      } else {
+        $.ajax({
+          url: "<?php echo e(url('/checkemail')); ?>",
+          method: "POST",
+          data: {
+            email: email,
+            _token: _token
+          },
+          success: function(result) {
+            if (result == 'unique') {
+              $('#error_email').html('<label class="text-success">Email Available</label>');
+              $('#ListEmail').removeClass('has-error');
+            } else {
+              $('#error_email').html('<label class="text-danger">You are already Registered!.</label>');
+              $('#ListEmail').addClass('has-error');
+            }
+          }
+        })
+      }
+    });
+
+    // Check User Phone while Listing Property
+$('#ListPhone').blur(function()
+{
+  var error_listphone = '';
+  var phone = $('#ListPhone').val();
+  var _token = $('input[name="_token"]').val();
+//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if (document.getElementById('ListPhone').value === '') {
+        $('#error_listphone').html('<label class="text-danger">Invalid Phone</label>');
+        $('#ListPhone').addClass('has-error');
+      } else {
+        $.ajax({
+          url: "<?php echo e(url('/checkuserphone')); ?>",
+          method: "POST",
+          data: {
+            phone: phone,
+            _token: _token
+          },
+          success: function(res) {
+            if (res == 'unique') {
+              $('#error_listphone').html('<label class="text-success">Phone Available</label>');
+              $('#ListPhone').removeClass('has-error');
+            } else{
+              $('#error_listphone').html('<label class="text-danger">Phone Number already exist.</label>');
+              $('#ListPhone').addClass('has-error');
+            }
+          }
+        })
+      }
+ });
     </script>
 
     <script>

@@ -128,7 +128,7 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                <div class="item"><img
+                                <div class="item"><img height="180"
                                         src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                 </div>
                                 @endforeach
@@ -278,7 +278,7 @@
                                         </div>
                                         <div class="protxt_inn">
                                             <h6>{{ $property->property_name }}</h6>
-                                            <p>{!! str_limit($property->description, $limit=80) !!}</p>
+                                            <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
                                             <div class="price_sec">
                                                 <ul>
                                                     <li>
@@ -359,8 +359,7 @@
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                    <div class="item"><img
-                                            src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                     </div>
                                     @endforeach
                                 </div>
@@ -462,44 +461,6 @@
 </div>
 <!-- /. Other Services -->
 
-<div class="global_estate">
-    <div class="container">
-        <div class="global_estatein">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-01.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>3,17,077+</h1>
-                        <p>Properties & Counting...</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-02.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>3,000+</h1>
-                        <p>Properties Listed</p>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-12 col-md-4 mt-4">
-                    <div class="viewsource">
-                        <img src="/images/frontend_images/images/icon-03.png">
-                    </div>
-                    <div class="viewsourcetxt">
-                        <h1>5,175+</h1>
-                        <p>Sellers Contacted</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Properties in Contenent -->
 <div class="top_countries">
     <div class="container">
@@ -552,6 +513,44 @@
 </div>
 </div>
 <!-- /. Properties in Contenent -->
+
+<div class="global_estate">
+    <div class="container">
+        <div class="global_estatein">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-01.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>3,17,077+</h1>
+                        <p>Properties & Counting...</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-02.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>3,000+</h1>
+                        <p>Properties Listed</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 mt-4">
+                    <div class="viewsource">
+                        <img src="/images/frontend_images/images/icon-03.png">
+                    </div>
+                    <div class="viewsourcetxt">
+                        <h1>5,175+</h1>
+                        <p>Sellers Contacted</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Dealers -->
 <div class="latest_product">

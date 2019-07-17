@@ -846,6 +846,45 @@ class PropertyController extends Controller
                 'add_by'                => $user->id,
                 'service_id'            => $property_for,
             ]);
+
+            // Upload image
+            if ($request->hasFile('file')) {
+                $image_array = Input::file('file');
+                // if($image_array->isValid()){
+                $array_len = count($image_array);
+                for ($i = 0; $i < $array_len; $i++) {
+                    // $image_name = $image_array[$i]->getClientOriginalName();
+                    $image_size = $image_array[$i]->getClientSize();
+                    $extension = $image_array[$i]->getClientOriginalExtension();
+                    $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                    $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                    $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                    $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                    // Resize image
+                    Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+
+                    // Store image in property folder
+                    $property->image = $filename;
+                    $propertyimage = PropertyImages::create([
+                        'image_name' => $filename,
+                        'image_size' => $image_size,
+                        'property_id' => $value->id,
+                    ]);
+                    // }
+                }
+            } else {
+                $filename = "default.jpg";
+                $property->image = "default.jpg";
+                $propertyimage = PropertyImages::create([
+                    'image_name' => $filename,
+                    'image_size' => '7.4',
+                    'property_id' => $value->id,
+                ]);
+            }
+
+            return redirect()->back()->with('flash_message_success', 'Property Listed Successfully! Please check your Email to generate Login Password and activate your Account. Thank You!');
+
         }
 
         $phonecode = Country::get();

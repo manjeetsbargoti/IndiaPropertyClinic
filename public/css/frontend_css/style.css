@@ -2785,6 +2785,9 @@ a.viewmore_link {
     /*border-right: 1px solid #ddd;*/
     background: #f2f2f2;
 }
+input.invalid, select.invalid, textarea.invalid {
+    background-color: #ffdddd;
+}
 .vender_header {
     padding: 15px;
     background: #F15A27;
