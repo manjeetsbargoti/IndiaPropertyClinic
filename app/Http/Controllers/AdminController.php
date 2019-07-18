@@ -172,12 +172,13 @@ class AdminController extends Controller
     {
         $email = base64_decode($email);
         $userCount = User::where('email', $email)->count();
+        $datetime = date("Y-m-d h:i:s",time());
         if ($userCount > 0) {
             $userDetails = User::where('email', $email)->first();
             if ($userDetails->status == 1) {
                 return redirect('/login')->with('flash_message_success', 'Your account already Activated! Please login now.');
             } else {
-                User::where('email', $email)->update(['status' => 1]);
+                User::where('email', $email)->update(['email_verified_at'=>$datetime, 'status' => 1]);
 
                 // User Welcome Email
                 $messageData = ['email' => $email, 'name' => $userDetails->first_name];
@@ -354,12 +355,6 @@ class AdminController extends Controller
         }
 
         return view('auth.login');
-    }
-
-    // Reset user Password
-    public function resetPassword()
-    {
-        return view('auth.passwords.reset');
     }
 
     // User Register Function
@@ -655,5 +650,45 @@ class AdminController extends Controller
         }
 
         return view('frontend.templates.user1', compact('user_data'));
+    }
+
+    // Reset user Password
+    public function resetPassword(Request $request)
+    {
+        $data = $request->all();
+        if($data){
+            $code = $data['email'];
+            $email = base64_decode($code);
+        }else{
+            $email = '';
+        }
+
+        if($request->isMethod('post'))
+        {
+            $form_data = $request->all();
+            $password = bcrypt($form_data['password']);
+
+            $datetime = date("Y-m-d h:i:s",time());
+
+            // echo "<pre>"; print_r($datetime); die;
+
+            if(!empty($form_data['email']))
+            {
+                User::where('email',$data['email'])->update(['email_verified_at'=>$datetime, 'password'=>$password, 'status'=>1]);
+                // Send Confirmation Email
+                $email = $form_data['email'];
+                // echo "<pre>"; print_r($email); die;
+                $messageData = ['email' => $form_data['email']];
+                Mail::send('emails.reset_password', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('IPC | Password Reset Successfully!');
+                });
+            }
+
+            return redirect('/login')->with('flash_message_success', 'Password Reset Successfully. Please Login with new password!');
+
+            // echo "<pre>"; print_r($form_data); die;
+        }
+
+        return view('auth.reset_password', compact('email'));
     }
 }

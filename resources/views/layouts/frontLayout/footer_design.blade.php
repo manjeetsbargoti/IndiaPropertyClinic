@@ -12,6 +12,7 @@ $footerProperties = Controller::footersection();
         height:30px;
         top:10em;
         right:1px;
+        z-index: 999;
         background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
         color:#FFF;
         border-radius: 5px;
@@ -21,7 +22,7 @@ $footerProperties = Controller::footersection();
     }
     .list-property-float span {
         position: relative;
-        top: 5px;
+        top: 2px;
         font-size: 18px;
     }
     .list-property-float:hover {

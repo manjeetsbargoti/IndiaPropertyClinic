@@ -14,6 +14,7 @@ use App\PropertyTypes;
 use App\PropertyQuery;
 use App\PropertyImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
@@ -32,7 +33,9 @@ class PropertyController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->all();
 
-            // echo "<pre>"; print_r($data); die;
+            $property_code = 'IPC'.rand(00001, 9999999);
+
+            // echo "<pre>"; print_r($property_code); die;
 
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
@@ -94,7 +97,7 @@ class PropertyController extends Controller
                 'property_name'         => $data['property_name'],
                 'property_url'          => $data['slug'],
                 'property_type_id'      => $property_type,
-                'property_code'         => $data['property_code'],
+                'property_code'         => $property_code,
                 'property_price'        => $data['property_price'],
                 // 'booking_price'         => $data['booking_price'],
                 'description'           => $data['description'],
@@ -808,6 +811,13 @@ class PropertyController extends Controller
                     'usertype'      => $data['user_type'],
                 ]);
             }
+
+            // Send Confirmation Email
+            $email = $data['email'];
+            $messageData = ['email' => $data['email'], 'phone'=>$data['phone'], 'phonecode'=>$data['phonecode'], 'name' => $data['name'], 'property_url'=>$data['slug'], 'property_name'=>$data['property_name'], 'code' => base64_encode($data['email'])];
+            Mail::send('emails.user_register_list_property', $messageData, function ($message) use ($email) {
+                $message->to($email)->subject('IPC | Generate account password with India Property Clinic');
+            });
 
             // echo "<pre>"; print_r($data); die;
 

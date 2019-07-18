@@ -89,14 +89,14 @@ function generate_string($input, $strength = 16) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-4 hidden">
+                                        <!-- <div class="col-xs-12 col-md-4 hidden">
                                             <div class="form-group">
                                             <label name="Property Code">Property Code</label>
                                                 <div class="input-group"> 
-                                                    <input name="property_code" id="property_code" type="text" value="IPC<?php echo rand(00001, 9999999); ?>" class="form-control">
+                                                    <input name="property_code" id="property_code" type="text" value="" class="form-control">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">

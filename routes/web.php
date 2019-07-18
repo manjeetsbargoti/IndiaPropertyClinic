@@ -178,3 +178,6 @@ Route::match(['get', 'post'], '/list-property/check_slug', 'PropertyController@c
 // Routes for Getting State List and City List Dynamically
 Route::get('/get-state-list', 'PropertyController@getStateList');
 Route::get('/get-city-list', 'PropertyController@getCityList');
+
+// Reset Forgot Password
+// Route::match(['get','post'], '/reset-password/{code}', 'AdminController@resetPassword');
