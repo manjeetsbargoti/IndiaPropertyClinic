@@ -111,8 +111,7 @@
                             <div class="col-xs-12 col-md-6" id="vendorService">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
-                                        <option value="" selected>Select Service</option>
+                                    <select class="form-control select2" name="servicetype[]" id="servicetype" multiple="multiple" data-placeholder="Select Service Type">
                                         @foreach($servicetype as $service)
                                         <option value="{{ $service->id }}">{{ $service->service_name }}</option>
                                         @endforeach

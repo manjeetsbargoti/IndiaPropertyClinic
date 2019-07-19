@@ -48,8 +48,12 @@
                                             class="label label-danger label-sm">Add Phone</a> @endif</td>
                                     <td>@if(!empty($u->usertype_name)) {{ $u->usertype_name }} @else User @endif</td>
                                     <td>
-                                        @if(!empty($u->service_name))
-                                        {{ $u->service_name }}
+                                        @if(!empty($u->servicetypeid))
+                                        @foreach(explode(',', $u->servicetypeid) as $stid)
+                                            @foreach(\App\OtherServices::where('id', $stid)->get() as $rs)
+                                                <span class="label label-md label-success">{{ $rs->service_name }}</span>
+                                            @endforeach
+                                        @endforeach
                                         @else
                                         Service
                                         @endif

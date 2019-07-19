@@ -1,7 +1,6 @@
 @extends('layouts.frontLayout.frontend_design2')
 @section('content')
 
-
 <div class="smart_container">
     <div class="services_viewsec">
         @foreach($services as $service)
@@ -139,22 +138,18 @@
         </div>
         <div id="ser_professionals" class="serview_conbox">
             <div class="row">
-                <?php $counter = 0; ?>
-                @foreach($vendor as $v)
-                <?php $counter++; ?>
-                @if($counter<=4)
+                @foreach(\App\User::where('usertype', 'V')->inRandomOrder()->take(4)->get() as $v)
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                    <div class="fireman">
+                    <a href="{{ url('/profile/'.$v->id.'/user') }}"><div class="fireman">
                         <div class="boxuser_pic">
                             <img src="{{ url('images/frontend_images/images/user2.jpg') }}">
                         </div>
                         <div class="boxuser_details">
-                            <h5>{{ $v->first_name }} {{ $v->last_name }}</h5>
+                            <h5 style="overflow: hidden;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;">{{ $v->first_name }} {{ $v->last_name }}</h5>
                             <p>{{ $v->country }}, {{ $v->state }}, {{ $v->city }}</p>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
-                @endif
                 @endforeach
             </div>
         </div>

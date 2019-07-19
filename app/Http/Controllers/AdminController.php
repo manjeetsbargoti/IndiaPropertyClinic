@@ -31,13 +31,12 @@ class AdminController extends Controller
         // echo "<pre>"; print_r($userData); die;
 
         // $data = $request->all();
-        
 
         if (Auth::guard($guard)->check() && $userData->admin == 1) {
             Session::put('Auth', $userData['email']);
             return redirect('/admin/dashboard');
-        }  
-        
+        }
+
         if ($request->isMethod('post')) {
             $data = $request->input();
             // echo "<pre>"; print_r($data); die;
@@ -64,15 +63,15 @@ class AdminController extends Controller
             $service_name = Services::where(['id' => $val->service_id])->first();
             $property[$key]->service_name = $service_name->service_name;
             $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
-            if($propertyimage_count > 0){
+            if ($propertyimage_count > 0) {
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $property[$key]->image_name = $propertyimage_name->image_name;
             }
-            
 
-            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
-            if($country_count > 0){
-                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
+
+            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
+            if ($country_count > 0) {
+                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $property[$key]->country_name = $country->name;
                 $property[$key]->currency = $country->currency;
             }
@@ -81,12 +80,11 @@ class AdminController extends Controller
 
             // Home Loan Queries
             $homeloan_total_count = HomeLoan::count();
-            $homeloan_pen_count = HomeLoan::where(['resolved'=>0])->count();
+            $homeloan_pen_count = HomeLoan::where(['resolved' => 0])->count();
 
             // Property Queries
             $propertyq_total_count = PropertyQuery::count();
-            $propertyq_pen_count = PropertyQuery::where(['status'=>0])->count();
-
+            $propertyq_pen_count = PropertyQuery::where(['status' => 0])->count();
         }
         // echo "<pre>"; print_r($property_count); die;
 
@@ -142,6 +140,8 @@ class AdminController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->all();
 
+            $service_type = implode(',',$data['servicetype']);
+
             $userin = User::create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
@@ -153,7 +153,7 @@ class AdminController extends Controller
                 'phonecode' => $data['phonecode'],
                 'password' => bcrypt($data['password']),
                 'usertype' => $data['usertype'],
-                'servicetypeid' => $data['servicetype'],
+                'servicetypeid' => $service_type,
             ]);
             // echo "<pre>"; print_r($userin['id']); die;
 
@@ -172,13 +172,13 @@ class AdminController extends Controller
     {
         $email = base64_decode($email);
         $userCount = User::where('email', $email)->count();
-        $datetime = date("Y-m-d h:i:s",time());
+        $datetime = date("Y-m-d h:i:s", time());
         if ($userCount > 0) {
             $userDetails = User::where('email', $email)->first();
             if ($userDetails->status == 1) {
                 return redirect('/login')->with('flash_message_success', 'Your account already Activated! Please login now.');
             } else {
-                User::where('email', $email)->update(['email_verified_at'=>$datetime, 'status' => 1]);
+                User::where('email', $email)->update(['email_verified_at' => $datetime, 'status' => 1]);
 
                 // User Welcome Email
                 $messageData = ['email' => $email, 'name' => $userDetails->first_name];
@@ -217,15 +217,14 @@ class AdminController extends Controller
         foreach ($user as $key => $val) {
             $usertype = UserType::where(['usercode' => $val->usertype])->first();
             $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
-            if($usertype_count > 0)
-            {
+            if ($usertype_count > 0) {
                 $user[$key]->usertype_name = $usertype->usertype_name;
             }
-            $rservices_count = OtherServices::where(['id' => $val->servicetypeid])->count();
-            if ($rservices_count > 0) {
-                $rservices = OtherServices::where(['id' => $val->servicetypeid])->first();
-                $user[$key]->service_name = $rservices->service_name;
-            }
+            // $rservices_count = OtherServices::where(['id' => $val->servicetypeid])->count();
+            // if ($rservices_count > 0) {
+            //     $rservices = OtherServices::where(['id' => $val->servicetypeid])->first();
+            //     $user[$key]->service_name = $rservices->service_name;
+            // }
         }
 
         // echo "<pre>"; print_r($user); die;
@@ -320,13 +319,13 @@ class AdminController extends Controller
 
         // Select Phone Code
         $phone_code = "<option selected value=''>Select</option>";
-        foreach($phonecode as $pcode){
-            if($pcode->id == $userdetails->country){
+        foreach ($phonecode as $pcode) {
+            if ($pcode->id == $userdetails->country) {
                 $selected = 'selected';
-            }else{
-                $selected="";
+            } else {
+                $selected = "";
             }
-            $phone_code .= "<option value='" . $pcode->phonecode . "' " . $selected . ">" . $pcode->phonecode . " " . $pcode->iso3. "</option>";
+            $phone_code .= "<option value='" . $pcode->phonecode . "' " . $selected . ">" . $pcode->phonecode . " " . $pcode->iso3 . "</option>";
         }
 
         // echo  "<pre>"; print_r($userdetails); die;
@@ -421,8 +420,7 @@ class AdminController extends Controller
                 $users[$key]->service_name = $rservice_name->service_name;
             }
             $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
-            if($usertype_count > 0)
-            {
+            if ($usertype_count > 0) {
                 $usertype_name = UserType::where(['usercode' => $val->usertype])->first();
                 $users[$key]->user_type = $usertype_name->usertype_name;
             }
@@ -441,7 +439,6 @@ class AdminController extends Controller
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
                 $users[$key]->city_name = $city->name;
             }
-
         }
         // echo "<pre>"; print_r($users); die;
 
@@ -488,8 +485,7 @@ class AdminController extends Controller
     // Add Country, State, City in Database
     public function addCity(Request $request)
     {
-        if($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
@@ -512,7 +508,7 @@ class AdminController extends Controller
     // Add Missing State
     public function addState(Request $request)
     {
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $data = $request->all();
 
             State::create([
@@ -533,67 +529,69 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $current_password = $data['current_pwd'];
-        $check_password = User::where(['admin'=>'1'])->first();
-        if(Hash::check($current_password,$check_password->password)){
-            echo "ture"; die;
-        }else{
-            echo "false"; die;
+        $check_password = User::where(['admin' => '1'])->first();
+        if (Hash::check($current_password, $check_password->password)) {
+            echo "ture";
+            die;
+        } else {
+            echo "false";
+            die;
         }
     }
 
     // Change Password
     public function changePassword(Request $request)
     {
-        if($request->isMethod('post')){
+        if ($request->isMethod('post')) {
             $data = $request->all();
-            $check_password = User::where(['email'=>Auth::user()->email])->first();
+            $check_password = User::where(['email' => Auth::user()->email])->first();
             $current_password = $data['current_pwd'];
-            if(Hash::check($current_password,$check_password->password)){
+            if (Hash::check($current_password, $check_password->password)) {
                 $password = bcrypt($data['new_pwd']);
-                User::where('id', '1')->update(['password'=>$password]);
+                User::where('id', '1')->update(['password' => $password]);
                 return redirect('/admin/profile')->with('flash_message_success', 'Password updated Successfully!');
-            }else {
+            } else {
                 return redirect('/admin/settings')->with('flash_message_error', 'Current Password is Incorrect!');
             }
         }
     }
 
     // Login via Twitter
-    public function redirect($provider=null)
+    public function redirect($provider = null)
     {
         return Socialite::driver($provider)->redirect();
     }
 
-    public function callback($provider=null)
+    public function callback($provider = null)
     {
-               
+
         $getInfo = Socialite::driver($provider)->user();
         // echo "<pre>"; print_r($getInfo); die;
-        $user = $this->createUser($getInfo,$provider);
+        $user = $this->createUser($getInfo, $provider);
         auth()->login($user);
         // echo "<pre>"; print_r($user['email']); die;
         Session::put('UserSession', $user['email']);
         return redirect()->to('/My-Account');
- 
     }
 
-    function createUser($getInfo,$provider){
- 
+    function createUser($getInfo, $provider)
+    {
+
         $user = User::where('provider_id', $getInfo->id)->first();
-    
+
         if (!$user) {
             $user = User::create([
-               'first_name' => $getInfo->name,
-               'email'    => $getInfo->email,
-               'provider' => $provider,
-               'provider_id' => $getInfo->id
-           ]);
+                'first_name' => $getInfo->name,
+                'email'    => $getInfo->email,
+                'provider' => $provider,
+                'provider_id' => $getInfo->id
+            ]);
         }
         return $user;
     }
 
     // Delete User function
-    public function deleteUser(Request $request, $id=null)
+    public function deleteUser(Request $request, $id = null)
     {
         if (!empty($id)) {
             User::where(['id' => $id])->delete();
@@ -603,45 +601,44 @@ class AdminController extends Controller
     }
 
     // User Page view function
-    public function viewuserPage(Request $request, $id=null)
+    public function viewuserPage(Request $request, $id = null)
     {
-        if(!empty($id))
-        {
-            $user_data = User::where(['id'=>$id])->get();
+        if (!empty($id)) {
+            $user_data = User::where(['id' => $id])->get();
             $user_data = json_decode(json_encode($user_data));
 
             // $user_service = OtherServices::where(['id'=>$user_data['servicetypeid']])->get();
             // $user_service = json_decode(json_encode($user_service));
             // echo "<pre>"; print_r($user_data); die; 
 
-            foreach($user_data as $key => $val){
-                $user_service_count = OtherServices::where(['id'=>$val->servicetypeid])->count();
-                if($user_service_count > 0){
-                    $user_service = OtherServices::where(['id'=>$val->servicetypeid])->first();
+            foreach ($user_data as $key => $val) {
+                $user_service_count = OtherServices::where(['id' => $val->servicetypeid])->count();
+                if ($user_service_count > 0) {
+                    $user_service = OtherServices::where(['id' => $val->servicetypeid])->first();
                     $user_data[$key]->service_name = $user_service->service_name;
                     $user_data[$key]->service_url = $user_service->url;
                 }
-                $user_type_count = UserType::where(['usercode'=>$val->usertype])->count();
-                if($user_type_count > 0){
-                    $user_type = UserType::where(['usercode'=>$val->usertype])->first();
+                $user_type_count = UserType::where(['usercode' => $val->usertype])->count();
+                if ($user_type_count > 0) {
+                    $user_type = UserType::where(['usercode' => $val->usertype])->first();
                     $user_data[$key]->user_type = $user_type->usertype_name;
                 }
 
-                $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
-                if($country_count > 0){
-                    $country_name = DB::table('countries')->where(['iso2'=>$val->country])->first();
+                $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
+                if ($country_count > 0) {
+                    $country_name = DB::table('countries')->where(['iso2' => $val->country])->first();
                     $user_data[$key]->country_name = $country_name->iso2;
                 }
 
-                $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
-                if($city_count > 0){
-                    $city_name = DB::table('cities')->where(['id'=>$val->city])->first();
+                $city_count = DB::table('cities')->where(['id' => $val->city])->count();
+                if ($city_count > 0) {
+                    $city_name = DB::table('cities')->where(['id' => $val->city])->first();
                     $user_data[$key]->city_name = $city_name->name;
                 }
 
-                $state_count = DB::table('states')->where(['id'=>$val->state])->count();
-                if($state_count > 0){
-                    $state_name = DB::table('states')->where(['id'=>$val->state])->first();
+                $state_count = DB::table('states')->where(['id' => $val->state])->count();
+                if ($state_count > 0) {
+                    $state_name = DB::table('states')->where(['id' => $val->state])->first();
                     $user_data[$key]->state_name = $state_name->name;
                 }
             }
@@ -656,25 +653,23 @@ class AdminController extends Controller
     public function resetPassword(Request $request)
     {
         $data = $request->all();
-        if($data){
+        if ($data) {
             $code = $data['email'];
             $email = base64_decode($code);
-        }else{
+        } else {
             $email = '';
         }
 
-        if($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $form_data = $request->all();
             $password = bcrypt($form_data['password']);
 
-            $datetime = date("Y-m-d h:i:s",time());
+            $datetime = date("Y-m-d h:i:s", time());
 
             // echo "<pre>"; print_r($datetime); die;
 
-            if(!empty($form_data['email']))
-            {
-                User::where('email',$data['email'])->update(['email_verified_at'=>$datetime, 'password'=>$password, 'status'=>1]);
+            if (!empty($form_data['email'])) {
+                User::where('email', $data['email'])->update(['email_verified_at' => $datetime, 'password' => $password, 'status' => 1]);
                 // Send Confirmation Email
                 $email = $form_data['email'];
                 // echo "<pre>"; print_r($email); die;

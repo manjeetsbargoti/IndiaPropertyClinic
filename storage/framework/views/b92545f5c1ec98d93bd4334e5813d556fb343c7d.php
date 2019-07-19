@@ -47,9 +47,12 @@
                                             class="label label-danger label-sm">Add Phone</a> <?php endif; ?></td>
                                     <td><?php if(!empty($u->usertype_name)): ?> <?php echo e($u->usertype_name); ?> <?php else: ?> User <?php endif; ?></td>
                                     <td>
-                                        <?php if(!empty($u->service_name)): ?>
-                                        <?php echo e($u->service_name); ?>
-
+                                        <?php if(!empty($u->servicetypeid)): ?>
+                                        <?php $__currentLoopData = explode(',', $u->servicetypeid); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stid): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = \App\OtherServices::where('id', $stid)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <span class="label label-md label-success"><?php echo e($rs->service_name); ?></span>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         <?php else: ?>
                                         Service
                                         <?php endif; ?>

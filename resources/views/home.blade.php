@@ -566,7 +566,7 @@
                             <div class="owl-carousel dealerscarousel owl-theme">
                                 @foreach($dealer as $d)
                                 <div class="item">
-                                    <a href="{{ url('/user-profile/'.$d->id) }}">
+                                    <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
                                                     src="/images/frontend_images/images/default.jpg"></div>

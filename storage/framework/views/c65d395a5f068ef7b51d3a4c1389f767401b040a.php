@@ -1,6 +1,5 @@
 <?php $__env->startSection('content'); ?>
 
-
 <div class="smart_container">
     <div class="services_viewsec">
         <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -140,22 +139,18 @@
         </div>
         <div id="ser_professionals" class="serview_conbox">
             <div class="row">
-                <?php $counter = 0; ?>
-                <?php $__currentLoopData = $vendor; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php $counter++; ?>
-                <?php if($counter<=4): ?>
+                <?php $__currentLoopData = \App\User::where('usertype', 'V')->inRandomOrder()->take(4)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
-                    <div class="fireman">
+                    <a href="<?php echo e(url('/profile/'.$v->id.'/user')); ?>"><div class="fireman">
                         <div class="boxuser_pic">
                             <img src="<?php echo e(url('images/frontend_images/images/user2.jpg')); ?>">
                         </div>
                         <div class="boxuser_details">
-                            <h5><?php echo e($v->first_name); ?> <?php echo e($v->last_name); ?></h5>
+                            <h5 style="overflow: hidden;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;"><?php echo e($v->first_name); ?> <?php echo e($v->last_name); ?></h5>
                             <p><?php echo e($v->country); ?>, <?php echo e($v->state); ?>, <?php echo e($v->city); ?></p>
                         </div>
-                    </div>
+                    </div></a>
                 </div>
-                <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>

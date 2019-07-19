@@ -567,7 +567,7 @@
                             <div class="owl-carousel dealerscarousel owl-theme">
                                 <?php $__currentLoopData = $dealer; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="item">
-                                    <a href="<?php echo e(url('/user-profile/'.$d->id)); ?>">
+                                    <a href="<?php echo e(url('/profile/'.$d->id.'/user')); ?>">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
                                                     src="/images/frontend_images/images/default.jpg"></div>
