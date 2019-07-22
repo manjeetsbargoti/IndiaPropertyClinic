@@ -432,14 +432,16 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
     );
 
     public static $classMap = array (
-        'App\\Amenities' => __DIR__ . '/../..' . '/app/Amenities.php',
+        'App\\Amenity' => __DIR__ . '/../..' . '/app/Amenity.php',
         'App\\Cities' => __DIR__ . '/../..' . '/app/Cities.php',
         'App\\Console\\Commands\\GenerateSitemap' => __DIR__ . '/../..' . '/app/Console/Commands/GenerateSitemap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Contact' => __DIR__ . '/../..' . '/app/Contact.php',
+        'App\\Country' => __DIR__ . '/../..' . '/app/Country.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\HomeLoan' => __DIR__ . '/../..' . '/app/HomeLoan.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
+        'App\\Http\\Controllers\\AmenityController' => __DIR__ . '/../..' . '/app/Http/Controllers/AmenityController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',

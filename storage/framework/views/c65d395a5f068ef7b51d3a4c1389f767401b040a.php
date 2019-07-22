@@ -91,6 +91,7 @@
                                             <?php endif; ?>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </ul>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +148,7 @@
                         </div>
                         <div class="boxuser_details">
                             <h5 style="overflow: hidden;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;"><?php echo e($v->first_name); ?> <?php echo e($v->last_name); ?></h5>
-                            <p><?php echo e($v->country); ?>, <?php echo e($v->state); ?>, <?php echo e($v->city); ?></p>
+                            <p><?php $__currentLoopData = \App\Cities::where('id', $v->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?>, <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php echo e($v->country); ?></p>
                         </div>
                     </div></a>
                 </div>

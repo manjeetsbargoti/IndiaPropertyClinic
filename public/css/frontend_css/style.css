@@ -3908,14 +3908,14 @@ ul.sublist {
 
 .vender_services ul li {
     list-style: none;
-    width: 49%;
-    display: inline-block;
+    /* width: 49%; */
+    display: block;
 }
 
 .vender_services ul li a {
     padding: 2px 3px;
     display: block;
-    color: #6b6b6b;
+    color: #f15a27;
     font-size: 13px;
     font-weight: 500;
 }

@@ -92,6 +92,7 @@
                                             @endif
                                             @endforeach
                                         </ul>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +147,7 @@
                         </div>
                         <div class="boxuser_details">
                             <h5 style="overflow: hidden;-webkit-line-clamp: 1;display: -webkit-box;-webkit-box-orient: vertical;">{{ $v->first_name }} {{ $v->last_name }}</h5>
-                            <p>{{ $v->country }}, {{ $v->state }}, {{ $v->city }}</p>
+                            <p>@foreach(\App\Cities::where('id', $v->city)->get() as $city){{ $city->name }}, @endforeach {{ $v->country }}</p>
                         </div>
                     </div></a>
                 </div>

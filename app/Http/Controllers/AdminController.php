@@ -13,6 +13,7 @@ use App\Property;
 use App\Services;
 use App\UserType;
 use App\HomeLoan;
+use App\RequestQuote;
 use App\OtherServices;
 use App\PropertyImages;
 use App\PropertyQuery;
@@ -596,6 +597,19 @@ class AdminController extends Controller
     // User Page view function
     public function viewuserPage(Request $request, $id = null)
     {
+        if($request->isMethod('post')){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            RequestQuote::create([
+                'name'              => $data['name'],
+                'phone'             => $data['phone'],
+                'email'             => $data['email'],
+                'req_service'       => $data['servicetype_req'],
+                'quote_message'     => $data['message']
+            ]);
+        }
+
         if (!empty($id)) {
             $user_data = User::where(['id' => $id])->get();
             $user_data = json_decode(json_encode($user_data));
@@ -679,4 +693,16 @@ class AdminController extends Controller
 
         return view('auth.reset_password', compact('email'));
     }
+
+    //**************************************//
+    //          User Request Quote          //
+
+    // public function getRequestQuote(Request $request)
+    // {
+    //     if($request->isMethod('post')){
+    //         $data = $request->all();
+    //         echo "<pre>"; print_r($data); die;
+    //     }
+    //     return redirect()->back();
+    // }
 }

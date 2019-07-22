@@ -180,4 +180,4 @@ Route::get('/get-state-list', 'PropertyController@getStateList');
 Route::get('/get-city-list', 'PropertyController@getCityList');
 
 // Reset Forgot Password
-// Route::match(['get','post'], '/reset-password/{code}', 'AdminController@resetPassword');
+// Route::match(['get', 'post'], '/profile/{id}/user', 'AdminController@getRequestQuote');
