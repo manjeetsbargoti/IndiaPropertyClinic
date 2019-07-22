@@ -82,6 +82,9 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
 
+    // Requested Quotes
+    Route::get('/admin/requested-quote', 'AdminController@requestedQuotes');
+
     // Add Missing City/State
     Route::match(['get', 'post'], '/admin/add-city', 'AdminController@addCity');
     Route::match(['get', 'post'], '/admin/add-state', 'AdminController@addState');

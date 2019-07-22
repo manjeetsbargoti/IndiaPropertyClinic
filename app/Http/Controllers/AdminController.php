@@ -697,12 +697,10 @@ class AdminController extends Controller
     //**************************************//
     //          User Request Quote          //
 
-    // public function getRequestQuote(Request $request)
-    // {
-    //     if($request->isMethod('post')){
-    //         $data = $request->all();
-    //         echo "<pre>"; print_r($data); die;
-    //     }
-    //     return redirect()->back();
-    // }
+    public function requestedQuotes()
+    {
+        $req_quotes = RequestQuote::orderBy('created_at', 'desc')->get();
+        
+        return view('admin.queries.requested_quotes', compact('req_quotes'));
+    }
 }

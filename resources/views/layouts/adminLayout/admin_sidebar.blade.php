@@ -147,6 +147,8 @@
                                   class="fa fa-circle-o text-purple"></i>Property</a></li>
                       <li><a href="{{ url('/admin/home-loan-application') }}"><i
                                   class="fa fa-circle-o text-purple"></i>Home Loan</a></li>
+                        <li><a href="{{ url('/admin/requested-quote') }}"><i
+                                  class="fa fa-circle-o text-purple"></i>Requested Query</a></li>
                   </ul>
               </li>
               <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
