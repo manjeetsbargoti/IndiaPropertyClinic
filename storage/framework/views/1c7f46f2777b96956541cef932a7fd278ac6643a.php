@@ -121,8 +121,10 @@
                             <div class="col-xs-12 col-md-6">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
-                                        <?php echo $services_dropdown; ?>
+                                    <select class="form-control select2" name="servicetype[]" multiple="multiple" id="servicetype" data-placeholder="Select Service Type">
+                                      <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($r_service->id); ?>" <?php $__currentLoopData = explode(',', $userdetails->servicetypeid); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usid): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php if($r_service->id == $usid): ?> selected <?php endif; ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>><?php echo e($r_service->service_name); ?></option>
+                                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>

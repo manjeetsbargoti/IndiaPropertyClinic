@@ -90,7 +90,7 @@
                                 </div>
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype">
+                                    <select class="form-control" name="servicetype[]" id="RegosetrUserServiceType" multiple='multiple'>
                                         <option selected value="">Select Service</option>
                                         @foreach($servicetype as $service)
                                         <option value="{{ $service->id }}">{{ $service->service_name }}</option>

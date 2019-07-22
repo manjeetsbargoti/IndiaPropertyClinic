@@ -256,10 +256,12 @@ class AdminController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            $user = new User;
-            // echo  "<pre>"; print_r($data); die;
+            $service_type = implode(',',$data['servicetype']);
+
+            // $user = new User;
+            // echo  "<pre>"; print_r($service_type); die;
             if (!empty($id)) {
-                User::where(['id' => $id])->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'email' => $data['email'], 'phonecode' => $data['phonecode'], 'phone' => $data['phone'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city'], 'usertype' => $data['usertype'], 'servicetypeid' => $data['servicetype']]);
+                User::where(['id' => $id])->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'email' => $data['email'], 'phonecode' => $data['phonecode'], 'phone' => $data['phone'], 'country' => $data['country'], 'state' => $data['state'], 'city' => $data['city'], 'usertype' => $data['usertype'], 'servicetypeid' => $service_type]);
                 return redirect('/admin/users')->with('flash_message_success', 'User updated Successfully!');
             }
         }
@@ -306,17 +308,6 @@ class AdminController extends Controller
             $city_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
         }
 
-        // Selecct Service Type
-        $services_dropdown = "<option selected value=''>Select</option>";
-        foreach ($servicetype as $stype) {
-            if ($stype->id == $userdetails->servicetypeid) {
-                $selected = "selected";
-            } else {
-                $selected = "";
-            }
-            $services_dropdown .= "<option value='" . $stype->id . "' " . $selected . ">" . $stype->service_name . "</option>";
-        }
-
         // Select Phone Code
         $phone_code = "<option selected value=''>Select</option>";
         foreach ($phonecode as $pcode) {
@@ -330,7 +321,7 @@ class AdminController extends Controller
 
         // echo  "<pre>"; print_r($userdetails); die;
 
-        return view('admin.users.edit_user', compact('userdetails', 'services_dropdown', 'usertype', 'phonecode', 'country_dropdown', 'state_dropdown', 'city_dropdown', 'phone_code'));
+        return view('admin.users.edit_user', compact('userdetails', 'usertype', 'phonecode', 'country_dropdown', 'state_dropdown', 'city_dropdown', 'phone_code'));
     }
 
     // User Login Function
@@ -363,6 +354,8 @@ class AdminController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            $service_type = implode(',',$data['servicetype']);
+
             $userCount = User::where('email', $data['email'])->count();
 
             if ($userCount > 0) {
@@ -378,7 +371,7 @@ class AdminController extends Controller
                 $user->phonecode = $data['phonecode'];
                 $user->phone = $data['mobilenumber'];
                 $user->usertype = $data['usertype'];
-                $user->servicetypeid = $data['servicetype'];
+                $user->servicetypeid = $service_type;
 
                 $user->save();
 

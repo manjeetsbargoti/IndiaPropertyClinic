@@ -121,8 +121,10 @@
                             <div class="col-xs-12 col-md-6">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype" id="servicetype">
-                                        <?php echo $services_dropdown; ?>
+                                    <select class="form-control select2" name="servicetype[]" multiple="multiple" id="servicetype" data-placeholder="Select Service Type">
+                                      @foreach(\App\OtherServices::where('parent_id', 0)->get() as $r_service)
+                                        <option value="{{ $r_service->id }}" @foreach(explode(',', $userdetails->servicetypeid) as $usid) @if($r_service->id == $usid) selected @endif @endforeach>{{ $r_service->service_name }}</option>
+                                      @endforeach
                                     </select>
                                 </div>
                             </div>

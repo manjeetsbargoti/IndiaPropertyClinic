@@ -90,7 +90,7 @@
                                 </div>
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype">
+                                    <select class="form-control" name="servicetype[]" id="RegosetrUserServiceType" multiple='multiple'>
                                         <option selected value="">Select Service</option>
                                         <?php $__currentLoopData = $servicetype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($service->id); ?>"><?php echo e($service->service_name); ?></option>

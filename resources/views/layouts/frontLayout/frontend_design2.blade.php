@@ -46,10 +46,12 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/frontend_css/jquery.mmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend_css/style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/frontend_css/BsMultiSelect.css') }}"> -->
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" /> -->
 
 
     @include('admin.system.partials.code_head')
@@ -78,7 +80,9 @@
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-main.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <!-- <script src="{{ asset('js/frontend_js/BsMultiSelect.js') }}"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 
     <script type="text/javascript">
     $(function() {
@@ -92,7 +96,7 @@
 
             if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this)
                 .val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this)
-            .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
+                .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
                 $("#OpenSides").show();
             } else {
                 $("#OpenSides").hide();
@@ -100,7 +104,7 @@
 
             if ($(this).val() == "1001" || $(this).val() == "1002" || $(this).val() == "1005" || $(this)
                 .val() == "1012" || $(this).val() == "1013" || $(this).val() == "1014" || $(this)
-            .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
+                .val() == "1016" || $(this).val() == "1017" || $(this).val() == "1018") {
                 $("#WidthRoadFacing").show();
             } else {
                 $("#WidthRoadFacing").hide();
@@ -121,7 +125,8 @@
 
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
-            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this).val() ==
+                .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this)
+            .val() ==
                 "1018") {
                 $("#Bathrooms").show();
             } else {
@@ -137,7 +142,8 @@
 
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
-            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() ==
+                .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this)
+            .val() ==
                 "1011" || $(this).val() == "1013" || $(this).val() == "1018") {
                 $("#FurnishStatus").show();
             } else {
@@ -146,7 +152,8 @@
 
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this)
-            .val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this).val() ==
+                .val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this)
+            .val() ==
                 "1013") {
                 $("#FloorNo").show();
             } else {
@@ -155,9 +162,10 @@
 
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
-            .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this).val() ==
+                .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this)
+            .val() ==
                 "1011" || $(this).val() == "1015" || $(this).val() == "1018" || $(this).val() == "1013"
-                ) {
+            ) {
                 $("#TotalFloor").show();
             } else {
                 $("#TotalFloor").hide();
@@ -285,64 +293,67 @@
 
     // Check User Email for List Property
     $('#ListEmail').blur(function() {
-      var error_email = '';
-      var email = $('#ListEmail').val();
-      var _token = $('input[name="_token"]').val();
-      var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-      if (!filter.test(email)) {
-        $('#error_email').html('<label class="text-danger">Invalid Email</label>');
-        $('#ListEmail').addClass('has-error');
-      } else {
-        $.ajax({
-          url: "{{ url('/checkemail') }}",
-          method: "POST",
-          data: {
-            email: email,
-            _token: _token
-          },
-          success: function(result) {
-            if (result == 'unique') {
-              $('#error_email').html('<label class="text-success">Email Available</label>');
-              $('#ListEmail').removeClass('has-error');
-            } else {
-              $('#error_email').html('<label class="text-danger">You are already Registered!.</label>');
-              $('#ListEmail').addClass('has-error');
-            }
-          }
-        })
-      }
+        var error_email = '';
+        var email = $('#ListEmail').val();
+        var _token = $('input[name="_token"]').val();
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+            $('#ListEmail').addClass('has-error');
+        } else {
+            $.ajax({
+                url: "{{ url('/checkemail') }}",
+                method: "POST",
+                data: {
+                    email: email,
+                    _token: _token
+                },
+                success: function(result) {
+                    if (result == 'unique') {
+                        $('#error_email').html(
+                            '<label class="text-success">Email Available</label>');
+                        $('#ListEmail').removeClass('has-error');
+                    } else {
+                        $('#error_email').html(
+                            '<label class="text-danger">You are already Registered!.</label>');
+                        $('#ListEmail').addClass('has-error');
+                    }
+                }
+            })
+        }
     });
 
     // Check User Phone while Listing Property
-$('#ListPhone').blur(function()
-{
-  var error_listphone = '';
-  var phone = $('#ListPhone').val();
-  var _token = $('input[name="_token"]').val();
-//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (document.getElementById('ListPhone').value === '') {
-        $('#error_listphone').html('<label class="text-danger">Invalid Phone</label>');
-        $('#ListPhone').addClass('has-error');
-      } else {
-        $.ajax({
-          url: "{{ url('/checkuserphone') }}",
-          method: "POST",
-          data: {
-            phone: phone,
-            _token: _token
-          },
-          success: function(res) {
-            if (res == 'unique') {
-              $('#error_listphone').html('<label class="text-success">Phone Available</label>');
-              $('#ListPhone').removeClass('has-error');
-            } else{
-              $('#error_listphone').html('<label class="text-danger">Phone Number already exist.</label>');
-              $('#ListPhone').addClass('has-error');
-            }
-          }
-        })
-      }
- });
+    $('#ListPhone').blur(function() {
+        var error_listphone = '';
+        var phone = $('#ListPhone').val();
+        var _token = $('input[name="_token"]').val();
+        //   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (document.getElementById('ListPhone').value === '') {
+            $('#error_listphone').html('<label class="text-danger">Invalid Phone</label>');
+            $('#ListPhone').addClass('has-error');
+        } else {
+            $.ajax({
+                url: "{{ url('/checkuserphone') }}",
+                method: "POST",
+                data: {
+                    phone: phone,
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res == 'unique') {
+                        $('#error_listphone').html(
+                            '<label class="text-success">Phone Available</label>');
+                        $('#ListPhone').removeClass('has-error');
+                    } else {
+                        $('#error_listphone').html(
+                            '<label class="text-danger">Phone Number already exist.</label>');
+                        $('#ListPhone').addClass('has-error');
+                    }
+                }
+            })
+        }
+    });
     </script>
 
     <script>
@@ -403,16 +414,19 @@ $('#ListPhone').blur(function()
 
     // Creating Property URL
     $('#property_name').change(function(e) {
-      $.get('{{ url("/list-property/check_slug") }}', {
-          'property_name': $(this).val()
-        },
-        function(data) {
-          $('#slug').val(data.slug);
-        }
-      );
+        $.get('{{ url("/list-property/check_slug") }}', {
+                'property_name': $(this).val()
+            },
+            function(data) {
+                $('#slug').val(data.slug);
+            }
+        );
     });
-    </script>
 
+    // $(document).ready(function() {
+    //     $('#RegosetrUserServiceType').multiselect();
+    // });
+    </script>
 
     @include('admin.system.partials.code_footer')
 
