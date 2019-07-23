@@ -141,7 +141,11 @@ class AdminController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->all();
 
-            $service_type = implode(',',$data['servicetype']);
+            if(!empty($data['servicetype'])){
+                $service_type = implode(',',$data['servicetype']);
+            }else{
+                $service_type = "";
+            }
 
             $userin = User::create([
                 'first_name' => $data['first_name'],
@@ -257,7 +261,11 @@ class AdminController extends Controller
         if ($request->isMethod('post')) {
             $data = $request->all();
 
-            $service_type = implode(',',$data['servicetype']);
+            if(!empty($data['servicetype'])){
+                $service_type = implode(',',$data['servicetype']);
+            }else{
+                $service_type = "";
+            }
 
             // $user = new User;
             // echo  "<pre>"; print_r($service_type); die;
@@ -355,7 +363,11 @@ class AdminController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
-            $service_type = implode(',',$data['servicetype']);
+            if(!empty($data['servicetype'])){
+                $service_type = implode(',',$data['servicetype']);
+            }else{
+                $service_type = "";
+            }
 
             $userCount = User::where('email', $data['email'])->count();
 

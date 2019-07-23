@@ -7,6 +7,17 @@ $country = Controller::countries();
 
 ?>
 
+<style>
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+</style>
+
 <div id="page">
     <div class="header_top">
         <div class="container">
@@ -145,6 +156,15 @@ $country = Controller::countries();
                             <span class="sr-only">(current)</span></a>
                     </li>
                     @endforeach
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Services</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
+                            @foreach(\App\OtherServices::where('parent_id', 0)->get() as $rservice)
+                            <a class="dropdown-item" href="{{ url('/services/'.$rservice->url) }}">{{ $rservice->service_name }}</a>
+                            @endforeach
+                        </div>
+                    </li>
                 </ul>
                 <div class="user_profile">
                     <div class="dropdown">

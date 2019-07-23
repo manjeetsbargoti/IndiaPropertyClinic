@@ -7,6 +7,17 @@ $country = Controller::countries();
 
 ?>
 
+<style>
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+</style>
+
 <div id="page">
     <div class="header_top">
         <div class="container">
@@ -14,7 +25,8 @@ $country = Controller::countries();
                 <div class="col-12 col-md-6">
                     <div class="user_contact">
                         <ul>
-                            <li><a href="tel:{{ config('app.phone') }}"><i class="fas fa-phone"></i> {{ config('app.phone') }}</a></li>
+                            <li><a href="tel:{{ config('app.phone') }}"><i class="fas fa-phone"></i>
+                                    {{ config('app.phone') }}</a></li>
                             <li><a href="mailto:{{ config('app.email') }}"><i class="fas fa-envelope"></i>
                                     {{ config('app.email') }}</a></li>
                         </ul>
@@ -125,14 +137,20 @@ $country = Controller::countries();
                     @foreach($mainnavservice as $mainnav)
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }} <span
-                                class="sr-only">(current)</span></a>
+                            href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }}
+                            <span class="sr-only">(current)</span></a>
                     </li>
                     @endforeach
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Tools & </a>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Repair Services</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
+                            @foreach(\App\OtherServices::where('parent_id', 0)->get() as $rservice)
+                            <a class="dropdown-item" href="{{ url('/services/'.$rservice->url) }}">{{ $rservice->service_name }}</a>
+                            @endforeach
+                        </div>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Packages</a>
                     </li> -->
                 </ul>

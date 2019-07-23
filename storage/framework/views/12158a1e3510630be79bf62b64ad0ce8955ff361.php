@@ -7,6 +7,17 @@ $country = Controller::countries();
 
 ?>
 
+<style>
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+</style>
+
 <div id="page">
     <div class="header_top">
         <div class="container">
@@ -147,6 +158,15 @@ $country = Controller::countries();
                             <span class="sr-only">(current)</span></a>
                     </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Services</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
+                            <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <a class="dropdown-item" href="<?php echo e(url('/services/'.$rservice->url)); ?>"><?php echo e($rservice->service_name); ?></a>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </li>
                 </ul>
                 <div class="user_profile">
                     <div class="dropdown">

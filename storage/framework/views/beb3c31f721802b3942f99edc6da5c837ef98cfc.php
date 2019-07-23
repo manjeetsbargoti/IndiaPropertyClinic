@@ -7,6 +7,17 @@ $country = Controller::countries();
 
 ?>
 
+<style>
+    .dropdown:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+        /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+</style>
+
 <div id="page">
     <div class="header_top">
         <div class="container">
@@ -14,7 +25,8 @@ $country = Controller::countries();
                 <div class="col-12 col-md-6">
                     <div class="user_contact">
                         <ul>
-                            <li><a href="tel:<?php echo e(config('app.phone')); ?>"><i class="fas fa-phone"></i> <?php echo e(config('app.phone')); ?></a></li>
+                            <li><a href="tel:<?php echo e(config('app.phone')); ?>"><i class="fas fa-phone"></i>
+                                    <?php echo e(config('app.phone')); ?></a></li>
                             <li><a href="mailto:<?php echo e(config('app.email')); ?>"><i class="fas fa-envelope"></i>
                                     <?php echo e(config('app.email')); ?></a></li>
                         </ul>
@@ -125,14 +137,21 @@ $country = Controller::countries();
                     <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?> <span
-                                class="sr-only">(current)</span></a>
+                            href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?>
+
+                            <span class="sr-only">(current)</span></a>
                     </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Tools & </a>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Repair Services</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
+                            <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <a class="dropdown-item" href="<?php echo e(url('/services/'.$rservice->url)); ?>"><?php echo e($rservice->service_name); ?></a>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link" href="#">Packages</a>
                     </li> -->
                 </ul>
