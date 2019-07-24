@@ -620,6 +620,8 @@ class AdminController extends Controller
                 'req_service'       => $data['servicetype_req'],
                 'quote_message'     => $data['message']
             ]);
+
+            return redirect()->back()->with('flash_message_success', 'Query Submited Successfully!');
         }
 
         if (!empty($id)) {
@@ -714,5 +716,25 @@ class AdminController extends Controller
         $req_quotes = RequestQuote::orderBy('created_at', 'desc')->get();
         
         return view('admin.queries.requested_quotes', compact('req_quotes'));
+    }
+
+    // Close Requested Quote
+    public function closeReqQuote(Request $request, $id=null)
+    {
+        if($id)
+        {
+            RequestQuote::where('id', $id)->update(['status'=> 1]);
+            return redirect()->back()->with('flash_message_success', 'Closed Successfully!');
+        }
+    }
+
+    // Opne Requested Quote
+    public function openReqQuote(Request $request, $id=null)
+    {
+        if($id)
+        {
+            RequestQuote::where('id', $id)->update(['status'=> 0]);
+            return redirect()->back()->with('flash_message_success', 'Opened Successfully!');
+        }
     }
 }

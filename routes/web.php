@@ -170,6 +170,8 @@ Route::get('/auth/callback/{provider}', 'AdminController@callback');
 
 // User Page Routes
 Route::match(['get', 'post'], '/profile/{id}/user', 'AdminController@viewuserPage');
+Route::match(['get', 'post'], '/admin/req_quote/{id}/close', 'AdminController@closeReqQuote');
+Route::match(['get', 'post'], '/admin/req_quote/{id}/open', 'AdminController@openReqQuote');
 
 // Sidebar filter
 Route::get('/properties_filter', 'HomeController@filter');

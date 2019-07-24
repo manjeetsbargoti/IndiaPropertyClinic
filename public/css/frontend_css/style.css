@@ -3989,3 +3989,31 @@ ul.sublist {
 .req_quote ul li:last-child {
     border: none;
 }
+ /*****************************/
+ /*    Services Custom CSS    */
+ /*****************************/
+
+.serview_container p {
+    font-size: 15px;
+    color: #333;
+}
+.serview_container h1 {
+    font-size: 32px;
+    color: #171747;
+}
+.serview_container h2 {
+    font-size: 28px;
+    color: #171747;
+}
+.serview_container h3 {
+    font-size: 24px;
+    color: #171747;
+}
+.serview_container h4 {
+    font-size: 20px;
+    color: #171747;
+}
+.serview_container li {
+    font-size: 15px;
+    color: #333;
+}

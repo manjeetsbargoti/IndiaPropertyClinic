@@ -148,7 +148,7 @@
                       <li><a href="<?php echo e(url('/admin/home-loan-application')); ?>"><i
                                   class="fa fa-circle-o text-purple"></i>Home Loan</a></li>
                         <li><a href="<?php echo e(url('/admin/requested-quote')); ?>"><i
-                                  class="fa fa-circle-o text-purple"></i>Requested Query</a></li>
+                                  class="fa fa-circle-o text-purple"></i>Vendor Query</a></li>
                   </ul>
               </li>
               <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
