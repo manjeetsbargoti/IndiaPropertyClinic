@@ -237,4 +237,38 @@ class RepairServiceController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
+
+    // Service Request by user
+    public function serviceRequest(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            echo "<pre>"; print_r($data); die;
+        }
+        return view('layouts.frontLayout.repair_services.service_request');
+    }
+
+    // Auto City List
+    public function search(Request $request)
+    {
+        if ($request->get('query')) {
+            $query = $request->get('query');
+            $data = DB::table('cities')->where('name', 'LIKE', "%{$query}%")->get();
+            $output = '<ul class="citylistdropdown">';
+            foreach ($data as $row) {
+                $flag = '<span class="flag_name">' . $row->id . '</span>';
+                $output .= '<li>' . $row->name . '</li>';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }
+    }
+
+    // Get Get SubServices List
+    public function getSubServices(Request $request)
+    {
+        $subServices = OtherServices::where("parent_id", $request->parent_id)->pluck("service_name", "id");
+        return response()->json($subServices);
+    }
 }

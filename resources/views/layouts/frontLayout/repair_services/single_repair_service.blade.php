@@ -28,10 +28,10 @@
 
                             <ul class="serliststyle">
 
-                                <li>{!! str_limit($service->s_description, $limit=400) !!}</li>
+                                <li>{!! str_limit(strip_tags($service->s_description), $limit=400) !!}</li>
 
                             </ul>
-                            <a href="javascript:void()" data-target="#GetServiceQuote" data-toggle="modal" class="btn btn-danger">Get Qute</a>
+                            <a href="{{ url('/service/request') }}" class="btn btn-danger">Get Qute</a>
                             <a href="tel:{{ config('app.phone') }}" role="button" class="btn btn-warning">Call Now</a>
                         </div>
                         <div

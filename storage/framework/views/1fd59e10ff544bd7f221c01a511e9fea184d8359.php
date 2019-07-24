@@ -270,7 +270,7 @@
                                 placeholder="Query..."></textarea>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info">Save changes</button>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -199,12 +199,12 @@ svg{max-width: 100%; height: auto;}
     color: #545454;
     margin: 0 5px;
 }
-.form-control {
+/* .form-control {
     border: none;
     padding: 5px 10px;
     height: 33px;
     font-size: 12px;
-}
+} */
 
 .form-group {
     margin-bottom: 15px;
@@ -3184,6 +3184,7 @@ li#filediv img {
 }
 .step.finish::before {
     content: "";
+    display: none;
     background: #00cc00;
     height: 3px;
     width: 100%;

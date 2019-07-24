@@ -1,0 +1,286 @@
+@extends('layouts.frontLayout.frontend_design2')
+@section('content')
+
+<style>
+
+body {
+    background-image: url('../../bg-tan.webp');
+    background-attachment: fixed; 
+    background-repeat: no-repeat;
+    background-position: center center; 
+    background-size: cover;
+}
+
+/* Multi-Step Form */
+* {
+    box-sizing: border-box;
+}
+
+#ServiceQuery {
+    background-color: #fff;
+    margin: 40px auto;
+    font-family: Raleway;
+    padding: 40px;
+    width: 100%;
+    min-width: 600px;
+    font-family: Roboto !important;
+}
+
+#ServiceQuery h1 {
+    text-align: center;
+}
+
+#ServiceQuery p {
+    text-align: center;
+}
+
+#ServiceQuery h4 {
+    padding: 0em 0em 1em 0em;
+    text-align: center;
+}
+
+#Description textarea {
+    min-height: 200px;
+}
+
+#ServiceQuery input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+#ServiceQuery label {
+    font-size: 16px;
+    font-family: Roboto;
+    color: #171747;
+    font-weight: 600;
+}
+
+/* Mark input boxes that get errors during validation: */
+#ServiceQuery input.invalid {
+    background-color: #ffdddd;
+    border-color: #ff0000;
+}
+
+/* Hide all steps by default: */
+#ServiceQuery .tab {
+    display: none;
+}
+
+#ServiceQuery button:hover {
+    opacity: 0.8;
+}
+
+/* Step marker: Place in the form. */
+#ServiceQuery .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+#ServiceQuery .step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+#ServiceQuery .step.finish {
+    background-color: #4CAF50;
+    display: none;
+}
+
+#ServiceQuery .step.finish::before {
+    display: none !important;
+}
+#ServiceQuery .citylistdropdown {
+    list-style: none;
+    /* position: relative; */
+}
+#ServiceQuery .citylistdropdown li {
+    position: relative;
+    border-top: 1px solid #ddd;
+    padding: 7px 35px 7px 10px;
+    color: #000;
+}
+
+#allcitylist {
+    background: #fff;
+    z-index: 99;
+    width: 54.473%;
+    padding: 0;
+    max-height: 215px;
+    overflow-y: auto;
+    box-shadow: 0 5px 6px rgba(0,0,0,0.5);
+    /* left: 26px; */
+}
+#ServiceQuery span.flag_name {
+    position: absolute;
+    right: 5px;
+    color: #a9a9a9;
+    text-transform: uppercase;
+    font-size: 11px;
+}
+#ServiceQuery ul.citylistdropdown li:hover {
+    background: #f2f2f2;
+    color: #F15A27;
+}
+</style>
+
+<div class="smart_container">
+    <section id="section1">
+        <div class="container col-md-6 col-md-offset-3">
+            <!-- MultiStep Form -->
+            <form id="ServiceQuery" name="service_request_form" method="post" action="{{ url('/service/request') }}">
+                {{ csrf_field() }}
+                <div class="tab">
+                    <h4>What is the location of your project?</h4>
+                    <div id="CityName" class="form-group citysearch_outer">
+                        <p><img src="{{ url('marker.webp') }}"></p>
+                        <label>City Name</label>
+                        <input type="text" name="city_name" id="city_name_id" class="form-control emptyformvalidation search_citylocation" placeholder="Enter City">
+                        <div id="allcitylist"></div>
+                    </div>
+                    
+                </div>
+                <div class="tab">
+                    <h4>What kind of work do you need done?</h4>
+                    <div id="MainService" class="form-group">
+                        <select name="main_service" id="MainServiceList" class="form-control">
+                            <option value="" selected> -- Select Service -- </option>
+                            @foreach(\App\OtherServices::where('parent_id', 0)->get() as $main_rservices)
+                            <option value="{{ $main_rservices->id }}">{{ $main_rservices->service_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div id="SubService" class="form-group">
+                        <select name="sub_service" id="SubServiceList" class="form-control">
+                            <!-- <option value="test">Test</option> -->
+                        </select>
+                    </div>
+                    <div id="SubsService" class="form-group">
+                        <select name="subs_service" id="SubsServiceList" class="form-control">
+                            <!-- <option value="test">Test</option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Choose the appropriate status for this project:</h4>
+                    <div id="ProjectStatus" class="form-group">
+                        <select class="form-control" name="project_status">
+                            <option value="Ready to hire">Ready to hire</option>
+                            <option value="Planning & Budgeting">Planning & Budgeting</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>When would you like this request to be done:</h4>
+                    <div id="ProjectTimeline" class="form-group">
+                        <select class="form-control" name="project_timeline">
+                            <option value="Timing is flexible">Timing is flexible</option>
+                            <option value="Within 1 week">Within 1 week</option>
+                            <option value="1-2 Weeks">1-2 Weeks</option>
+                            <option value="More than 2 weeks">More than 2 weeks</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>What kind of location is this?</h4>
+                    <div id="LocationType" class="form-group">
+                        <select class="form-control" name="address_type">
+                            <option value="Home/Residence">Home/Residence</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Are you owner authorized to make changes?</h4>
+                    <div id="OwnerShip" class="form-group">
+                        <select class="form-control" name="ownership">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Are you interested in financing?</h4>
+                    <div id="FinanceStatus" class="form-group">
+                        <select class="form-control" name="financing">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Tell us about you Requirements.</h4>
+                    <div id="Description" class="form-group">
+                        <textarea class="form-control" name="description" id="description" cols="40"></textarea>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Tell us about your location:</h4>
+                    <div id="LocationAddress" class="form-group">
+                        <textarea class="form-control" name="address" id="address" cols="5"></textarea>
+                    </div>
+                    <div class="row">
+                        <div id="CountryList" class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
+                            <select name="country" id="country_list" class="form-control">
+                                @foreach(\App\Country::get() as $country)
+                                <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div id="StatesList" class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
+                            <select name="state" id="StateList" class="form-control">
+                                <!-- <option>State</option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab">
+                    <h4>Tell us about your location:</h4>
+                    <div id="FullName" class="form-group">
+                        <label>Your Full Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name*">
+                    </div>
+                    <div id="EmailAddress" class="form-group">
+                        <label>Your Email Address</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address*">
+                    </div>
+                    <div id="PhoneNumber" class="form-group">
+                        <label>Your Phone</label>
+                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone Number*">
+                    </div>
+                </div>
+                <div style="overflow:auto;">
+                    <div style="float:right; padding-top: 1em;" class="form-group">
+                        <button type="button" class="btn btn-warning" id="prevBtn"
+                            onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" class="btn btn-info" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.MultiStep Form -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@endsection

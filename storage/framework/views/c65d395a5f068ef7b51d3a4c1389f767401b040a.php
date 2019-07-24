@@ -27,10 +27,10 @@
 
                             <ul class="serliststyle">
 
-                                <li><?php echo str_limit($service->s_description, $limit=400); ?></li>
+                                <li><?php echo str_limit(strip_tags($service->s_description), $limit=400); ?></li>
 
                             </ul>
-                            <a href="javascript:void()" data-target="#GetServiceQuote" data-toggle="modal" class="btn btn-danger">Get Qute</a>
+                            <a href="<?php echo e(url('/service/request')); ?>" class="btn btn-danger">Get Qute</a>
                             <a href="tel:<?php echo e(config('app.phone')); ?>" role="button" class="btn btn-warning">Call Now</a>
                         </div>
                         <div
