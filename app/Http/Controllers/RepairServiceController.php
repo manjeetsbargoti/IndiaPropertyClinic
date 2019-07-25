@@ -8,6 +8,7 @@ Use App\User;
 Use App\Property;
 Use App\Services;
 use App\OtherServices;
+use App\RequestService;
 Use App\PropertyImages;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Facades\Input;
@@ -244,7 +245,29 @@ class RepairServiceController extends Controller
         if($request->isMethod('post'))
         {
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+
+            RequestService::create([
+                'name'              => $data['name'],
+                'email'             => $data['email'],
+                'phone'             => $data['phone'],
+                'main_service'      => $data['main_service'],
+                'sub_service'       => $data['sub_service'],
+                'subs_service'      => $data['subs_service'],
+                'project_status'    => $data['project_status'],
+                'project_timeline'  => $data['project_timeline'],
+                'address_type'      => $data['address_type'],
+                'ownership'         => $data['ownership'],
+                'financing'         => $data['financing'],
+                'description'       => $data['description'],
+                'address'           => $data['address'],
+                'country'           => $data['country'],
+                'state'             => $data['state'],
+                'city_name'         => $data['city_name'],
+                'zipcode'           => $data['zipcode']
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
         }
         return view('layouts.frontLayout.repair_services.service_request');
     }

@@ -50,7 +50,8 @@
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css">
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" /> -->
 
 
@@ -82,7 +83,8 @@
     <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
     <!-- <script src="{{ asset('js/frontend_js/BsMultiSelect.js') }}"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js">
+    </script>
 
     <script type="text/javascript">
     $(function() {
@@ -126,7 +128,7 @@
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
                 .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1011" || $(this)
-            .val() ==
+                .val() ==
                 "1018") {
                 $("#Bathrooms").show();
             } else {
@@ -143,7 +145,7 @@
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
                 .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this)
-            .val() ==
+                .val() ==
                 "1011" || $(this).val() == "1013" || $(this).val() == "1018") {
                 $("#FurnishStatus").show();
             } else {
@@ -153,7 +155,7 @@
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1006" || $(this).val() == "1007" || $(this).val() == "1008" || $(this)
                 .val() == "1009" || $(this).val() == "1010" || $(this).val() == "1011" || $(this)
-            .val() ==
+                .val() ==
                 "1013") {
                 $("#FloorNo").show();
             } else {
@@ -163,7 +165,7 @@
             if ($(this).val() == "1002" || $(this).val() == "1003" || $(this).val() == "1004" || $(this)
                 .val() == "1005" || $(this).val() == "1006" || $(this).val() == "1007" || $(this)
                 .val() == "1008" || $(this).val() == "1009" || $(this).val() == "1010" || $(this)
-            .val() ==
+                .val() ==
                 "1011" || $(this).val() == "1015" || $(this).val() == "1018" || $(this).val() == "1013"
             ) {
                 $("#TotalFloor").show();
@@ -422,135 +424,134 @@
             }
         );
     });
-
-    // $(document).ready(function() {
-    //     $('#RegosetrUserServiceType').multiselect();
-    // });
     </script>
 
-<script>
-$('.btn').click(function(event) {
-    event.preventDefault();
-    var target = $(this).data('target');
-    // console.log('#'+target);
-    $('#click-alert').html('data-target= ' + target).fadeIn(50).delay(3000).fadeOut(1000);
+    <script>
+    $('.navBtn').click(function(event) {
+        event.preventDefault();
+        var target = $(this).data('target');
+        // console.log('#'+target);
+        $('#click-alert').html('data-target= ' + target).fadeIn(50).delay(3000).fadeOut(1000);
 
-});
+    });
 
 
-// Multi-Step Form
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the crurrent tab
+    // Multi-Step Form
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the crurrent tab
 
-function showTab(n) {
-    // This function will display the specified tab of the form...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    //... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    //... and run a function that will display the correct step indicator:
-    fixStepIndicator(n)
-}
-
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form...
-    if (currentTab >= x.length) {
-        // ... the form gets submitted:
-        document.getElementById("ServiceQuery").submit();
-        return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-}
-
-function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByClassName("emptyformvalidation");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false
-            valid = false;
+    function showTab(n) {
+        // This function will display the specified tab of the form...
+        var x = document.getElementsByClassName("tab");
+        x[n].style.display = "block";
+        //... and fix the Previous/Next buttons:
+        if (n == 0) {
+            document.getElementById("prevBtn").style.display = "none";
+        } else {
+            document.getElementById("prevBtn").style.display = "inline";
         }
+        if (n == (x.length - 1)) {
+            document.getElementById("nextBtn").innerHTML = "Submit";
+        } else {
+            document.getElementById("nextBtn").innerHTML = "Next";
+        }
+        //... and run a function that will display the correct step indicator:
+        fixStepIndicator(n)
     }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
-}
 
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+    function nextPrev(n) {
+        // This function will figure out which tab to display
+        var x = document.getElementsByClassName("tab");
+        // Exit the function if any field in the current tab is invalid:
+        if (n == 1 && !validateForm()) return false;
+        // Hide the current tab:
+        x[currentTab].style.display = "none";
+        // Increase or decrease the current tab by 1:
+        currentTab = currentTab + n;
+        // if you have reached the end of the form...
+        if (currentTab >= x.length) {
+            // ... the form gets submitted:
+            document.getElementById("ServiceQuery").submit();
+            return false;
+        }
+        // Otherwise, display the correct tab:
+        showTab(currentTab);
     }
-    //... and adds the "active" class on the current step:
-    x[n].className += " active";
-}
-</script>
 
-<script>
+    function validateForm() {
+        // This function deals with validation of the form fields
+        var x, y, i, valid = true;
+        x = document.getElementsByClassName("tab");
+        y = x[currentTab].getElementsByClassName("emptyformvalidation");
+        // A loop that checks every input field in the current tab:
+        for (i = 0; i < y.length; i++) {
+            // If a field is empty...
+            if (y[i].value == "") {
+                // add an "invalid" class to the field:
+                y[i].className += " invalid";
+                // and set the current valid status to false
+                valid = false;
+            }
+        }
+        // If the valid status is true, mark the step as finished and valid:
+        if (valid) {
+            document.getElementsByClassName("step")[currentTab].className += " finish";
+        }
+        return valid; // return the valid status
+    }
+
+    function fixStepIndicator(n) {
+        // This function removes the "active" class of all steps...
+        var i, x = document.getElementsByClassName("step");
+        for (i = 0; i < x.length; i++) {
+            x[i].className = x[i].className.replace(" active", "");
+        }
+        //... and adds the "active" class on the current step:
+        x[n].className += " active";
+    }
+    </script>
+
+    <script>
     //Homepage search js
-$(document).ready(function(){
-  $('.search_citylocation').keyup(function(){ 
-    var query = $(this).val();
-    if(query != ''){
-      var _token = $('input[name="_token"]').val();
-      
-      $.ajax({
-        url:"/city_list",
-        method:"POST",
-        data:{query:query, _token:_token},
-        success:function(data){
-          $('#allcitylist').fadeIn(); 
-          $('#allcitylist').html(data);
-        }
-      });
-    }
-  });
+    $(document).ready(function() {
+        $('.search_citylocation').keyup(function() {
+            var query = $(this).val();
+            if (query != '') {
+                var _token = $('input[name="_token"]').val();
 
-  $(document).on('click', '#type_search', function(){ 
-    $('#city_name_id').val($(this).text()); 
-    $('#allcitylist').fadeOut(); 
-  }); 
+                $.ajax({
+                    url: "/city_list",
+                    method: "POST",
+                    data: {
+                        query: query,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#allcitylist').fadeIn();
+                        $('#allcitylist').html(data);
+                    }
+                });
+            }
+        });
 
-  $(document).on('click', function(){ 
-    $('#allcitylist').fadeOut(); 
-  });
+        $(document).on('click', '#type_search', function() {
+            $('#city_name_id').val($(this).text());
+            $('#allcitylist').fadeOut();
+        });
 
-  $(document).keyup(function(e) {
-    if (e.key === "Escape") { 
-      $('#searchlist').fadeOut(); 
-    }
-  });
-});
-</script>
+        $(document).on('click', function() {
+            $('#allcitylist').fadeOut();
+        });
 
-<script>
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") {
+                $('#searchlist').fadeOut();
+            }
+        });
+    });
+    </script>
+
+    <script>
     // Get Sub Services List Ajax Fetch
     $('#MainServiceList').change(function() {
         var parentID = $(this).val();
@@ -567,7 +568,8 @@ $(document).ready(function(){
                         $("#SubServiceList").empty();
                         $("#SubServiceList").append('<option> -- Select Service -- </option>');
                         $.each(res, function(key, value) {
-                            $("#SubServiceList").append('<option value="' + key + '">' + value +
+                            $("#SubServiceList").append('<option value="' + key + '">' +
+                                value +
                                 '</option>');
                         });
                     } else {
@@ -593,11 +595,12 @@ $(document).ready(function(){
                     _token: _token
                 },
                 success: function(res) {
-                    if (res){
+                    if (res) {
                         $("#SubsServiceList").empty();
                         $("#SubsServiceList").append('<option> -- Select Service -- </option>');
                         $.each(res, function(key, value) {
-                            $("#SubsServiceList").append('<option value="' + key + '">' + value +
+                            $("#SubsServiceList").append('<option value="' + key + '">' +
+                                value +
                                 '</option>');
                         });
                     } else {
@@ -622,7 +625,7 @@ $(document).ready(function(){
                     _token: _token
                 },
                 success: function(res) {
-                    if (res){
+                    if (res) {
                         $("#StateList").empty();
                         $("#StateList").append('<option> -- Select State -- </option>');
                         $.each(res, function(key, value) {
@@ -638,7 +641,7 @@ $(document).ready(function(){
             $("#StateList").empty();
         }
     });
-</script>
+    </script>
 
     @include('admin.system.partials.code_footer')
 

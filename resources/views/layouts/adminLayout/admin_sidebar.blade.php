@@ -152,6 +152,7 @@
                   </ul>
               </li>
               <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
+              {{{ Auth::user()->usertype }}}
               <li class="treeview">
                   <a href="#"><i class="fa fa-globe"></i> <span>CSC Database</span>
                       <span class="pull-right-container">

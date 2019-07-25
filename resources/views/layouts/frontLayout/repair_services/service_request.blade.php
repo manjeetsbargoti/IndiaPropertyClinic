@@ -135,6 +135,18 @@ body {
 <div class="smart_container">
     <section id="section1">
         <div class="container col-md-6 col-md-offset-3">
+            @if(Session::has('flash_message_success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                    <strong>{!! session('flash_message_success') !!}</strong>
+                </div>
+            @endif   
+            @if(Session::has('flash_message_error')) 
+                <div class="alert alert-error alert-dismissible">
+                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                    <strong>{!! session('flash_message_error') !!}</strong>
+                </div>
+            @endif
             <!-- MultiStep Form -->
             <form id="ServiceQuery" name="service_request_form" method="post" action="{{ url('/service/request') }}">
                 {{ csrf_field() }}
@@ -225,20 +237,28 @@ body {
                 <div class="tab">
                     <h4>Tell us about your location:</h4>
                     <div id="LocationAddress" class="form-group">
+                        <label>Address:</label>
                         <textarea class="form-control" name="address" id="address" cols="5"></textarea>
                     </div>
-                    <div class="row">
-                        <div id="CountryList" class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
+                    
+                        <div id="CountryList" class="form-group">
+                            <label>Country</label>
                             <select name="country" id="country_list" class="form-control">
                                 @foreach(\App\Country::get() as $country)
                                 <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
                                 @endforeach
                             </select>
                         </div>
+                    <div class="row">
                         <div id="StatesList" class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
+                            <label>State</label>
                             <select name="state" id="StateList" class="form-control">
                                 <!-- <option>State</option> -->
                             </select>
+                        </div>
+                        <div class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
+                            <label>Zipcode/Postal Code</label>
+                            <input type="text" name="zipcode" id="zipcode" class="form-control" placeholder="Zipcode/Postal Code">
                         </div>
                     </div>
                 </div>
@@ -259,9 +279,9 @@ body {
                 </div>
                 <div style="overflow:auto;">
                     <div style="float:right; padding-top: 1em;" class="form-group">
-                        <button type="button" class="btn btn-warning" id="prevBtn"
+                        <button type="button" class="btn btn-warning navBtn" id="prevBtn"
                             onclick="nextPrev(-1)">Previous</button>
-                        <button type="button" class="btn btn-info" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                        <button type="button" class="btn btn-info navBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
                     </div>
                 </div>
             </form>

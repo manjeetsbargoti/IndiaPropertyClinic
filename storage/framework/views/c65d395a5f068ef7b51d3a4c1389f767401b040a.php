@@ -30,7 +30,7 @@
                                 <li><?php echo str_limit(strip_tags($service->s_description), $limit=400); ?></li>
 
                             </ul>
-                            <a href="<?php echo e(url('/service/request')); ?>" class="btn btn-danger">Get Qute</a>
+                            <a href="<?php echo e(url('/service/request')); ?>" style="border: 1px solid #f15a27; background: #f15a27; padding: 0.5em 1em; color: #fff; font-size: 15px; font-weight: 400; border-radius: 5px;" role="button" class="get_quote_button">Get Quote</a>
                             <a href="tel:<?php echo e(config('app.phone')); ?>" role="button" class="btn btn-warning">Call Now</a>
                         </div>
                         <div

@@ -27,24 +27,27 @@
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
 
-              <h3 class="profile-username text-center"><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></h3>
+              <h3 class="profile-username text-center text-blue"><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></h3>
                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <p class="text-muted text-center"><?php echo e($u->user_type); ?>, <?php echo e($u->service_name); ?></p>
+              <p class="text-muted text-center text-orange"><strong><?php echo e($u->user_type); ?></strong></p>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Followers</b> <a class="pull-right">1,322</a>
+                  <b>Assign Case</b> <a class="pull-right">10</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Following</b> <a class="pull-right">543</a>
+                  <b>Solved</b> <a class="pull-right">7</a>
                 </li>
                 <li class="list-group-item">
-                  <b>Friends</b> <a class="pull-right">13,287</a>
+                  <b>Pending</b> <a class="pull-right">2</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Working on</b> <a class="pull-right">1</a>
                 </li>
               </ul>
 
-              <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+              <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
             </div>
             <!-- /.box-body -->
           </div>
@@ -59,17 +62,20 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+              <strong><i class="fa fa-book margin-r-5"></i> Contact info:</strong>
 
               <p class="text-muted">
-                B.S. in Computer Science from the University of Tennessee at Knoxville
+                Email: <a class="text-blue" href="mailto:<?php echo e(Auth::user()->email); ?>"><?php echo e(Auth::user()->email); ?></a>
+              </p>
+              <p class="text-muted">
+                Phone: <a class="text-blue" href="tel:<?php echo e(Auth::user()->phone); ?>"><?php echo e(Auth::user()->phone); ?></a>
               </p>
 
               <hr>
 
               <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <p class="text-muted">
+                    <p class="text-orange">
                         <?php if($city_count > 0): ?>
                             <span><?php echo e($u->city_name); ?>,</span> 
                         <?php else: ?>
@@ -86,7 +92,15 @@
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+              <p>
+                <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = explode(',', $u->servicetypeid); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usti): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = \App\OtherServices::where('id', $usti)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rsevices): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <span class="label label-sm label-success"><?php echo e($rsevices->service_name); ?></span>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </p>
             </div>
             <!-- /.box-body -->
           </div>
