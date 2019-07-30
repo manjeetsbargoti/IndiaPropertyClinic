@@ -189,3 +189,9 @@ Route::match(['get', 'post'], '/service/request', 'RepairServiceController@servi
 Route::post('/city_list', 'RepairServiceController@search')->name('cityname.search');
 Route::match(['get', 'post'], '/service/get-services-list', 'RepairServiceController@getSubServices');
 Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@getStateList');
+
+// Thank you Page
+Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@thankYou');
+
+// Static Pages
+Route::match(['get', 'post'], '/{url}', 'HomeController@cmsPages');

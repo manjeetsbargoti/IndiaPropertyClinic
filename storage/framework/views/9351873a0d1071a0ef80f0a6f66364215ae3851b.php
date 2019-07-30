@@ -427,6 +427,7 @@
     </script>
 
     <script>
+
     $('.navBtn').click(function(event) {
         event.preventDefault();
         var target = $(this).data('target');
@@ -435,35 +436,34 @@
 
     });
 
-
     // Multi-Step Form
     var currentTab = 0; // Current tab is set to be the first tab (0)
-    showTab(currentTab); // Display the crurrent tab
+    showTabRF(currentTab); // Display the crurrent tab
 
-    function showTab(n) {
+    function showTabRF(n) {
         // This function will display the specified tab of the form...
         var x = document.getElementsByClassName("tab");
         x[n].style.display = "block";
         //... and fix the Previous/Next buttons:
         if (n == 0) {
-            document.getElementById("prevBtn").style.display = "none";
+            document.getElementById("prevBtnRF").style.display = "none";
         } else {
-            document.getElementById("prevBtn").style.display = "inline";
+            document.getElementById("prevBtnRF").style.display = "inline";
         }
         if (n == (x.length - 1)) {
-            document.getElementById("nextBtn").innerHTML = "Submit";
+            document.getElementById("nextBtnRF").innerHTML = "Submit";
         } else {
-            document.getElementById("nextBtn").innerHTML = "Next";
+            document.getElementById("nextBtnRF").innerHTML = "Next";
         }
         //... and run a function that will display the correct step indicator:
-        fixStepIndicator(n)
+        fixStepIndicatorRF(n)
     }
 
-    function nextPrev(n) {
+    function nextPrevRF(n) {
         // This function will figure out which tab to display
         var x = document.getElementsByClassName("tab");
         // Exit the function if any field in the current tab is invalid:
-        if (n == 1 && !validateForm()) return false;
+        if (n == 1 && !validateFormRF()) return false;
         // Hide the current tab:
         x[currentTab].style.display = "none";
         // Increase or decrease the current tab by 1:
@@ -475,14 +475,14 @@
             return false;
         }
         // Otherwise, display the correct tab:
-        showTab(currentTab);
+        showTabRF(currentTab);
     }
 
-    function validateForm() {
+    function validateFormRF() {
         // This function deals with validation of the form fields
         var x, y, i, valid = true;
         x = document.getElementsByClassName("tab");
-        y = x[currentTab].getElementsByClassName("emptyformvalidation");
+        y = x[currentTab].getElementsByClassName("emptyformvalidations");
         // A loop that checks every input field in the current tab:
         for (i = 0; i < y.length; i++) {
             // If a field is empty...
@@ -495,14 +495,14 @@
         }
         // If the valid status is true, mark the step as finished and valid:
         if (valid) {
-            document.getElementsByClassName("step")[currentTab].className += " finish";
+            document.getElementsByClassName("step_rf")[currentTab].className += " finish";
         }
         return valid; // return the valid status
     }
 
-    function fixStepIndicator(n) {
+    function fixStepIndicatorRF(n) {
         // This function removes the "active" class of all steps...
-        var i, x = document.getElementsByClassName("step");
+        var i, x = document.getElementsByClassName("step_rf");
         for (i = 0; i < x.length; i++) {
             x[i].className = x[i].className.replace(" active", "");
         }

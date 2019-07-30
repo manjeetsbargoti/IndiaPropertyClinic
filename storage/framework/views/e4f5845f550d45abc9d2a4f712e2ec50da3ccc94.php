@@ -73,7 +73,7 @@ body {
 }
 
 /* Step marker: Place in the form. */
-#ServiceQuery .step {
+#ServiceQuery .step_rf {
     height: 15px;
     width: 15px;
     margin: 0 2px;
@@ -84,12 +84,12 @@ body {
     opacity: 0.5;
 }
 
-#ServiceQuery .step.active {
+#ServiceQuery .step_rf.active {
     opacity: 1;
 }
 
 /* Mark the steps that are finished and valid: */
-#ServiceQuery .step.finish {
+#ServiceQuery .step_rf.finish {
     background-color: #4CAF50;
     display: none;
 }
@@ -155,7 +155,7 @@ body {
                     <div id="CityName" class="form-group citysearch_outer">
                         <p><img src="<?php echo e(url('marker.webp')); ?>"></p>
                         <label>City Name</label>
-                        <input type="text" name="city_name" id="city_name_id" class="form-control emptyformvalidation search_citylocation" placeholder="Enter City">
+                        <input type="text" name="city_name" id="city_name_id" class="form-control emptyformvalidations search_citylocation" placeholder="Enter City">
                         <div id="allcitylist"></div>
                     </div>
                     
@@ -279,24 +279,24 @@ body {
                 </div>
                 <div style="overflow:auto;">
                     <div style="float:right; padding-top: 1em;" class="form-group">
-                        <button type="button" class="btn btn-warning navBtn" id="prevBtn"
-                            onclick="nextPrev(-1)">Previous</button>
-                        <button type="button" class="btn btn-info navBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                        <button type="button" class="btn btn-warning navBtn" id="prevBtnRF"
+                            onclick="nextPrevRF(-1)">Previous</button>
+                        <button type="button" class="btn btn-info navBtn" id="nextBtnRF" onclick="nextPrevRF(1)">Next</button>
                     </div>
                 </div>
             </form>
             <!-- /.MultiStep Form -->
             <div style="text-align:center;margin-top:40px;">
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
-                <span class="step"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
+                <span class="step_rf"></span>
             </div>
         </div>
     </section>

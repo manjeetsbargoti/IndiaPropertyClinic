@@ -627,7 +627,7 @@ class PropertyController extends Controller
                     $filename = "default.jpg";
                     PropertyImages::create([
                         'image_name' => $filename,
-                        'image_size' => '75',
+                        'image_size' => '7.5',
                         'property_id' => $id
                     ]);
                 }
@@ -893,13 +893,19 @@ class PropertyController extends Controller
                 ]);
             }
 
-            return redirect()->back()->with('flash_message_success', 'Property Listed Successfully! Please check your Email to generate Login Password and activate your Account. Thank You!');
+            return redirect('/list-property/thank-you')->with('flash_thanx_message', '<h2>Thank you!</h2> <p>Property Listed Successfully! <br>Please check your Email to generate Login Password and activate your Account.</p> <p>We will give you a call in the next 1 to 2 business days.</p>');
 
         }
 
         $phonecode = Country::get();
 
         return view('frontend.list_property', compact('phonecode'));
+    }
+
+    // Thank you page
+    public function thankYou()
+    {
+        return view('frontend.templates.thank_you');
     }
 
 }

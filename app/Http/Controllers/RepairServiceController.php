@@ -281,7 +281,7 @@ class RepairServiceController extends Controller
             $output = '<ul class="citylistdropdown">';
             foreach ($data as $row) {
                 $flag = '<span class="flag_name">' . $row->id . '</span>';
-                $output .= '<li>' . $row->name . '</li>';
+                $output .= '<li id="type_search">' . $row->name . '</li>';
             }
             $output .= '</ul>';
             echo $output;

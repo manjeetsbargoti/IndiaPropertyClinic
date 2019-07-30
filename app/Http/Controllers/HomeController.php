@@ -204,7 +204,7 @@ class HomeController extends Controller
             $output = '<ul class="jiodropdown">';
             foreach ($data as $row) {
                 $flag = '<span class="flag_name">' . $row->id . '</span>';
-                $output .= '<li>' . $row->name . '</li>';
+                $output .= '<li id="type_search">' . $row->name . '</li>';
             }
             $output .= '</ul>';
             echo $output;
@@ -444,5 +444,18 @@ class HomeController extends Controller
         ';
         }
         return $output;
+    }
+
+    // CMS Pages Function
+    public function cmsPages(Request $request, $url=null)
+    {
+        if($url == 'privacy-policy')
+        {
+            return view('frontend.pages.privacy_policy');
+        }elseif($url = 'terms-condition')
+        {
+            return view('frontend.pages.terms_condition');
+        }
+        
     }
 }

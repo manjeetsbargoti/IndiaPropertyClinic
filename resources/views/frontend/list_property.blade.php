@@ -31,9 +31,9 @@
                                 <li class="step"><i class="far fa-check-circle"></i>
                                     <p>Upload Images</p>
                                 </li>
-                                <li class="step"><i class="far fa-check-circle"></i>
+                                <!-- <li class="step"><i class="far fa-check-circle"></i>
                                     <p>Submit</p>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="mainform_inn">

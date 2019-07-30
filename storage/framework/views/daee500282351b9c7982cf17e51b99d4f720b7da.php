@@ -289,8 +289,8 @@ $footerProperties = Controller::footersection();
                             <ul>
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="<?php echo e(url('/privacy-policy')); ?>">Privacy Policy</a></li>
+                                <li><a href="<?php echo e(url('/terms-condition')); ?>">Terms of Use</a></li>
                                 <li><a href="<?php echo e(url('/Apply-Home-Loan')); ?>">Home Loan</a></li>
                             </ul>
 
