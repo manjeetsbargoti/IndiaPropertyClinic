@@ -29,7 +29,7 @@
                             <div id="big" class="owl-carousel owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}" alt="{{ $property->property_name }}">
                                     </div>
                                 @endforeach
                             </div>

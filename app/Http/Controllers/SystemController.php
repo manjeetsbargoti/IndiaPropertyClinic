@@ -167,29 +167,29 @@ class SystemController extends Controller
     }
 
     // Getting property images from Property Images table and uploading to Property table
-    public function pImages(Request $request)
-    {
-        $properties = Property::select('id')->orderBy('id', 'asc')->get();
-        $properties = json_decode(json_encode($properties));
+    // public function pImages(Request $request)
+    // {
+    //     $properties = Property::select('id')->orderBy('id', 'asc')->get();
+    //     $properties = json_decode(json_encode($properties));
         
-        // echo "<pre>"; print_r($prop_img_data); die;
+    //     // echo "<pre>"; print_r($prop_img_data); die;
 
-        foreach ($properties as $property) {
+    //     foreach ($properties as $property) {
             
-            $prop_img_data_count = PropertyImages::where('property_id', $property->id)->count();
-            if ($prop_img_data_count > 0) {
-                $sql = "SELECT GROUP_CONCAT(image_name) AS 'image_names' FROM `property_images` where  `property_id` = $property->id GROUP BY `property_id`";
-                $prop_img_data = DB::select(DB::raw($sql));
-                $prop_img_data = json_decode(json_encode($prop_img_data));
-                $prop_img_data = $prop_img_data[0];
-                $prop_img_data = $prop_img_data->image_names;
-                // echo "<pre>"; print_r($prop_img_data_count); die;
-                Property::where('id', $property->id)->update(['images' => $prop_img_data]);
-            } else {
-                Property::where('id', $property->id)->update(['images' => 'default.jpg']);
-            }
-        }
-    }
+    //         $prop_img_data_count = PropertyImages::where('property_id', $property->id)->count();
+    //         if ($prop_img_data_count > 0) {
+    //             $sql = "SELECT GROUP_CONCAT(image_name) AS 'image_names' FROM `property_images` where  `property_id` = $property->id GROUP BY `property_id`";
+    //             $prop_img_data = DB::select(DB::raw($sql));
+    //             $prop_img_data = json_decode(json_encode($prop_img_data));
+    //             $prop_img_data = $prop_img_data[0];
+    //             $prop_img_data = $prop_img_data->image_names;
+    //             // echo "<pre>"; print_r($prop_img_data_count); die;
+    //             Property::where('id', $property->id)->update(['images' => $prop_img_data]);
+    //         } else {
+    //             Property::where('id', $property->id)->update(['images' => 'default.jpg']);
+    //         }
+    //     }
+    // }
 
     // Website Contact Details
     public function getContactInfo()

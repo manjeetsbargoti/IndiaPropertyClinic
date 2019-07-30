@@ -28,7 +28,7 @@
                             <div id="big" class="owl-carousel owl-theme">
                                 <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="item">
-                                        <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                        <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>" alt="<?php echo e($property->property_name); ?>">
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>

@@ -2032,6 +2032,11 @@ ul#stars li.selected svg {
     color: #000;
     font-size: 14px;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    min-height: 1em;
   }
 .dealers_txt {
     border-top: 1px solid #ddd;

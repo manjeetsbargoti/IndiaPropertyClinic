@@ -294,4 +294,11 @@ class RepairServiceController extends Controller
         $subServices = OtherServices::where("parent_id", $request->parent_id)->pluck("service_name", "id");
         return response()->json($subServices);
     }
+
+    // Request Service Function
+    public function requestService()
+    {
+        $service_request = RequestService::get();
+        return view('admin.queries.request_service', compact('service_request'));
+    }
 }

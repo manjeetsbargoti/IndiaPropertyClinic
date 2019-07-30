@@ -82,6 +82,9 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
 
+    // Service Requests Query
+    Route::get('/admin/service-requests', 'RepairServiceController@requestService');
+
     // Requested Quotes
     Route::get('/admin/requested-quote', 'AdminController@requestedQuotes');
 
@@ -114,7 +117,7 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     Route::get('/get-out', 'AdminController@getOut');
 
     // Getting property images from Property Images table and uploading to Property table
-    Route::match(['get', 'post'], '/admin/update-pimages', 'SystemController@pImages');
+    // Route::match(['get', 'post'], '/admin/update-pimages', 'SystemController@pImages');
 
 });
 
