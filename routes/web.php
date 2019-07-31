@@ -84,6 +84,11 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
 
     // Service Requests Query
     Route::get('/admin/service-requests', 'RepairServiceController@requestService');
+    Route::match(['get', 'post'], '/admin/service/request/{id}/done', 'RepairServiceController@statusDone');
+    Route::match(['get', 'post'], '/admin/service/request/{id}/pending', 'RepairServiceController@statusPending');
+
+    // Assign Vendor to the Service Request
+    Route::match(['get', 'post'], '/admin/service/request/{id}/assign', 'RepairServiceController@assignVendorService');
 
     // Requested Quotes
     Route::get('/admin/requested-quote', 'AdminController@requestedQuotes');

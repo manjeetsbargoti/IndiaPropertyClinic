@@ -106,6 +106,9 @@ body {
                         Site. Any such use or attempted use of an automated program shall be a misuse of our system and this 
                         Site. Obtaining access to any part of our system or this Site by means of any such automated programs 
                         is strictly unauthorised.</p>
+                    <p>The general information contained in The IndiaPropertyClinic is provided as a courtesy, and is for 
+                        informational purposes only. The contents of this website are subject to periodic change without notice. 
+                        Information provided on The IndiaPropertyClinic is not intended to replace official sources.</p>
                     <h4>Service Provider/Vendors Provisions</h4>
                     <p>IndiaProperyClinicAlso acts as a classified/listing portal for Service Provider and Vendors. All users 
                         must follow the following guidelines.</p>

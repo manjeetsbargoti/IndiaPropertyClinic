@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 Use Image;
+use App\Cities;
 Use App\User;
 Use App\Property;
 Use App\Services;
@@ -13,6 +14,8 @@ Use App\PropertyImages;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Facades\Input;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
 
 class RepairServiceController extends Controller
 {
@@ -247,6 +250,11 @@ class RepairServiceController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
+            $city_id = Cities::select('id')->where('name', $data['city_name'])->get();
+            $city_id = json_decode(json_encode($city_id), true);
+            $city_id = $city_id[0]['id'];
+            // echo "<pre>"; print_r($city_id[0]['id']); die;
+
             RequestService::create([
                 'name'              => $data['name'],
                 'email'             => $data['email'],
@@ -263,7 +271,7 @@ class RepairServiceController extends Controller
                 'address'           => $data['address'],
                 'country'           => $data['country'],
                 'state'             => $data['state'],
-                'city_name'         => $data['city_name'],
+                'city_name'         => $city_id,
                 'zipcode'           => $data['zipcode']
             ]);
 
@@ -300,5 +308,41 @@ class RepairServiceController extends Controller
     {
         $service_request = RequestService::get();
         return view('admin.queries.request_service', compact('service_request'));
+    }
+
+    // Update Service Request Status
+    public function statusDone($id=null)
+    {
+        if($id)
+        {
+            RequestService::where('id', $id)->update(['status'=>1]);
+            return redirect()->back()->with('flash_message_success', 'Task Completed!');
+        }
+    }
+
+    // Update Service Request Status
+    public function statusPending($id=null)
+    {
+        if($id)
+        {
+            RequestService::where('id', $id)->update(['status'=>0]);
+            return redirect()->back()->with('flash_message_success', 'Task Pending!');
+        }
+    }
+
+    // Assign Vendor to Service
+    public function assignVendorService(Request $request, $id=null)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            if($id)
+            {
+                RequestService::where('id', $id)->update(['assign_to'=>$data['vendor_id']]);
+                return redirect('/admin/service-requests')->with('flash_message_success', 'Vendor Assigned Successfully!');
+            }
+        }
     }
 }

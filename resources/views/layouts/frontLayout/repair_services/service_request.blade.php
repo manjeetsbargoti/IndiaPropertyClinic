@@ -211,7 +211,7 @@ body {
                     </div>
                 </div>
                 <div class="tab">
-                    <h4>Are you owner authorized to make changes?</h4>
+                    <h4>Are you owner or authorized to make changes?</h4>
                     <div id="OwnerShip" class="form-group">
                         <select class="form-control" name="ownership">
                             <option value="Yes">Yes</option>
