@@ -452,10 +452,9 @@ class HomeController extends Controller
         if($url == 'privacy-policy')
         {
             return view('frontend.pages.privacy_policy');
-        }elseif($url = 'terms-condition')
+        }elseif($url == 'terms-condition')
         {
             return view('frontend.pages.terms_condition');
         }
-        
     }
 }

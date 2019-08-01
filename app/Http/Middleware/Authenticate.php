@@ -15,7 +15,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return redirect('/login')->with('flash_message_success', 'If you are Admin Please <a href="/admin">Click here</a> for login.');
+            return redirect('/login');
         }
     }
 }

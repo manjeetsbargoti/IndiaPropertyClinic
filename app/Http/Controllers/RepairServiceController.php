@@ -50,10 +50,9 @@ class RepairServiceController extends Controller
                     
                     $extension = $image_tmp->getClientOriginalExtension();
                     $filename = rand(1, 99999).'.'.$extension;
-                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
                     $large_image_path = 'images/backend_images/repair_service_images/large/'.$filename;
                     // Resize image
-                    Image::make($image_tmp)->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+                    Image::make($image_tmp)->resize(730, 464)->save($large_image_path);
 
                     // Store image in Services folder
                     $rservices->service_image = $filename;

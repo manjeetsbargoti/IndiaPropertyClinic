@@ -17,7 +17,7 @@ Route::match(['get', 'post'], '/admin', 'AdminController@adminLogin');
 
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 
-Route::group(['middleware' => ['admin', 'admin:1']], function () {
+Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/profile', 'AdminController@adminProfile');
     // Route::get('/admin/settings', 'AdminController@settings');
@@ -124,10 +124,13 @@ Route::group(['middleware' => ['admin', 'admin:1']], function () {
     // Getting property images from Property Images table and uploading to Property table
     // Route::match(['get', 'post'], '/admin/update-pimages', 'SystemController@pImages');
 
+    // CMS Routes Management
+    Route::match(['get', 'post'], '/admin/new-page', 'PageController@newPage');
+
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {
-    Route::match(['get', 'post'], '/My-Account', 'AdminController@userAccount');
+    Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
 
 });
 
@@ -152,7 +155,7 @@ Route::get('/city/{city_id}/properties', 'PropertyController@searchByCity');
 Route::get('/properties/{id}/{name}', 'PropertyController@searchByService');
 Route::get('/country/{country_id}/properties', 'PropertyController@searchByCountry');
 
-Route::get('/logout', 'AdminController@logout');
+Route::get('/user/logout', 'AdminController@logout');
 
 // Homepage search start
 Route::post('/search', 'HomeController@search')->name('autocomplete.search');
@@ -202,4 +205,4 @@ Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@get
 Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@thankYou');
 
 // Static Pages
-Route::match(['get', 'post'], '/{url}', 'HomeController@cmsPages');
+// Route::match(['get', 'post'], '/{url}', 'HomeController@cmsPages');
