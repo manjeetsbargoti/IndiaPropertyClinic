@@ -126,6 +126,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     // CMS Routes Management
     Route::match(['get', 'post'], '/admin/new-page', 'PageController@newPage');
+    Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
+    Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
 
 });
 

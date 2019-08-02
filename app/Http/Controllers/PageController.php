@@ -2,31 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Image;
 use App\Page;
+use App\Country;
+use App\Property;
+use App\Services;
+use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-Use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Input;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+
 
 class PageController extends Controller
 {
+    protected $posts_per_page = 12;
     // Add New CMS Pages
     public function newPage(Request $request)
     {
-        if($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $add_by = Auth::user()->id;
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
 
             // Upload Repair Service image/icon
-            if($request->hasFile('feature_image')){
+            if ($request->hasFile('feature_image')) {
                 $image_tmp = Input::file('feature_image');
-                if($image_tmp->isValid()){
-                    
+                if ($image_tmp->isValid()) {
+
                     $extension = $image_tmp->getClientOriginalExtension();
-                    $filename = 'IPC_Page_'.rand(1, 99999).'.'.$extension;
-                    $large_image_path = 'images/backend_images/page_images/large/'.$filename;
+                    $filename = 'IPC_Page_' . rand(1, 99999) . '.' . $extension;
+                    $large_image_path = 'images/backend_images/page_images/large/' . $filename;
                     // Resize image
                     Image::make($image_tmp)->resize(1280, 720)->save($large_image_path);
 
@@ -35,20 +44,191 @@ class PageController extends Controller
                 }
             }
 
+            if(!empty($filename)){
+                $filename = $filename;
+            }else{
+                $filename = '';
+            }
+
             Page::create([
-                'title'     => $data['page_title'],
-                'url'       => $data['slug'],
-                'content'   => $data['description'],
-                'page_type' => $data['page_type'],
-                'template'  => $data['template'],
-                'status'  => $data['page_status'],
-                'add_by'  => $add_by,
-                'image'   => $filename
+                'title'         => $data['page_title'],
+                'url'           => $data['slug'],
+                'content'       => $data['description'],
+                'page_type'     => $data['page_type'],
+                'template'      => $data['template'],
+                'status'        => $data['page_status'],
+                'add_by'        => $add_by,
+                'image'         => $filename,
+                'country'       => $data['country_prop'],
+                'state'         => $data['state_prop'],
+                'city'          => $data['city_prop'],
+                'property_for'  => $data['prop_for'],
             ]);
 
             return redirect()->back()->with('flash_message_success', 'Page Published Successfully!');
-
         }
         return view('admin.pages.new_page');
+    }
+
+    // View Single Page
+    public function singlePage(Request $request, $url)
+    {
+        $data = Page::where('url', $url)->get();
+        $data = json_decode(json_encode($data), true);
+        // echo "<pre>"; print_r($data); die;
+
+        if($data[0]['page_type'] == 1)
+        {
+            $data = json_decode(json_encode($data));
+
+            return view('frontend.pages.templates.full_width', compact('data'));
+
+        }elseif($data[0]['page_type'] == 2){
+
+            $service_id = $data[0]['service_id'];
+
+            if($data[0]['property_for'] == 1)
+            {
+                $country_id = $data[0]['country'];
+                $countryname = Country::where(['iso2' => $country_id])->pluck('name');
+                // echo "<pre>"; print_r($countryname); die;
+                $properties = Property::where(function ($query) use ($country_id) {
+                    if (isset($country_id)) {
+                        $query->where('country', $country_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->get();
+                $posts = Property::where(function ($query) use ($country_id) {
+                    if (isset($country_id)) {
+                        $query->where('country', $country_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->paginate($this->posts_per_page);
+
+                $properties = json_decode(json_encode($properties));
+            }
+            elseif($data[0]['property_for'] == 2)
+            {
+                $state_id = $data[0]['state'];
+                $statename = DB::table('states')->where(['id' => $state_id])->pluck('name');
+                $properties = Property::where(function ($query) use ($state_id) {
+                    if (isset($state_id)) {
+                        $query->where('states', $state_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->get();
+                $posts = Property::where(function ($query) use ($state_id) {
+                    if (isset($state_id)) {
+                        $query->where('states', $state_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->paginate($this->posts_per_page);
+                
+                $properties = json_decode(json_encode($properties));
+            }
+            elseif($data[0]['property_for'] == 3)
+            {
+                $city_id = $data[0]['city'];
+                $cityname = DB::table('cities')->where(['id' => $city_id])->pluck('name');
+                $properties = Property::where(function ($query) use ($city_id) {
+                    if (isset($city_id)) {
+                        $query->where('city', $city_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->get();
+                $posts = Property::where(function ($query) use ($city_id) {
+                    if (isset($city_id)) {
+                        $query->where('city', $city_id);
+                    }
+                })->where(function ($query) use ($service_id) {
+                    if (isset($service_id)) {
+                        $query->where('service_id', $service_id);
+                    }
+                })->paginate($this->posts_per_page);
+                // echo "<pre>"; print_r($posts); die;
+                
+                $properties = json_decode(json_encode($properties));
+            }
+            
+            foreach ($posts as $key => $val) {
+                $service_name = Services::where(['id' => $val->service_id])->first();
+                $posts[$key]->service_name = $service_name->service_name;
+                $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
+                if ($propertyimage_count > 0) {
+                    $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+                    $posts[$key]->image_name = $propertyimage_name->image_name;
+                }
+                $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
+                if ($country_count > 0) {
+                    $country = DB::table('countries')->where(['iso2' => $val->country])->first();
+                    $posts[$key]->country_name = $country->name;
+                    $posts[$key]->currency = $country->currency;
+                }
+                $state_count = DB::table('states')->where(['id' => $val->state])->count();
+                if ($state_count > 0) {
+                    $state = DB::table('states')->where(['id' => $val->state])->first();
+                    $posts[$key]->state_name = $state->name;
+                }
+                $city_count = DB::table('cities')->where(['id' => $val->city])->count();
+                if ($city_count > 0) {
+                    $city = DB::table('cities')->where(['id' => $val->city])->first();
+                    $posts[$key]->city_name = $city->name;
+                }
+            }
+
+            if (!empty($country_count)) {
+                $countrycount = $country_count;
+            } else {
+                $countrycount = 0;
+            }
+            if (!empty($state_count)) {
+                $statecount = $state_count;
+            } else {
+                $statecount = 0;
+            }
+            if (!empty($city_count)) {
+                $citycount = $city_count;
+            } else {
+                $citycount = 0;
+            }
+
+            if (!empty($properties)) {
+                $contRow = count($properties);
+            } else {
+                $contRow = 0;
+            }
+            // echo "<pre>"; print_r($countryname); die;
+
+            if($data[0]['property_for'] == 1){
+                return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount'));
+            }elseif($data[0]['property_for'] == 2){
+                return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
+            }elseif($data[0]['property_for'] == 3){
+                return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
+            }
+        }
+    }
+
+    // Creating unique Slug
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Page::class, 'url', $request->page_title, ['unique' => true]);
+        // echo "<pre>"; print_r($slug); die;
+        return response()->json(['slug' => $slug]);
     }
 }

@@ -7,6 +7,13 @@ $('#rservice_name').keyup(function(){
     $('#rservice_url').val(rservice_url.toLowerCase());
 });
 
+$('#CMSPageTitle').keyup(function(){
+    var str = $(this).val();
+    var trims = $.trim(str);
+    var cms_slug = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    $('#CMSslug').val(cms_slug.toLowerCase());
+});
+
 // Data fields according to Property Type Selection
 $(function() {
     $("#PropertyType").change(function() {

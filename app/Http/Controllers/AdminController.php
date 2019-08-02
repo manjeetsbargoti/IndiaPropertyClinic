@@ -35,14 +35,14 @@ class AdminController extends Controller
 
         if (Auth::guard($guard)->check()) {
             Session::put('Auth', $userData['email']);
-            return route('dashboard');
+            return redirect('/admin/dashboard');
         }
 
         if ($request->isMethod('post')) {
             $data = $request->input();
             // echo "<pre>"; print_r($data); die;
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => '1', 'status' => '1'])) {
-                return route('dashboard')->with('flash_message_success', 'Login Successfull!');
+                return redirect('/admin/dashboard')->with('flash_message_success', 'Login Successfull!');
             } else {
                 return redirect('/admin')->with('flash_message_error', 'Invalid Email Address or Password!');
             }
