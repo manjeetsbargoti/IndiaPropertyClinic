@@ -27,7 +27,7 @@
                                     <div class="col-xs-12 col-md-6">
                                         <div class="form-group">
                                             <label for="Page Title">Title</label>
-                                            <input name="page_title" id="CMSPageTitle" type="text" required class="form-control">
+                                            <input name="page_title" id="CMSPageTitle" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-6">

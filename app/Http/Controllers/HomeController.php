@@ -447,14 +447,14 @@ class HomeController extends Controller
     }
 
     // CMS Pages Function
-    public function cmsPages(Request $request, $url=null)
-    {
-        if($url == 'privacy-policy')
-        {
-            return view('frontend.pages.privacy_policy');
-        }elseif($url == 'terms-condition')
-        {
-            return view('frontend.pages.terms_condition');
-        }
-    }
+    // public function cmsPages(Request $request, $url=null)
+    // {
+    //     if($url == 'privacy-policy')
+    //     {
+    //         return view('frontend.pages.privacy_policy');
+    //     }elseif($url == 'terms-condition')
+    //     {
+    //         return view('frontend.pages.terms_condition');
+    //     }
+    // }
 }
