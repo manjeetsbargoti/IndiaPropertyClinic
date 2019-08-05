@@ -38,7 +38,7 @@ class HomeController extends Controller
     //     return view('home');
     // }
 
-    protected $posts_per_page = 9;
+    protected $posts_per_page = 18;
 
     public function index()
     {
@@ -223,20 +223,23 @@ class HomeController extends Controller
         $city = json_decode(json_encode($city), true);
 
         if (empty($data['search_text']) && !empty($data['property_type'])) {
-            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']]);
         } elseif (empty($data['search_text']) && empty($data['property_type'])) {
-            $properties = Property::where(['service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['service_id' => $data['property_cat']]);
         } elseif (empty($data['property_type']) && !empty($city[0])) {
             $r = $city[0];
-            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']]);
         } else {
             $r = null;
-            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']]);
         }
 
         $propertyImages = PropertyImages::get();
+        
         if (!empty($properties)) {
-            $properties = json_decode(json_encode($properties));
+            $p_count = $properties->count();
+            $properties = $properties->paginate($this->posts_per_page);
+            // $properties = json_decode(json_encode($properties));
         }
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -280,7 +283,7 @@ class HomeController extends Controller
         }
 
         if (!empty($properties)) {
-            $contRow = count($properties);
+            $contRow = $p_count;
             // echo "<pre>"; print_r($contRow); die;
         } else {
             $contRow = 0;

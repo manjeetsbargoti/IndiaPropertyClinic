@@ -42,7 +42,7 @@ body {
         <div class="container">
             <div class="row">
                 <div class="thankyou_box">
-                    <h2><?php echo e($d->title); ?></h2> <span>Updated on: [July 29, 2019]</span>
+                    <h2><?php echo e($d->title); ?></h2>
                     <hr>
                     <?php echo $d->content; ?>
 

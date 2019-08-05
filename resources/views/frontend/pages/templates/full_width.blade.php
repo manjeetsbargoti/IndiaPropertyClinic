@@ -43,7 +43,7 @@ body {
         <div class="container">
             <div class="row">
                 <div class="thankyou_box">
-                    <h2>{{ $d->title }}</h2> <span>Updated on: [July 29, 2019]</span>
+                    <h2>{{ $d->title }}</h2>
                     <hr>
                     {!! $d->content !!}
                 </div>

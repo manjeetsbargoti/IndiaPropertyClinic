@@ -211,9 +211,9 @@
                     @endforeach
                 </div>
 
-                <!-- <div class="product_loadding">
-                    <img src="/images/frontend_images/images/loadder.svg">
-                </div> -->
+                <div class="product_loadding">
+                    {!! $properties->render() !!}
+                </div>
 
             </div>
         </div>

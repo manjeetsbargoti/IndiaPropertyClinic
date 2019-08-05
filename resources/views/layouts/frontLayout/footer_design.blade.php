@@ -132,8 +132,13 @@ $footerProperties = Controller::footersection();
                                         @if($counter <= 2) <li>
                                             <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
                                                 <span>
-                                                    <img
+                                                    @if(!empty($footerproperty->image_name))
+                                                        <img 
                                                         src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
+                                                    @else
+                                                        <img 
+                                                        src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
+                                                    @endif
                                                 </span>
                                                 <h6>
                                                     @if(!empty($footerproperty->city_name))

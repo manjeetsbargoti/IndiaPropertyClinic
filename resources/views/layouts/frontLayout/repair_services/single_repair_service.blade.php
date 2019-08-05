@@ -205,14 +205,14 @@
             <div class="related_product">
                 <h5>Related Product</h5>
                 <div class="row">
-                    @foreach($randervice as $service)
+                    @foreach($randervice as $rnservice)
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                         <div class="related_productbox">
-                            <a href="{{ url('/services/'.$service->url) }}">
+                            <a href="{{ url('/services/'.$rnservice->url) }}">
                                 <div class="related_productboximg">
                                     <img src="{{ url('images/frontend_images/images/dry-pipe.jpg') }}">
                                 </div>
-                                <h5> {{ $service->service_name }} </h5>
+                                <h5> {{ $rnservice->service_name }} </h5>
                             </a>
                         </div>
                     </div>

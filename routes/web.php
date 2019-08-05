@@ -126,14 +126,13 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     // CMS Routes Management
     Route::match(['get', 'post'], '/admin/new-page', 'PageController@newPage');
-    Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
+    Route::match(['get', 'post'], '/admin/pages', 'PageController@allPages');
     Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
 
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {
     Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
-
 });
 
 // Check Password
@@ -206,5 +205,5 @@ Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@get
 // Thank you Page
 Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@thankYou');
 
-// Static Pages
-// Route::match(['get', 'post'], '/{url}', 'HomeController@cmsPages');
+// CMS Pages Route
+Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');

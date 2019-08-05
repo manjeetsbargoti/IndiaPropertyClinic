@@ -56,9 +56,9 @@ class AdminController extends Controller
         $actusers = User::where(['status' => 1])->orderBy('created_at', 'desc')->get();
         $inactusers = User::where(['status' => 0])->orderBy('created_at', 'desc')->get();
         $property = Property::orderBy('created_at', 'desc')->take(10)->get();
-        $propertyImages = PropertyImages::get();
+        // $propertyImages = PropertyImages::get();
         $property = json_decode(json_encode($property));
-        $propertyImages = json_decode(json_encode($propertyImages));
+        // $propertyImages = json_decode(json_encode($propertyImages));
 
         foreach ($property as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -90,7 +90,7 @@ class AdminController extends Controller
 
         // Count Number of Users
         if (!empty($users)) {
-            $contUser = count($users);
+            $contUser = User::count();
             // echo "<pre>"; print_r($contRow); die;
         } else {
             $contUser = 0;

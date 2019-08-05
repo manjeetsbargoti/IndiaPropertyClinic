@@ -207,14 +207,14 @@
             <div class="related_product">
                 <h5>Related Product</h5>
                 <div class="row">
-                    <?php $__currentLoopData = $randervice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $randervice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rnservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                         <div class="related_productbox">
-                            <a href="<?php echo e(url('/services/'.$service->url)); ?>">
+                            <a href="<?php echo e(url('/services/'.$rnservice->url)); ?>">
                                 <div class="related_productboximg">
                                     <img src="<?php echo e(url('images/frontend_images/images/dry-pipe.jpg')); ?>">
                                 </div>
-                                <h5> <?php echo e($service->service_name); ?> </h5>
+                                <h5> <?php echo e($rnservice->service_name); ?> </h5>
                             </a>
                         </div>
                     </div>

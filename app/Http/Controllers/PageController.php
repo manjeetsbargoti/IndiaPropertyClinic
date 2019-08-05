@@ -230,4 +230,11 @@ class PageController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
+
+    // View All Pages
+    public function allPages()
+    {
+        $pages = Page::orderBy('created_at', 'desc')->get();
+        return view('admin.pages.pages_all', compact('pages'));
+    }
 }
