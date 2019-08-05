@@ -210,7 +210,11 @@
                         <div class="related_productbox">
                             <a href="{{ url('/services/'.$rnservice->url) }}">
                                 <div class="related_productboximg">
-                                    <img src="{{ url('images/frontend_images/images/dry-pipe.jpg') }}">
+                                    @if(!empty($rnservice->service_image))
+                                        <img src="{{ url('/images/backend_images/repair_service_images/large/'.$rnservice->service_image) }}">
+                                    @else
+                                        <img src="{{ url('/images/frontend_images/images/default.jpg') }}">
+                                    @endif
                                 </div>
                                 <h5> {{ $rnservice->service_name }} </h5>
                             </a>

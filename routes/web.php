@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/{id}/edit/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/property/{id}/edit/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/page/{id}/edit/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
@@ -127,8 +129,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // CMS Routes Management
     Route::match(['get', 'post'], '/admin/new-page', 'PageController@newPage');
     Route::match(['get', 'post'], '/admin/pages', 'PageController@allPages');
+    Route::match(['get', 'post'], '/admin/page/{id}/edit', 'PageController@editPage');
+    Route::match(['get', 'post'], '/admin/page/{id}/disable', 'PageController@disablePage');
+    Route::match(['get', 'post'], '/admin/page/{id}/enable', 'PageController@enablePage');
+    Route::match(['get', 'post'], '/admin/page/{id}/delete', 'PageController@deletePage');
     Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
-
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {

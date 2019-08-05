@@ -6,7 +6,7 @@
     <!-- for Google -->
     <meta name="title" content="@if(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif"/>
     <meta name="description" content="@if(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif"/>
-    <meta name="keywords" content="@if(!empty($property->city_name)){{ 'Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name }}@elseif(!empty($service->service_name))<?php echo implode(',', explode(' ', $service->service_name)); ?>@else{{ config('app.name') }} @endif"/>
+    <meta name="keywords" content="@if(!empty($property->city_name)){{ 'Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name }},<?php echo implode(',', explode(' ', $property->property_name)); ?>@elseif(!empty($service->service_name))<?php echo implode(',', explode(' ', $service->service_name)); ?>@else{{ config('app.name') }} @endif"/>
     <link rel="canonical" href="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@elseif(!empty($service->url)){{ url('/services/'.$service->url) }}@else{{ config('app.name') }}@endif" />
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 

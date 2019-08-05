@@ -354,6 +354,61 @@ $('#state_pedit').on('change',function(){
   });
 
 
+  // Get State List on Country Select on property Edit Page
+$('#country_CMSedit').change(function(){
+    var countryID = $(this).val();   
+    var p_id    = $('#PageID').val();
+    var _token = $('input[name="_token"]').val(); 
+    if(countryID){
+        $.ajax({
+            type:"get",
+            url:"/admin/page/"+p_id+"/edit/get-state-list?country_id="+countryID,
+            data: {_token:_token},
+            success:function(res){               
+            if(res){
+                $("#state_CMSedit").empty();
+                $("#state_CMSedit").append('<option>Select State</option>');
+                $.each(res,function(key,value){
+                    $("#state_CMSedit").append('<option value="'+key+'">'+value+'</option>');
+                });
+            }else{
+                $("#state_CMSedit").empty();
+            }
+            }
+        });
+    }else{
+        $("#state_CMSedit").empty();
+        $("#city_CMSedit").empty();
+    }      
+    });
+
+// On Property Edit Get City List According to state
+$('#state_CMSedit').on('change',function(){
+    var stateID = $(this).val();
+    var p_id    = $('#PageID').val();
+    if(stateID){
+        $.ajax({
+            type:"GET",
+            url:"/admin/page/"+p_id+"/edit/get-city-list?state_id="+stateID,
+            success:function(res){               
+            if(res){
+                $("#city_CMSedit").empty();
+                $("#city_CMSedit").append('<option>Select City</option>');
+                $.each(res,function(key,value){
+                    $("#city_CMSedit").append('<option value="'+key+'">'+value+'</option>');
+                });
+            
+            }else{
+                $("#city_CMSedit").empty();
+            }
+            }
+        });
+    }else{
+        $("#city_pedit").empty();
+    }   
+  });
+
+
 // Multiple Property Image upload by admin or user
 var abc = 0; // Declaring and defining global increment variable.
 $(document).ready(function() {
