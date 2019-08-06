@@ -118,7 +118,11 @@
 
                                 <div class="form-group">
                                     <label for="Feature Image">Feature Image</label>
+                                    <input type="hidden" name="current_image" id="FeatureCurrentImage" value="{{ $page->image }}">
                                     <input type="file" class="form-control" name="feature_image" id="FeatureImage">
+                                    @if(!empty($page->image))
+                                        <img class="img-responsive" width="200" style="padding-top: 1em;" src="{{ asset('/images/backend_images/page_images/large/'.$page->image)}}"> <a <?php // href="{{ url('/admin/delete-property-image/'.$propertyDetails->id) }}" ?> >Delete</a>
+                                    @endif
                                 </div>
                                 <div class="box-footer">
                                     <button type="submit" id="AddNewPage" class="btn btn-info btn-block btn-md">Publish</button>

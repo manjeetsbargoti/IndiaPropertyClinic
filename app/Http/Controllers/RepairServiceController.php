@@ -254,13 +254,24 @@ class RepairServiceController extends Controller
             $city_id = $city_id[0]['id'];
             // echo "<pre>"; print_r($city_id[0]['id']); die;
 
+            if(!empty($data['sub_service'])) {
+                $sub_services = $data['sub_service'];
+            }else{
+                $sub_services = '';
+            }
+            if(!empty($data['subs_service'])) {
+                $subs_services = $data['subs_service'];
+            }else{
+                $subs_services = '';
+            }
+
             RequestService::create([
                 'name'              => $data['name'],
                 'email'             => $data['email'],
                 'phone'             => $data['phone'],
                 'main_service'      => $data['main_service'],
-                'sub_service'       => $data['sub_service'],
-                'subs_service'      => $data['subs_service'],
+                'sub_service'       => $sub_services,
+                'subs_service'      => $subs_services,
                 'project_status'    => $data['project_status'],
                 'project_timeline'  => $data['project_timeline'],
                 'address_type'      => $data['address_type'],

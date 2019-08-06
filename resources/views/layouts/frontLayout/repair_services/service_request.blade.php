@@ -163,7 +163,7 @@ body {
                 <div class="tab">
                     <h4>What kind of work do you need done?</h4>
                     <div id="MainService" class="form-group">
-                        <select name="main_service" id="MainServiceList" class="form-control">
+                        <select name="main_service" id="MainServiceList" class="form-control emptyformvalidations">
                             <option value="" selected> -- Select Service -- </option>
                             @foreach(\App\OtherServices::where('parent_id', 0)->get() as $main_rservices)
                             <option value="{{ $main_rservices->id }}">{{ $main_rservices->service_name }}</option>
@@ -243,7 +243,7 @@ body {
                     
                         <div id="CountryList" class="form-group">
                             <label>Country</label>
-                            <select name="country" id="country_list" class="form-control">
+                            <select name="country" id="country_list" class="form-control emptyformvalidations">
                                 @foreach(\App\Country::get() as $country)
                                 <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
                                 @endforeach
@@ -252,7 +252,7 @@ body {
                     <div class="row">
                         <div id="StatesList" class="form-group col-12 col-sm-6 col-md-6 col-xl-6">
                             <label>State</label>
-                            <select name="state" id="StateList" class="form-control">
+                            <select name="state" id="StateList" class="form-control emptyformvalidations">
                                 <!-- <option>State</option> -->
                             </select>
                         </div>
@@ -266,15 +266,15 @@ body {
                     <h4>Tell us about your location:</h4>
                     <div id="FullName" class="form-group">
                         <label>Your Full Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name*">
+                        <input type="text" name="name" id="name" class="form-control emptyformvalidations" placeholder="Enter your name*">
                     </div>
                     <div id="EmailAddress" class="form-group">
                         <label>Your Email Address</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email Address*">
+                        <input type="email" name="email" id="email" class="form-control emptyformvalidations" placeholder="Email Address*">
                     </div>
                     <div id="PhoneNumber" class="form-group">
                         <label>Your Phone</label>
-                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone Number*">
+                        <input type="text" name="phone" id="phone" class="form-control emptyformvalidations" placeholder="Phone Number*">
                     </div>
                 </div>
                 <div style="overflow:auto;">

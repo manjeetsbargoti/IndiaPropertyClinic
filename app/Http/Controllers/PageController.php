@@ -277,7 +277,35 @@ class PageController extends Controller
         if($request->isMethod('post'))
         {
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+
+            $page_data = new Page;
+
+            // Upload Featured Banner
+            if($request->hasFile('feature_image')){
+                $image_tmp = Input::file('feature_image');
+                if($image_tmp->isValid()){
+                    
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $feature_image = rand(1, 99999).'.'.$extension;
+                    $large_image_path = 'images/backend_images/page_images/large/'.$feature_image;
+                    // Resize image
+                    Image::make($image_tmp)->resize(1920, 500)->save($large_image_path);
+
+                    // Store image in Services folder
+                    $page_data->image = $feature_image;
+                }
+            }else {
+                $feature_image = $data['current_image'];
+            }
+
+            Page::where('id', $id)->update(['title'=>$data['page_title'], 'url'=>$data['slug'], 'content'=>$data['description'],
+                                            'template'=>$data['template'], 'status'=>$data['page_status'], 'country'=>$data['country_prop'],
+                                            'state'=>$data['state_prop'], 'city'=>$data['city_prop'], 'property_for'=>$data['prop_for'],
+                                            'service_id'=>$data['service_id'], 'image'=>$feature_image]);
+
+            return redirect('/admin/pages')->with('flash_message_success', 'Page Updated Successfully!');
+            
         }
 
         // Country Dropdown

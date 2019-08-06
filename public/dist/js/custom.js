@@ -382,7 +382,7 @@ $('#country_CMSedit').change(function(){
     }      
     });
 
-// On Property Edit Get City List According to state
+// On Page Edit Get City List According to state
 $('#state_CMSedit').on('change',function(){
     var stateID = $(this).val();
     var p_id    = $('#PageID').val();
@@ -404,7 +404,7 @@ $('#state_CMSedit').on('change',function(){
             }
         });
     }else{
-        $("#city_pedit").empty();
+        $("#city_CMSedit").empty();
     }   
   });
 

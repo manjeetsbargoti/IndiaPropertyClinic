@@ -567,7 +567,7 @@
                 success: function(res) {
                     if (res) {
                         $("#SubServiceList").empty();
-                        $("#SubServiceList").append('<option> -- Select Service -- </option>');
+                        $("#SubServiceList").append('<option value=""> -- Select Service -- </option>');
                         $.each(res, function(key, value) {
                             $("#SubServiceList").append('<option value="' + key + '">' +
                                 value +
@@ -576,7 +576,6 @@
                     } else {
                         $("#SubServiceList").empty();
                     }
-                    // console.log(res.length);
                 }
             });
         } else {
@@ -598,7 +597,7 @@
                 success: function(res) {
                     if (res) {
                         $("#SubsServiceList").empty();
-                        $("#SubsServiceList").append('<option> -- Select Service -- </option>');
+                        $("#SubsServiceList").append('<option value=""> -- Select Service -- </option>');
                         $.each(res, function(key, value) {
                             $("#SubsServiceList").append('<option value="' + key + '">' +
                                 value +
@@ -610,7 +609,69 @@
                 }
             });
         } else {
-            $("#SubServiceList").empty();
+            $("#SubsServiceList").empty();
+        }
+    });
+
+    // Get Sub Services List Ajax Fetch On Single Property Page
+    $('#MainServiceOnList').change(function() {
+        var parentID = $(this).val();
+        var PageURI = $('#PageURI').val();
+        var _token = $('input[name="_token"]').val();
+        if (parentID) {
+            $.ajax({
+                type: "get",
+                url: "/services/" + PageURI + "/get-services-list?parent_id=" + parentID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#SubServiceOnList").empty();
+                        $("#SubServiceOnList").append('<option value=""> -- Select Service -- </option>');
+                        $.each(res, function(key, value) {
+                            $("#SubServiceOnList").append('<option value="' + key + '">' +
+                                value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#SubServiceOnList").empty();
+                    }
+                }
+            });
+        } else {
+            $("#SubServiceOnList").empty();
+        }
+    });
+
+    // Get Subs Services List Ajax Fetch On Single Property Page
+    $('#SubServiceOnList').change(function() {
+        var parentID = $(this).val();
+        var PageURI = $('#PageURI').val();
+        var _token = $('input[name="_token"]').val();
+        if (parentID) {
+            $.ajax({
+                type: "get",
+                url: "/services/" + PageURI + "/get-services-list?parent_id=" + parentID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#SubsServiceOnList").empty();
+                        $("#SubsServiceOnList").append('<option value=""> -- Select Service -- </option>');
+                        $.each(res, function(key, value) {
+                            $("#SubsServiceOnList").append('<option value="' + key + '">' +
+                                value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#SubsServiceOnList").empty();
+                    }
+                }
+            });
+        } else {
+            $("#SubsServiceOnList").empty();
         }
     });
 
@@ -640,6 +701,36 @@
             });
         } else {
             $("#StateList").empty();
+        }
+    });
+
+    // Get State List Ajax Fetch on Sigle Service Page
+    $('#country_listOn').change(function() {
+        var countryID = $(this).val();
+        var Page_URI = $('#PageURI').val();
+        var _token = $('input[name="_token"]').val();
+        if (countryID) {
+            $.ajax({
+                type: "get",
+                url: "/services/"+Page_URI+"/get-state-list?country_id=" + countryID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#StateOnList").empty();
+                        $("#StateOnList").append('<option> -- Select State -- </option>');
+                        $.each(res, function(key, value) {
+                            $("#StateOnList").append('<option value="' + key + '">' + value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#StateOnList").empty();
+                    }
+                }
+            });
+        } else {
+            $("#StateOnList").empty();
         }
     });
     </script>

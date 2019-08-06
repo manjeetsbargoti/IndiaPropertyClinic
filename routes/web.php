@@ -205,6 +205,8 @@ Route::get('/get-city-list', 'PropertyController@getCityList');
 Route::match(['get', 'post'], '/service/request', 'RepairServiceController@serviceRequest');
 Route::post('/city_list', 'RepairServiceController@search')->name('cityname.search');
 Route::match(['get', 'post'], '/service/get-services-list', 'RepairServiceController@getSubServices');
+Route::match(['get', 'post'], '/services/{url}/get-services-list', 'RepairServiceController@getSubServices');
+Route::match(['get', 'post'], '/services/{url}/get-state-list', 'PropertyController@getStateList');
 Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@getStateList');
 
 // Thank you Page
