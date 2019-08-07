@@ -54,8 +54,8 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property For">Property For</label>
-                                                <select name="property_for" id="property_for" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                <label for="Property For">Property For</label> <span class="pull-right" id="error_property_for"></span>
+                                                <select name="property_for" id="property_for" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Properties</option>
                                                     <?php $__currentLoopData = $servicetype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $services): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                         <option value="<?php echo e($services->id); ?>"><?php echo e($services->service_name); ?></option>
@@ -65,7 +65,7 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Name">Property Name</label>
+                                                <label for="Property Name">Property Name</label> <span class="pull-right" id="error_property_name"></span>
                                                 <input type="text" name="property_name" id="property_name" class="form-control">
                                             </div>
                                         </div>
@@ -80,7 +80,7 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Type">Property Type</label>
+                                                <label for="Property Type">Property Type</label> <span class="pull-right" id="error_property_type"></span>
                                                 <select name="property_type" id="PropertyType" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select Property Type</option>
                                                     <?php $__currentLoopData = $propertytype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ptype): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -89,14 +89,6 @@ function generate_string($input, $strength = 16) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-xs-12 col-md-4 hidden">
-                                            <div class="form-group">
-                                            <label name="Property Code">Property Code</label>
-                                                <div class="input-group"> 
-                                                    <input name="property_code" id="property_code" type="text" value="" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div> -->
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
@@ -216,14 +208,14 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-12 col-md-12">
                                             <div class="form-group">
-                                                <label for="Description">Description</label>
+                                                <label for="Description">Description</label> <span class="pull-right" id="error_property_description"></span>
                                                 <textarea name="description" id="description" class="form-control my-editor"></textarea>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="feature" id="feature" class="flat-green" value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Property )</small>
+                                                    <input type="checkbox" name="feature" id="feature" class="flat-red" value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Property )</small>
                                                 </label>
                                             </div>
                                         </div>
@@ -231,7 +223,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="commercial" id="commercial" class="flat-green" value="1"> Commercial  <small class="text-purple pl-1">( If you check this set Commercial Property )</small>
+                                                    <input type="checkbox" name="commercial" id="commercial" class="flat-red" value="1"> Commercial  <small class="text-purple pl-1">( If you check this set Commercial Property )</small>
                                                 </label>
                                             </div>
                                         </div>
@@ -514,7 +506,7 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Country">Country</label>
+                                                <label for="Country">Country</label> <span class="pull-right" id="error_property_country"></span>
                                                 <select name="country" id="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select Country</option>
                                                     <?php $__currentLoopData = $countryname; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -526,7 +518,7 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="State">State</label>
+                                                <label for="State">State</label> <span class="pull-right" id="error_property_state"></span>
                                                 <select class="form-control select2 select2-hidden-accessible" name="state" id="state" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                 <option value="" selected>Select State</option>
                                                 </select>
@@ -535,7 +527,7 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="City">City</label>
+                                                <label for="City">City</label> <span class="pull-right" id="error_property_city"></span>
                                                 <select class="form-control select2 select2-hidden-accessible" name="city" id="city" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select City</option>
                                                 </select>
@@ -578,7 +570,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
                                                 <label>
-                                                    <input type="checkbox" name="amenity[]" id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>" class="flat-green" value="<?php echo e($a->amenity_code); ?>"> <?php echo e($a->name); ?>
+                                                    <input type="checkbox" name="amenity[]" id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>" class="flat-red" value="<?php echo e($a->amenity_code); ?>"> <?php echo e($a->name); ?>
 
                                                 </label>
                                             </div>
@@ -586,7 +578,8 @@ function generate_string($input, $strength = 16) {
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                         <div class="box-footer">
-                                            <input type="submit" class="btn btn-success btn-md btn-block" value="Submit Property">
+                                            <input type="submit" id="AddPropertyAdmin" class="btn btn-success btn-md btn-block" value="Submit Property">
+                                            <span class="" id="error_msg_btn"></span>
                                         </div>
                                     </div>
                                 </div>

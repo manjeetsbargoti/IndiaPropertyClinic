@@ -640,4 +640,147 @@ var editor_config = {
     }     
   };
 
-  
+
+  // Property Add by Admin Validations
+  $(document).ready(function() {
+    $('#AddPropertyAdmin').click(function(e) {
+        var isValid = true;
+        // Property Name Validation
+        $('#property_name').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_name').html(
+                    '<label class="text-danger">Property Name can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        // Property Type Validation
+        $('#PropertyType').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_type').html(
+                    '<label class="text-danger">Property Type can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        // Property (Buy, Sale, Rent) Validation
+        $('#property_for').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_for').html(
+                    '<label class="text-danger">This field can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        // Property Description validation
+        // $('#descriptions').each(function() {
+        //     if ($.trim($(this).val()) == '') {
+        //         isValid = false;
+        //         $(this).css({
+        //             "border": "1px solid red",
+        //             "background": "#FFCECE"
+        //         });
+        //         $('#error_property_description').html(
+        //             '<label class="text-danger">Description can\'t be empty!</label>');
+        //         $('#error_msg_btn').html(
+        //                 '<label class="text-danger">Fill the Mendatory fields!</label>');
+        //     } else {
+        //         $(this).css({
+        //             "border": "",
+        //             "background": ""
+        //         });
+        //     }
+        // });
+        // Country Field Validation
+        $('#country').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_country').html(
+                    '<label class="text-danger">Country field can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        // State Field Validation
+        $('#state').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_state').html(
+                    '<label class="text-danger">State field can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        // City Field Validation
+        $('#city').each(function() {
+            if ($.trim($(this).val()) == '') {
+                isValid = false;
+                $(this).css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+                $('#error_property_city').html(
+                    '<label class="text-danger">City field can\'t be empty!</label>');
+                $('#error_msg_btn').html(
+                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+            } else {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            }
+        });
+        if(isValid == false)
+        {
+          e.preventDefault();
+        }  
+    });
+  });

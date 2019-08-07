@@ -17,22 +17,28 @@
 
 #ServiceQuery {
     background-color: rgba(255, 255, 255, 0.5);
-    /* margin: 40px auto; */
-    /* font-family: Raleway; */
     padding: 20px;
     max-height: 350px;
-    /* overflow: scroll; */
     width: 100%;
-    min-width: 600px;
     font-family: Roboto !important;
+    position: absolute;
 }
 
 #ServiceQuery h1 {
     text-align: center;
 }
 
+#ServiceQuery .form-group{
+    margin-bottom: 0.5rem !important;
+}
+
+#ServiceQuery #allcitylist {
+    position: absolute;
+}
+
 #ServiceQuery p {
     text-align: center;
+    margin-bottom: 0rem;
 }
 
 #ServiceQuery h4 {
@@ -148,7 +154,7 @@
             <div class="services_viewbannertxt">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-7 col-xl-5">
+                        <div class="col-12 col-sm-12 col-md-6 col-xl-5">
                             <div class="header_breadcrumb white">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
@@ -173,7 +179,7 @@
                                 role="button" class="get_quote_button">Get Quote</a>
                             <a href="tel:{{ config('app.phone') }}" role="button" class="btn btn-warning">Call Now</a>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-xl-4">
+                        <div class="col-12 col-sm-12 col-md-6 col-xl-7">
                             <div class="ser_prcessing">
                                 <!-- MultiStep Form -->
                                 <form id="ServiceQuery" name="service_request_form" method="post"
@@ -311,31 +317,31 @@
                                             <div class="form-group col-12 col-sm-4 col-md-4 col-xl-4">
                                                 <label>Zipcode/Postal Code</label>
                                                 <input type="text" name="zipcode" id="zipcode" class="form-control"
-                                                    placeholder="Zipcode/Postal Code">
+                                                    placeholder="Zipcode">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab">
                                         <h4>Tell us about your location:</h4>
                                         <div id="FullName" class="form-group">
-                                            <label>Your Full Name</label>
+                                            <!-- <label>Your Full Name</label> -->
                                             <input type="text" name="name" id="name"
                                                 class="form-control emptyformvalidations"
                                                 placeholder="Enter your name*">
                                         </div>
                                         <div id="EmailAddress" class="form-group">
-                                            <label>Your Email Address</label>
+                                            <!-- <label>Your Email Address</label> -->
                                             <input type="email" name="email" id="email"
                                                 class="form-control emptyformvalidations" placeholder="Email Address*">
                                         </div>
                                         <div id="PhoneNumber" class="form-group">
-                                            <label>Your Phone</label>
+                                            <!-- <label>Your Phone</label> -->
                                             <input type="text" name="phone" id="phone"
                                                 class="form-control emptyformvalidations" placeholder="Phone Number*">
                                         </div>
                                     </div>
                                     <div style="overflow:auto;">
-                                        <div style="float:right; padding-top: 1em;" class="form-group">
+                                        <div style="float:right;" class="form-group">
                                             <button type="button" class="btn btn-warning navBtn" id="prevBtnRF"
                                                 onclick="nextPrevRF(-1)">Previous</button>
                                             <button type="button" class="btn btn-info navBtn" id="nextBtnRF"

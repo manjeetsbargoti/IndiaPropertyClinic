@@ -47,6 +47,8 @@
                                             $r_service) {{ $r_service->service_name }} @endforeach
                                             @elseif(!empty($sr->sub_service)) @foreach(\App\OtherServices::where('id',
                                             $sr->sub_service)->get() as $r_service) {{ $r_service->service_name }}
+                                            @endforeach @elseif(!empty($sr->main_service)) @foreach(\App\OtherServices::where('id',
+                                            $sr->main_service)->get() as $r_service) {{ $r_service->service_name }}
                                             @endforeach @endif</span></td>
                                     <td>@foreach(\App\User::where('id', $sr->assign_to)->get() as
                                         $vd) <a href="javascript:void()" data-toggle="modal"

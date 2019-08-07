@@ -46,6 +46,9 @@
                                             <?php elseif(!empty($sr->sub_service)): ?> <?php $__currentLoopData = \App\OtherServices::where('id',
                                             $sr->sub_service)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($r_service->service_name); ?>
 
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php elseif(!empty($sr->main_service)): ?> <?php $__currentLoopData = \App\OtherServices::where('id',
+                                            $sr->main_service)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($r_service->service_name); ?>
+
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></span></td>
                                     <td><?php $__currentLoopData = \App\User::where('id', $sr->assign_to)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $vd): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <a href="javascript:void()" data-toggle="modal"
                                             data-target="#vendor_<?php echo e($sr->assign_to); ?>"><?php echo e(str_limit($vd->first_name, $limit=25)); ?></a>
