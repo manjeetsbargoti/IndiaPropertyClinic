@@ -35,6 +35,7 @@
               <!-- Optionally, you can add icons to the links -->
               <li class="active"><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i>
                       <span>Dashboard</span></a></li>
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-cogs text-green"></i> <span>System</span>
                       <span class="pull-right-container">
@@ -55,6 +56,8 @@
                       <li><a href="{{ url('/admin/editor') }}"><i class="fa fa-terminal text-yellow"></i>Editor</a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-phone text-yellow"></i> <span>Contacts</span>
                       <span class="pull-right-container">
@@ -68,6 +71,8 @@
                                   Contact</span></a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-file-o text-yellow"></i> <span>Pages</span>
                       <span class="pull-right-container">
@@ -80,6 +85,8 @@
                                   Page</span></a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-users text-red"></i> <span>Users</span>
                       <span class="pull-right-container">
@@ -95,6 +102,8 @@
                       <li><a href="#"><i class="fa fa-circle-o text-yellow"></i>View User Type</a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-gears"></i> <span>Property Services</span>
                       <span class="pull-right-container">
@@ -108,6 +117,8 @@
                               Services</a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-building  "></i> <span>Property Type</span>
                       <span class="pull-right-container">
@@ -119,6 +130,8 @@
                       <li><a href="#"><i class="fa fa-circle-o text-aqua"></i>Add Property Type</a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-gear"></i> <span>Repair Services</span>
                       <span class="pull-right-container">
@@ -132,6 +145,8 @@
                               Service</a></li>
                   </ul>
               </li>
+            @endif
+            @if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U')
               <li class="treeview">
                   <a href="#"><i class="fa fa-building text-green"></i> <span>Property</span>
                       <span class="pull-right-container">
@@ -147,7 +162,8 @@
                         <li><a href="{{ url('/admin/add-amenity') }}"><i class="fa fa-plus text-yellow"></i>Add Amenities</a></li>
                   </ul>
               </li>
-
+              @endif
+              @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-building"></i> <span>Queries</span>
                       <span class="pull-right-container">
@@ -165,8 +181,8 @@
                                   class="fa fa-circle-o text-purple"></i>Service Requests</a></li>
                   </ul>
               </li>
+              @endif
               <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
-              {{{ Auth::user()->usertype }}}
               <li class="treeview">
                   <a href="#"><i class="fa fa-globe"></i> <span>CSC Database</span>
                       <span class="pull-right-container">
@@ -180,6 +196,7 @@
                                   State</span></a></li>
                   </ul>
               </li>
+              @if(Auth::user()->admin  == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-rocket text-green"></i> <span>SEO Tools</span>
                       <span class="pull-right-container">
@@ -191,6 +208,7 @@
                               <span>Sitemap</span></a></li>
                   </ul>
               </li>
+              @endif
           </ul>
           <!-- /.sidebar-menu -->
       </section>

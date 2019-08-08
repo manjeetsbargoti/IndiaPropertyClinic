@@ -208,7 +208,13 @@ class PropertyController extends Controller
     // Showing Listed Properties By Admin
     public function viewProperty()
     {
-        $properties = Property::orderBy('created_at', 'desc')->paginate(10);
+        $userid = Auth::user()->id;
+        if($userid == 1){
+            $properties = Property::orderBy('created_at', 'desc')->paginate(10);
+        }else{
+            $properties = Property::where('add_by', $userid)->orderBy('created_at', 'desc')->paginate(10);
+        }
+        
         $propertyImages = PropertyImages::paginate(10);
         // $properties = json_decode(json_encode($properties));
         $propertyImages = json_decode(json_encode($propertyImages));
@@ -229,7 +235,7 @@ class PropertyController extends Controller
             }
         }
 
-        return view('admin.property.view-property', compact('properties', 'propertyimage_count'));
+        return view('admin.property.view-property', compact('properties'));
     }
 
     // Delete property Image function

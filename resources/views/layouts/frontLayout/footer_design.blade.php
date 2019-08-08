@@ -105,11 +105,11 @@ $footerProperties = Controller::footersection();
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                                 <div class="footer_box">
-                                    <h5>{{ config('app.name') }}</h5>
+                                    <h5>Contact us</h5>
                                     <p>{{ config('app.address') }}</p>
                                     <p>{{ config('app.phone') }}</p>
                                     <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
-                                    <p><a href="#">https://indiapropertyclinic.com</a></p>
+                                    <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
@@ -133,20 +133,18 @@ $footerProperties = Controller::footersection();
                                             <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
                                                 <span>
                                                     @if(!empty($footerproperty->image_name))
-                                                        <img 
-                                                        src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
+                                                        <img height="50" src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
                                                     @else
-                                                        <img 
-                                                        src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
+                                                        <img height="50" src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
                                                     @endif
                                                 </span>
                                                 <h6>
                                                     @if(!empty($footerproperty->city_name))
-                                                    <span>{{ $footerproperty->city_name }}</span>
+                                                    <span style="width:100%;">{{ $footerproperty->city_name }}, {{ $footerproperty->country }}</span>
                                                     @endif
                                                 </h6>
-                                                <p>{{ $footerproperty->parea }} Square Ft</p>
-                                                <h5>INR {{ $footerproperty->property_price }}</h5>
+                                                <p>@if(!empty($footerproperty->parea)){{ $footerproperty->parea }} Square Ft @endif</p>
+                                                <h5>@if(!empty($footerproperty->property_price)) {{ $footerproperty->property_price }}@else <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="{{ url('/properties/'.$footerproperty->property_url) }}">Get Price</span> @endif</h5>
                                             </a>
                                             </li>
                                             @endif
@@ -203,7 +201,7 @@ $footerProperties = Controller::footersection();
                                 <p>{{ config('app.address') }}</p>
                                 <p>{{ config('app.phone') }}</p>
                                 <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
-                                <p><a href="#">https://indiapropertyclinic.com</a></p>
+                                <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
                             </div>
                         </div>
                     </div>
@@ -223,9 +221,9 @@ $footerProperties = Controller::footersection();
                             <div class="footer_box">
                                 <div class="oter_ser">
 
-                                    <@foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
+                                    @foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
                                         <a href="{{ url('/services/'.$oths->url) }}">{{ $oths->service_name }}</a>
-                                        @endforeach
+                                    @endforeach
 
                                 </div>
                             </div>
@@ -246,27 +244,30 @@ $footerProperties = Controller::footersection();
                         <div class="card-body">
                             <div class="footer_box">
                                 <ul>
+                                    <?php $counter=0; ?>
+                                    @foreach($footerProperties as $footerproperty)
+                                    <?php $counter++ ?>
+                                    @if($counter <= 2) 
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
                                             <span>
-                                                <img src="/images/frontend_images/images/product1.jpg">
+                                                @if(!empty($footerproperty->image_name))
+                                                    <img height="50" src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
+                                                @else
+                                                    <img height="50" src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
+                                                @endif
                                             </span>
-                                            <h6>Bangkok, Sathorn</h6>
-                                            <p>160 Square Ft</p>
-                                            <h5>INR 2,100,000</h5>
+                                            <h6>@if(!empty($footerproperty->city_name))
+                                                <span style="width:100%;">{{ $footerproperty->city_name }}, {{ $footerproperty->country }}</span>
+                                                @endif
+                                            </h6>
+                                            <p>@if(!empty($footerproperty->parea)){{ $footerproperty->parea }} Square Ft @endif</p>
+                                            <h5>@if(!empty($footerproperty->property_price)) {{ $footerproperty->property_price }}@else <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="{{ url('/properties/'.$footerproperty->property_url) }}">Get Price</span> @endif</h5>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <span>
-                                                <img src="/images/frontend_images/images/product1.jpg">
-                                            </span>
-                                            <h6>Bangkok, Sathorn</h6>
-                                            <p>160 Square Ft</p>
-                                            <h5>INR 2,100,000</h5>
-                                        </a>
-                                    </li>
-                                    <a href="#">View All...</a>
+                                    @endif
+                                    @endforeach
+                                    <a href="{{ url('/properties') }}">View All...</a>
                                 </ul>
                             </div>
                         </div>

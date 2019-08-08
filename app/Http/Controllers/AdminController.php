@@ -52,10 +52,19 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
+        if(Auth::user()->admin == 1)
+        {
+            $property = Property::orderBy('created_at', 'desc')->take(10)->get();
+            $property_count = Property::count();
+        }else{
+            $property = Property::where('add_by', Auth::user()->id)->orderBy('created_at', 'desc')->take(10)->get();
+            $property_count = Property::where('add_by', Auth::user()->id)->count();
+        }
+
         $users = User::orderBy('created_at', 'desc')->take(10)->get();
         $actusers = User::where(['status' => 1])->orderBy('created_at', 'desc')->get();
         $inactusers = User::where(['status' => 0])->orderBy('created_at', 'desc')->get();
-        $property = Property::orderBy('created_at', 'desc')->take(10)->get();
+        
         // $propertyImages = PropertyImages::get();
         $property = json_decode(json_encode($property));
         // $propertyImages = json_decode(json_encode($propertyImages));
@@ -76,17 +85,16 @@ class AdminController extends Controller
                 $property[$key]->currency = $country->currency;
             }
 
-            $property_count = Property::count();
-
-            // Home Loan Queries
-            $homeloan_total_count = HomeLoan::count();
-            $homeloan_pen_count = HomeLoan::where(['resolved' => 0])->count();
-
-            // Property Queries
-            $propertyq_total_count = PropertyQuery::count();
-            $propertyq_pen_count = PropertyQuery::where(['status' => 0])->count();
         }
         // echo "<pre>"; print_r($property_count); die;
+
+        // Home Loan Queries
+        $homeloan_total_count = HomeLoan::count();
+        $homeloan_pen_count = HomeLoan::where(['resolved' => 0])->count();
+
+        // Property Queries
+        $propertyq_total_count = PropertyQuery::count();
+        $propertyq_pen_count = PropertyQuery::where(['status' => 0])->count();
 
         // Count Number of Users
         if (!empty($users)) {
@@ -354,7 +362,7 @@ class AdminController extends Controller
                     return redirect()->back()->with('flash_message_error', 'Your account has been disabled! Please contact Admin.');
                 } else {
                     Session::put('UserSession', $data['email']);
-                    return redirect('/My-Account');
+                    return redirect('/user/account');
                 }
             } else {
                 return redirect()->back()->with('flash_message_error', 'Invalid Username or Password!');
@@ -551,7 +559,7 @@ class AdminController extends Controller
     {
         $data = $request->all();
         $current_password = $data['current_pwd'];
-        $check_password = User::where(['admin' => '1'])->first();
+        $check_password = User::where(['email' => Auth::user()->email])->first();
         if (Hash::check($current_password, $check_password->password)) {
             echo "ture";
             die;
@@ -570,8 +578,8 @@ class AdminController extends Controller
             $current_password = $data['current_pwd'];
             if (Hash::check($current_password, $check_password->password)) {
                 $password = bcrypt($data['new_pwd']);
-                User::where('id', '1')->update(['password' => $password]);
-                return redirect('/admin/profile')->with('flash_message_success', 'Password updated Successfully!');
+                User::where('id', Auth::user()->id)->update(['password' => $password]);
+                return redirect()->back()->with('flash_message_success', 'Password updated Successfully!');
             } else {
                 return redirect('/admin/settings')->with('flash_message_error', 'Current Password is Incorrect!');
             }
@@ -593,7 +601,7 @@ class AdminController extends Controller
         auth()->login($user);
         // echo "<pre>"; print_r($user['email']); die;
         Session::put('UserSession', $user['email']);
-        return redirect()->to('/My-Account');
+        return redirect()->to('/user/account');
     }
 
     function createUser($getInfo, $provider)

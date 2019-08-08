@@ -29,6 +29,7 @@
             </div>
           </div>
         </div>
+        @if(Auth::user()->admin == 1)
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
@@ -39,8 +40,10 @@
             </div>
           </div>
         </div>
+        @endif
         <div class="clearfix visible-sm-block"></div>
 
+        @if(Auth::user()->admin == 1)
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-help"></i></span>
@@ -51,6 +54,9 @@
             </div>
           </div>
         </div>
+        @endif
+
+        @if(Auth::user()->admin == 1)
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
@@ -61,8 +67,10 @@
             </div>
           </div>
         </div>
+        @endif
       </div>
 
+      @if(Auth::user()->usertype == 'A' || Auth::user()->usertype == 'B' || Auth::user()->usertype == 'U')
       <div class="row">
         <div class="col-md-7">
           <div class="box box-primary">
@@ -103,6 +111,8 @@
             <!-- /.box-footer -->
           </div>
         </div>
+        @endif
+        @if(Auth::user()->admin == 1)
         <div class="col-md-5">
           <div class="box box-danger">
             <div class="box-header with-border">
@@ -144,22 +154,7 @@
             <!-- /.box-footer -->
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="box box-warning direct-chat direct-chat-warning">
-            <div class="box-header with-border">
-              <h3 class="box-title">Option</h3>
-              <div class="box-tools pull-right">
-                <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">3</span>
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts">
-                  <i class="fa fa-comments"></i></button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        @endif
       </div>
       
 

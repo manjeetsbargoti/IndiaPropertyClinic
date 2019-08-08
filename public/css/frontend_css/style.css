@@ -3050,7 +3050,7 @@ label.title_txt {
     width: 100%;
 }
 .formboxed .input-group-text {
-    height: 33px;
+    /* height: 33px; */
     font-size: 13px;
     background: #fff;
 }
@@ -3268,7 +3268,7 @@ ul.register_list li {
     border: 1px solid #ddd;
 }
 div#ecww-form .input-group-text {
-    height: 33px;
+    /* height: 33px; */
     font-size: 13px;
     font-weight: 500;
     color: #000;
@@ -3326,7 +3326,7 @@ div#ecww-piechart {
 
 .loanbanner{
     padding: 50px 0;
-    background:url(../images/loanbg-01.svg) no-repeat left bottom;
+    background:url('../../images/frontend_images/images/loanbg-01.svg') no-repeat left bottom;
 }
 .loanbanner_left h3 {
     color: #545454;

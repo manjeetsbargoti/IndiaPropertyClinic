@@ -33,10 +33,17 @@
               <p class="text-muted text-center text-orange"><strong>{{ $u->user_type }}</strong></p>
               @endforeach
 
+              @if(Auth::user()->admin == 0)
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Assign Case</b> <a class="pull-right">10</a>
+                  @if(Auth::user()->usertype == 'A' || Auth::user()->usertype == 'U' || Auth::user()->usertype == 'B')
+                  <b>Property Listed</b> <a class="pull-right">{{ \App\Property::where('add_by', Auth::user()->id)->count() }}</a>
+                  @elseif(Auth::user()->usertype == 'V')
+                  <b>Assign Case</b> <a class="pull-right">{{ \App\RequestService::where('assign_to', Auth::user()->id)->count() }}</a>
+                  @endif
                 </li>
+
+                @if(Auth::user()->usertype == 'V')
                 <li class="list-group-item">
                   <b>Solved</b> <a class="pull-right">7</a>
                 </li>
@@ -46,7 +53,9 @@
                 <li class="list-group-item">
                   <b>Working on</b> <a class="pull-right">1</a>
                 </li>
+                @endif
               </ul>
+              @endif
 
               <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
             </div>
@@ -93,7 +102,7 @@
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Services</strong>
 
-              <p>
+              <p>@if(Auth::user()->usertype == 'V')
                 @foreach($users as $u)
                 @foreach(explode(',', $u->servicetypeid) as $usti)
                 @foreach(\App\OtherServices::where('id', $usti)->get() as $rsevices)
@@ -101,6 +110,13 @@
                 @endforeach
                 @endforeach
                 @endforeach
+                @elseif(Auth::user()->usertype == 'A')
+                <span class="label label-sm label-success">Agent</span>
+                @elseif(Auth::user()->usertype == 'U')
+                <span class="label label-sm label-success">Owner/Buyer</span>
+                @elseif(Auth::user()->usertype == 'B')
+                <span class="label label-sm label-success">Builder</span>
+                @endif
               </p>
             </div>
             <!-- /.box-body -->
@@ -228,17 +244,19 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="change_password">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="{{ url('/admin/update-pwd') }}">
+                {{ csrf_field() }}
                   <div class="form-group">
                     <label for="Current Password" class="col-sm-2 control-label">Current Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="current_password">
+                      <input type="password" class="form-control" name="current_pwd" id="current_pwd">
+                      <span id="chkPwd"></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="New Password" class="col-sm-2 control-label">New Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="new_password">
+                      <input type="password" class="form-control" name="new_pwd" id="new_pwd">
                     </div>
                   </div>
                   <div class="form-group">

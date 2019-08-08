@@ -265,25 +265,54 @@ class RepairServiceController extends Controller
                 $subs_services = '';
             }
 
-            RequestService::create([
-                'name'              => $data['name'],
-                'email'             => $data['email'],
-                'phone'             => $data['phone'],
-                'main_service'      => $data['main_service'],
-                'sub_service'       => $sub_services,
-                'subs_service'      => $subs_services,
-                'project_status'    => $data['project_status'],
-                'project_timeline'  => $data['project_timeline'],
-                'address_type'      => $data['address_type'],
-                'ownership'         => $data['ownership'],
-                'financing'         => $data['financing'],
-                'description'       => $data['description'],
-                'address'           => $data['address'],
-                'country'           => $data['country'],
-                'state'             => $data['state'],
-                'city_name'         => $city_id,
-                'zipcode'           => $data['zipcode']
-            ]);
+            DB::beginTransaction();
+
+            try {
+                $newservreq = RequestService::create([
+                    'name'              => $data['name'],
+                    'email'             => $data['email'],
+                    'phone'             => $data['phone'],
+                    'main_service'      => $data['main_service'],
+                    'sub_service'       => $sub_services,
+                    'subs_service'      => $subs_services,
+                    'project_status'    => $data['project_status'],
+                    'project_timeline'  => $data['project_timeline'],
+                    'address_type'      => $data['address_type'],
+                    'ownership'         => $data['ownership'],
+                    'financing'         => $data['financing'],
+                    'description'       => $data['description'],
+                    'address'           => $data['address'],
+                    'country'           => $data['country'],
+                    'state'             => $data['state'],
+                    'city_name'         => $city_id,
+                    'zipcode'           => $data['zipcode']
+                ]);
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
+            }
+
+            try {
+                $newuser = User::create([
+                    'first_name'        => $data['name'],
+                    'email'             => $data['email'],
+                    'phone'             => $data['phone'],
+                    'country'           => $data['country'],
+                    'state'             => $data['state'],
+                    'city'              => $city_id,
+                ]);
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
+            }
+
+            DB::commit();
 
             return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
         }

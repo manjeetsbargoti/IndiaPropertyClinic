@@ -32,10 +32,17 @@
               <p class="text-muted text-center text-orange"><strong><?php echo e($u->user_type); ?></strong></p>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
+              <?php if(Auth::user()->admin == 0): ?>
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Assign Case</b> <a class="pull-right">10</a>
+                  <?php if(Auth::user()->usertype == 'A' || Auth::user()->usertype == 'U' || Auth::user()->usertype == 'B'): ?>
+                  <b>Property Listed</b> <a class="pull-right"><?php echo e(\App\Property::where('add_by', Auth::user()->id)->count()); ?></a>
+                  <?php elseif(Auth::user()->usertype == 'V'): ?>
+                  <b>Assign Case</b> <a class="pull-right"><?php echo e(\App\RequestService::where('assign_to', Auth::user()->id)->count()); ?></a>
+                  <?php endif; ?>
                 </li>
+
+                <?php if(Auth::user()->usertype == 'V'): ?>
                 <li class="list-group-item">
                   <b>Solved</b> <a class="pull-right">7</a>
                 </li>
@@ -45,7 +52,9 @@
                 <li class="list-group-item">
                   <b>Working on</b> <a class="pull-right">1</a>
                 </li>
+                <?php endif; ?>
               </ul>
+              <?php endif; ?>
 
               <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
             </div>
@@ -92,7 +101,7 @@
 
               <strong><i class="fa fa-file-text-o margin-r-5"></i> Services</strong>
 
-              <p>
+              <p><?php if(Auth::user()->usertype == 'V'): ?>
                 <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $__currentLoopData = explode(',', $u->servicetypeid); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $usti): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $__currentLoopData = \App\OtherServices::where('id', $usti)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rsevices): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -100,6 +109,13 @@
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php elseif(Auth::user()->usertype == 'A'): ?>
+                <span class="label label-sm label-success">Agent</span>
+                <?php elseif(Auth::user()->usertype == 'U'): ?>
+                <span class="label label-sm label-success">Owner/Buyer</span>
+                <?php elseif(Auth::user()->usertype == 'B'): ?>
+                <span class="label label-sm label-success">Builder</span>
+                <?php endif; ?>
               </p>
             </div>
             <!-- /.box-body -->
@@ -227,17 +243,20 @@
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="change_password">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="<?php echo e(url('/admin/update-pwd')); ?>">
+                <?php echo e(csrf_field()); ?>
+
                   <div class="form-group">
                     <label for="Current Password" class="col-sm-2 control-label">Current Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="current_password">
+                      <input type="password" class="form-control" name="current_pwd" id="current_pwd">
+                      <span id="chkPwd"></span>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="New Password" class="col-sm-2 control-label">New Password</label>
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="new_password">
+                      <input type="password" class="form-control" name="new_pwd" id="new_pwd">
                     </div>
                   </div>
                   <div class="form-group">

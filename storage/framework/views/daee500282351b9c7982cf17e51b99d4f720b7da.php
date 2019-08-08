@@ -105,11 +105,11 @@ $footerProperties = Controller::footersection();
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                                 <div class="footer_box">
-                                    <h5><?php echo e(config('app.name')); ?></h5>
+                                    <h5>Contact us</h5>
                                     <p><?php echo e(config('app.address')); ?></p>
                                     <p><?php echo e(config('app.phone')); ?></p>
                                     <p><a href="mailto:<?php echo e(config('app.email')); ?>"><?php echo e(config('app.email')); ?></a></p>
-                                    <p><a href="#">https://indiapropertyclinic.com</a></p>
+                                    <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
@@ -133,20 +133,18 @@ $footerProperties = Controller::footersection();
                                             <a href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">
                                                 <span>
                                                     <?php if(!empty($footerproperty->image_name)): ?>
-                                                        <img 
-                                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
+                                                        <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
                                                     <?php else: ?>
-                                                        <img 
-                                                        src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
+                                                        <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
                                                     <?php endif; ?>
                                                 </span>
                                                 <h6>
                                                     <?php if(!empty($footerproperty->city_name)): ?>
-                                                    <span><?php echo e($footerproperty->city_name); ?></span>
+                                                    <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>, <?php echo e($footerproperty->country); ?></span>
                                                     <?php endif; ?>
                                                 </h6>
-                                                <p><?php echo e($footerproperty->parea); ?> Square Ft</p>
-                                                <h5>INR <?php echo e($footerproperty->property_price); ?></h5>
+                                                <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?> Square Ft <?php endif; ?></p>
+                                                <h5><?php if(!empty($footerproperty->property_price)): ?> <?php echo e($footerproperty->property_price); ?><?php else: ?> <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get Price</span> <?php endif; ?></h5>
                                             </a>
                                             </li>
                                             <?php endif; ?>
@@ -203,7 +201,7 @@ $footerProperties = Controller::footersection();
                                 <p><?php echo e(config('app.address')); ?></p>
                                 <p><?php echo e(config('app.phone')); ?></p>
                                 <p><a href="mailto:<?php echo e(config('app.email')); ?>"><?php echo e(config('app.email')); ?></a></p>
-                                <p><a href="#">https://indiapropertyclinic.com</a></p>
+                                <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
                             </div>
                         </div>
                     </div>
@@ -223,9 +221,9 @@ $footerProperties = Controller::footersection();
                             <div class="footer_box">
                                 <div class="oter_ser">
 
-                                    <<?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->take(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $oths): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->take(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $oths): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <a href="<?php echo e(url('/services/'.$oths->url)); ?>"><?php echo e($oths->service_name); ?></a>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>
                             </div>
@@ -246,27 +244,30 @@ $footerProperties = Controller::footersection();
                         <div class="card-body">
                             <div class="footer_box">
                                 <ul>
+                                    <?php $counter=0; ?>
+                                    <?php $__currentLoopData = $footerProperties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $footerproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $counter++ ?>
+                                    <?php if($counter <= 2): ?> 
                                     <li>
-                                        <a href="#">
+                                        <a href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">
                                             <span>
-                                                <img src="/images/frontend_images/images/product1.jpg">
+                                                <?php if(!empty($footerproperty->image_name)): ?>
+                                                    <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
+                                                <?php else: ?>
+                                                    <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
+                                                <?php endif; ?>
                                             </span>
-                                            <h6>Bangkok, Sathorn</h6>
-                                            <p>160 Square Ft</p>
-                                            <h5>INR 2,100,000</h5>
+                                            <h6><?php if(!empty($footerproperty->city_name)): ?>
+                                                <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>, <?php echo e($footerproperty->country); ?></span>
+                                                <?php endif; ?>
+                                            </h6>
+                                            <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?> Square Ft <?php endif; ?></p>
+                                            <h5><?php if(!empty($footerproperty->property_price)): ?> <?php echo e($footerproperty->property_price); ?><?php else: ?> <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get Price</span> <?php endif; ?></h5>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
-                                            <span>
-                                                <img src="/images/frontend_images/images/product1.jpg">
-                                            </span>
-                                            <h6>Bangkok, Sathorn</h6>
-                                            <p>160 Square Ft</p>
-                                            <h5>INR 2,100,000</h5>
-                                        </a>
-                                    </li>
-                                    <a href="#">View All...</a>
+                                    <?php endif; ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <a href="<?php echo e(url('/properties')); ?>">View All...</a>
                                 </ul>
                             </div>
                         </div>
