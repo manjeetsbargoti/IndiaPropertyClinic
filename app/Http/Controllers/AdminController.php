@@ -426,7 +426,7 @@ class AdminController extends Controller
     }
 
     // User Account
-    public function userAccount()
+    public function userAccount(Request $request)
     {
         $data = Auth::user();
         // $data = json_decode(json_encode($data));
@@ -434,6 +434,19 @@ class AdminController extends Controller
         // echo "<pre>"; print_r($id); die;
         $users = User::where(['id' => $id])->get();
         // $users = json_decode(json_encode($users));
+
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            $uemail = Auth::user()->email;
+            // echo "<pre>"; print_r($data); die;
+
+            if($uemail)
+            {
+                $updateProfile = User::where('email', $uemail)->update(['first_name'=>$data['first_name'],'last_name'=>$data['last_name'],'email'=>$data['email'],'phone'=>$data['phone'],'business_name'=>$data['business'],'about_business'=>$data['about_business'],'experience'=>$data['work_experience'],'usertype'=>$data['user_type']]);
+                return redirect()->back()->with('flash_message_success', 'Profile Updated Successfully!');
+            }
+        }
 
         foreach ($users as $key => $val) {
             $rservice_count = OtherServices::where(['id' => $val->servicetypeid])->count();

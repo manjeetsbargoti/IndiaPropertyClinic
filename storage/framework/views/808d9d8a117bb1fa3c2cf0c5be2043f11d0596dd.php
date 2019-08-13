@@ -146,7 +146,7 @@
                   </ul>
               </li>
             <?php endif; ?>
-            <?php if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U'): ?>
+            <?php if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U' || Auth::user()->admin == 1): ?>
               <li class="treeview">
                   <a href="#"><i class="fa fa-building text-green"></i> <span>Property</span>
                       <span class="pull-right-container">
@@ -183,6 +183,7 @@
               </li>
               <?php endif; ?>
               <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
+              <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'B' || Auth::user()->usertype == 'A' || Auth::user()->usertype == 'U'): ?>
               <li class="treeview">
                   <a href="#"><i class="fa fa-globe"></i> <span>CSC Database</span>
                       <span class="pull-right-container">
@@ -196,6 +197,7 @@
                                   State</span></a></li>
                   </ul>
               </li>
+              <?php endif; ?>
               <?php if(Auth::user()->admin  == 1): ?>
               <li class="treeview">
                   <a href="#"><i class="fa fa-rocket text-green"></i> <span>SEO Tools</span>
@@ -206,6 +208,20 @@
                   <ul class="treeview-menu">
                       <li><a href="<?php echo e(url('/admin/sitemap')); ?>"><i class="fa fa-map text-yellow"></i>
                               <span>Sitemap</span></a></li>
+                  </ul>
+              </li>
+              <?php endif; ?>
+                <?php if(Auth::user()->usertype == 'V'): ?>
+              <li class="treeview">
+                  <a href="#"><i class="fa fa-file text-green"></i> <span>Cases</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li><a href="#"><i class="fa fa-caret-square-o-right text-yellow"></i> <span>Assigned Cases</span></a></li>
+                      <li><a href="#"><i class="fa fa-check-square-o text-yellow"></i> <span>Solved Cases</span></a></li>
+                      <li><a href="#"><i class="fa fa-commenting-o text-yellow"></i> <span>Feedbacks</span></a></li>
                   </ul>
               </li>
               <?php endif; ?>
