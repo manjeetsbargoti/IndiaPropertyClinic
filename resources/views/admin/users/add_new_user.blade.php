@@ -99,15 +99,29 @@
                                   <button style="margin-top: 2.25em;" type="button" class="btn btn-info btn-sm" onclick='document.getElementById("generatePassword").value = Password.generate(16)'>Generate Password</button>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-12">
-                                <label>User is..</label>
-                                <div class="form-group">
-                                    @foreach($usertype as $type)
-                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $type->usercode }}">
-                                        <label class="form-check-label" for="usertype">{{ $type->usertype_name }}</label> &nbsp;&nbsp;
-                                    @endforeach
-                                </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sx-12 col-md-6">
+                              <label>User Type</label>
+                              <div class="form-group">
+                                <select name="usertype" class="form-control" id="usertype">
+                                    <option value="" selected>Select Usertype</option>
+                                  @foreach($usertype as $type)
+                                    <option value="{{ $type->usercode }}">{{ $type->usertype_name }}</option>
+                                  @endforeach
+                                </select>
+                              </div>
                             </div>
+                            <!-- <div class="col-sx-12 col-md-6">
+                              <label>User Type</label>
+                              <div class="form-group">
+                                <select name="usertype" class="form-control" id="usertype">
+                                    <option value="" selected>Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">User</option>
+                                    <option value="2">Seo</option>
+                                </select>
+                              </div>
+                            </div> -->
                             <div class="col-xs-12 col-md-6" id="vendorService">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">

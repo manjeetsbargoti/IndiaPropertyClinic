@@ -52,7 +52,7 @@ class AdminController extends Controller
 
     public function dashboard(Request $request)
     {
-        if(Auth::user()->admin == 1)
+        if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
         {
             $property = Property::orderBy('created_at', 'desc')->take(10)->get();
             $property_count = Property::count();

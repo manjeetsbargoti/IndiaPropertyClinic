@@ -38,8 +38,10 @@
                                     <th>Services Banner</th>
                                     <th>Services Name</th>
                                     <th>Parent Service</th>
+                                    @if(Auth::user()->admin == 1)
                                     <th>Status</th>
                                     <th>Action</th>
+                                    @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +57,7 @@
                                         </td>
                                         <td><a href="{{url('/services/')}}/{{ $rservice->url }}" target="_blank">{{ $rservice->service_name }}</a></td>
                                         <td>{{ $rservice->parent_id }}</td>
+                                        @if(Auth::user()->admin  == 1)
                                         <td>
                                         @if($rservice->status==1)
                                             <a href="/admin/rdisable/{{ $rservice->id }}" class="btn btn-success btn-sm">Enable</a>
@@ -67,19 +70,10 @@
                                                 <a href=" {{ url('/admin/edit-repair-services/'.$rservice->id) }} " class="btn btn-warning btn-sm">Edit</a>
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Services Image</th>
-                                        <th>Services Name</th>
-                                        <th>Parent Service</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.box-body -->

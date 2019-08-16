@@ -72,7 +72,7 @@
                   </ul>
               </li>
             @endif
-            @if(Auth::user()->admin  == 1)
+            @if(Auth::user()->admin  == 1 || Auth::user()->usertype  == 'S')
               <li class="treeview">
                   <a href="#"><i class="fa fa-file-o text-yellow"></i> <span>Pages</span>
                       <span class="pull-right-container">
@@ -131,7 +131,7 @@
                   </ul>
               </li>
             @endif
-            @if(Auth::user()->admin  == 1)
+            @if(Auth::user()->admin  == 1 || Auth::user()->usertype  == 'S')
               <li class="treeview">
                   <a href="#"><i class="fa fa-gear"></i> <span>Repair Services</span>
                       <span class="pull-right-container">
@@ -146,7 +146,7 @@
                   </ul>
               </li>
             @endif
-            @if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U' || Auth::user()->admin == 1)
+            @if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U' || Auth::user()->usertype  == 'S' || Auth::user()->admin == 1)
               <li class="treeview">
                   <a href="#"><i class="fa fa-building text-green"></i> <span>Property</span>
                       <span class="pull-right-container">
@@ -158,8 +158,10 @@
                               Properties</a></li>
                       <li><a href="{{ url('/admin/add-new-property') }}"><i class="fa fa-circle-o text-purple"></i>Add
                               Property</a></li>
+                        @if(Auth::user()->admin  == 1)
                         <li><a href="{{ url('/admin/amenities') }}"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
                         <li><a href="{{ url('/admin/add-amenity') }}"><i class="fa fa-plus text-yellow"></i>Add Amenities</a></li>
+                        @endif
                   </ul>
               </li>
               @endif

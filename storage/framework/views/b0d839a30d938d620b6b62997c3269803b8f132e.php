@@ -69,7 +69,7 @@
         <?php endif; ?>
       </div>
 
-      <?php if(Auth::user()->usertype == 'A' || Auth::user()->usertype == 'B' || Auth::user()->usertype == 'U' || Auth::user()->admin == 1): ?>
+      <?php if(Auth::user()->usertype == 'A' || Auth::user()->usertype == 'B' || Auth::user()->usertype == 'U' || Auth::user()->usertype == 'S' || Auth::user()->admin == 1): ?>
       <div class="row">
         <div class="col-md-7">
           <div class="box box-primary">

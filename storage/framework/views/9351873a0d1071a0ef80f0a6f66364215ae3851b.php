@@ -74,6 +74,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/bootstrap.min.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.mmenu.js')); ?>"></script>
@@ -734,6 +735,13 @@
         }
     });
     </script>
+
+<script type="text/javascript">
+    $(window).load(function(){ 
+        // alert('Hello');
+        $('#FbLikeModal').modal('show');
+    }); 
+</script>
 
     <?php echo $__env->make('admin.system.partials.code_footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 

@@ -55,8 +55,10 @@
                                     </td>
 
                                     <td>
+                                        <?php if(Auth::user()->admin  == 1): ?>
                                         <a href="<?php echo e(url('/admin/page/'.$p->id.'/edit')); ?>" class="label label-warning label-sm"><i class="fa fa-edit"></i></a>
                                         <a href="<?php echo e(url('/admin/page/'.$p->id.'/delete')); ?>" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

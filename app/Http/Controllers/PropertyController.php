@@ -208,8 +208,8 @@ class PropertyController extends Controller
     // Showing Listed Properties By Admin
     public function viewProperty()
     {
-        $userid = Auth::user()->id;
-        if($userid == 1){
+        $userid = Auth::user()->admin;
+        if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'){
             $properties = Property::orderBy('created_at', 'desc')->paginate(10);
         }else{
             $properties = Property::where('add_by', $userid)->orderBy('created_at', 'desc')->paginate(10);

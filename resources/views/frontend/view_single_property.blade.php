@@ -47,12 +47,12 @@
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
                     <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/city/'.$property->city.'/properties') }}">@if(!empty($property->city_name)) {{ $property->city_name }},@endif @if(!empty($property->country_name)) {{ $property->country_name }} @endif</a></h1>
-                    <h5>Plot Area: <span>{{ $property->parea }} Square Ft</span></h5>
+                    <h5>@if($property->parea)Plot Area: <span>{{ $property->parea }} Square Ft @endif</span></h5>
                     <h6>{{ $property->property_name }}</h6>
-                    <h5>Age of Property: <span>Under Cinstrection</span></h5>
-                    <h5>Facing: <span>{{ $property->pfacing }}</span></h5>
+                    <!--<h5>Age of Property: <span>Under Construction</span></h5>-->
+                    <h5>@if($property->pfacing)Facing: <span>{{ $property->pfacing }} @endif</span></h5>
                     
-                    <p>{{ strip_tags(str_limit($property->description, $limit=350)) }}</p>
+                    <p style="font-size: 14px; color: #171747; font-weight: 500;">{{ str_limit(strip_tags($property->description), $limit=350) }}</p>
                     <!-- <h3>{{ $property->currency }} {{ $property->property_price }}</h3> -->
                     
                     @if(!empty($property->property_price))
@@ -96,68 +96,45 @@
                 <div class="col-12 xl-12 spaceification_secinn">
                     <div class="spaccei_tabs">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                @if($property->amenities)<li class="nav-item">
+                                    <a class="nav-link @if(!empty($property->amenities)) active @endif" id="amenities-tab" data-toggle="tab" href="#amenities" role="tab" aria-controls="amenities" aria-selected="true">Amenities</a>
+                                </li>@endif
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="amenities-tab" data-toggle="tab" href="#amenities" role="tab" aria-controls="amenities" aria-selected="true">Amenities</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Specifications</a>
+                                    <a class="nav-link @if(empty($property->amenities)) active @endif" id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Specifications</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Location</a>
                                 </li>
                             </ul>
                             <div class="tab-content custom_tabcon" id="myTabContent">
-                                <div class="tab-pane fade show active" id="amenities" role="tabpanel" aria-labelledby="amenities-tab">
+                                @if(!empty($property->amenities))<div class="tab-pane fade @if(!empty($property->amenities)) show active @endif" id="amenities" role="tabpanel" aria-labelledby="amenities-tab">
                                     <div class="amenities_item">
                                         <div class="row">
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Gym</li>
-                                                    <li>Club House</li>
-                                                    <li>Visitor's Parking</li>
-                                                    <li>Waste Disposal</li>
-                                                    <li>Rain Water Harvesting</li>
-                                                    <li>Water Storage</li>
-                                                    <li>Security Personnel</li>
-                                                    <li>Gated Community</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Play Area</li>
-                                                    <li>AC - Not Included</li>
-                                                    <li>Hot water / Geyser</li>
-                                                    <li>Garden/Greenery</li>
-                                                    <li>Swimming Pool</li>
-                                                    <li>Furnished - Fully Furnished</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Water Supply Type - Municipal</li>
-                                                    <li>No Of Floors - 1</li>
-                                                    <li>Balcony - 1</li>
-                                                    <li>Power Backup</li>
-                                                    <li>Electricity type - Phase III</li>
+                                            <div class="col-12 col-sm-6 col-md-6 col-xl-12">
+                                                <ul style="column-count:4;">
+                                                    @foreach(explode(',', $property->amenities) as $amenity)
+                                                    @foreach(\App\Amenity::where('amenity_code', $amenity)->get() as $am)
+                                                    <li style="color: #171747; font-weight:500;font-family: Roboto; font-size: 14px;">{{ $am->name }}</li>
+                                                    @endforeach
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                         </div>    
                                         </div>
-                                </div>
-                                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                                </div>@endif
+                                <div class="tab-pane fade @if(empty($property->amenities)) show active @endif" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                                     <div class="spaceification_box">
                                         {!! $property->description !!}
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="col-sm-6">
-                                        <ul>
-                                            <li>Plot no: {{ $property->plotno }}</li>
-                                            <li>Address: {{ $property->address1 }} {{ $property->address2 }}</li>
-                                            <li>Locality: {{ $property->locality }}</li>
-                                            <li>City: {{ $property->city_name }}</li>
-                                            <li>State: {{ $property->state_name }}</li>
-                                            <li>Country: {{ $property->country_name }}</li>
+                                        <ul style="list-style: none;">
+                                            <li><strong>Address:</strong> {{ $property->address1 }} {{ $property->address2 }}</li>
+                                            <li><strong>Locality:</strong> {{ $property->locality }}</li>
+                                            <li><strong>City:</strong> {{ $property->city_name }}</li>
+                                            <li><strong>State:</strong> {{ $property->state_name }}</li>
+                                            <li><strong>Country:</strong> {{ $property->country_name }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -168,6 +145,109 @@
         </div>
     </div>
 </div>
+
+<!-- Related Properties -->
+
+<div class="latest_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <!-- <div class="col-12 col-md-12 col-xl-12"> -->
+                        <div class="col-12 col-sm-8 col-md-8 col-xl-8">
+                            <div class="globleheadding text-left">
+                                <h1>Related Property</h1>
+                                <p>Find the latest homes for sale, property news & real estate market data </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4">
+                            <div class="view_sec text-right">
+                                <a class="btnview_all" href="{{ url('/properties') }}">View All</a>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+                <div class="row">
+                    <?php $counter = 0;?>
+                    @foreach(\App\Property::where('service_id', $property->service_id)->where('country', $property->country)->where('state', $property->state)->orderBy('created_at', 'desc')->take(8)->get() as
+                    $relproperty)
+                    <?php $counter++;?>
+                    @if($counter <= 8) <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                        <div class="product_box">
+                            <div class="product_img">
+                                <div class="owl-carousel product-slide owl-theme">
+                                    @foreach(\App\PropertyImages::where('property_id', $relproperty->id)->get() as $pimage)
+                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <div class="bottom_strip">
+                                    <h6><i class="fas fa-map-marker-alt"></i>
+                                        @if(!empty($relproperty->city))
+                                        <span>@foreach(\App\Cities::where('id', $relproperty->city)->get() as $c)
+                                            {{ $c->name }}, @endforeach</span>
+                                        @endif
+                                        @if(!empty($relproperty->country))
+                                        <span>@foreach(\App\Country::where('iso2', $relproperty->country)->get() as $ct)
+                                            {{ $ct->name }} @endforeach</span>
+                                        @endif
+                                    </h6>
+                                    <p>@if($relproperty->parea){{ $relproperty->parea }} Square Ft @endif</p>
+                                    @foreach(\App\Services::where('id', $relproperty->service_id)->get() as $pt)
+                                    <span class="tagbtn rent">
+                                        {{ $pt->service_name }}
+                                    </span>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="product_text">
+                                <div class="protxt_top">
+                                    <ul>
+                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                            <p><span>{{ $relproperty->rooms }}</span>Rooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                            <p><span>{{ $relproperty->bedrooms }}</span>Bedrooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                            <p><span>{{ $relproperty->bathrooms }}</span>Bathroom</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="protxt_inn">
+                                    <h6>{{ $relproperty->property_name }}</h6>
+                                    <p>{{ str_limit(strip_tags($relproperty->description), $limit=100) }}</p>
+                                    <div class="price_sec">
+                                        <ul>
+                                            <li>
+                                                @if(!empty($relproperty->property_price))
+                                                <h5><span>@if(!empty($relproperty->country))
+                                                        @foreach(\App\Country::where('iso2', $relproperty->country)->get()
+                                                        as $ct) {{ $ct->currency }} @endforeach
+                                                        @endif</span> {{ $relproperty->property_price }}</h5>
+                                                @else
+                                                <a href="/properties/{{ $relproperty->property_url }}"
+                                                    class="btn_fullinfo">Get Price</a>
+                                                @endif
+                                            </li>
+                                            <li><a href="{{ url('/properties/'.$relproperty->property_url) }}"
+                                                    class="btn_fullinfo">Full Info</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- /. Related Properties -->
 
 <!-- Modal Property Agent Contact -->
 <div class="modal fade bd-example-modal-sm" id="agentContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

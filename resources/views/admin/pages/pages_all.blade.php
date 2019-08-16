@@ -56,8 +56,10 @@
                                     </td>
 
                                     <td>
+                                        @if(Auth::user()->admin  == 1)
                                         <a href="{{ url('/admin/page/'.$p->id.'/edit') }}" class="label label-warning label-sm"><i class="fa fa-edit"></i></a>
                                         <a href="{{ url('/admin/page/'.$p->id.'/delete') }}" class="label label-danger label-sm"><i class="fa fa-trash"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

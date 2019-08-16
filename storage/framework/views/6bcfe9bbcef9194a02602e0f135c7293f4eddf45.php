@@ -37,8 +37,10 @@
                                     <th>Services Banner</th>
                                     <th>Services Name</th>
                                     <th>Parent Service</th>
+                                    <?php if(Auth::user()->admin  == 1): ?>
                                     <th>Status</th>
                                     <th>Action</th>
+                                    <?php endif; ?>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,6 +56,7 @@
                                         </td>
                                         <td><a href="<?php echo e(url('/services/')); ?>/<?php echo e($rservice->url); ?>" target="_blank"><?php echo e($rservice->service_name); ?></a></td>
                                         <td><?php echo e($rservice->parent_id); ?></td>
+                                        <?php if(Auth::user()->admin  == 1): ?>
                                         <td>
                                         <?php if($rservice->status==1): ?>
                                             <a href="/admin/rdisable/<?php echo e($rservice->id); ?>" class="btn btn-success btn-sm">Enable</a>
@@ -66,19 +69,10 @@
                                                 <a href=" <?php echo e(url('/admin/edit-repair-services/'.$rservice->id)); ?> " class="btn btn-warning btn-sm">Edit</a>
                                             </div>
                                         </td>
+                                        <?php endif; ?>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Services Image</th>
-                                        <th>Services Name</th>
-                                        <th>Parent Service</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                         <!-- /.box-body -->

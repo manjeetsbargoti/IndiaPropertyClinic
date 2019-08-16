@@ -99,15 +99,29 @@
                                   <button style="margin-top: 2.25em;" type="button" class="btn btn-info btn-sm" onclick='document.getElementById("generatePassword").value = Password.generate(16)'>Generate Password</button>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-md-12">
-                                <label>User is..</label>
-                                <div class="form-group">
-                                    <?php $__currentLoopData = $usertype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="<?php echo e($type->usercode); ?>">
-                                        <label class="form-check-label" for="usertype"><?php echo e($type->usertype_name); ?></label> &nbsp;&nbsp;
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sx-12 col-md-6">
+                              <label>User Type</label>
+                              <div class="form-group">
+                                <select name="usertype" class="form-control" id="usertype">
+                                    <option value="" selected>Select Usertype</option>
+                                  <?php $__currentLoopData = $usertype; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($type->usercode); ?>"><?php echo e($type->usertype_name); ?></option>
+                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
+                              </div>
                             </div>
+                            <!-- <div class="col-sx-12 col-md-6">
+                              <label>User Type</label>
+                              <div class="form-group">
+                                <select name="usertype" class="form-control" id="usertype">
+                                    <option value="" selected>Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">User</option>
+                                    <option value="2">Seo</option>
+                                </select>
+                              </div>
+                            </div> -->
                             <div class="col-xs-12 col-md-6" id="vendorService">
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">

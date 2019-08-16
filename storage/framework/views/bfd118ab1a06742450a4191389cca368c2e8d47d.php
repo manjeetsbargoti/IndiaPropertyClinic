@@ -109,35 +109,13 @@
                                 <div class="tab-pane fade show active" id="amenities" role="tabpanel" aria-labelledby="amenities-tab">
                                     <div class="amenities_item">
                                         <div class="row">
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Gym</li>
-                                                    <li>Club House</li>
-                                                    <li>Visitor's Parking</li>
-                                                    <li>Waste Disposal</li>
-                                                    <li>Rain Water Harvesting</li>
-                                                    <li>Water Storage</li>
-                                                    <li>Security Personnel</li>
-                                                    <li>Gated Community</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Play Area</li>
-                                                    <li>AC - Not Included</li>
-                                                    <li>Hot water / Geyser</li>
-                                                    <li>Garden/Greenery</li>
-                                                    <li>Swimming Pool</li>
-                                                    <li>Furnished - Fully Furnished</li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-12 col-sm-6 col-md-6 col-xl-3">
-                                                <ul>
-                                                    <li>Water Supply Type - Municipal</li>
-                                                    <li>No Of Floors - 1</li>
-                                                    <li>Balcony - 1</li>
-                                                    <li>Power Backup</li>
-                                                    <li>Electricity type - Phase III</li>
+                                            <div class="col-12 col-sm-6 col-md-6 col-xl-12">
+                                                <ul style="column-count:4;">
+                                                    <?php $__currentLoopData = explode(',', $property->amenities); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $amenity): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php $__currentLoopData = \App\Amenity::where('amenity_code', $amenity)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $am): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <li style="color: #171747; font-weight:500;font-family: Roboto; font-size: 14px;"><?php echo e($am->name); ?></li>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                 </ul>
                                             </div>
                                         </div>    
@@ -151,13 +129,12 @@
                                 </div>
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="col-sm-6">
-                                        <ul>
-                                            <li>Plot no: <?php echo e($property->plotno); ?></li>
-                                            <li>Address: <?php echo e($property->address1); ?> <?php echo e($property->address2); ?></li>
-                                            <li>Locality: <?php echo e($property->locality); ?></li>
-                                            <li>City: <?php echo e($property->city_name); ?></li>
-                                            <li>State: <?php echo e($property->state_name); ?></li>
-                                            <li>Country: <?php echo e($property->country_name); ?></li>
+                                        <ul style="list-style: none;">
+                                            <li><strong>Address:</strong> <?php echo e($property->address1); ?> <?php echo e($property->address2); ?></li>
+                                            <li><strong>Locality:</strong> <?php echo e($property->locality); ?></li>
+                                            <li><strong>City:</strong> <?php echo e($property->city_name); ?></li>
+                                            <li><strong>State:</strong> <?php echo e($property->state_name); ?></li>
+                                            <li><strong>Country:</strong> <?php echo e($property->country_name); ?></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -168,6 +145,108 @@
         </div>
     </div>
 </div>
+
+<!-- Related Properties -->
+
+<div class="latest_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <!-- <div class="col-12 col-md-12 col-xl-12"> -->
+                        <div class="col-12 col-sm-8 col-md-8 col-xl-8">
+                            <div class="globleheadding text-left">
+                                <h1>Related Property</h1>
+                                <p>Find the latest homes for sale, property news & real estate market data </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-xl-4">
+                            <div class="view_sec text-right">
+                                <a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View All</a>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+                </div>
+                <div class="row">
+                    <?php $counter = 0;?>
+                    <?php $__currentLoopData = \App\Property::where('service_id', $property->service_id)->where('country', $property->country)->where('state', $property->state)->orderBy('created_at', 'desc')->take(8)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $relproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $counter++;?>
+                    <?php if($counter <= 8): ?> <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                        <div class="product_box">
+                            <div class="product_img">
+                                <div class="owl-carousel product-slide owl-theme">
+                                    <?php $__currentLoopData = \App\PropertyImages::where('property_id', $relproperty->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="item"><img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                    </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                                <div class="bottom_strip">
+                                    <h6><i class="fas fa-map-marker-alt"></i>
+                                        <?php if(!empty($relproperty->city)): ?>
+                                        <span><?php $__currentLoopData = \App\Cities::where('id', $relproperty->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php echo e($c->name); ?>, <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
+                                        <?php endif; ?>
+                                        <?php if(!empty($relproperty->country)): ?>
+                                        <span><?php $__currentLoopData = \App\Country::where('iso2', $relproperty->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php echo e($ct->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
+                                        <?php endif; ?>
+                                    </h6>
+                                    <p><?php echo e($relproperty->parea); ?> Square Ft</p>
+                                    <?php $__currentLoopData = \App\Services::where('id', $relproperty->service_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span class="tagbtn rent">
+                                        <?php echo e($pt->service_name); ?>
+
+                                    </span>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </div>
+                            </div>
+                            <div class="product_text">
+                                <div class="protxt_top">
+                                    <ul>
+                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                            <p><span><?php echo e($relproperty->rooms); ?></span>Rooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                            <p><span><?php echo e($relproperty->bedrooms); ?></span>Bedrooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                            <p><span><?php echo e($relproperty->bathrooms); ?></span>Bathroom</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="protxt_inn">
+                                    <h6><?php echo e($relproperty->property_name); ?></h6>
+                                    <p><?php echo e(str_limit(strip_tags($relproperty->description), $limit=100)); ?></p>
+                                    <div class="price_sec">
+                                        <ul>
+                                            <li>
+                                                <?php if(!empty($relproperty->property_price)): ?>
+                                                <h5><span><?php if(!empty($relproperty->country)): ?>
+                                                        <?php $__currentLoopData = \App\Country::where('iso2', $relproperty->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($ct->currency); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                        <?php endif; ?></span> <?php echo e($relproperty->property_price); ?></h5>
+                                                <?php else: ?>
+                                                <a href="/properties/<?php echo e($relproperty->property_url); ?>"
+                                                    class="btn_fullinfo">Get Price</a>
+                                                <?php endif; ?>
+                                            </li>
+                                            <li><a href="<?php echo e(url('/properties/'.$relproperty->property_url)); ?>"
+                                                    class="btn_fullinfo">Full Info</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- /. Related Properties -->
 
 <!-- Modal Property Agent Contact -->
 <div class="modal fade bd-example-modal-sm" id="agentContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

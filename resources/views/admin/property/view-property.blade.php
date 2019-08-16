@@ -49,17 +49,19 @@
                                     </td>
                                     <td><span class="label label-md label-success">{{ $property->service_name }}</span></td>
                                     <td>@if(!empty($property->city))@foreach(\App\Cities::where('id', $property->city)->get() as $city){{ $city->name }},@endforeach @endif @if(!empty($property->country))@foreach(\App\Country::where('iso2', $property->country)->get() as $country){{ $country->name }} @endforeach @endif</td>
-                                    <td>{{ $property->currency }} {{ $property->property_price }}</td>
+                                    <td>@if($property->property_price){{ $property->currency }} {{ $property->property_price }}@endif</td>
                                     <td>
                                         <a data-target="#property_{{ $property->id }}" data-toggle="modal"
                                             title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle"
                                                 aria-hidden="true"></i></a>
+                                        @if(Auth::user()->admin  == 1)
                                         <a href="{{ url('/admin/property/'.$property->id.'/edit') }}" title="Edit"
                                             class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true"></i></a>
                                         <a href="{{ url('/admin/property/'.$property->id.'/delete') }}" title="Delete"
                                             class="btn btn-danger btn-xs"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
 
@@ -88,8 +90,8 @@
                                                         {{ strip_tags(str_limit($property->description, $limit=80)) }}
                                                     </p>
                                                     <h5><strong>Price:</strong> <span
-                                                            style="color: #e60f0f;">{{ $property->currency }}
-                                                            {{ $property->property_price }}</span></h5>
+                                                            style="color: #e60f0f;">@if($property->property_price){{ $property->currency }}
+                                                            {{ $property->property_price }}@endif</span></h5>
                                                     <p><strong>Category:</strong> {{ $property->service_name }}</p>
                                                 </div>
                                             </div>

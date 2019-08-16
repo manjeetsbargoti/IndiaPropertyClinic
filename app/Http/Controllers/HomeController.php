@@ -50,7 +50,7 @@ class HomeController extends Controller
         $properties3 = json_decode(json_encode($properties3));
         $properties = array_merge($properties1, $properties2, $properties3);
         $featureProperty = Property::where(['featured' => 1])->orderBy('created_at', 'desc')->take(4)->get();
-        $propertyImages = PropertyImages::get();
+        // $propertyImages = PropertyImages::get();
         $propertyType = PropertyTypes::get();
         $otherServices = OtherServices::get();
         // $properties = json_decode(json_encode($properties));
@@ -133,7 +133,7 @@ class HomeController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
 
-        return view('home')->with(compact('properties', 'dealer', 'propertyImages', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     // View All Properties

@@ -48,17 +48,19 @@
                                     </td>
                                     <td><span class="label label-md label-success"><?php echo e($property->service_name); ?></span></td>
                                     <td><?php if(!empty($property->city)): ?><?php $__currentLoopData = \App\Cities::where('id', $property->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php if(!empty($property->country)): ?><?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($country->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
-                                    <td><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></td>
+                                    <td><?php if($property->property_price): ?><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?><?php endif; ?></td>
                                     <td>
                                         <a data-target="#property_<?php echo e($property->id); ?>" data-toggle="modal"
                                             title="Detail" class="btn btn-success btn-xs"><i class="fa fa-info-circle"
                                                 aria-hidden="true"></i></a>
+                                        <?php if(Auth::user()->admin  == 1): ?>
                                         <a href="<?php echo e(url('/admin/property/'.$property->id.'/edit')); ?>" title="Edit"
                                             class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"
                                                 aria-hidden="true"></i></a>
                                         <a href="<?php echo e(url('/admin/property/'.$property->id.'/delete')); ?>" title="Delete"
                                             class="btn btn-danger btn-xs"><i class="fa fa-trash"
                                                 aria-hidden="true"></i></a>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
 
@@ -90,9 +92,9 @@
 
                                                     </p>
                                                     <h5><strong>Price:</strong> <span
-                                                            style="color: #e60f0f;"><?php echo e($property->currency); ?>
+                                                            style="color: #e60f0f;"><?php if($property->property_price): ?><?php echo e($property->currency); ?>
 
-                                                            <?php echo e($property->property_price); ?></span></h5>
+                                                            <?php echo e($property->property_price); ?><?php endif; ?></span></h5>
                                                     <p><strong>Category:</strong> <?php echo e($property->service_name); ?></p>
                                                 </div>
                                             </div>

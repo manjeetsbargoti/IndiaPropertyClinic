@@ -202,11 +202,15 @@
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
                 <div class="row">
-                    <div class="col-12 col-xl-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                         <div class="globleheadding text-left">
                             <h1>Latest Property</h1>
                             <p>Find the latest homes for sale, property news & real estate market data </p>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-8 col-xl-8">
                         <div class="latest_producttab mb-3">
                             <ul class="nav nav-pills" id="productTab" role="tablist">
                                 <?php $counter = 0;?>
@@ -223,6 +227,11 @@
                                 <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 col-xl-4">
+                        <div class="view_sec text-right">
+                            <a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View All</a>
                         </div>
                     </div>
                 </div>
@@ -305,8 +314,8 @@
                         <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
-                    <div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View
-                            All</a></div>
+                    <!-- <div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View
+                            All</a></div> -->
                 </div>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -344,10 +353,15 @@
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
                 <div class="row">
-                    <div class="col-12 col-md-12 col-xl-12">
+                    <div class="col-12 col-sm-8 col-md-8 col-xl-8">
                         <div class="globleheadding text-left">
                             <h1>Commercial Property</h1>
                             <p>Find the latest homes for sale, property news & real estate market data </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4 col-md-4 col-xl-4">
+                        <div class="view_sec text-right">
+                            <a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View All</a>
                         </div>
                     </div>
                 </div>
@@ -400,7 +414,7 @@
                                 </div>
                                 <div class="protxt_inn">
                                     <h6><?php echo e($property->property_name); ?></h6>
-                                    <p><?php echo e(strip_tags(str_limit($property->description, $limit=100))); ?></p>
+                                    <p><?php echo e(str_limit(strip_tags($property->description), $limit=100)); ?></p>
                                     <div class="price_sec">
                                         <ul>
                                             <li>
@@ -424,7 +438,6 @@
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-            <div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View All</a></div>
         </div>
     </div>
 </div>

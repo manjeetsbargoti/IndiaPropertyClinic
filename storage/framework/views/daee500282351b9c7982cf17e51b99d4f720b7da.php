@@ -6,33 +6,40 @@ $footerProperties = Controller::footersection();
 ?>
 
 <style>
-    .list-property-float{
-        position:fixed;
-        width:160px;
-        height:30px;
-        top:10em;
-        right:1px;
-        z-index: 999;
-        background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
-        color:#FFF;
-        border-radius: 5px;
-        text-align:center;
-        cursor: pointer;
-        /* box-shadow: 2px 2px 3px #999; */
-    }
-    .list-property-float span {
-        position: relative;
-        top: 2px;
-        font-size: 18px;
-    }
-    .list-property-float:hover {
-        color: #fff;
-    }
+.list-property-float {
+    position: fixed;
+    width: 160px;
+    height: 30px;
+    top: 10em;
+    right: 1px;
+    z-index: 999;
+    background: linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
+    color: #FFF;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    /* box-shadow: 2px 2px 3px #999; */
+}
+
+.list-property-float span {
+    position: relative;
+    top: 2px;
+    font-size: 18px;
+}
+
+.list-property-float:hover {
+    color: #fff;
+}
 </style>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=354755131830246&autoLogAppEvents=1">
+</script>
 
 <footer>
     <a href="<?php echo e(url('/list-property')); ?>" class="list-property-float">
-       <span>List Your Property</span>
+        <span>List Your Property</span>
     </a>
     <div class="footer_top">
         <div class="container">
@@ -109,7 +116,7 @@ $footerProperties = Controller::footersection();
                                     <p><?php echo e(config('app.address')); ?></p>
                                     <p><?php echo e(config('app.phone')); ?></p>
                                     <p><a href="mailto:<?php echo e(config('app.email')); ?>"><?php echo e(config('app.email')); ?></a></p>
-                                    <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
+                                    <p><a href="<?php echo e(config('app.url')); ?>"><?php echo e(config('app.url')); ?></a></p>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
@@ -133,18 +140,27 @@ $footerProperties = Controller::footersection();
                                             <a href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">
                                                 <span>
                                                     <?php if(!empty($footerproperty->image_name)): ?>
-                                                        <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
+                                                    <img height="50"
+                                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
                                                     <?php else: ?>
-                                                        <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
+                                                    <img height="50"
+                                                        src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
                                                     <?php endif; ?>
                                                 </span>
                                                 <h6>
                                                     <?php if(!empty($footerproperty->city_name)): ?>
-                                                    <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>, <?php echo e($footerproperty->country); ?></span>
+                                                    <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>,
+                                                        <?php echo e($footerproperty->country); ?></span>
                                                     <?php endif; ?>
                                                 </h6>
-                                                <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?> Square Ft <?php endif; ?></p>
-                                                <h5><?php if(!empty($footerproperty->property_price)): ?> <?php echo e($footerproperty->property_price); ?><?php else: ?> <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get Price</span> <?php endif; ?></h5>
+                                                <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?>
+
+                                                    Square Ft <?php endif; ?></p>
+                                                <h5><?php if(!empty($footerproperty->property_price)): ?>
+                                                    <?php echo e($footerproperty->property_price); ?><?php else: ?> <span
+                                                        style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;"
+                                                        href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get
+                                                        Price</span> <?php endif; ?></h5>
                                             </a>
                                             </li>
                                             <?php endif; ?>
@@ -201,7 +217,7 @@ $footerProperties = Controller::footersection();
                                 <p><?php echo e(config('app.address')); ?></p>
                                 <p><?php echo e(config('app.phone')); ?></p>
                                 <p><a href="mailto:<?php echo e(config('app.email')); ?>"><?php echo e(config('app.email')); ?></a></p>
-                                <p><a href="https://indiapropertyclinic.com">https://indiapropertyclinic.com</a></p>
+                                <p><a href="<?php echo e(config('app.url')); ?>"><?php echo e(config('app.url')); ?></a></p>
                             </div>
                         </div>
                     </div>
@@ -222,7 +238,7 @@ $footerProperties = Controller::footersection();
                                 <div class="oter_ser">
 
                                     <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->take(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $oths): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <a href="<?php echo e(url('/services/'.$oths->url)); ?>"><?php echo e($oths->service_name); ?></a>
+                                    <a href="<?php echo e(url('/services/'.$oths->url)); ?>"><?php echo e($oths->service_name); ?></a>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </div>
@@ -247,27 +263,34 @@ $footerProperties = Controller::footersection();
                                     <?php $counter=0; ?>
                                     <?php $__currentLoopData = $footerProperties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $footerproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php $counter++ ?>
-                                    <?php if($counter <= 2): ?> 
-                                    <li>
+                                    <?php if($counter <= 2): ?> <li>
                                         <a href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">
                                             <span>
                                                 <?php if(!empty($footerproperty->image_name)): ?>
-                                                    <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
+                                                <img height="50"
+                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)); ?>">
                                                 <?php else: ?>
-                                                    <img height="50" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
+                                                <img height="50"
+                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>">
                                                 <?php endif; ?>
                                             </span>
                                             <h6><?php if(!empty($footerproperty->city_name)): ?>
-                                                <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>, <?php echo e($footerproperty->country); ?></span>
+                                                <span style="width:100%;"><?php echo e($footerproperty->city_name); ?>,
+                                                    <?php echo e($footerproperty->country); ?></span>
                                                 <?php endif; ?>
                                             </h6>
-                                            <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?> Square Ft <?php endif; ?></p>
-                                            <h5><?php if(!empty($footerproperty->property_price)): ?> <?php echo e($footerproperty->property_price); ?><?php else: ?> <span style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;" href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get Price</span> <?php endif; ?></h5>
+                                            <p><?php if(!empty($footerproperty->parea)): ?><?php echo e($footerproperty->parea); ?> Square Ft
+                                                <?php endif; ?></p>
+                                            <h5><?php if(!empty($footerproperty->property_price)): ?>
+                                                <?php echo e($footerproperty->property_price); ?><?php else: ?> <span
+                                                    style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;"
+                                                    href="<?php echo e(url('/properties/'.$footerproperty->property_url)); ?>">Get
+                                                    Price</span> <?php endif; ?></h5>
                                         </a>
-                                    </li>
-                                    <?php endif; ?>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    <a href="<?php echo e(url('/properties')); ?>">View All...</a>
+                                        </li>
+                                        <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <a href="<?php echo e(url('/properties')); ?>">View All...</a>
                                 </ul>
                             </div>
                         </div>
@@ -319,4 +342,34 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
 
-</footer><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/footer_design.blade.php ENDPATH**/ ?>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FbLikeModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="FbLikeModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Like us on Facebook</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="fb-like" data-href="https://www.facebook.com/indiapropertyclinic/" data-width="" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</footer>
+
+
+
+<?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/footer_design.blade.php ENDPATH**/ ?>
