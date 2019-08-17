@@ -168,13 +168,13 @@
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i> 
                                     @if(!empty($property->city_name))
-                                        <span>{{ $property->city_name }},</span>
+                                        <span>{{ $property->city_name }}, </span>
                                     @endif 
                                     @if(!empty($property->country_name))
                                         <span>{{ $property->country_name }}</span>
                                     @endif
                                     </h6>
-                                    <p>{{ $property->parea }} Square Ft</p>
+                                    <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
                                     <span class="tagbtn rent">{{ $property->service_name }}</span>
                                 </div>  
                             </div>

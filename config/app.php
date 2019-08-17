@@ -183,6 +183,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         SSD\Currency\CurrencyServiceProvider::class,
         // Roumen\Sitemap\SitemapServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -250,6 +251,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Currency'  => SSD\Currency\CurrencyFacade::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
 
     ],
 

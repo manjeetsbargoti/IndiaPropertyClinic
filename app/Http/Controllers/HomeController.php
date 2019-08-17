@@ -42,20 +42,52 @@ class HomeController extends Controller
 
     public function index()
     {
-        $properties1 = Property::where('service_id', 2)->orderBy('id', 'desc')->take(4)->get();
-        $properties1 = json_decode(json_encode($properties1));
-        $properties2 = Property::where('service_id', 3)->orderBy('id', 'desc')->take(4)->get();
-        $properties2 = json_decode(json_encode($properties2));
-        $properties3 = Property::where('service_id', 4)->orderBy('id', 'desc')->take(4)->get();
-        $properties3 = json_decode(json_encode($properties3));
-        $properties = array_merge($properties1, $properties2, $properties3);
-        $featureProperty = Property::where(['featured' => 1])->orderBy('created_at', 'desc')->take(4)->get();
-        // $propertyImages = PropertyImages::get();
-        $propertyType = PropertyTypes::get();
-        $otherServices = OtherServices::get();
-        // $properties = json_decode(json_encode($properties));
 
+        // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        $arr_ip = geoip()->getLocation('14.98.69.170');
+
+        $ip_rproperty = Property::where('service_id', 3)->where('country', $arr_ip->iso_code)->count();
+        $ip_sproperty = Property::where('service_id', 4)->where('country', $arr_ip->iso_code)->count();
+        $ip_fproperty = Property::where(['featured' => 1])->where('country', $arr_ip->iso_code)->count();
+        $ip_cproperty = Property::where(['commercial' => 1])->where('country', $arr_ip->iso_code)->count();
+        // echo "<pre>"; print_r($arr_ip); die;
+
+        if($ip_fproperty > 0){
+            $featureProperty = Property::where(['featured' => 1])->where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->take(4)->get();
+        }else{
+            $featureProperty = Property::where(['featured' => 1])->orderBy('created_at', 'desc')->take(4)->get();
+        }
+
+        if($ip_cproperty > 0){
+            $commercialProperty = Property::where(['commercial' => 1])->where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->take(4)->get();
+        }else{
+            $commercialProperty = Property::where(['commercial' => 1])->orderBy('created_at', 'desc')->take(4)->get();
+        }
+
+        if($ip_rproperty > 0){
+            $properties2 = Property::where('service_id', 3)->where('country', $arr_ip->iso_code)->orderBy('id', 'desc')->take(4)->get();
+            $properties2 = json_decode(json_encode($properties2));
+        }else{
+            $properties2 = Property::where('service_id', 3)->orderBy('id', 'desc')->take(4)->get();
+            $properties2 = json_decode(json_encode($properties2));
+            
+        }
+        
+        if($ip_sproperty > 0){
+            $properties3 = Property::where('service_id', 4)->where('country', $arr_ip->iso_code)->orderBy('id', 'desc')->take(4)->get();
+            $properties3 = json_decode(json_encode($properties3));
+        }else{
+            $properties3 = Property::where('service_id', 4)->orderBy('id', 'desc')->take(4)->get();
+            $properties3 = json_decode(json_encode($properties3));
+            
+        }
+            $properties = array_merge($properties2, $properties3);
+            $propertyType = PropertyTypes::get();
+            $otherServices = OtherServices::get();
+        
         // echo "<pre>"; print_r($properties); die;
+
+        // $properties = json_decode(json_encode($properties));
 
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -120,7 +152,7 @@ class HomeController extends Controller
             $citycount = 0;
         }
 
-        $dealer = User::where(['usertype' => 'A'])->orWhere(['usertype' => 'B'])->orderBy('created_at', 'desc')->get();
+        $dealer = User::whereIn('usertype', array('A','B'))->where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->get();
         $dealer = json_decode(json_encode($dealer));
 
         $services = Services::where(['status' => 1])->get();
@@ -133,65 +165,79 @@ class HomeController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
 
-        return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'commercialProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     // View All Properties
     public function viewAll()
     {
-        $property_count = Property::count();
-        $properties = Property::orderBy('created_at', 'desc')->paginate(24);
-        $posts = Property::orderBy('created_at', 'desc')->paginate(24);
-        $propertyImages = PropertyImages::get();
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        $ip_properties = Property::where('country',$arr_ip->iso_code)->count();
+        
+        if($ip_properties > 0){
+            $properties = Property::where('country',$arr_ip->iso_code)->orderBy('created_at', 'desc')->get();
+        }else{
+            $properties = Property::orderBy('created_at', 'desc')->get();
+        }
+        
+        $ip_posts = Property::where('country',$arr_ip->iso_code)->count();
+        if($ip_posts > 0){
+            $posts = Property::where('country',$arr_ip->iso_code)->orderBy('created_at', 'desc')->paginate(24);
+        }else{
+            $posts = Property::orderBy('created_at', 'desc')->paginate(24);
+        }
+        // $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
 
-        foreach ($posts as $key => $val) {
-            $service_name = Services::where(['id' => $val->service_id])->first();
+        foreach($posts as $key => $val) {
+            $service_name = Services::where(['id'=>$val->service_id])->first();
             $posts[$key]->service_name = $service_name->service_name;
-            $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
-            if ($propertyimage_count > 0) {
-                $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+            $propertyimage_count = PropertyImages::where(['property_id'=>$val->id])->count();
+            if($propertyimage_count > 0){
+                $propertyimage_name = PropertyImages::where(['property_id'=>$val->id])->first();
                 $posts[$key]->image_name = $propertyimage_name->image_name;
             }
-            $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
-            if ($country_count > 0) {
-                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
+            $country_count = DB::table('countries')->where(['iso2'=>$val->country])->count();
+            if($country_count > 0)
+            {
+                $country = DB::table('countries')->where(['iso2'=>$val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
             }
-            $state_count = DB::table('states')->where(['id' => $val->state])->count();
-            if ($state_count > 0) {
-                $state = DB::table('states')->where(['id' => $val->state])->first();
+            $state_count = DB::table('states')->where(['id'=>$val->state])->count();
+            if($state_count > 0)
+            {
+                $state = DB::table('states')->where(['id'=>$val->state])->first();
                 $posts[$key]->state_name = $state->name;
             }
-            $city_count = DB::table('cities')->where(['id' => $val->city])->count();
-            if ($city_count > 0) {
-                $city = DB::table('cities')->where(['id' => $val->city])->first();
+            $city_count = DB::table('cities')->where(['id'=>$val->city])->count();
+            if($city_count > 0)
+            {
+                $city = DB::table('cities')->where(['id'=>$val->city])->first();
                 $posts[$key]->city_name = $city->name;
             }
         }
-        if (!empty($country_count)) {
+        if(!empty($country_count)){
             $countrycount = $country_count;
         } else {
             $countrycount = 0;
         }
-        if (!empty($state_count)) {
+        if(!empty($state_count)){
             $statecount = $state_count;
         } else {
             $statecount = 0;
         }
-        if (!empty($city_count)) {
+        if(!empty($city_count)){
             $citycount = $city_count;
         } else {
             $citycount = 0;
         }
-
-        if (!empty($properties)) {
-            $contRow = $property_count;
+        
+        if(!empty($properties)){
+            $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         }
-        // echo "<pre>"; print_r($posts); die;
-        return view('frontend.viewall_properties', compact('properties', 'propertyImages', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount'));
+        return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount'));
         // return response()->json($posts);
     }
 
@@ -215,6 +261,7 @@ class HomeController extends Controller
     public function searchresult(Request $request)
     {
         $data = $request->all();
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
         $scityname = rtrim($data['search_text']);
         $scityID = $data['property_cat'];
         $scityname = json_decode(json_encode($scityname));
@@ -223,23 +270,20 @@ class HomeController extends Controller
         $city = json_decode(json_encode($city), true);
 
         if (empty($data['search_text']) && !empty($data['property_type'])) {
-            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']]);
+            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
         } elseif (empty($data['search_text']) && empty($data['property_type'])) {
-            $properties = Property::where(['service_id' => $data['property_cat']]);
+            $properties = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->get();
         } elseif (empty($data['property_type']) && !empty($city[0])) {
             $r = $city[0];
-            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']]);
+            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->get();
         } else {
             $r = null;
-            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']]);
+            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
         }
 
-        $propertyImages = PropertyImages::get();
-        
+        // $propertyImages = PropertyImages::get();
         if (!empty($properties)) {
-            $p_count = $properties->count();
-            $properties = $properties->paginate($this->posts_per_page);
-            // $properties = json_decode(json_encode($properties));
+            $properties = json_decode(json_encode($properties));
         }
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -283,18 +327,20 @@ class HomeController extends Controller
         }
 
         if (!empty($properties)) {
-            $contRow = $p_count;
+            $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.search_result')->with(compact('properties', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
+        return view('frontend.filter_templates.search_result')->with(compact('properties', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
     }
 
 
     //Sidebar filter
     public function filter(Request $request)
     {
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        
         if (isset($request->id)) {
             if ($request->id == 1) {
                 $id = 'desc';
@@ -311,6 +357,7 @@ class HomeController extends Controller
         $room       =   $request->room;
         $bedroom    =   $request->bed;
         $bathroom   =   $request->bathroom;
+        $country    =   $arr_ip->iso_code;
 
         $posts = DB::table('properties')->where(function ($query) use ($service) {
             if (isset($service)) {
@@ -328,10 +375,11 @@ class HomeController extends Controller
             if (isset($bathroom)) {
                 $query->whereIN('bathrooms', $bathroom);
             }
-        })->orderBy($type, $id);
+        })->where('country', $country)->orderBy($type, $id);
 
         $breadcrumb = $posts->get();
         $posts = $posts->paginate($this->posts_per_page);
+
 
         $propertyImages = PropertyImages::get();
 
@@ -360,6 +408,7 @@ class HomeController extends Controller
                 $posts[$key]->city_name = $city->name;
             }
         }
+
 
         if (!empty($breadcrumb)) {
             $contRow = $breadcrumb->count();

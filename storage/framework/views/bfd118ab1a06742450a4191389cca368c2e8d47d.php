@@ -46,12 +46,12 @@
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
                     <h1><i class="fas fa-map-marker-alt"></i> <a href="<?php echo e(url('/city/'.$property->city.'/properties')); ?>"><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a></h1>
-                    <h5>Plot Area: <span><?php echo e($property->parea); ?> Square Ft</span></h5>
+                    <h5><?php if($property->parea): ?>Plot Area: <span><?php echo e($property->parea); ?> Square Ft <?php endif; ?></span></h5>
                     <h6><?php echo e($property->property_name); ?></h6>
-                    <h5>Age of Property: <span>Under Cinstrection</span></h5>
-                    <h5>Facing: <span><?php echo e($property->pfacing); ?></span></h5>
+                    <!--<h5>Age of Property: <span>Under Construction</span></h5>-->
+                    <h5><?php if($property->pfacing): ?>Facing: <span><?php echo e($property->pfacing); ?> <?php endif; ?></span></h5>
                     
-                    <p><?php echo e(strip_tags(str_limit($property->description, $limit=350))); ?></p>
+                    <p style="font-size: 14px; color: #171747; font-weight: 500;"><?php echo e(str_limit(strip_tags($property->description), $limit=350)); ?></p>
                     <!-- <h3><?php echo e($property->currency); ?> <?php echo e($property->property_price); ?></h3> -->
                     
                     <?php if(!empty($property->property_price)): ?>
@@ -95,18 +95,18 @@
                 <div class="col-12 xl-12 spaceification_secinn">
                     <div class="spaccei_tabs">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <?php if($property->amenities): ?><li class="nav-item">
+                                    <a class="nav-link <?php if(!empty($property->amenities)): ?> active <?php endif; ?>" id="amenities-tab" data-toggle="tab" href="#amenities" role="tab" aria-controls="amenities" aria-selected="true">Amenities</a>
+                                </li><?php endif; ?>
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="amenities-tab" data-toggle="tab" href="#amenities" role="tab" aria-controls="amenities" aria-selected="true">Amenities</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Specifications</a>
+                                    <a class="nav-link <?php if(empty($property->amenities)): ?> active <?php endif; ?>" id="specifications-tab" data-toggle="tab" href="#specifications" role="tab" aria-controls="specifications" aria-selected="false">Specifications</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Location</a>
                                 </li>
                             </ul>
                             <div class="tab-content custom_tabcon" id="myTabContent">
-                                <div class="tab-pane fade show active" id="amenities" role="tabpanel" aria-labelledby="amenities-tab">
+                                <?php if(!empty($property->amenities)): ?><div class="tab-pane fade <?php if(!empty($property->amenities)): ?> show active <?php endif; ?>" id="amenities" role="tabpanel" aria-labelledby="amenities-tab">
                                     <div class="amenities_item">
                                         <div class="row">
                                             <div class="col-12 col-sm-6 col-md-6 col-xl-12">
@@ -120,8 +120,8 @@
                                             </div>
                                         </div>    
                                         </div>
-                                </div>
-                                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
+                                </div><?php endif; ?>
+                                <div class="tab-pane fade <?php if(empty($property->amenities)): ?> show active <?php endif; ?>" id="specifications" role="tabpanel" aria-labelledby="specifications-tab">
                                     <div class="spaceification_box">
                                         <?php echo $property->description; ?>
 
@@ -191,7 +191,7 @@
                                             <?php echo e($ct->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
                                         <?php endif; ?>
                                     </h6>
-                                    <p><?php echo e($relproperty->parea); ?> Square Ft</p>
+                                    <p><?php if($relproperty->parea): ?><?php echo e($relproperty->parea); ?> Square Ft <?php endif; ?></p>
                                     <?php $__currentLoopData = \App\Services::where('id', $relproperty->service_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <span class="tagbtn rent">
                                         <?php echo e($pt->service_name); ?>
@@ -245,6 +245,7 @@
 </div>
 </div>
 </div>
+
 
 <!-- /. Related Properties -->
 

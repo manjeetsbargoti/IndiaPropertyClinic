@@ -343,12 +343,13 @@ $footerProperties = Controller::footersection();
     </div>
 
     <!-- Button trigger modal -->
+    <button><?php $cip = $_SERVER['REMOTE_ADDR']; echo $cip; ?></button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FbLikeModal">
   Launch demo modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="FbLikeModal" tabindex="-1" role="dialog">
+<!-- <div class="modal fade" id="FbLikeModal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -366,7 +367,7 @@ $footerProperties = Controller::footersection();
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 </footer>
 

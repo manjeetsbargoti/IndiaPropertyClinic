@@ -6,40 +6,33 @@ $footerProperties = Controller::footersection();
 ?>
 
 <style>
-.list-property-float {
-    position: fixed;
-    width: 160px;
-    height: 30px;
-    top: 10em;
-    right: 1px;
-    z-index: 999;
-    background: linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
-    color: #FFF;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    /* box-shadow: 2px 2px 3px #999; */
-}
-
-.list-property-float span {
-    position: relative;
-    top: 2px;
-    font-size: 18px;
-}
-
-.list-property-float:hover {
-    color: #fff;
-}
+    .list-property-float{
+        position:fixed;
+        width:160px;
+        height:30px;
+        top:10em;
+        right:1px;
+        z-index: 999;
+        background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
+        color:#FFF;
+        border-radius: 5px;
+        text-align:center;
+        cursor: pointer;
+        /* box-shadow: 2px 2px 3px #999; */
+    }
+    .list-property-float span {
+        position: relative;
+        top: 2px;
+        font-size: 18px;
+    }
+    .list-property-float:hover {
+        color: #fff;
+    }
 </style>
-
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0&appId=354755131830246&autoLogAppEvents=1">
-</script>
 
 <footer>
     <a href="{{ url('/list-property') }}" class="list-property-float">
-        <span>List Your Property</span>
+       <span>List Your Property</span>
     </a>
     <div class="footer_top">
         <div class="container">
@@ -112,11 +105,11 @@ $footerProperties = Controller::footersection();
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
                                 <div class="footer_box">
-                                    <h5>Contact us</h5>
+                                    <h5>{{ config('app.name') }}</h5>
                                     <p>{{ config('app.address') }}</p>
                                     <p>{{ config('app.phone') }}</p>
                                     <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
-                                    <p><a href="{{ config('app.url') }}">{{ config('app.url') }}</a></p>
+                                    <p><a href="#">https://indiapropertyclinic.com</a></p>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-4">
@@ -139,27 +132,21 @@ $footerProperties = Controller::footersection();
                                         @if($counter <= 2) <li>
                                             <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
                                                 <span>
-                                                    @if(!empty($footerproperty->image_name))
-                                                    <img height="50"
+                                                    @if(!empty($footerproperty->image_name))<img
                                                         src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
-                                                    @else
-                                                    <img height="50"
+                                                        @else
+                                                        <img
                                                         src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
-                                                    @endif
+                                                        @endif
                                                 </span>
                                                 <h6>
                                                     @if(!empty($footerproperty->city_name))
-                                                    <span style="width:100%;">{{ $footerproperty->city_name }},
-                                                        {{ $footerproperty->country }}</span>
+                                                    <span>{{ $footerproperty->city_name }}, {{ $footerproperty->country }}</span>
                                                     @endif
+                                                    
                                                 </h6>
-                                                <p>@if(!empty($footerproperty->parea)){{ $footerproperty->parea }}
-                                                    Square Ft @endif</p>
-                                                <h5>@if(!empty($footerproperty->property_price))
-                                                    {{ $footerproperty->property_price }}@else <span
-                                                        style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;"
-                                                        href="{{ url('/properties/'.$footerproperty->property_url) }}">Get
-                                                        Price</span> @endif</h5>
+                                                @if($footerproperty->parea)<p>{{ $footerproperty->parea }} Square Ft</p>@endif
+                                                <h5>@foreach(\App\Country::where('iso2', $footerproperty->country)->get() as $curen) {{ $curen->currency }} @endforeach {{ $footerproperty->property_price }}</h5>
                                             </a>
                                             </li>
                                             @endif
@@ -216,7 +203,7 @@ $footerProperties = Controller::footersection();
                                 <p>{{ config('app.address') }}</p>
                                 <p>{{ config('app.phone') }}</p>
                                 <p><a href="mailto:{{ config('app.email') }}">{{ config('app.email') }}</a></p>
-                                <p><a href="{{ config('app.url') }}">{{ config('app.url') }}</a></p>
+                                <p><a href="#">https://indiapropertyclinic.com</a></p>
                             </div>
                         </div>
                     </div>
@@ -236,9 +223,9 @@ $footerProperties = Controller::footersection();
                             <div class="footer_box">
                                 <div class="oter_ser">
 
-                                    @foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
-                                    <a href="{{ url('/services/'.$oths->url) }}">{{ $oths->service_name }}</a>
-                                    @endforeach
+                                    <@foreach(\App\OtherServices::where('parent_id', 0)->take(5)->get() as $oths)
+                                        <a href="{{ url('/services/'.$oths->url) }}">{{ $oths->service_name }}</a>
+                                        @endforeach
 
                                 </div>
                             </div>
@@ -259,37 +246,27 @@ $footerProperties = Controller::footersection();
                         <div class="card-body">
                             <div class="footer_box">
                                 <ul>
-                                    <?php $counter=0; ?>
-                                    @foreach($footerProperties as $footerproperty)
-                                    <?php $counter++ ?>
-                                    @if($counter <= 2) <li>
-                                        <a href="{{ url('/properties/'.$footerproperty->property_url) }}">
+                                    <li>
+                                        <a href="#">
                                             <span>
-                                                @if(!empty($footerproperty->image_name))
-                                                <img height="50"
-                                                    src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
-                                                @else
-                                                <img height="50"
-                                                    src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
-                                                @endif
+                                                <img src="/images/frontend_images/images/product1.jpg">
                                             </span>
-                                            <h6>@if(!empty($footerproperty->city_name))
-                                                <span style="width:100%;">{{ $footerproperty->city_name }},
-                                                    {{ $footerproperty->country }}</span>
-                                                @endif
-                                            </h6>
-                                            <p>@if(!empty($footerproperty->parea)){{ $footerproperty->parea }} Square Ft
-                                                @endif</p>
-                                            <h5>@if(!empty($footerproperty->property_price))
-                                                {{ $footerproperty->property_price }}@else <span
-                                                    style="font-size: 10px;border:1px solid #f15a27;padding: 0.2em 0.5em;"
-                                                    href="{{ url('/properties/'.$footerproperty->property_url) }}">Get
-                                                    Price</span> @endif</h5>
+                                            <h6>Bangkok, Sathorn</h6>
+                                            <p>160 Square Ft</p>
+                                            <h5>INR 2,100,000</h5>
                                         </a>
-                                        </li>
-                                        @endif
-                                        @endforeach
-                                        <a href="{{ url('/properties') }}">View All...</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span>
+                                                <img src="/images/frontend_images/images/product1.jpg">
+                                            </span>
+                                            <h6>Bangkok, Sathorn</h6>
+                                            <p>160 Square Ft</p>
+                                            <h5>INR 2,100,000</h5>
+                                        </a>
+                                    </li>
+                                    <a href="#">View All...</a>
                                 </ul>
                             </div>
                         </div>
@@ -330,7 +307,7 @@ $footerProperties = Controller::footersection();
                     </div>
                     <div class="col-lg-4">
                         <div class="social_link social_linkfoot">
-                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/indiapropertyclinic"><i class="fab fa-facebook"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-youtube"></i></a>
                             <a href="#"><i class="fab fa-google"></i></a>
@@ -340,34 +317,36 @@ $footerProperties = Controller::footersection();
             </div>
         </div>
     </div>
-
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#FbLikeModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="FbLikeModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Like us on Facebook</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="fb-like" data-href="https://www.facebook.com/indiapropertyclinic/" data-width="" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+    
+    
 
 </footer>
 
 
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2936450433093095',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v4.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
 
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            console.log(response.authResponse.accessToken);
+        }
+    });
+</script>

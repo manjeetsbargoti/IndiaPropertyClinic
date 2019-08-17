@@ -17,7 +17,7 @@ class Controller extends BaseController
 
     public static function mainNav()
     {
-        $mainnavservice = Services::where('parent_id', '!=', 0)->get();
+        $mainnavservice = Services::where('parent_id', '!=', 0)->where('status', 1)->get();
         $mainnavservice = json_decode(json_encode($mainnavservice));
         // echo "<pre>"; print_r($mainnavservice); die;
         return $mainnavservice;
@@ -25,7 +25,16 @@ class Controller extends BaseController
 
     public static function footersection()
     {
-        $footerProperties = Property::orderBy('created_at', 'desc')->take(2)->get();
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+
+        $ip_footerProperties = Property::where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->count();
+
+        if($ip_footerProperties > 0){
+            $footerProperties = Property::where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->take(2)->get();
+        }else{
+            $footerProperties = Property::orderBy('created_at', 'desc')->take(2)->get();
+        }
+    
         $footerProperties = json_decode(json_encode($footerProperties));
 
         foreach($footerProperties as $key => $val) {

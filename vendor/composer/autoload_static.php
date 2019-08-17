@@ -24,6 +24,7 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        '1e298922c3e2134d42dcdb03e6d5f55a' => __DIR__ . '/..' . '/torann/geoip/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -46,6 +47,7 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         ),
         'T' => 
         array (
+            'Torann\\GeoIP\\' => 13,
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
         ),
@@ -173,6 +175,10 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'UniSharp\\LaravelFilemanager\\' => 
         array (
             0 => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src',
+        ),
+        'Torann\\GeoIP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/torann/geoip/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -461,6 +467,7 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\CheckUser' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckUser.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
+        'App\\Http\\Middleware\\PreferredDomain' => __DIR__ . '/../..' . '/app/Http/Middleware/PreferredDomain.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
@@ -4186,6 +4193,21 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'Torann\\GeoIP\\Cache' => __DIR__ . '/..' . '/torann/geoip/src/Cache.php',
+        'Torann\\GeoIP\\Console\\Clear' => __DIR__ . '/..' . '/torann/geoip/src/Console/Clear.php',
+        'Torann\\GeoIP\\Console\\Update' => __DIR__ . '/..' . '/torann/geoip/src/Console/Update.php',
+        'Torann\\GeoIP\\Contracts\\ServiceInterface' => __DIR__ . '/..' . '/torann/geoip/src/Contracts/ServiceInterface.php',
+        'Torann\\GeoIP\\Facades\\GeoIP' => __DIR__ . '/..' . '/torann/geoip/src/Facades/GeoIP.php',
+        'Torann\\GeoIP\\GeoIP' => __DIR__ . '/..' . '/torann/geoip/src/GeoIP.php',
+        'Torann\\GeoIP\\GeoIPServiceProvider' => __DIR__ . '/..' . '/torann/geoip/src/GeoIPServiceProvider.php',
+        'Torann\\GeoIP\\Location' => __DIR__ . '/..' . '/torann/geoip/src/Location.php',
+        'Torann\\GeoIP\\Services\\AbstractService' => __DIR__ . '/..' . '/torann/geoip/src/Services/AbstractService.php',
+        'Torann\\GeoIP\\Services\\IPApi' => __DIR__ . '/..' . '/torann/geoip/src/Services/IPApi.php',
+        'Torann\\GeoIP\\Services\\IPData' => __DIR__ . '/..' . '/torann/geoip/src/Services/IPData.php',
+        'Torann\\GeoIP\\Services\\IPGeoLocation' => __DIR__ . '/..' . '/torann/geoip/src/Services/IPGeoLocation.php',
+        'Torann\\GeoIP\\Services\\MaxMindDatabase' => __DIR__ . '/..' . '/torann/geoip/src/Services/MaxMindDatabase.php',
+        'Torann\\GeoIP\\Services\\MaxMindWebService' => __DIR__ . '/..' . '/torann/geoip/src/Services/MaxMindWebService.php',
+        'Torann\\GeoIP\\Support\\HttpClient' => __DIR__ . '/..' . '/torann/geoip/src/Support/HttpClient.php',
         'UniSharp\\LaravelFilemanager\\Controllers\\Controller' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/Controller.php',
         'UniSharp\\LaravelFilemanager\\Controllers\\CropController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/CropController.php',
         'UniSharp\\LaravelFilemanager\\Controllers\\DeleteController' => __DIR__ . '/..' . '/unisharp/laravel-filemanager/src/Controllers/DeleteController.php',

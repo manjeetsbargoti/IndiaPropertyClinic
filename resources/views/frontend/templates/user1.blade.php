@@ -223,7 +223,6 @@
                                         <th>Sun</th>
                                         <td>Closed</td>
                                     </tr>
-
                                 </tbody>
                             </table>
                         </div>
