@@ -35,16 +35,9 @@ $country = Controller::countries();
                 <div class="col-12 col-md-6">
                     <div class="header_topr">
                         <ul>
+                            <li><?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); echo $arr_ip->country; ?></li>
                             <li><a href="<?php echo e(url('/Apply-Home-Loan')); ?>">Home Loan</a></li>
-                            <li>
-                                <div class="select_curency">
-                                    <select>
-                                        <option>INR</option>
-                                        <option>DOLOR</option>
-                                        <option>CHINESE</option>
-                                    </select>
-                                </div>
-                            </li>
+                            <li><?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); echo $arr_ip->currency; ?></li>
                             <li>
                                 <div class="social_link">
                                     <a href="#"><i class="fab fa-facebook"></i></a>

@@ -43,8 +43,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
-        $arr_ip = geoip()->getLocation('14.98.69.170');
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
 
         $ip_rproperty = Property::where('service_id', 3)->where('country', $arr_ip->iso_code)->count();
         $ip_sproperty = Property::where('service_id', 4)->where('country', $arr_ip->iso_code)->count();
@@ -161,7 +160,7 @@ class HomeController extends Controller
         // echo "<pre>"; print_r($dealer); die;
 
         // Meta tags
-        $meta_title = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_title = "India Property Clinic | Property Listing and Home Repairing Services";
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
 
