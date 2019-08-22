@@ -214,10 +214,6 @@ class PropertyController extends Controller
         }else{
             $properties = Property::where('add_by', $userid)->orderBy('created_at', 'desc')->paginate(10);
         }
-        
-        $propertyImages = PropertyImages::paginate(10);
-        // $properties = json_decode(json_encode($properties));
-        $propertyImages = json_decode(json_encode($propertyImages));
 
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -227,6 +223,11 @@ class PropertyController extends Controller
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
                 $properties[$key]->image_name = $propertyimage_name->image_name;
             }
+            $property_addby = User::where('id', $val->add_by)->first();
+            $properties[$key]->user_fname = $property_addby->first_name;
+            $properties[$key]->user_lname = $property_addby->last_name;
+            $properties[$key]->user_id = $property_addby->id;
+
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
