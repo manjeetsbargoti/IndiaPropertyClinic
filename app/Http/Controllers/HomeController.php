@@ -236,7 +236,13 @@ class HomeController extends Controller
             $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         }
-        return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount'));
+
+        // Meta tags
+        $meta_title = "India Property Clinic | Property Listing and Home Repairing Services";
+        $meta_description = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+
+        return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
         // return response()->json($posts);
     }
 
@@ -444,9 +450,9 @@ class HomeController extends Controller
                     if (!empty($property->country_name))
                         echo '<span>' . $property->country_name . '</span>';
                 }
-                echo '</h6>
-                                <p>' . $property->parea . 'Square Ft</p>
-                                <span class="tagbtn rent">' . $property->service_name . '</span>
+                echo '</h6>';
+                                echo '<p>' . $property->parea . 'Square Ft</p>';
+                                echo '<span class="tagbtn rent">' . $property->service_name . '</span>
                             </div> 
                         </div>
                         <div class="product_text">

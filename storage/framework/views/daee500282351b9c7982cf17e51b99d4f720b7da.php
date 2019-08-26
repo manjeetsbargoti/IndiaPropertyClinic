@@ -31,9 +31,15 @@ $footerProperties = Controller::footersection();
 </style>
 
 <footer>
+    <?php if(Route::current()->getName() == 'repair-services' || Route::current()->getName() == 'service-request'): ?>
+    <a href="<?php echo e(url('/list-property')); ?>" class="list-property-float">
+       <span>List Your Business</span>
+    </a>
+    <?php else: ?>
     <a href="<?php echo e(url('/list-property')); ?>" class="list-property-float">
        <span>List Your Property</span>
     </a>
+    <?php endif; ?>
     <div class="footer_top">
         <div class="container">
             <div class="row">
@@ -323,30 +329,4 @@ $footerProperties = Controller::footersection();
 </footer>
 
 
-<script>
-//   window.fbAsyncInit = function() {
-//     FB.init({
-//       appId      : '2936450433093095',
-//       cookie     : true,
-//       xfbml      : true,
-//       version    : 'v4.0'
-//     });
-      
-//     FB.AppEvents.logPageView();   
-      
-//   };
-
-//   (function(d, s, id){
-//      var js, fjs = d.getElementsByTagName(s)[0];
-//      if (d.getElementById(id)) {return;}
-//      js = d.createElement(s); js.id = id;
-//      js.src = "https://connect.facebook.net/en_US/sdk.js";
-//      fjs.parentNode.insertBefore(js, fjs);
-//    }(document, 'script', 'facebook-jssdk'));
-   
-//     FB.getLoginStatus(function(response) {
-//         if (response.status === 'connected') {
-//             console.log(response.authResponse.accessToken);
-//         }
-//     });
-</script><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/footer_design.blade.php ENDPATH**/ ?>
+<?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/layouts/frontLayout/footer_design.blade.php ENDPATH**/ ?>

@@ -120,7 +120,7 @@
                         <?php endif; ?>
                     </div>
                     <div class="col-sm-8">
-                        <table class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
                             <thead></thead>
                             <tbody>
                                 <tr>
@@ -150,6 +150,10 @@
 
                                             <?php echo e($property->user_lname); ?></a></td>
                                 </tr>
+                                <tr>
+                                    <td>Posted on</td>
+                                    <td><?php echo e(date('d M, Y h:i:s A', strtotime($property->created_at))); ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -164,19 +168,19 @@
                                 </tr>
                                 <tr>
                                     <td>Property Type</td>
-                                    <td><?php echo e($property->property_type_id); ?></td>
+                                    <td><label class="label label-md label-info"><?php $__currentLoopData = \App\PropertyTypes::where('property_type_code', $property->property_type_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($pt->property_type); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></label></td>
                                 </tr>
                                 <tr>
                                     <td>Featured Property</td>
-                                    <td><?php echo e($property->featured); ?></td>
+                                    <td><?php if($property->featured == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Commercial Property</td>
-                                    <td><?php echo e($property->commercial); ?></td>
+                                    <td><?php if($property->commercial == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Property Area (in sqft.)</td>
-                                    <td><?php echo e($property->parea); ?></td>
+                                    <td><?php if(!empty($property->parea)): ?><?php echo e($property->parea); ?> sqft. <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Property Facing</td>
@@ -192,30 +196,32 @@
                                 </tr>
                                 <tr>
                                     <td>Builder</td>
-                                    <td><?php echo e($property->builder); ?></td>
+                                    <td><a href="javascript:void()" data-target="#builderinfo_<?php echo e($property->builder_id); ?>"
+                                            data-toggle="modal"><?php echo e($property->builder_fname); ?> <?php echo e($property->builder_lname); ?></a></td>
                                 </tr>
                                 <tr>
                                     <td>Agent</td>
-                                    <td><?php echo e($property->agent); ?></td>
+                                    <td><a href="javascript:void()" data-target="#agentinfo_<?php echo e($property->agent_id); ?>"
+                                            data-toggle="modal"><?php echo e($property->agent_fname); ?> <?php echo e($property->agent_lname); ?></a></td>
                                 </tr>
                                 <tr>
                                     <td>Road Facing</td>
-                                    <td><?php echo e($property->road_facing); ?></td>
+                                    <td><?php if($property->road_facing == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Corner Shop</td>
-                                    <td><?php echo e($property->c_shop); ?></td>
+                                    <td><?php if($property->c_shop == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-sm-6">
-                        <table class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
                             <thead></thead>
                             <tbody>
                                 <tr>
                                     <td>Map Passed</td>
-                                    <td><?php echo e($property->map_pass); ?></td>
+                                    <td><?php if($property->map_pass == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Open Sides</td>
@@ -254,20 +260,20 @@
                                 <?php if($property->commercial == 1): ?>
                                 <tr>
                                     <td>Personal Washroom</td>
-                                    <td><?php echo e($property->p_washrooms); ?></td>
+                                    <td><?php if($property->p_washrooms == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Cafeteria</td>
-                                    <td><?php echo e($property->cafeteria); ?></td>
+                                    <td><?php if($property->cafeteria == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <tr>
                                     <td>Personal Showroom</td>
-                                    <td><?php echo e($property->p_showroom); ?></td>
+                                    <td><?php if($property->p_showroom == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                                 <?php endif; ?>
                                 <tr>
                                     <td>Wall Made</td>
-                                    <td><?php echo e($property->wall_made); ?></td>
+                                    <td><?php if($property->wall_made == 1): ?> Yes <?php else: ?> No <?php endif; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -279,7 +285,7 @@
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <!-- /. Property information Model -->
 
-    <!-- User/Agent/Builder Modal -->
+    <!-- User Modal -->
     <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <?php $__currentLoopData = \App\User::where('id',$property->user_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $userinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <div class="modal fade bd-example-modal-md" id="userinfo_<?php echo e($property->user_id); ?>" tabindex="-1" role="dialog"
@@ -289,7 +295,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel"><?php echo e($property->user_fname); ?></h4>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo e($property->user_fname); ?> <?php echo e($property->user_lname); ?></h4>
                 </div>
                 <div class="modal-body">
                     <div class="col-sm-12">
@@ -298,7 +304,7 @@
                                 alt="<?php echo e($userinfo->first_name); ?>">
                         </div>
                         <div class="col-sm-8">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
                                 <thead></thead>
                                 <tbody>
                                     <tr>
@@ -321,7 +327,7 @@
                             </table>
                         </div>
                         <div class="col-sm-12">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
                                 <thead></thead>
                                 <tbody>
                                     <tr>
@@ -344,7 +350,10 @@
                                         <td>City</td>
                                         <td><?php echo e($userinfo->city); ?></td>
                                     </tr>
-
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td><?php echo e(date('d M, Y h:i:s A', strtotime($userinfo->created_at))); ?></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -355,7 +364,168 @@
     </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    <!-- /. User/Agent/Builder Modal -->
+    <!-- /. User Modal -->
+    <!-- Agent Modal -->
+    <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php $__currentLoopData = \App\User::where('id',$property->agent_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $userinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div class="modal fade bd-example-modal-md" id="agentinfo_<?php echo e($property->agent_id); ?>" tabindex="-1" role="dialog"
+        aria-labelledby="userView">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content row">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo e($property->agent_fname); ?> <?php echo e($property->agent_lname); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <img class="img-responsive img-circle" src="<?php echo e(url('/dist/img/user2-160x160.jpg')); ?>"
+                                alt="<?php echo e($userinfo->first_name); ?>">
+                        </div>
+                        <div class="col-sm-8">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td><?php echo e($userinfo->first_name); ?> <?php echo e($userinfo->last_name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><?php echo e($userinfo->email); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone</td>
+                                        <td><?php echo e($userinfo->phone); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usertype</td>
+                                        <td><?php if($userinfo->admin == 1): ?> Admin <?php else: ?> <?php echo e($userinfo->usertype); ?> <?php endif; ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business Name</td>
+                                        <td><?php echo e($userinfo->business_name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>About Business</td>
+                                        <td><?php echo e($userinfo->about_business); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td><?php echo e($userinfo->country); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td><?php echo e($userinfo->state); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td><?php echo e($userinfo->city); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td><?php echo e(date('d M, Y h:i:s A', strtotime($userinfo->created_at))); ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <!-- /. Agent Modal -->
+
+    <!-- Builder Modal -->
+    <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <?php $__currentLoopData = \App\User::where('id',$property->builder_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $userinfo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div class="modal fade bd-example-modal-md" id="builderinfo_<?php echo e($property->builder_id); ?>" tabindex="-1" role="dialog"
+        aria-labelledby="userView">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content row">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><?php echo e($property->builder_fname); ?></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <img class="img-responsive img-circle" src="<?php echo e(url('/dist/img/user2-160x160.jpg')); ?>"
+                                alt="<?php echo e($userinfo->first_name); ?>">
+                        </div>
+                        <div class="col-sm-8">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td><?php echo e($userinfo->first_name); ?> <?php echo e($userinfo->last_name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><?php echo e($userinfo->email); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone</td>
+                                        <td><?php echo e($userinfo->phone); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usertype</td>
+                                        <td><?php if($userinfo->admin == 1): ?> Admin <?php else: ?> <?php echo e($userinfo->usertype); ?> <?php endif; ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business Name</td>
+                                        <td><?php echo e($userinfo->business_name); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>About Business</td>
+                                        <td><?php echo e($userinfo->about_business); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td><?php echo e($userinfo->country); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td><?php echo e($userinfo->state); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td><?php echo e($userinfo->city); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td><?php echo e(date('d M, Y h:i:s A', strtotime($userinfo->created_at))); ?></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <!-- /. Builder Modal -->
 
 </div>
 <!-- /.content-wrapper -->

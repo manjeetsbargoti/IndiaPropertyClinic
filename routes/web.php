@@ -153,7 +153,7 @@ Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/properties', 'HomeController@viewAll');
 Route::match(['get', 'post'], '/properties/{url}', 'PropertyController@viewSingleProperty');
-Route::get('/services/{url}', 'RepairServiceController@SingleRepairService');
+Route::get('/services/{url}', 'RepairServiceController@SingleRepairService')->name('repair-services');
 
 // Search by City, State and Country
 Route::get('/state/{state_id}/properties', 'PropertyController@searchByState');
@@ -202,7 +202,7 @@ Route::get('/get-state-list', 'PropertyController@getStateList');
 Route::get('/get-city-list', 'PropertyController@getCityList');
 
 // Request Service Page
-Route::match(['get', 'post'], '/service/request', 'RepairServiceController@serviceRequest');
+Route::match(['get', 'post'], '/service/request', 'RepairServiceController@serviceRequest')->name('service-request');
 Route::post('/city_list', 'RepairServiceController@search')->name('cityname.search');
 Route::match(['get', 'post'], '/service/get-services-list', 'RepairServiceController@getSubServices');
 Route::match(['get', 'post'], '/services/{url}/get-services-list', 'RepairServiceController@getSubServices');

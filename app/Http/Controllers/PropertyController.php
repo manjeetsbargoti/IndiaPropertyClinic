@@ -228,6 +228,22 @@ class PropertyController extends Controller
             $properties[$key]->user_lname = $property_addby->last_name;
             $properties[$key]->user_id = $property_addby->id;
 
+            $property_agent_count = User::where('id', $val->agent)->count();
+            if($property_agent_count > 0){
+                $property_agent = User::where('id', $val->agent)->first();
+                $properties[$key]->agent_fname = $property_agent->first_name;
+                $properties[$key]->agent_lname = $property_agent->last_name;
+                $properties[$key]->agent_id = $property_agent->id;
+            }
+
+            $property_builder_count = User::where('id', $val->builder)->count();
+            if($property_builder_count > 0){
+                $property_builder = User::where('id', $val->builder)->first();
+                $properties[$key]->builder_fname = $property_builder->first_name;
+                $properties[$key]->builder_lname = $property_builder->last_name;
+                $properties[$key]->builder_id = $property_builder->id;
+            }
+
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();

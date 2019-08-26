@@ -27,11 +27,6 @@
                                 <li>
                                     <div id="ck-button">
                                         <label>
-                                            <input type="checkbox" class="productDetail service" value="2"><span>Buy</span>
-                                        </label>
-                                    </div>
-                                    <div id="ck-button">
-                                        <label>
                                             <input type="checkbox" class="productDetail service" value="3"><span>Rent</span>
                                         </label>
                                     </div>
@@ -167,13 +162,13 @@
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i> 
                                     <?php if(!empty($property->city_name)): ?>
-                                        <span><?php echo e($property->city_name); ?>,</span>
+                                        <span><?php echo e($property->city_name); ?>, </span>
                                     <?php endif; ?> 
                                     <?php if(!empty($property->country_name)): ?>
                                         <span><?php echo e($property->country_name); ?></span>
                                     <?php endif; ?>
                                     </h6>
-                                    <p><?php echo e($property->parea); ?> Square Ft</p>
+                                    <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
                                     <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
                                 </div>  
                             </div>
@@ -218,6 +213,7 @@
     </div>
 </div>
 </div>
+
 <script>  
 $(window).on('hashchange', function() {
       if (window.location.hash) {

@@ -119,7 +119,7 @@
                         @endif
                     </div>
                     <div class="col-sm-8">
-                        <table class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
                             <thead></thead>
                             <tbody>
                                 <tr>
@@ -147,6 +147,10 @@
                                             data-toggle="modal">{{ $property->user_fname }}
                                             {{ $property->user_lname }}</a></td>
                                 </tr>
+                                <tr>
+                                    <td>Posted on</td>
+                                    <td>{{ date('d M, Y h:i:s A', strtotime($property->created_at)) }}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -161,19 +165,19 @@
                                 </tr>
                                 <tr>
                                     <td>Property Type</td>
-                                    <td>{{ $property->property_type_id }}</td>
+                                    <td><label class="label label-md label-info">@foreach(\App\PropertyTypes::where('property_type_code', $property->property_type_id)->get() as $pt){{ $pt->property_type }} @endforeach</label></td>
                                 </tr>
                                 <tr>
                                     <td>Featured Property</td>
-                                    <td>{{ $property->featured }}</td>
+                                    <td>@if($property->featured == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Commercial Property</td>
-                                    <td>{{ $property->commercial }}</td>
+                                    <td>@if($property->commercial == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Property Area (in sqft.)</td>
-                                    <td>{{ $property->parea }}</td>
+                                    <td>@if(!empty($property->parea)){{ $property->parea }} sqft. @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Property Facing</td>
@@ -189,30 +193,32 @@
                                 </tr>
                                 <tr>
                                     <td>Builder</td>
-                                    <td>{{ $property->builder }}</td>
+                                    <td><a href="javascript:void()" data-target="#builderinfo_{{ $property->builder_id }}"
+                                            data-toggle="modal">{{ $property->builder_fname }} {{ $property->builder_lname }}</a></td>
                                 </tr>
                                 <tr>
                                     <td>Agent</td>
-                                    <td>{{ $property->agent }}</td>
+                                    <td><a href="javascript:void()" data-target="#agentinfo_{{ $property->agent_id }}"
+                                            data-toggle="modal">{{ $property->agent_fname }} {{ $property->agent_lname }}</a></td>
                                 </tr>
                                 <tr>
                                     <td>Road Facing</td>
-                                    <td>{{ $property->road_facing }}</td>
+                                    <td>@if($property->road_facing == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Corner Shop</td>
-                                    <td>{{ $property->c_shop }}</td>
+                                    <td>@if($property->c_shop == 1) Yes @else No @endif</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-sm-6">
-                        <table class="table table-bordered table-striped table-hover">
+                        <table class="table table-bordered table-condensed table-striped table-hover">
                             <thead></thead>
                             <tbody>
                                 <tr>
                                     <td>Map Passed</td>
-                                    <td>{{ $property->map_pass }}</td>
+                                    <td>@if($property->map_pass == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Open Sides</td>
@@ -251,20 +257,20 @@
                                 @if($property->commercial == 1)
                                 <tr>
                                     <td>Personal Washroom</td>
-                                    <td>{{ $property->p_washrooms }}</td>
+                                    <td>@if($property->p_washrooms == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Cafeteria</td>
-                                    <td>{{ $property->cafeteria }}</td>
+                                    <td>@if($property->cafeteria == 1) Yes @else No @endif</td>
                                 </tr>
                                 <tr>
                                     <td>Personal Showroom</td>
-                                    <td>{{ $property->p_showroom }}</td>
+                                    <td>@if($property->p_showroom == 1) Yes @else No @endif</td>
                                 </tr>
                                 @endif
                                 <tr>
                                     <td>Wall Made</td>
-                                    <td>{{ $property->wall_made }}</td>
+                                    <td>@if($property->wall_made == 1) Yes @else No @endif</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -276,7 +282,7 @@
     @endforeach
     <!-- /. Property information Model -->
 
-    <!-- User/Agent/Builder Modal -->
+    <!-- User Modal -->
     @foreach($properties as $property)
     @foreach(\App\User::where('id',$property->user_id)->get() as $userinfo)
     <div class="modal fade bd-example-modal-md" id="userinfo_{{ $property->user_id }}" tabindex="-1" role="dialog"
@@ -286,7 +292,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">{{ $property->user_fname }}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ $property->user_fname }} {{ $property->user_lname }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="col-sm-12">
@@ -295,7 +301,7 @@
                                 alt="{{ $userinfo->first_name }}">
                         </div>
                         <div class="col-sm-8">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
                                 <thead></thead>
                                 <tbody>
                                     <tr>
@@ -318,7 +324,7 @@
                             </table>
                         </div>
                         <div class="col-sm-12">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
                                 <thead></thead>
                                 <tbody>
                                     <tr>
@@ -341,7 +347,10 @@
                                         <td>City</td>
                                         <td>{{ $userinfo->city }}</td>
                                     </tr>
-
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -352,7 +361,168 @@
     </div>
     @endforeach
     @endforeach
-    <!-- /. User/Agent/Builder Modal -->
+    <!-- /. User Modal -->
+    <!-- Agent Modal -->
+    @foreach($properties as $property)
+    @foreach(\App\User::where('id',$property->agent_id)->get() as $userinfo)
+    <div class="modal fade bd-example-modal-md" id="agentinfo_{{ $property->agent_id }}" tabindex="-1" role="dialog"
+        aria-labelledby="userView">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content row">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ $property->agent_fname }} {{ $property->agent_lname }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <img class="img-responsive img-circle" src="{{ url('/dist/img/user2-160x160.jpg') }}"
+                                alt="{{ $userinfo->first_name }}">
+                        </div>
+                        <div class="col-sm-8">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{ $userinfo->first_name }} {{ $userinfo->last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>{{ $userinfo->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone</td>
+                                        <td>{{ $userinfo->phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usertype</td>
+                                        <td>@if($userinfo->admin == 1) Admin @else {{ $userinfo->usertype }} @endif</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business Name</td>
+                                        <td>{{ $userinfo->business_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>About Business</td>
+                                        <td>{{ $userinfo->about_business }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{ $userinfo->country }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td>{{ $userinfo->state }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td>{{ $userinfo->city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    @endforeach
+    <!-- /. Agent Modal -->
+
+    <!-- Builder Modal -->
+    @foreach($properties as $property)
+    @foreach(\App\User::where('id',$property->builder_id)->get() as $userinfo)
+    <div class="modal fade bd-example-modal-md" id="builderinfo_{{ $property->builder_id }}" tabindex="-1" role="dialog"
+        aria-labelledby="userView">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content row">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ $property->builder_fname }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <img class="img-responsive img-circle" src="{{ url('/dist/img/user2-160x160.jpg') }}"
+                                alt="{{ $userinfo->first_name }}">
+                        </div>
+                        <div class="col-sm-8">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>{{ $userinfo->first_name }} {{ $userinfo->last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>{{ $userinfo->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone</td>
+                                        <td>{{ $userinfo->phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usertype</td>
+                                        <td>@if($userinfo->admin == 1) Admin @else {{ $userinfo->usertype }} @endif</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table table-bordered table-condensed table-striped table-hover">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business Name</td>
+                                        <td>{{ $userinfo->business_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>About Business</td>
+                                        <td>{{ $userinfo->about_business }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>{{ $userinfo->country }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>State</td>
+                                        <td>{{ $userinfo->state }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>City</td>
+                                        <td>{{ $userinfo->city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    @endforeach
+    <!-- /. Builder Modal -->
 
 </div>
 <!-- /.content-wrapper -->
