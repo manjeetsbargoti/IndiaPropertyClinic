@@ -212,12 +212,16 @@ interface A extends C, D {
     public function a(A $a) : A;
 }
 
-function fn(A $a) : A {}
-function fn2(array $a) : array {}
+function f(A $a) : A {}
+function f2(array $a) : array {}
 function(A $a) : A {};
 
 function fn3(?A $a) : ?A {}
 function fn4(?array $a) : ?array {}
+
+fn(array $a): array => $a;
+fn(A $a): A => $a;
+fn(?A $a): ?A => $a;
 
 A::b();
 A::$b;
@@ -249,10 +253,10 @@ interface A extends \NS\C, \NS\D
 {
     public function a(\NS\A $a) : \NS\A;
 }
-function fn(\NS\A $a) : \NS\A
+function f(\NS\A $a) : \NS\A
 {
 }
-function fn2(array $a) : array
+function f2(array $a) : array
 {
 }
 function (\NS\A $a) : \NS\A {
@@ -263,6 +267,9 @@ function fn3(?\NS\A $a) : ?\NS\A
 function fn4(?array $a) : ?array
 {
 }
+fn(array $a): array => $a;
+fn(\NS\A $a): \NS\A => $a;
+fn(?\NS\A $a): ?\NS\A => $a;
 \NS\A::b();
 \NS\A::$b;
 \NS\A::B;

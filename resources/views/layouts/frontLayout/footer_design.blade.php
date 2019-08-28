@@ -28,12 +28,42 @@ $footerProperties = Controller::footersection();
     .list-property-float:hover {
         color: #fff;
     }
+    .list-business-float{
+        position:fixed;
+        width:160px;
+        height:30px;
+        top:13em;
+        right:1px;
+        z-index: 999;
+        background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
+        color:#FFF;
+        border-radius: 5px;
+        text-align:center;
+        cursor: pointer;
+        /* box-shadow: 2px 2px 3px #999; */
+    }
+    .list-business-float span {
+        position: relative;
+        top: 2px;
+        font-size: 18px;
+    }
+    .list-business-float:hover {
+        color: #fff;
+    }
 </style>
 
 <footer>
     @if(Route::current()->getName() == 'repair-services' || Route::current()->getName() == 'service-request')
-    <a href="{{ url('/list-property') }}" class="list-property-float">
+    <a href="{{ url('/list-property') }}" class="list-business-float">
        <span>List Your Business</span>
+    </a>
+    @elseif(Route::current()->getName() == 'home')
+    <a href="{{ url('/list-property') }}" class="list-business-float">
+       <span>List Your Business</span>
+    </a>
+    <br>
+    <a href="{{ url('/list-property') }}" class="list-property-float">
+       <span>List Your Property</span>
     </a>
     @else
     <a href="{{ url('/list-property') }}" class="list-property-float">

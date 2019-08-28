@@ -9,7 +9,7 @@
 }
 
 .login-form-body {
-    background-image: url('../../bg-tan.webp');
+    background-image: url('https://i2.wp.com/ismailandpartners.com/wp-content/uploads/2014/07/real-estate-background-1.jpg');
     background-attachment: fixed; 
     background-repeat: no-repeat;
     background-position: center center; 
@@ -78,8 +78,8 @@
     top: 0;
     left: 0;
     display: block;
-    width: 100%;
-    margin-bottom: 0;
+    /* width: 100%; */
+    /* margin-bottom: 0; */
     /* Override default `<label>` margin */
     line-height: 1.5;
     color: #495057;
@@ -184,18 +184,18 @@
                             <?php echo e(csrf_field()); ?>
 
                             <div class="form-label-group">
-                                <input type="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('email')); ?>" placeholder="Email address"
+                                <input type="email" name="email" class="form-control<?php echo e($errors->has('email') ? ' is-invalid' : ''); ?>" value="<?php echo e(old('email')); ?>" placeholder="Email address"
                                     required autofocus>
                                 <label for="inputEmail">Email address</label>
                             </div>
                             <div class="form-label-group">
-                                <input type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" placeholder="Password"
+                                <input type="password" name="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" placeholder="Password"
                                     required>
                                 <label for="inputPassword">Password</label>
                             </div>
                             <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" name="remember" id="rememberCheck1" <?php echo e(old('remember') ? 'checked' : ''); ?>>
-                                <label class="custom-control-label" for="rememberCheck1">Remember Password</label>
+                                <input type="checkbox" class="custom-control-input" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
+                                <label class="custom-control-label" for="remember">Remember Password</label>
                             </div>
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign
                                 in</button>

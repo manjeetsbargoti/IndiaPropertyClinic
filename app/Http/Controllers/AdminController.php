@@ -354,6 +354,7 @@ class AdminController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
+            echo "<pre>"; print_r($data); die;
 
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => 0])) {
                 $userStatus = User::where(['email' => $data['email']])->first();

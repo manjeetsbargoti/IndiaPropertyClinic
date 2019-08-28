@@ -249,7 +249,7 @@
                             <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($property->service_id == $service->id ): ?>
                             <?php $counter++;?>
-                            <?php if( $counter <= 4): ?> <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <?php if( $counter <= 4): ?> <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                                 <div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">

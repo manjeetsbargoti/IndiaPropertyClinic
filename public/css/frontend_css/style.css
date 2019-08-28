@@ -1124,19 +1124,26 @@ ul.continents li:hover p{
     padding: 11px 0;
 }
 .footer_bottom {
-    background: url(../images/footerbg.svg) top left #F4F4F4 no-repeat;
+    background: url('https://d35hep2hkokmli.cloudfront.net/website/backgrounds/uploaded/Section-two-color.jpg') top left #F4F4F4 no-repeat;
     padding: 30px 0 20px;
+}
+.footer_bottom p {
+    color: #171747;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: justify;
 }
 .footer_box h5 {
     font-size: 14px;
     text-transform: uppercase;
-    color: #000;
+    color: #171747;
+    font-weight: 500;
 }
 .oter_ser a {
     width: 100%;
     display: block;
     margin-bottom: 5px;
-    color: #444;
+    color: #171747;
 }
 .footer_box ul {
     margin: 0;
@@ -1167,14 +1174,21 @@ ul.continents li:hover p{
 }
 .footer_box li p {
     margin: 0;
-    font-size: 11px;
-    color: #707070;
+    font-size: 13px;
+    color: #171747;
+    font-weight: 400;
 }
 .footer_box p {
     margin-bottom: 7px;
+    font-size: 13px;
+    color: #171747;
+    font-weight: 400;
+    line-height: 1.4;
 }
 .footer_box p a{
-    color: #707070;
+    font-size: 13px;
+    color: #171747;
+    font-weight: 400;
 }
 .footer_box li h5 {
     font-size: 12px;
@@ -1204,8 +1218,9 @@ ul.continents li:hover p{
 }
 .copyright ul li a {
     padding: 0 10px;
-    color: #707070;
-    border-right: 1px solid #707070;
+    color: #171747;
+    border-right: 1px solid #171747;
+    font-size: 13px;
 }
 .copyright ul li:last-child a {
     border: none;
