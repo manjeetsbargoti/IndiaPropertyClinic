@@ -3,6 +3,7 @@
 <style>
    .box{width:600px;margin:0 auto;border:1px solid #ccc;}
    .has-error{border-color:#FF0000 !important;background-color:#ffff99;}
+   .formtab{display:block;}
 </style>
 
 <div class="vender_formsec">

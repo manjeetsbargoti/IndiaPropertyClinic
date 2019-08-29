@@ -514,4 +514,11 @@ class HomeController extends Controller
     //         return view('frontend.pages.terms_condition');
     //     }
     // }
+
+
+    // Business List by Vendor
+    public function listBusiness()
+    {
+        return view('frontend.list_business');
+    }
 }

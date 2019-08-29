@@ -1,0 +1,26 @@
+[2019-08-29 06:52:55] local.ERROR: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select * from information_schema.tables where table_schema = property_new_2 and table_name = options and table_type = 'BASE TABLE') {"exception":"[object] (Illuminate\\Database\\QueryException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ (SQL: select * from information_schema.tables where table_schema = property_new_2 and table_name = options and table_type = 'BASE TABLE') at D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 2002): SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ at D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connectors\\Connector.php:70)
+[stacktrace]
+#0 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('select * from i...', Array, Object(Closure))
+#1 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(333): Illuminate\\Database\\Connection->run('select * from i...', Array, Object(Closure))
+#2 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Schema\\MySqlBuilder.php(18): Illuminate\\Database\\Connection->select('select * from i...', Array)
+#3 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Facades\\Facade.php(237): Illuminate\\Database\\Schema\\MySqlBuilder->hasTable('options')
+#4 D:\\GIT_Code\\IndiaPropertyClinic\\app\\Providers\\AppServiceProvider.php(29): Illuminate\\Support\\Facades\\Facade::__callStatic('hasTable', Array)
+#5 [internal function]: App\\Providers\\AppServiceProvider->boot()
+#6 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(32): call_user_func_array(Array, Array)
+#7 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#8 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#9 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#10 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(827): Illuminate\\Container\\Container->call(Array)
+#11 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(810): Illuminate\\Foundation\\Application->bootProvider(Object(App\\Providers\\AppServiceProvider))
+#12 [internal function]: Illuminate\\Foundation\\Application->Illuminate\\Foundation\\{closure}(Object(App\\Providers\\AppServiceProvider), 22)
+#13 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(811): array_walk(Array, Object(Closure))
+#14 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\BootProviders.php(17): Illuminate\\Foundation\\Application->boot()
+#15 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Application.php(210): Illuminate\\Foundation\\Bootstrap\\BootProviders->bootstrap(Object(Illuminate\\Foundation\\Application))
+#16 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(322): Illuminate\\Foundation\\Application->bootstrapWith(Array)
+#17 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(131): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
+#18 D:\\GIT_Code\\IndiaPropertyClinic\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#19 {main}
+"} 

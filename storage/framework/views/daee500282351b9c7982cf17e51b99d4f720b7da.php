@@ -54,11 +54,11 @@ $footerProperties = Controller::footersection();
 
 <footer>
     <?php if(Route::current()->getName() == 'repair-services' || Route::current()->getName() == 'service-request'): ?>
-    <a href="<?php echo e(url('/list-property')); ?>" class="list-business-float">
+    <a href="<?php echo e(url('/list-your-business')); ?>" class="list-business-float">
        <span>List Your Business</span>
     </a>
     <?php elseif(Route::current()->getName() == 'home'): ?>
-    <a href="<?php echo e(url('/list-property')); ?>" class="list-business-float">
+    <a href="<?php echo e(url('/list-your-business')); ?>" class="list-business-float">
        <span>List Your Business</span>
     </a>
     <br>

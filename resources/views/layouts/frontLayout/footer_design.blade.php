@@ -54,11 +54,11 @@ $footerProperties = Controller::footersection();
 
 <footer>
     @if(Route::current()->getName() == 'repair-services' || Route::current()->getName() == 'service-request')
-    <a href="{{ url('/list-property') }}" class="list-business-float">
+    <a href="{{ url('/list-your-business') }}" class="list-business-float">
        <span>List Your Business</span>
     </a>
     @elseif(Route::current()->getName() == 'home')
-    <a href="{{ url('/list-property') }}" class="list-business-float">
+    <a href="{{ url('/list-your-business') }}" class="list-business-float">
        <span>List Your Business</span>
     </a>
     <br>

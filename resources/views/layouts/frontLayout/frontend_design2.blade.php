@@ -90,7 +90,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js">
     </script>
 
-    
+    <script>
+        $("#OfferedBService").change(function() {
+            if ($(this).val() != '') {
+                $('#BusinessInformation').removeClass('d-none').addClass('d-block');
+            } else {
+              $('#BusinessInformation').removeClass('d-block').addClass('d-none');
+            }
+        });
+    </script>
 
     <script type="text/javascript">
     $(function() {
@@ -224,6 +232,7 @@
             }
 
         });
+
     });
     </script>
 
