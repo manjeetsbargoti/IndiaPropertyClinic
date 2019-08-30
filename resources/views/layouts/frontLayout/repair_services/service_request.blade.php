@@ -3,8 +3,8 @@
 
 <style>
 
-body {
-    background-image: url('../../bg-tan.webp');
+.smart_container {
+    background-image: url('../../images/real-estate-bg.jpg');
     background-attachment: fixed; 
     background-repeat: no-repeat;
     background-position: center center; 

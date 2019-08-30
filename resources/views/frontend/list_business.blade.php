@@ -3,7 +3,7 @@
 
 <style>
 .list_business_section {
-    background-image: url('https://i2.wp.com/ismailandpartners.com/wp-content/uploads/2014/07/real-estate-background-1.jpg');
+    background-image: url('../../images/real-estate-bg.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
@@ -20,7 +20,7 @@
 
 .list_business_section h3 {
     padding: 1em 0em;
-    color:#171747;
+    color: #171747;
     font-size: 20px;
 }
 </style>
@@ -50,12 +50,13 @@
 
                         <form action="{{ url('/list-your-business') }}" method="POST" id="ListBusiness"
                             name="list_business">
+                            {{ csrf_field() }}
                             <div class="row justify-content-md-center">
                                 <div class="form-group col-sm-6 col-md-6 col-lg-6">
                                     <label for="Select Service" class="title_txt">Select Services</label>
                                     <select name="offered_service" id="OfferedBService" class="form-control">
                                         <option value="" selected>-- Select a Service --</option>
-                                        @foreach(\App\OtherServices::where('parent_id', 0)->get() as $rservice)
+                                        @foreach($repair_services as $rservice)
                                         <option value="{{ $rservice->id }}">{{ $rservice->service_name }}</option>
                                         @endforeach
                                     </select>
@@ -68,12 +69,21 @@
                                     <div class="form-group col-sm-6 col-md-4 col-lg-4">
                                         <label class="title_txt">Business Name</label>
                                         <input type="text" id="ListBusinessName" name="business_name"
-                                            class="form-control emptyformvalidation" placeholder="Enter your Business name">
+                                            class="form-control emptyformvalidation"
+                                            placeholder="Enter your Business name">
+                                        <br>
+                                        <label class="title_txt">Experience</label>
+                                        <input type="text" id="Experience" name="experience"
+                                            class="form-control emptyformvalidation"
+                                            placeholder="Enter your Experience">
                                     </div>
                                     <!-- Business Description -->
                                     <div class="form-group col-sm-6 col-md-8 col-lg-8">
-                                        <label class="title_txt">Business Description</label> <span class="text-success">(max 500 words)</span>
-                                        <textarea name="business_description" id="BuainessDescription" class="form-control" cols="30" rows="5" maxlength="500" placeholder="Write summery about your business..."></textarea>
+                                        <label class="title_txt">Business Description</label> <span
+                                            class="text-success">(max 500 words)</span>
+                                        <textarea name="business_description" id="BuainessDescription"
+                                            class="form-control" cols="30" rows="5" maxlength="500"
+                                            placeholder="Write summery about your business..."></textarea>
                                     </div>
                                 </div>
 
@@ -82,30 +92,65 @@
                                     <!-- Business Country -->
                                     <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <label class="title_txt">Business Country</label>
-                                        <select id="ListBusinessCountry" name="business_country" class="form-control emptyformvalidation">
-                                            <option value="">-- Select Country --</option>    
-                                            @foreach(\App\Country::orderBy('name', 'asc')->get() as $cont)
-                                                <option value="{{ $cont->iso2 }}">{{ $cont->name }}</option>
+                                        <select id="country" name="business_country"
+                                            class="form-control emptyformvalidation">
+                                            <option value="">-- Select Country --</option>
+                                            @foreach($countries as $cont)
+                                            <option value="{{ $cont->iso2 }}">{{ $cont->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <!-- Business State -->
                                     <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <label class="title_txt">Business State</label>
-                                        <select id="ListBusinessState" name="business_state" class="form-control emptyformvalidation">
+                                        <select id="state" name="business_state"
+                                            class="form-control emptyformvalidation">
                                             <option value="">-- Select State --</option>
                                         </select>
                                     </div>
                                     <!-- Business City -->
                                     <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                         <label class="title_txt">Business City</label>
-                                        <select id="ListBusinessCity" name="business_city" class="form-control emptyformvalidation">
+                                        <select id="city" name="business_city" class="form-control emptyformvalidation">
                                             <option value="">-- Select City --</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
 
+                                <h3>Owner Information</h3>
+                                <div class="row">
+                                    <!-- Owner First Name -->
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                        <label class="title_txt">First Name</label>
+                                        <input type="text" name="first_name" id="ListFBName" class="form-control"
+                                            placeholder="Enter first name">
+                                    </div>
+                                    <!-- Owner Last Name -->
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                        <label class="title_txt">Last Name</label>
+                                        <input type="text" name="last_name" id="ListLBName" class="form-control"
+                                            placeholder="Enter last name">
+                                    </div>
+                                    <!-- Owner Email -->
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                        <label class="title_txt">Email</label>
+                                        <input type="email" name="email" id="ListBEmail" class="form-control"
+                                            placeholder="Enter email address">
+                                    </div>
+                                    <!-- Owner Phone -->
+                                    <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                        <label class="title_txt">Phone</label>
+                                        <input type="text" name="phone" id="ListBPhone" class="form-control"
+                                            placeholder="Enter phone number">
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-lg-center">
+                                    <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <input style="float:none; display:block; margin:auto;" type="submit" class="btn btn-lg btn-info" value="Submit Business">
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
