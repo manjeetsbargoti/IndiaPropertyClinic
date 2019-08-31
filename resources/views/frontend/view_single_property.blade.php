@@ -36,7 +36,7 @@
                             <div id="thumbs" class="owl-carousel owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
+                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}" alt="{{ $property->property_name }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -70,16 +70,16 @@
                     </div>
                     <div class="agent_sec">
                         <div class="agent_profile">
-                            <i class="fa fa-user fa-2x"></i>
-                            <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
+                            <!-- <i class="fa fa-user fa-2x"></i> -->
+                            <img class="img-responsive" src="{{ url('/images/user.png') }}"> 
                         </div>
                         <div class="agent_txt">
                         @if(!empty($property->agent_name))
-                        <h6><a href="{{ url('/profile/'.$property->agent.'/user') }}">{{ $property->agent_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
+                        <h6><a href="{{ url('/profile/'.$property->agent.'/user') }}">{{ $property->agent_name }}</a>@if($property->status == 1) <sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
                         @elseif(!empty($property->builder_name))
-                        <h6><a href="{{ url('/profile/'.$property->builder.'/user') }}">{{ $property->builder_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
+                        <h6><a href="{{ url('/profile/'.$property->builder.'/user') }}">{{ $property->builder_name }}</a>@if($property->status == 1) <sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
                         @elseif(!empty($property->addby_name))
-                        <h6><a href="{{ url('/profile/'.$property->add_by.'/user') }}">{{ $property->addby_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
+                        <h6><a href="{{ url('/profile/'.$property->add_by.'/user') }}">{{ $property->addby_name }}</a>@if($property->status == 1) <sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
                         @endif
                         <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">@if(!empty($property->agent_name))AGENT Contact @elseif(!empty($property->builder_name))Builder Name @elseif(!empty($property->addby_name))Request a Call @endif</a>
                         <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
@@ -269,7 +269,7 @@
                                     <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                                    src="{{ url('/images/user.png') }}"></div>
                                             <div class="dealers_txt">
                                                 <h4>{{ $d->first_name }}</h4>
                                             </div>

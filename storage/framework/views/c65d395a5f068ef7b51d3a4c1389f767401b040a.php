@@ -146,9 +146,9 @@
 <div class="smart_container">
     <div class="services_viewsec">
         <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="services_viewbanner"
+        <div class="services_viewbanner background-image"
             style="background-image:url('<?php echo e(url('images/backend_images/repair_service_images/large/'.$service->service_banner)); ?>')">
-
+            <span role="img" aria-label="<?php echo e($service->service_name); ?>"> </span>
             <div class="overlay_services"></div>
             <div class="services_viewbannertxt">
                 <div class="container">
@@ -544,12 +544,12 @@
             </div>
             <div id="ser_professionals" class="serview_conbox">
                 <div class="row">
-                    <?php $__currentLoopData = \App\User::where('usertype', 'V')->inRandomOrder()->take(4)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $vendor; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                         <a href="<?php echo e(url('/profile/'.$v->id.'/user')); ?>">
                             <div class="fireman">
                                 <div class="boxuser_pic">
-                                    <img src="<?php echo e(url('images/frontend_images/images/user2.jpg')); ?>">
+                                    <img src="<?php echo e(url('images/user.png')); ?>">
                                 </div>
                                 <div class="boxuser_details">
                                     <h5

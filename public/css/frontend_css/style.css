@@ -2164,8 +2164,8 @@ input[type=range]:focus::-ms-fill-upper {
 
 .overview_property h6 {
     font-weight: 500;
-    color: #000;
-    font-size: 14px;
+    color: #f15a27;
+    font-size: 18px;
 }
 
 .overview_rateing {

@@ -337,15 +337,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td>{{ $userinfo->country }}</td>
+                                        <td>@if(!empty($userinfo->country)) @foreach(\App\Country::where('iso2',$userinfo->country)->get() as $country){{ $country->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td>{{ $userinfo->state }}</td>
+                                        <td>@if(!empty($userinfo->state)) @foreach(\App\State::where('id',$userinfo->state)->get() as $state){{ $state->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td>{{ $userinfo->city }}</td>
+                                        <td>@if(!empty($userinfo->city)) @foreach(\App\Cities::where('id',$userinfo->city)->get() as $city){{ $city->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>
@@ -417,15 +417,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td>{{ $userinfo->country }}</td>
+                                        <td>@if(!empty($userinfo->country)) @foreach(\App\Country::where('iso2',$userinfo->country)->get() as $country){{ $country->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td>{{ $userinfo->state }}</td>
+                                        <td>@if(!empty($userinfo->state)) @foreach(\App\State::where('id',$userinfo->state)->get() as $state){{ $state->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td>{{ $userinfo->city }}</td>
+                                        <td>@if(!empty($userinfo->city)) @foreach(\App\Cities::where('id',$userinfo->city)->get() as $city){{ $city->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>
@@ -498,15 +498,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td>{{ $userinfo->country }}</td>
+                                        <td>@if(!empty($userinfo->country)) @foreach(\App\Country::where('iso2',$userinfo->country)->get() as $country){{ $country->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td>{{ $userinfo->state }}</td>
+                                        <td>@if(!empty($userinfo->state)) @foreach(\App\State::where('id',$userinfo->state)->get() as $state){{ $state->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td>{{ $userinfo->city }}</td>
+                                        <td>@if(!empty($userinfo->city)) @foreach(\App\Cities::where('id',$userinfo->city)->get() as $city){{ $city->name }}@endforeach @endif</td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>

@@ -158,7 +158,7 @@
             <li class="user-footer">
               <div class="pull-left">
                 <?php if(Auth::user()->admin  == 1): ?>
-                <a href="<?php echo e(url('/admin/profile')); ?>" class="btn btn-default btn-flat">Profile</a>
+                <a href="<?php echo e(url('/user/account')); ?>" class="btn btn-default btn-flat">Profile</a>
                 <?php else: ?>
                 <a href="<?php echo e(url('/user/account')); ?>" class="btn btn-default btn-flat">Profile</a>
                 <?php endif; ?>

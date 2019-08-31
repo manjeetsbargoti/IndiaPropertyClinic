@@ -340,15 +340,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td><?php echo e($userinfo->country); ?></td>
+                                        <td><?php if(!empty($userinfo->country)): ?> <?php $__currentLoopData = \App\Country::where('iso2',$userinfo->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($country->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td><?php echo e($userinfo->state); ?></td>
+                                        <td><?php if(!empty($userinfo->state)): ?> <?php $__currentLoopData = \App\State::where('id',$userinfo->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($state->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td><?php echo e($userinfo->city); ?></td>
+                                        <td><?php if(!empty($userinfo->city)): ?> <?php $__currentLoopData = \App\Cities::where('id',$userinfo->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>
@@ -420,15 +420,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td><?php echo e($userinfo->country); ?></td>
+                                        <td><?php if(!empty($userinfo->country)): ?> <?php $__currentLoopData = \App\Country::where('iso2',$userinfo->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($country->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td><?php echo e($userinfo->state); ?></td>
+                                        <td><?php if(!empty($userinfo->state)): ?> <?php $__currentLoopData = \App\State::where('id',$userinfo->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($state->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td><?php echo e($userinfo->city); ?></td>
+                                        <td><?php if(!empty($userinfo->city)): ?> <?php $__currentLoopData = \App\Cities::where('id',$userinfo->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>
@@ -501,15 +501,15 @@
                                     </tr>
                                     <tr>
                                         <td>Country</td>
-                                        <td><?php echo e($userinfo->country); ?></td>
+                                        <td><?php if(!empty($userinfo->country)): ?> <?php $__currentLoopData = \App\Country::where('iso2',$userinfo->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($country->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>State</td>
-                                        <td><?php echo e($userinfo->state); ?></td>
+                                        <td><?php if(!empty($userinfo->state)): ?> <?php $__currentLoopData = \App\State::where('id',$userinfo->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $state): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($state->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>City</td>
-                                        <td><?php echo e($userinfo->city); ?></td>
+                                        <td><?php if(!empty($userinfo->city)): ?> <?php $__currentLoopData = \App\Cities::where('id',$userinfo->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $city): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($city->name); ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?></td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>

@@ -126,14 +126,15 @@ class RepairServiceController extends Controller
     // View Single Other Service on Frontend
     public function SingleRepairService(Request $request, $url=null)
     {
-        $propertyImages = PropertyImages::get();
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+
         $otherServices = OtherServices::get();
         $randervice = OtherServices::inRandomOrder()->limit(4)->get();
         $services = OtherServices::where(['url'=>$url])->get();
         $services = json_decode(json_encode($services));
         $sub_services = OtherServices::where(['parent_id'=>$services[0]->id])->get();
-        $vendor = User::where(['usertype'=> 'V'])->get();
-        // echo "<pre>"; print_r($sub_services); die;
+        $vendor = User::where(['usertype'=> 'V'])->where('country', $arr_ip->iso_code)->take(4)->get();
+        // echo "<pre>"; print_r($arr_ip); die;
 
         // foreach($vendor as $key => $val)
         // {

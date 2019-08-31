@@ -147,9 +147,9 @@
 <div class="smart_container">
     <div class="services_viewsec">
         @foreach($services as $service)
-        <div class="services_viewbanner"
+        <div class="services_viewbanner background-image"
             style="background-image:url('{{ url('images/backend_images/repair_service_images/large/'.$service->service_banner) }}')">
-
+            <span role="img" aria-label="{{ $service->service_name }}"> </span>
             <div class="overlay_services"></div>
             <div class="services_viewbannertxt">
                 <div class="container">
@@ -542,12 +542,12 @@
             </div>
             <div id="ser_professionals" class="serview_conbox">
                 <div class="row">
-                    @foreach(\App\User::where('usertype', 'V')->inRandomOrder()->take(4)->get() as $v)
+                    @foreach($vendor as $v)
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                         <a href="{{ url('/profile/'.$v->id.'/user') }}">
                             <div class="fireman">
                                 <div class="boxuser_pic">
-                                    <img src="{{ url('images/frontend_images/images/user2.jpg') }}">
+                                    <img src="{{ url('images/user.png') }}">
                                 </div>
                                 <div class="boxuser_details">
                                     <h5

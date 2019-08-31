@@ -69,16 +69,16 @@
                     </div>
                     <div class="agent_sec">
                         <div class="agent_profile">
-                            <i class="fa fa-user fa-2x"></i>
-                            <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
+                            <!-- <i class="fa fa-user fa-2x"></i> -->
+                            <img class="img-responsive" src="<?php echo e(url('/images/user.png')); ?>"> 
                         </div>
                         <div class="agent_txt">
                         <?php if(!empty($property->agent_name)): ?>
-                        <h6><a href="<?php echo e(url('/profile/'.$property->agent.'/user')); ?>"><?php echo e($property->agent_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->agent.'/user')); ?>"><?php echo e($property->agent_name); ?></a><?php if($property->status == 1): ?> <sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
                         <?php elseif(!empty($property->builder_name)): ?>
-                        <h6><a href="<?php echo e(url('/profile/'.$property->builder.'/user')); ?>"><?php echo e($property->builder_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->builder.'/user')); ?>"><?php echo e($property->builder_name); ?></a><?php if($property->status == 1): ?> <sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
                         <?php elseif(!empty($property->addby_name)): ?>
-                        <h6><a href="<?php echo e(url('/profile/'.$property->add_by.'/user')); ?>"><?php echo e($property->addby_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->add_by.'/user')); ?>"><?php echo e($property->addby_name); ?></a><?php if($property->status == 1): ?> <sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
                         <?php endif; ?>
                         <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><?php if(!empty($property->agent_name)): ?>AGENT Contact <?php elseif(!empty($property->builder_name)): ?>Builder Name <?php elseif(!empty($property->addby_name)): ?>Request a Call <?php endif; ?></a>
                         <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
@@ -268,7 +268,7 @@
                                     <a href="<?php echo e(url('/profile/'.$d->id.'/user')); ?>">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                                    src="<?php echo e(url('/images/user.png')); ?>"></div>
                                             <div class="dealers_txt">
                                                 <h4><?php echo e($d->first_name); ?></h4>
                                             </div>

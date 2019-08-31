@@ -157,7 +157,7 @@
             <li class="user-footer">
               <div class="pull-left">
                 @if(Auth::user()->admin  == 1)
-                <a href="{{ url('/admin/profile') }}" class="btn btn-default btn-flat">Profile</a>
+                <a href="{{ url('/user/account') }}" class="btn btn-default btn-flat">Profile</a>
                 @else
                 <a href="{{ url('/user/account') }}" class="btn btn-default btn-flat">Profile</a>
                 @endif

@@ -587,7 +587,7 @@
                                     <a href="<?php echo e(url('/profile/'.$d->id.'/user')); ?>">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                                    src="<?php echo e(url('/images/user.png')); ?>"></div>
                                             <div class="dealers_txt">
                                                 <h4><?php echo e($d->first_name); ?></h4>
                                             </div>

@@ -586,7 +586,7 @@
                                     <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
-                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                                    src="{{ url('/images/user.png') }}"></div>
                                             <div class="dealers_txt">
                                                 <h4>{{ $d->first_name }}</h4>
                                             </div>

@@ -37,7 +37,7 @@
                                     <th>Services Banner</th>
                                     <th>Services Name</th>
                                     <th>Parent Service</th>
-                                    <?php if(Auth::user()->admin  == 1): ?>
+                                    <?php if(Auth::user()->admin == 1): ?>
                                     <th>Status</th>
                                     <th>Action</th>
                                     <?php endif; ?>
