@@ -148,6 +148,10 @@
                   </nav>
                   <p><span><?php echo $contRow; ?> Properties </span> </p>
                 </div>
+                <?php if($contRow == 0) { ?>
+                    <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
+                    <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
+                <?php } ?>
 
                   <div class="row posts endless-pagination" data-next-page="{{ $posts->nextPageUrl() }}" >
                     @foreach($posts as $property)

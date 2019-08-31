@@ -9,7 +9,7 @@
 }
 
 .login-form-body {
-    background-image: url('https://i2.wp.com/ismailandpartners.com/wp-content/uploads/2014/07/real-estate-background-1.jpg');
+    background-image: url('../../images/real-estate-bg.jpg');
     background-attachment: fixed; 
     background-repeat: no-repeat;
     background-position: center center; 
@@ -31,7 +31,7 @@
 .card-signin .card-img-left {
     width: 45%;
     /* Link to your background image using in the property below! */
-    background: scroll center url('https://source.unsplash.com/WEQbe2jBg40/414x512');
+    background: scroll center url('../../images/dummy.jpg');
     background-size: cover;
 }
 
@@ -199,7 +199,8 @@
                             </div>
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign
                                 in</button>
-                            <a class="d-block text-center mt-2 small" href="<?php echo e(url('/register')); ?>">Register</a>
+                            <span class="d-block mt-2">New User? <a href="<?php echo e(url('/register')); ?>">Register</a></span>
+                            <span class="d-block">Problem in Sign in? <a href="<?php echo e(url('/password/reset')); ?>">Forgot Password</a></span>
                             <hr class="my-4">
                             <a class="btn btn-lg btn-twitter btn-block text-uppercase" id="twitter" href="<?php echo e(url('/auth/redirect/twitter')); ?>"><i
                                     class="fab fa-twitter mr-2"></i> Sign in with Twitter</a>

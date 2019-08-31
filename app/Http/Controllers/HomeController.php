@@ -240,9 +240,9 @@ class HomeController extends Controller
         }
 
         // Meta tags
-        $meta_title = "India Property Clinic | Property Listing and Home Repairing Services";
-        $meta_description = "India Property Clinic | Property Listing and Repairing Services";
-        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+        $meta_title = "India Property Clinic | Property Listing and Home Services";
+        $meta_description = "India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
 
         return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
         // return response()->json($posts);

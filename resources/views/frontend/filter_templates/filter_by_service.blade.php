@@ -154,8 +154,9 @@
                     <p><span><?php echo $contRow; ?> Properties </span></p>
                 </div>
                 <?php if($contRow == 0) { ?>
+                    <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
-                <?php } ?> 
+                <?php } ?>
                 <div class="row">
                     @foreach($properties as $property)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">

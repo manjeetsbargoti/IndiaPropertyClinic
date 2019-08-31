@@ -10,6 +10,8 @@ use App\Property;
 use App\Services;
 use App\UserType;
 use App\Amenity;
+use App\Cities;
+use App\State;
 use App\PropertyTypes;
 use App\PropertyQuery;
 use App\PropertyImages;
@@ -208,7 +210,7 @@ class PropertyController extends Controller
     // Showing Listed Properties By Admin
     public function viewProperty()
     {
-        $userid = Auth::user()->admin;
+        $userid = Auth::user()->id;
         if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'){
             $properties = Property::orderBy('created_at', 'desc')->paginate(10);
         }else{
@@ -292,17 +294,12 @@ class PropertyController extends Controller
 
         // $property = Property::get();
         $properties = Property::where(['property_url' => $url])->orderBy('id', 'asc')->get();
-        $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
 
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $properties[$key]->service_name = $service_name->service_name;
-            $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
-            if ($propertyimage_count > 0) {
-                $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
-                $properties[$key]->image_name = $propertyimage_name->image_name;
-            }
+            
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
@@ -322,19 +319,29 @@ class PropertyController extends Controller
             $addby_count = User::where(['id' => $val->add_by])->count();
             if ($addby_count > 0) {
                 $addBy = User::where(['id' => $val->add_by])->first();
-                $properties[$key]->addby_name = $addBy->first_name;
+                $properties[$key]->addby_name   = $addBy->first_name;
+                $properties[$key]->status       = $addBy->status;
             }
             $builder_count = User::where(['id' => $val->builder])->count();
             // echo "<pre>"; print_r($builder_count); die;
             if (!empty($builder_count)) {
                 $buildername = User::where(['id' => $val->builder])->first();
                 $properties[$key]->builder_name = $buildername->first_name;
+                $properties[$key]->status = $buildername->status;
+            }
+
+            $agent_count = User::where(['id' => $val->agent])->count();
+            // echo "<pre>"; print_r($agent_count); die;
+            if (!empty($agent_count)) {
+                $agentname = User::where(['id' => $val->agent])->first();
+                $properties[$key]->agent_name = $agentname->first_name;
+                $properties[$key]->status = $agentname->status;
             }
         }
 
         // echo "<pre>"; print_r($properties); die;
         $menuServices = Services::get();
-        return view('frontend.view_single_property')->with(compact('properties', 'propertyImages', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.view_single_property')->with(compact('properties', 'country_count', 'state_count', 'city_count'));
         // return view('frontend.view_single_property');
     }
 
@@ -343,17 +350,12 @@ class PropertyController extends Controller
         $statename = DB::table('states')->where(['id' => $state_id])->pluck('name');
         $properties = Property::where(['state' => $state_id])->get();
         $posts = Property::where(['state' => $state_id])->paginate($this->posts_per_page);
-        $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
 
         foreach ($posts as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $posts[$key]->service_name = $service_name->service_name;
-            $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
-            if ($propertyimage_count > 0) {
-                $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
-                $posts[$key]->image_name = $propertyimage_name->image_name;
-            }
+            
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
@@ -364,6 +366,7 @@ class PropertyController extends Controller
             if ($state_count > 0) {
                 $state = DB::table('states')->where(['id' => $val->state])->first();
                 $posts[$key]->state_name = $state->name;
+                
             }
             $city_count = DB::table('cities')->where(['id' => $val->city])->count();
             if ($city_count > 0) {
@@ -393,7 +396,13 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'propertyImages', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
+
+        $state_metaname = State::where('id', $state_id)->first();
+        $meta_title = "All Properties in ".$state_metaname->name." | India Property Clinic | IPC";
+        $meta_description = "India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+
+        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     public function searchByCountry($country_id = null)
@@ -402,7 +411,6 @@ class PropertyController extends Controller
         // echo "<pre>"; print_r($countryname); die;
         $properties = Property::where(['country' => $country_id])->get();
         $posts = Property::where(['country' => $country_id])->paginate($this->posts_per_page);
-        $propertyImages = PropertyImages::get();
         $properties = json_decode(json_encode($properties));
 
         foreach ($posts as $key => $val) {
@@ -418,11 +426,13 @@ class PropertyController extends Controller
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
                 $posts[$key]->country_name = $country->name;
                 $posts[$key]->currency = $country->currency;
+                
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
                 $state = DB::table('states')->where(['id' => $val->state])->first();
                 $posts[$key]->state_name = $state->name;
+                
             }
             $city_count = DB::table('cities')->where(['id' => $val->city])->count();
             if ($city_count > 0) {
@@ -443,9 +453,15 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        // echo "<pre>"; print_r($countryname); die;
 
-        return view('frontend.filter_templates.filter_by_csc', compact('propertyImages', 'contRow', 'countryname', 'posts', 'countrycount'));
+        $country_metaname = Country::where('iso2', $country_id)->first();
+        $meta_title = "All Properties in ".$country_metaname->name." | India Property Clinic | IPC";
+        $meta_description = "India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+        
+        // echo "<pre>"; print_r($meta_name); die;
+
+        return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     public function searchByCity($city_id = null)
@@ -454,16 +470,11 @@ class PropertyController extends Controller
         $properties = Property::where(['city' => $city_id])->get();
         $posts = Property::where(['city' => $city_id])->paginate($this->posts_per_page);
         // echo "<pre>"; print_r($posts); die;
-        $propertyImages = PropertyImages::get();
 
         foreach ($posts as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $posts[$key]->service_name = $service_name->service_name;
-            $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
-            if ($propertyimage_count > 0) {
-                $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
-                $posts[$key]->image_name = $propertyimage_name->image_name;
-            }
+            
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
@@ -479,6 +490,7 @@ class PropertyController extends Controller
             if ($city_count > 0) {
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
                 $posts[$key]->city_name = $city->name;
+                
             }
         }
         if (!empty($country_count)) {
@@ -503,8 +515,14 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
+
+        $city_metaname = Cities::where('id', $city_id)->first();
+        $meta_title = "All Properties in ".$city_metaname->name." | India Property Clinic | IPC";
+        $meta_description = "India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+
         // echo "<pre>"; print_r($properties); die;
-        return view('frontend.filter_templates.filter_by_csc', compact('posts', 'propertyImages', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
+        return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     // Search By Service

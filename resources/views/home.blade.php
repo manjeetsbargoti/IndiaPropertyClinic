@@ -128,8 +128,8 @@
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                <div class="item"><img height="180"
-                                        src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                <div class="item">
+                                <img height="180" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                 </div>
                                 @endforeach
                             </div>

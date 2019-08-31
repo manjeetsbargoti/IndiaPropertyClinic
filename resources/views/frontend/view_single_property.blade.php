@@ -74,13 +74,15 @@
                             <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
                         </div>
                         <div class="agent_txt">
-                        @if(!empty($property->builder_name))
-                        <h6><a href="#">{{ $property->builder_name }}</a></h6>
+                        @if(!empty($property->agent_name))
+                        <h6><a href="{{ url('/profile/'.$property->agent.'/user') }}">{{ $property->agent_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
+                        @elseif(!empty($property->builder_name))
+                        <h6><a href="{{ url('/profile/'.$property->builder.'/user') }}">{{ $property->builder_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
                         @elseif(!empty($property->addby_name))
-                        <h6>{{ $property->addby_name }}</h6>
+                        <h6><a href="{{ url('/profile/'.$property->add_by.'/user') }}">{{ $property->addby_name }}</a>@if($property->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h6>
                         @endif
-                        <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">AGENT Contact</a>
-                        <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#contactModal"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
+                        <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">@if(!empty($property->agent_name))AGENT Contact @elseif(!empty($property->builder_name))Builder Name @elseif(!empty($property->addby_name))Request a Call @endif</a>
+                        <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
                         
                     </div>
                     </div>
@@ -248,6 +250,43 @@
 </div>
 
 <!-- /. Related Properties -->
+
+<!-- Agent/Builders in this Area -->
+
+<div class="latest_product @if(\App\User::whereIn('usertype', array('A','B'))->where('country', $property->country)->where('state', $property->state)->count() == 0) d-none @endif">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="globleheadding text-left">
+                            <h1>Builders/Agents in Same Area</h1>
+                        </div>
+                        <div class="dealers_sec">
+                            <div class="owl-carousel dealerscarousel owl-theme">
+                                @foreach(\App\User::whereIn('usertype', array('A','B'))->where('country', $property->country)->where('state', $property->state)->get() as $d)
+                                <div class="item">
+                                    <a href="{{ url('/profile/'.$d->id.'/user') }}">
+                                        <div class="dealers_box">
+                                            <div class="dealers_img"><img
+                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                            <div class="dealers_txt">
+                                                <h4>{{ $d->first_name }}</h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /. Agent/Builders in this Area -->
 
 <!-- Modal Property Agent Contact -->
 <div class="modal fade bd-example-modal-sm" id="agentContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

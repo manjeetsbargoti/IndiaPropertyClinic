@@ -73,13 +73,15 @@
                             <!-- <img src="/images/frontend_images/images/user1.jpg">  -->
                         </div>
                         <div class="agent_txt">
-                        <?php if(!empty($property->builder_name)): ?>
-                        <h6><a href="#"><?php echo e($property->builder_name); ?></a></h6>
+                        <?php if(!empty($property->agent_name)): ?>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->agent.'/user')); ?>"><?php echo e($property->agent_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
+                        <?php elseif(!empty($property->builder_name)): ?>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->builder.'/user')); ?>"><?php echo e($property->builder_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
                         <?php elseif(!empty($property->addby_name)): ?>
-                        <h6><?php echo e($property->addby_name); ?></h6>
+                        <h6><a href="<?php echo e(url('/profile/'.$property->add_by.'/user')); ?>"><?php echo e($property->addby_name); ?></a><?php if($property->status == 1): ?><sup><img class="img-responsive" width="16" src="<?php echo e(url('/images/verified_badge.png')); ?>" alt="user verified badge"></sup><?php endif; ?></h6>
                         <?php endif; ?>
-                        <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact">AGENT Contact</a>
-                        <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#contactModal"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
+                        <a class="agent_contact" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><?php if(!empty($property->agent_name)): ?>AGENT Contact <?php elseif(!empty($property->builder_name)): ?>Builder Name <?php elseif(!empty($property->addby_name)): ?>Request a Call <?php endif; ?></a>
+                        <a class="agent_contact contactbtn" href="javascript:avoid();" data-toggle="modal" data-target="#agentContact"><i class="fas fa-phone-volume"></i> View Mobile Number</a>
                         
                     </div>
                     </div>
@@ -246,8 +248,44 @@
 </div>
 </div>
 
-
 <!-- /. Related Properties -->
+
+<!-- Agent/Builders in this Area -->
+
+<div class="latest_product <?php if(\App\User::whereIn('usertype', array('A','B'))->where('country', $property->country)->where('state', $property->state)->count() == 0): ?> d-none <?php endif; ?>">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-xl-12">
+                        <div class="globleheadding text-left">
+                            <h1>Builders/Agents in Same Area</h1>
+                        </div>
+                        <div class="dealers_sec">
+                            <div class="owl-carousel dealerscarousel owl-theme">
+                                <?php $__currentLoopData = \App\User::whereIn('usertype', array('A','B'))->where('country', $property->country)->where('state', $property->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="item">
+                                    <a href="<?php echo e(url('/profile/'.$d->id.'/user')); ?>">
+                                        <div class="dealers_box">
+                                            <div class="dealers_img"><img
+                                                    src="/images/frontend_images/images/default.jpg"></div>
+                                            <div class="dealers_txt">
+                                                <h4><?php echo e($d->first_name); ?></h4>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /. Agent/Builders in this Area -->
 
 <!-- Modal Property Agent Contact -->
 <div class="modal fade bd-example-modal-sm" id="agentContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

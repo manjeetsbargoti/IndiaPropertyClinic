@@ -30,10 +30,10 @@
                 </div>
                 <div class="col-12 col-md-3 col-lg-6">
                     <div class="vender_content">
-                        <h4>{{ $ud->first_name }} {{ $ud->last_name }}</h4>
+                        <h4>{{ $ud->first_name }} {{ $ud->last_name }}@if($ud->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h4>
                         <div class="overview_rateingsec">
                             <h4 class="overview_rateing"><i class="staricon"><img
-                                        src="../../images/frontend_images/../../images/frontend_images/images/star.svg">
+                                        src="../../images/frontend_images/images/star.svg">
                                 </i><span class="autorate">4</span> / 5 </h4>
                             <a id="rateing_revbtn" href="javascript:void(0);">59,634 Ratings &amp; 10,710 Reviews</a>
                         </div>
