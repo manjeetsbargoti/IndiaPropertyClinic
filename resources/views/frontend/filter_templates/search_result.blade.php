@@ -151,7 +151,7 @@
                       <li class="breadcrumb-item">All Properties in {{ $scityname }}</li>
                     </ol>
                   </nav>
-                  <p><span><?php echo $contRow; ?> Properties </span></p>
+                  <p><span><?php echo $properties_count; ?> Properties </span></p>
                 </div>
                 <?php if($contRow == 0) { ?>
                     <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>

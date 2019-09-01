@@ -277,20 +277,24 @@ class HomeController extends Controller
         $city = json_decode(json_encode($city), true);
 
         if (empty($data['search_text']) && !empty($data['property_type'])) {
-            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->paginate(18);
+            $properties_count = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->count();
         } elseif (empty($data['search_text']) && empty($data['property_type'])) {
-            $properties = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->get();
+            $properties = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->paginate(18);
+            $properties_count = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->count();
         } elseif (empty($data['property_type']) && !empty($city[0])) {
             $r = $city[0];
-            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->paginate(18);
+            $properties_count = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->count();
         } else {
             $r = null;
-            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->get();
+            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->paginate(18);
+            $properties_count = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->count();
         }
 
         // $propertyImages = PropertyImages::get();
         if (!empty($properties)) {
-            $properties = json_decode(json_encode($properties));
+            // $properties = json_decode(json_encode($properties));
         }
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -339,7 +343,25 @@ class HomeController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.search_result')->with(compact('properties', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname'));
+
+        // echo "<pre>"; print_r($data); die;
+
+        $service_name = Services::where('id', $data['property_cat'])->first();
+        $property_type = PropertyTypes::where('property_type_code', $data['property_type'])->first();
+
+        if(!empty($data['search_text']) && !empty($data['property_type']))
+        {
+            $meta_title = $property_type['property_type']." in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }elseif(!empty($data['search_text']) && empty($data['property_type'])){
+            $meta_title = "Properties in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }elseif(empty($data['search_text']) && empty($data['property_type'])){
+            $meta_title = "Properties for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }
+
+        $meta_description = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+
+        return view('frontend.filter_templates.search_result')->with(compact('properties', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname', 'meta_title', 'meta_description', 'meta_keywords', 'properties_count'));
     }
 
 
