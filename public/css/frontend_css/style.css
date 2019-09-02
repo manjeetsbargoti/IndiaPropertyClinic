@@ -175,7 +175,7 @@ svg {
 .profilemenu {
     left: inherit;
     right: 0;
-    top: 44px;
+    /* top: 44px; */
     border-top: 0;
     border-radius: 0 0 5px 5px;
     border: none;

@@ -715,6 +715,7 @@ class AdminController extends Controller
         if ($data) {
             $code = $data['email'];
             $email = base64_decode($code);
+            $user_count = User::where('email', $email)->count();
         } else {
             $email = '';
         }
@@ -743,7 +744,12 @@ class AdminController extends Controller
             // echo "<pre>"; print_r($form_data); die;
         }
 
-        return view('auth.reset_password', compact('email'));
+        if($user_count > 0){
+            return view('auth.reset_password', compact('email'));
+        }else{
+            return redirect('/');
+        }
+        
     }
 
     //**************************************//
@@ -774,5 +780,28 @@ class AdminController extends Controller
             RequestQuote::where('id', $id)->update(['status'=> 0]);
             return redirect()->back()->with('flash_message_success', 'Opened Successfully!');
         }
+    }
+
+    // Verify Email for Reset Password
+    public function verifyEmailResetPassword(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if (!empty($data['email'])) 
+            {
+                // Send Password Reset Url Email
+                $email = $data['email'];
+                $user_name = User::where('email', $data['email'])->first();
+                // echo "<pre>"; print_r($email); die;
+                $messageData = ['email' => $data['email'], 'name' => $user_name['first_name'], 'code' => base64_encode($data['email'])];
+                Mail::send('emails.verify_email_for_reset_pass', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('Password Reset URL for IPC account');
+                });
+            }
+        }
+
+        return view('auth.verify_email_for_reset_password');
     }
 }
