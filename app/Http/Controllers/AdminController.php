@@ -712,6 +712,7 @@ class AdminController extends Controller
     public function resetPassword(Request $request)
     {
         $data = $request->all();
+
         if ($data) {
             $code = $data['email'];
             $email = base64_decode($code);
@@ -722,6 +723,7 @@ class AdminController extends Controller
 
         if ($request->isMethod('post')) {
             $form_data = $request->all();
+            // echo"<pre>"; print_r($form_data); die;
             $password = bcrypt($form_data['password']);
 
             $datetime = date("Y-m-d h:i:s", time());
@@ -788,8 +790,9 @@ class AdminController extends Controller
         if($request->isMethod('post'))
         {
             $data = $request->all();
+            $user_count = User::where('email', $data['email'])->count();
             // echo "<pre>"; print_r($data); die;
-            if (!empty($data['email'])) 
+            if ($user_count > 0) 
             {
                 // Send Password Reset Url Email
                 $email = $data['email'];
@@ -799,6 +802,9 @@ class AdminController extends Controller
                 Mail::send('emails.verify_email_for_reset_pass', $messageData, function ($message) use ($email) {
                     $message->to($email)->subject('Password Reset URL for IPC account');
                 });
+                return redirect('/login')->with('flash_message_success', "Password reset link has been sent to your email address. Please check you email.");
+            }else{
+                return redirect()->back()->with('flash_message_error', "A user with this email doesn't exist! Please enter valid email Address.");
             }
         }
 

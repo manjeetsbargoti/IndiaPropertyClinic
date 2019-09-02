@@ -171,11 +171,12 @@ $country = Controller::countries();
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                 class="fas fa-user"></i></button>
                         <?php endif; ?>
+                        <?php if(auth()->guard()->guest()): ?>
+                        <?php else: ?>
                         <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                             <ul>
                                 <!-- Authentication Links -->
-                                <?php if(auth()->guard()->guest()): ?>
-                                <?php else: ?>
+                                
                                 <li><a><?php echo e(Auth::user()->first_name); ?></a></li>
                                 <li><a
                                         href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/My-Account')); ?> <?php endif; ?>"><i

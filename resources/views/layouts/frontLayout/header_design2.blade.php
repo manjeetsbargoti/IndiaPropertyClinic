@@ -169,11 +169,12 @@ $country = Controller::countries();
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                 class="fas fa-user"></i></button>
                         @endguest
+                        @guest
+                        @else
                         <div class="dropdown-menu profilemenu" aria-labelledby="dropdownMenuButton">
                             <ul>
                                 <!-- Authentication Links -->
-                                @guest
-                                @else
+                                
                                 <li><a>{{ Auth::user()->first_name }}</a></li>
                                 <li><a
                                         href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i

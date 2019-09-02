@@ -80,6 +80,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="{{ asset('js/frontend_js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.mmenu.js') }}"></script>
@@ -374,6 +375,48 @@
             })
         }
     });
+    </script>
+
+    <script>
+    // Check user email while verifing email for reset password
+    $('#VerifyResetEmailPassword').blur(function() {
+        var error_verifyemail = '';
+        var email = $('#VerifyResetEmailPassword').val();
+        var _token = $('input[name="_token"]').val();
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            $('#error_verifyemail').html('<label class="text-danger">Incorrect Email</label>');
+            $('#VerifyResetEmailPassword').addClass('has-error');
+        } else {
+            $.ajax({
+                url: "{{ url('/checkuseremail') }}",
+                method: "POST",
+                data: {
+                    email: email,
+                    _token: _token
+                },
+                success: function(result) {
+                    if (result == 'unique') {
+                        $('#error_verifyemail').html(
+                            '<label class="text-danger">Incorrect Email!</label>');
+                        $('#VerifyResetEmailPassword').addClass('has-error');
+                    } else {
+                        $('#error_verifyemail').html(
+                            '<label class="text-success">Correct Email!</label>');
+                        $('#VerifyResetEmailPassword').removeClass('has-error');
+                    }
+                }
+            })
+        }
+    });
+
+    function verifyEmailBtnActivation() {
+        if (!document.getElementById('VerifyResetEmailPassword').value.length) {
+            document.getElementById("VerifyEmilReset").disabled = true;
+        } else {
+            document.getElementById("VerifyEmilReset").disabled = false;
+        }
+    }
     </script>
 
     <script>

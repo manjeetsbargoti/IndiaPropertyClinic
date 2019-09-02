@@ -200,7 +200,7 @@
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign
                                 in</button>
                             <span class="d-block mt-2">New User? <a href="<?php echo e(url('/register')); ?>">Register</a></span>
-                            <span class="d-block">Problem in Sign in? <a href="<?php echo e(url('/password/reset')); ?>">Forgot Password</a></span>
+                            <span class="d-block">Problem in Sign in? <a href="<?php echo e(url('/password/verify/email')); ?>">Forgot Password</a></span>
                             <hr class="my-4">
                             <a class="btn btn-lg btn-twitter btn-block text-uppercase" id="twitter" href="<?php echo e(url('/auth/redirect/twitter')); ?>"><i
                                     class="fab fa-twitter mr-2"></i> Sign in with Twitter</a>

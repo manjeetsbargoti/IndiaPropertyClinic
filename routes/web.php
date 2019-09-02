@@ -173,7 +173,7 @@ Route::match(['get', 'post'], '/Apply-Home-Loan', 'HomeLoanController@applyHomeL
 // User Login/Register Functionality
 Route::match(['get', 'post'], '/login', 'AdminController@login');
 Route::match(['get', 'post'], '/register', 'AdminController@register');
-Route::match(['get', 'post'], '/password/reset/{url}', 'AdminController@resetPassword');
+Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword');
 Route::match(['get', 'post'], '/password/verify/email', 'AdminController@verifyEmailResetPassword');
 
 // Email Verification Routes
