@@ -44,6 +44,7 @@ return array(
     'App\\Option' => $baseDir . '/app/Option.php',
     'App\\OtherServices' => $baseDir . '/app/OtherServices.php',
     'App\\Page' => $baseDir . '/app/Page.php',
+    'App\\PhoneQuery' => $baseDir . '/app/PhoneQuery.php',
     'App\\Property' => $baseDir . '/app/Property.php',
     'App\\PropertyImages' => $baseDir . '/app/PropertyImages.php',
     'App\\PropertyQuery' => $baseDir . '/app/PropertyQuery.php',

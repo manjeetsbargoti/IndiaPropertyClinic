@@ -11,6 +11,7 @@ use App\Cities;
 use App\Country;
 use App\Services;
 use App\Property;
+use App\PhoneQuery;
 use App\PropertyTypes;
 use App\OtherServices;
 use App\PropertyImages;
@@ -585,5 +586,39 @@ class HomeController extends Controller
         $countries = Country::orderBy('name', 'asc')->get();
 
         return view('frontend.list_business', compact('countries', 'repair_services'));
+    }
+
+    // Add New Phone Queries
+    public function addPhoneQuery(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            PhoneQuery::create([
+                'name'          => $data['name'],
+                'phone'         => $data['phone'],
+                'email'         => $data['email'],
+                'property_for'  => $data['property_for'],
+                'property_type' => $data['property_type'],
+                'description'   => $data['description'],
+                'address'       => $data['address'],
+                'country'       => $data['country_prop'],
+                'state'         => $data['state_prop'],
+                'city'          => $data['city_prop'],
+                'zipcode'       => $data['zipcode']
+            ]);
+        }
+
+        return view('admin.queries.add_phone_queries');
+    }
+
+    // View All Phone Queries
+    public function phoneQueryData(Request $request)
+    {
+        $phoneQueries = PhoneQuery::orderBy('created_at', 'desc')->get();
+        // echo "<pre>"; print_r($phoneQueries); die;
+        return view('admin.queries.phone_queries', compact('phoneQueries'));
     }
 }

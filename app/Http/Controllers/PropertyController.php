@@ -12,6 +12,7 @@ use App\UserType;
 use App\Amenity;
 use App\Cities;
 use App\State;
+use App\PhoneQuery;
 use App\PropertyTypes;
 use App\PropertyQuery;
 use App\PropertyImages;
@@ -588,6 +589,14 @@ class PropertyController extends Controller
     {
         $propertyquery = PropertyQuery::orderBy('status', 'asc')->get();
         return view('admin.queries.property_query', compact('propertyquery'));
+    }
+
+    // View All Phone Queries
+    public function phoneQuery(Request $request)
+    {
+        $phoneQueries = PhoneQuery::orderBy('created_at', 'desc')->get();
+        // echo "<pre>"; print_r($phoneQueries); die;
+        return view('admin.queries.phone_queries', compact('phoneQueries'));
     }
 
     // Property Query Done

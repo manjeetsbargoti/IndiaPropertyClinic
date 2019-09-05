@@ -181,6 +181,8 @@
                                   class="fa fa-circle-o text-purple"></i>Vendor Query</a></li>
                         <li><a href="{{ url('/admin/service-requests') }}"><i
                                   class="fa fa-circle-o text-purple"></i>Service Requests</a></li>
+                        <li><a href="{{ url('/admin/phone-queries') }}"><i
+                                  class="fa fa-circle-o text-purple"></i>Phone Queries</a></li>
                   </ul>
               </li>
               @endif

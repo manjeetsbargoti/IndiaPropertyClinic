@@ -134,6 +134,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/page/{id}/enable', 'PageController@enablePage');
     Route::match(['get', 'post'], '/admin/page/{id}/delete', 'PageController@deletePage');
     Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
+
+    // Phone Query
+    Route::match(['get', 'post'], '/admin/add-phone-query', 'HomeController@addPhoneQuery');
+    Route::match(['get', 'post'], '/admin/phone-queries', 'HomeController@phoneQueryData');
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {

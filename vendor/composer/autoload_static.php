@@ -496,6 +496,7 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'App\\Option' => __DIR__ . '/../..' . '/app/Option.php',
         'App\\OtherServices' => __DIR__ . '/../..' . '/app/OtherServices.php',
         'App\\Page' => __DIR__ . '/../..' . '/app/Page.php',
+        'App\\PhoneQuery' => __DIR__ . '/../..' . '/app/PhoneQuery.php',
         'App\\Property' => __DIR__ . '/../..' . '/app/Property.php',
         'App\\PropertyImages' => __DIR__ . '/../..' . '/app/PropertyImages.php',
         'App\\PropertyQuery' => __DIR__ . '/../..' . '/app/PropertyQuery.php',
