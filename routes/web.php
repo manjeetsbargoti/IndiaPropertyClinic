@@ -138,6 +138,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Phone Query
     Route::match(['get', 'post'], '/admin/add-phone-query', 'HomeController@addPhoneQuery');
     Route::match(['get', 'post'], '/admin/phone-queries', 'HomeController@phoneQueryData');
+
+    // Add new agent
+    // Route::match(['get', 'post'], '/admin/add-new-agent', 'PropertyController@addNewPropertyUser');
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {

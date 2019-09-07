@@ -1,13 +1,12 @@
-
 // Creating Service URL
-$('#rservice_name').keyup(function(){
+$('#rservice_name').keyup(function() {
     var str = $(this).val();
     var trims = $.trim(str);
     var rservice_url = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
     $('#rservice_url').val(rservice_url.toLowerCase());
 });
 
-$('#CMSPageTitle').keyup(function(){
+$('#CMSPageTitle').keyup(function() {
     var str = $(this).val();
     var trims = $.trim(str);
     var cms_slug = trims.replace(/[^a-z0-9]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
@@ -249,164 +248,164 @@ $(function() {
 });
 
 // Country, State, City Ajax Fetch
-$('#country').change(function(){
-    var countryID = $(this).val();   
-    var _token = $('input[name="_token"]').val(); 
-    if(countryID){
+$('#country').change(function() {
+    var countryID = $(this).val();
+    var _token = $('input[name="_token"]').val();
+    if (countryID) {
         $.ajax({
-            type:"get",
-            url:"get-state-list?country_id="+countryID,
-            data: {_token:_token},
-            success:function(res){               
-            if(res){
-                $("#state").empty();
-                $("#state").append('<option>Select State</option>');
-                $.each(res,function(key,value){
-                    $("#state").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }else{
-                $("#state").empty();
-            }
+            type: "get",
+            url: "get-state-list?country_id=" + countryID,
+            data: { _token: _token },
+            success: function(res) {
+                if (res) {
+                    $("#state").empty();
+                    $("#state").append('<option>Select State</option>');
+                    $.each(res, function(key, value) {
+                        $("#state").append('<option value="' + key + '">' + value + '</option>');
+                    });
+                } else {
+                    $("#state").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#state").empty();
         $("#city").empty();
-    }      
-    });
-    // Get City List According to state
-    $('#state').on('change',function(){
-    var stateID = $(this).val();    
-    if(stateID){
+    }
+});
+// Get City List According to state
+$('#state').on('change', function() {
+    var stateID = $(this).val();
+    if (stateID) {
         $.ajax({
-            type:"GET",
-            url:"get-city-list?state_id="+stateID,
-            success:function(res){               
-            if(res){
-                $("#city").empty();
-                $("#city").append('<option>Select City</option>');
-                $.each(res,function(key,value){
-                    $("#city").append('<option value="'+key+'">'+value+'</option>');
-                });
-            
-            }else{
-                $("#city").empty();
-            }
+            type: "GET",
+            url: "get-city-list?state_id=" + stateID,
+            success: function(res) {
+                if (res) {
+                    $("#city").empty();
+                    $("#city").append('<option>Select City</option>');
+                    $.each(res, function(key, value) {
+                        $("#city").append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                } else {
+                    $("#city").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#city").empty();
-    }   
+    }
 });
 
 // Get State List on Country Select on property Edit Page
-$('#country_pedit').change(function(){
-    var countryID = $(this).val();   
-    var p_id    = $('#p_id').val();
-    var _token = $('input[name="_token"]').val(); 
-    if(countryID){
+$('#country_pedit').change(function() {
+    var countryID = $(this).val();
+    var p_id = $('#p_id').val();
+    var _token = $('input[name="_token"]').val();
+    if (countryID) {
         $.ajax({
-            type:"get",
-            url:"/admin/property/"+p_id+"/edit/get-state-list?country_id="+countryID,
-            data: {_token:_token},
-            success:function(res){               
-            if(res){
-                $("#state_pedit").empty();
-                $("#state_pedit").append('<option>Select State</option>');
-                $.each(res,function(key,value){
-                    $("#state_pedit").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }else{
-                $("#state_pedit").empty();
-            }
+            type: "get",
+            url: "/admin/property/" + p_id + "/edit/get-state-list?country_id=" + countryID,
+            data: { _token: _token },
+            success: function(res) {
+                if (res) {
+                    $("#state_pedit").empty();
+                    $("#state_pedit").append('<option>Select State</option>');
+                    $.each(res, function(key, value) {
+                        $("#state_pedit").append('<option value="' + key + '">' + value + '</option>');
+                    });
+                } else {
+                    $("#state_pedit").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#state_pedit").empty();
         $("#city_pedit").empty();
-    }      
-    });
+    }
+});
 
 // On Property Edit Get City List According to state
-$('#state_pedit').on('change',function(){
+$('#state_pedit').on('change', function() {
     var stateID = $(this).val();
-    var p_id    = $('#p_id').val();
-    if(stateID){
+    var p_id = $('#p_id').val();
+    if (stateID) {
         $.ajax({
-            type:"GET",
-            url:"/admin/property/"+p_id+"/edit/get-city-list?state_id="+stateID,
-            success:function(res){               
-            if(res){
-                $("#city_pedit").empty();
-                $("#city_pedit").append('<option>Select City</option>');
-                $.each(res,function(key,value){
-                    $("#city_pedit").append('<option value="'+key+'">'+value+'</option>');
-                });
-            
-            }else{
-                $("#city_pedit").empty();
-            }
+            type: "GET",
+            url: "/admin/property/" + p_id + "/edit/get-city-list?state_id=" + stateID,
+            success: function(res) {
+                if (res) {
+                    $("#city_pedit").empty();
+                    $("#city_pedit").append('<option>Select City</option>');
+                    $.each(res, function(key, value) {
+                        $("#city_pedit").append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                } else {
+                    $("#city_pedit").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#city_pedit").empty();
-    }   
-  });
+    }
+});
 
 
-  // Get State List on Country Select on property Edit Page
-$('#country_CMSedit').change(function(){
-    var countryID = $(this).val();   
-    var p_id    = $('#PageID').val();
-    var _token = $('input[name="_token"]').val(); 
-    if(countryID){
+// Get State List on Country Select on property Edit Page
+$('#country_CMSedit').change(function() {
+    var countryID = $(this).val();
+    var p_id = $('#PageID').val();
+    var _token = $('input[name="_token"]').val();
+    if (countryID) {
         $.ajax({
-            type:"get",
-            url:"/admin/page/"+p_id+"/edit/get-state-list?country_id="+countryID,
-            data: {_token:_token},
-            success:function(res){               
-            if(res){
-                $("#state_CMSedit").empty();
-                $("#state_CMSedit").append('<option>Select State</option>');
-                $.each(res,function(key,value){
-                    $("#state_CMSedit").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }else{
-                $("#state_CMSedit").empty();
-            }
+            type: "get",
+            url: "/admin/page/" + p_id + "/edit/get-state-list?country_id=" + countryID,
+            data: { _token: _token },
+            success: function(res) {
+                if (res) {
+                    $("#state_CMSedit").empty();
+                    $("#state_CMSedit").append('<option>Select State</option>');
+                    $.each(res, function(key, value) {
+                        $("#state_CMSedit").append('<option value="' + key + '">' + value + '</option>');
+                    });
+                } else {
+                    $("#state_CMSedit").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#state_CMSedit").empty();
         $("#city_CMSedit").empty();
-    }      
-    });
+    }
+});
 
 // On Page Edit Get City List According to state
-$('#state_CMSedit').on('change',function(){
+$('#state_CMSedit').on('change', function() {
     var stateID = $(this).val();
-    var p_id    = $('#PageID').val();
-    if(stateID){
+    var p_id = $('#PageID').val();
+    if (stateID) {
         $.ajax({
-            type:"GET",
-            url:"/admin/page/"+p_id+"/edit/get-city-list?state_id="+stateID,
-            success:function(res){               
-            if(res){
-                $("#city_CMSedit").empty();
-                $("#city_CMSedit").append('<option>Select City</option>');
-                $.each(res,function(key,value){
-                    $("#city_CMSedit").append('<option value="'+key+'">'+value+'</option>');
-                });
-            
-            }else{
-                $("#city_CMSedit").empty();
-            }
+            type: "GET",
+            url: "/admin/page/" + p_id + "/edit/get-city-list?state_id=" + stateID,
+            success: function(res) {
+                if (res) {
+                    $("#city_CMSedit").empty();
+                    $("#city_CMSedit").append('<option>Select City</option>');
+                    $.each(res, function(key, value) {
+                        $("#city_CMSedit").append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                } else {
+                    $("#city_CMSedit").empty();
+                }
             }
         });
-    }else{
+    } else {
         $("#city_CMSedit").empty();
-    }   
-  });
+    }
+});
 
 
 // Multiple Property Image upload by admin or user
@@ -419,7 +418,7 @@ $(document).ready(function() {
             name: 'file[]',
             type: 'file',
             id: 'file'
-        }).trigger('click'),));
+        }).trigger('click'), ));
     });
 
     // Following function will executes on change event of file input to select different file.
@@ -465,95 +464,108 @@ $(document).ready(function() {
 // });
 
 // Show add builder on add new select
-$("#builder_name").change(function() {
-    if ($(this).val() == 'addBuilder') {
+$("#NewBuilderName").change(function() {
+    if ($(this).val() == 'addNewBuilder') {
         $("#AddBuilderData").show();
         $('#AddBuilderData').removeClass('hidden').addClass('show');
     } else {
         $("#AddBuilderData").hide();
     }
-    if ($(this).val() != 'addBuilder') {
+    if ($(this).val() != 'addNewBuilder') {
+        $("#AddBuilderData").hide();
+        $('#AddBuilderData').removeClass('show').addClass('hidden');
+    }
+});
+
+// Show add Agent on add new select
+$("#NewAgentName").change(function() {
+    if ($(this).val() == 'addNewAgent') {
+        $("#AddBuilderData").show();
+        $('#AddBuilderData').removeClass('hidden').addClass('show');
+    } else {
+        $("#AddBuilderData").hide();
+    }
+    if ($(this).val() != 'addNewAgent') {
         $("#AddBuilderData").hide();
         $('#AddBuilderData').removeClass('show').addClass('hidden');
     }
 });
 
 // Access Datatables
-$(function () {
+$(function() {
     $('#allusers-table').DataTable();
     $('#example2').DataTable({
-    'paging'      : true,
-    'lengthChange': false,
-    'searching'   : true,
-    'ordering'    : true,
-    'info'        : true,
-    'autoWidth'   : false
+        'paging': true,
+        'lengthChange': false,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': false
     })
 });
 
 // Select2, Datepicker, Colorpicker function
-$(function () {
+$(function() {
     //Initialize Select2 Elements
     $('.select2').select2()
 
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
+        //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
+        //Money Euro
     $('[data-mask]').inputmask()
 
     //Date range picker
     $('#reservation').daterangepicker()
-    //Date range picker with time picker
+        //Date range picker with time picker
     $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        //Date range as a button
+    $('#daterange-btn').daterangepicker({
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment()
         },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    })
+        function(start, end) {
+            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+        })
 
     //Date picker
     $('#datepicker').datepicker({
-      autoclose: true
+        autoclose: true
     })
 
     //iCheck for checkbox and radio inputs
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        })
+        //Red color scheme for iCheck
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
+        })
+        //Flat red color scheme for iCheck
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
     })
 
     //Colorpicker
     $('.my-colorpicker1').colorpicker()
-    //color picker with addon
+        //color picker with addon
     $('.my-colorpicker2').colorpicker()
 
     //Timepicker
     $('.timepicker').timepicker({
-      showInputs: false
+        showInputs: false
     })
 });
 
@@ -561,88 +573,78 @@ $(function () {
 var editor_config = {
     height: 250,
     // width: 750,
-    path_absolute : "/",
+    path_absolute: "/",
     selector: "textarea.my-editor",
     branding: false,
     plugins: [
-      "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-      "searchreplace wordcount visualblocks visualchars code fullscreen",
-      "insertdatetime media nonbreaking save table contextmenu directionality",
-      "emoticons template paste textcolor colorpicker textpattern"
+        "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+        "searchreplace wordcount visualblocks visualchars code fullscreen",
+        "insertdatetime media nonbreaking save table contextmenu directionality",
+        "emoticons template paste textcolor colorpicker textpattern"
     ],
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
     relative_urls: false,
-    file_browser_callback : function(field_name, url, type, win) {
-      var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
-      var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;
+    file_browser_callback: function(field_name, url, type, win) {
+        var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
+        var y = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight;
 
-      var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
-      if (type == 'image') {
-        cmsURL = cmsURL + "&type=Images";
-      } else {
-        cmsURL = cmsURL + "&type=Files";
-      }
+        var cmsURL = editor_config.path_absolute + 'laravel-filemanager?field_name=' + field_name;
+        if (type == 'image') {
+            cmsURL = cmsURL + "&type=Images";
+        } else {
+            cmsURL = cmsURL + "&type=Files";
+        }
 
-      tinyMCE.activeEditor.windowManager.open({
-        file : cmsURL,
-        title : 'Filemanager',
-        width : x * 0.8,
-        height : y * 0.8,
-        resizable : "yes",
-        close_previous : "no"
-      });
+        tinyMCE.activeEditor.windowManager.open({
+            file: cmsURL,
+            title: 'Filemanager',
+            width: x * 0.8,
+            height: y * 0.8,
+            resizable: "yes",
+            close_previous: "no"
+        });
     }
-  };
+};
 
-  tinymce.init(editor_config);
+tinymce.init(editor_config);
 
-  // Onclick Password Generate
-  var Password = {
- 
-    _pattern : /[a-zA-Z0-9_\-\+\.]/,
-    
-    _getRandomByte : function()
-    {
-      if(window.crypto && window.crypto.getRandomValues) 
-      {
-        var result = new Uint8Array(1);
-        window.crypto.getRandomValues(result);
-        return result[0];
-      }
-      else if(window.msCrypto && window.msCrypto.getRandomValues) 
-      {
-        var result = new Uint8Array(1);
-        window.msCrypto.getRandomValues(result);
-        return result[0];
-      }
-      else
-      {
-        return Math.floor(Math.random() * 256);
-      }
+// Onclick Password Generate
+var Password = {
+
+    _pattern: /[a-zA-Z0-9_\-\+\.]/,
+
+    _getRandomByte: function() {
+        if (window.crypto && window.crypto.getRandomValues) {
+            var result = new Uint8Array(1);
+            window.crypto.getRandomValues(result);
+            return result[0];
+        } else if (window.msCrypto && window.msCrypto.getRandomValues) {
+            var result = new Uint8Array(1);
+            window.msCrypto.getRandomValues(result);
+            return result[0];
+        } else {
+            return Math.floor(Math.random() * 256);
+        }
     },
-    
-    generate : function(length)
-    {
-      return Array.apply(null, {'length': length})
-        .map(function()
-        {
-          var result;
-          while(true) 
-          {
-            result = String.fromCharCode(this._getRandomByte());
-            if(this._pattern.test(result))
-            {
-              return result;
-            }
-          }        
-        }, this)
-        .join('');  
-    }     
-  };
+
+    generate: function(length) {
+        return Array.apply(null, { 'length': length })
+            .map(function() {
+                var result;
+                while (true) {
+                    result = String.fromCharCode(this._getRandomByte());
+                    if (this._pattern.test(result)) {
+                        return result;
+                    }
+                }
+            }, this)
+            .join('');
+    }
+};
 
 
-  // Property Add by Admin Validations
-  $(document).ready(function() {
+// Property Add by Admin Validations
+$(document).ready(function() {
     $('#AddPropertyAdmin').click(function(e) {
         var isValid = true;
         // Property Name Validation
@@ -656,7 +658,7 @@ var editor_config = {
                 $('#error_property_name').html(
                     '<label class="text-danger">Property Name can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -675,7 +677,7 @@ var editor_config = {
                 $('#error_property_type').html(
                     '<label class="text-danger">Property Type can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -694,7 +696,7 @@ var editor_config = {
                 $('#error_property_for').html(
                     '<label class="text-danger">This field can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -732,7 +734,7 @@ var editor_config = {
                 $('#error_property_country').html(
                     '<label class="text-danger">Country field can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -751,7 +753,7 @@ var editor_config = {
                 $('#error_property_state').html(
                     '<label class="text-danger">State field can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -770,7 +772,7 @@ var editor_config = {
                 $('#error_property_city').html(
                     '<label class="text-danger">City field can\'t be empty!</label>');
                 $('#error_msg_btn').html(
-                        '<label class="text-danger">Fill the Mendatory fields!</label>');
+                    '<label class="text-danger">Fill the Mendatory fields!</label>');
             } else {
                 $(this).css({
                     "border": "",
@@ -778,9 +780,8 @@ var editor_config = {
                 });
             }
         });
-        if(isValid == false)
-        {
-          e.preventDefault();
-        }  
+        if (isValid == false) {
+            e.preventDefault();
+        }
     });
-  });
+});

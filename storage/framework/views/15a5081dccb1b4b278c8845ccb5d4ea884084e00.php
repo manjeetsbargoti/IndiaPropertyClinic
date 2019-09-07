@@ -45,7 +45,7 @@
                             </thead>
                             <tbody>
                                 <?php $i = 0 ?>
-                                <?php $__currentLoopData = $phoneQueries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = $phoneQueryData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php $i++ ?>
                                 <tr>
                                     <td><?php echo e($i); ?></td>
@@ -74,4 +74,4 @@
 <!-- /.content-wrapper -->
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/queries/phone_queries.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/queries/phone_query_tmp.blade.php ENDPATH**/ ?>

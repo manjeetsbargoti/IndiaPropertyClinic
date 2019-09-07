@@ -38,7 +38,7 @@ class PropertyController extends Controller
 
             $property_code = 'IPC'.rand(00001, 9999999);
 
-            // echo "<pre>"; print_r($property_code); die;
+            echo "<pre>"; print_r($data); die;
 
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
@@ -76,15 +76,19 @@ class PropertyController extends Controller
             $user = new User;
             // Add Builder/Agent with Property
             if (!empty($data['first_name'])) {
-                $builder = User::create([
-                    'first_name'    => $data['first_name'],
-                    'last_name'     => $data['last_name'],
-                    'email'         => $data['email'],
-                    'password'      => bcrypt($data['password']),
-                    'phonecode'     => $data['phonecode'],
-                    'phone'         => $data['phone'],
-                    'usertype'      => $data['usertype'],
-                ]);
+                    $user->first_name    = $data['first_name'];
+                    $user->last_name     = $data['last_name'];
+                    $user->email         = $data['email'];
+                    $user->password      = bcrypt($data['password']);
+                    $user->phonecode     = $data['phonecode'];
+                    $user->phone         = $data['phone'];
+                    $user->usertype      = $data['usertype'];
+
+                    echo "<pre>"; print_r($user); die;
+
+                    $user->save();
+
+                    return redirect()->back()->with('flash_message_success', 'User Added Successfully!');
             }
 
             // get Builder id
@@ -270,6 +274,8 @@ class PropertyController extends Controller
     {
         // Show 404 Page on wrong Property url search by visitor
         $propertyCount = Property::where(['property_url' => $url])->count();
+        $p_location = Property::select('city', 'state', 'country', 'service_id')->where(['property_url' => $url])->first();
+        // echo "<pre>"; print_r($p_location); die;
         if ($propertyCount == 0) {
             abort(404);
         }
@@ -340,9 +346,21 @@ class PropertyController extends Controller
             }
         }
 
+        $property_l_city_count = Property::where('city', $p_location->city)->where('service_id', $p_location->service_id)->count();
+        $property_l_city_state = Property::where('state', $p_location->state)->count();
+        $property_l_city_country = Property::where('country', $p_location->country)->count();
+        if($property_l_city_count > 2)
+        {
+            $property_on_location = Property::where('city', $p_location->city)->where('service_id', $p_location->service_id)->orderBy('created_at', 'desc')->take(8)->get();
+        }elseif($property_l_city_state > 2){
+            $property_on_location = Property::where('state', $p_location->state)->where('service_id', $p_location->service_id)->orderBy('created_at', 'desc')->take(8)->get();
+        }elseif($property_l_city_country > 0){
+            $property_on_location = Property::where('country', $p_location->country)->where('service_id', $p_location->service_id)->orderBy('created_at', 'desc')->take(8)->get();
+        }
+
         // echo "<pre>"; print_r($properties); die;
         $menuServices = Services::get();
-        return view('frontend.view_single_property')->with(compact('properties', 'country_count', 'state_count', 'city_count'));
+        return view('frontend.view_single_property')->with(compact('properties', 'country_count', 'state_count', 'city_count', 'property_on_location'));
         // return view('frontend.view_single_property');
     }
 
@@ -589,14 +607,6 @@ class PropertyController extends Controller
     {
         $propertyquery = PropertyQuery::orderBy('status', 'asc')->get();
         return view('admin.queries.property_query', compact('propertyquery'));
-    }
-
-    // View All Phone Queries
-    public function phoneQuery(Request $request)
-    {
-        $phoneQueries = PhoneQuery::orderBy('created_at', 'desc')->get();
-        // echo "<pre>"; print_r($phoneQueries); die;
-        return view('admin.queries.phone_queries', compact('phoneQueries'));
     }
 
     // Property Query Done
@@ -957,5 +967,14 @@ class PropertyController extends Controller
     {
         return view('frontend.templates.thank_you');
     }
+
+    // // Add User from Add Property Page
+    // public function addNewPropertyUser(Request $request)
+    // {
+    //     $data = $request->all();
+    //     echo "<pre>"; print_r($data); die;
+
+    //     return redirect()->back();
+    // }
 
 }

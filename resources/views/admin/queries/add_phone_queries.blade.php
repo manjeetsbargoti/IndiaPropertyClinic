@@ -24,10 +24,21 @@
                             {{ csrf_field() }}
                             <div class="col-sm-8 col-md-8">
                                 <div class="row">
-                                    <div class="col-xs-12 col-md-12">
+                                    <div class="col-xs-12 col-md-6">
                                         <div class="form-group">
                                             <label for="Person Name">Person Name</label>
                                             <input name="name" id="name" type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="Usertype">Usertype</label>
+                                            <select name="usertype" id="usertype" class="form-control">
+                                                <option value="" selected>Select Usertype</option>
+                                                <option value="Owner">Owner</option>
+                                                <option value="Agent">Agent</option>
+                                                <option value="Builder">Builder</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-6">

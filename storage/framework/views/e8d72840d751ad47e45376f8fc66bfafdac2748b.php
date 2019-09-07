@@ -110,4 +110,4 @@
 <!-- /.content-wrapper -->
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\IndiaPropertyClinic\resources\views/admin/queries/property_query.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/queries/property_query.blade.php ENDPATH**/ ?>

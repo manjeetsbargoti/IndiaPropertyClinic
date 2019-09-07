@@ -598,6 +598,7 @@ class HomeController extends Controller
 
             PhoneQuery::create([
                 'name'          => $data['name'],
+                'usertype'      => $data['usertype'],
                 'phone'         => $data['phone'],
                 'email'         => $data['email'],
                 'property_for'  => $data['property_for'],
@@ -609,6 +610,8 @@ class HomeController extends Controller
                 'city'          => $data['city_prop'],
                 'zipcode'       => $data['zipcode']
             ]);
+
+            return redirect('/admin/phone-queries')->with('flash_message_success', 'Phone Property added Successfully!');
         }
 
         return view('admin.queries.add_phone_queries');
@@ -617,8 +620,10 @@ class HomeController extends Controller
     // View All Phone Queries
     public function phoneQueryData(Request $request)
     {
-        $phoneQueries = PhoneQuery::orderBy('created_at', 'desc')->get();
+        $propertyquery = PhoneQuery::orderBy('created_at', 'desc')->get();
         // echo "<pre>"; print_r($phoneQueries); die;
-        return view('admin.queries.phone_queries', compact('phoneQueries'));
+
+        // return view('admin.queries.user_phone_query_tmp', compact('userPhoneQueryData'));
+        return view('admin.queries.property_phone_query', compact('propertyquery'));
     }
 }

@@ -171,8 +171,7 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    @foreach(\App\Property::where('service_id', $property->service_id)->where('country', $property->country)->where('state', $property->state)->orderBy('created_at', 'desc')->take(8)->get() as
-                    $relproperty)
+                    @foreach($property_on_location as $relproperty)
                     <?php $counter++;?>
                     @if($counter <= 8) <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <div class="product_box">

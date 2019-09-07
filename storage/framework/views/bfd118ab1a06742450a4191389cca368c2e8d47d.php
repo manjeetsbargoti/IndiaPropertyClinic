@@ -35,7 +35,7 @@
                             <div id="thumbs" class="owl-carousel owl-theme">
                                 <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="item">
-                                        <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                        <img src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>" alt="<?php echo e($property->property_name); ?>">
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    <?php $__currentLoopData = \App\Property::where('service_id', $property->service_id)->where('country', $property->country)->where('state', $property->state)->orderBy('created_at', 'desc')->take(8)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $relproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $property_on_location; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $relproperty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php $counter++;?>
                     <?php if($counter <= 8): ?> <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
                         <div class="product_box">

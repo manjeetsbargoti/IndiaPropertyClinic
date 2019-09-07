@@ -8,7 +8,7 @@ class PhoneQuery extends Model
 {
     //
     protected $fillable = [
-        'name', 'phone', 'email', 'property_for', 'property_type', 
+        'name', 'usertype', 'phone', 'email', 'property_for', 'property_type', 
         'description', 'address', 'country', 'state', 'city', 'zipcode'
     ];
 }
