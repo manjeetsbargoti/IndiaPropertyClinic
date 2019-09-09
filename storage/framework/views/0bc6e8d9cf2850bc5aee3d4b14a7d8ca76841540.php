@@ -80,27 +80,30 @@ function generate_string($input, $strength = 16) {
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <div class="box box-purple">
-                    <div class="panel with-nav-tabs panel-default">
-                        <div class="panel-heading">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#AddPropertyInfoData" data-toggle="tab"><strong>Property
-                                            Information Data</strong></a></li>
-                                <li><a href="#AddAgentBuilder" data-toggle="tab"><strong>Add Agent/Builder</strong></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="panel-body">
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="AddPropertyInfoData">
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <div id="PropertyInformationData">
-                                            <form enctype="multipart/form-data" method="post"
-                                                action="<?php echo e(url('/admin/add-new-property')); ?>" name="add_property"
-                                                id="add_property" novalidate="novalidate">
-                                                <?php echo e(csrf_field()); ?>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="PropertyInformationData">
+                            <form enctype="multipart/form-data" method="post"
+                                action="<?php echo e(url('/admin/add-new-property')); ?>" name="add_property" id="add_property"
+                                novalidate="novalidate">
+                                <?php echo e(csrf_field()); ?>
 
-                                                <div class="col-sm-12 col-md-8">
+
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="SectionOne">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                    href="#PropertyDetailSection" aria-expanded="true"
+                                                    aria-controls="PropertyDetailSection">
+                                                    <strong>1. Property Details</strong>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="PropertyDetailSection" class="panel-collapse collapse in"
+                                            role="tabpanel" aria-labelledby="SectionOne">
+                                            <div class="panel-body">
+                                                <div class="col-sm-12 col-md-12">
                                                     <div class="row">
                                                         <div class="property_basic col-sm-12 col-md-12">
                                                             <div class="property_heading col-xs-12 col-md-12">
@@ -197,7 +200,6 @@ function generate_string($input, $strength = 16) {
                                                                         style="width: 100%;" tabindex="-1"
                                                                         aria-hidden="true">
                                                                         <option value="" selected>Select Agent</option>
-                                                                        <option value="addNewAgent"> + Add New</option>
                                                                         <?php $__currentLoopData = $getAgent; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                         <option value="<?php echo e($a->id); ?>">
                                                                             <?php echo e($a->first_name); ?> <?php echo e($a->last_name); ?>
@@ -205,6 +207,91 @@ function generate_string($input, $strength = 16) {
                                                                         </option>
                                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                                     </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="AddBuilderData" style="background:#ddd;"
+                                                            class="builder_info col-sm-12 col-md-12 hidden">
+                                                            <div class="builder_heading col-xs-12 col-md-12">
+                                                                <h4><strong>Add Builder/Agent/Owner</strong></h4>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="First Name">First Name</label>
+                                                                    <input type="text" name="first_name" id="first_name"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="Last Name">Last Name</label>
+                                                                    <input type="text" name="last_name" id="last_name"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="Usertype">Usertype</label>
+                                                                    <select name="usertype" id="usertype"
+                                                                        class="form-control">
+                                                                        <option selected value="">Select Usertype
+                                                                        </option>
+                                                                        <option value="B">Builder</option>
+                                                                        <option value="A">Agent</option>
+                                                                        <option value="U">Owner</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="Email">Email</label>
+                                                                    <input type="text" name="email" id="email"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-6 hidden">
+                                                                <div class="form-group">
+                                                                    <label for="Password">Password</label>
+                                                                    <input type="password" name="password" id="password"
+                                                                        value="<?php echo generate_string($permitted_chars, 20); ?>"
+                                                                        class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-4 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label>Code</label>
+                                                                    <select name="phonecode" id="phonecode"
+                                                                        class="form-control">
+                                                                        <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                        <option value="<?php echo e($code->phonecode); ?>">
+                                                                            <?php echo e($code->iso3); ?>
+
+                                                                            &nbsp;<?php echo e($code->phonecode); ?></option>
+                                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xs-8 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>Phone</label>
+                                                                    <input type="tel" name="phone" id="phone"
+                                                                        class="form-control" placeholder="Phone">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <button type="submit" name="submit_user"
+                                                                        id="submit_new_user"
+                                                                        class="btn btn-md btn-info pull-right">Add
+                                                                        User</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -611,24 +698,24 @@ function generate_string($input, $strength = 16) {
                                                             </div>
                                                         </div>
                                                     </div> <!-- Rows -->
-                                                    <div class="property_images col-sm-12 col-md-12">
-                                                        <div class="property_heading">
-                                                            <h4><strong>Property Images</strong></h4>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <!-- <label for="Property Images">Add Images</label> -->
-                                                            <!-- <input type="file" id="property_images" name="property_images"> -->
-                                                            <div class="add_image">
-                                                                <input type="button" id="add_more" class="btn btn-info"
-                                                                    value="add image" />
-                                                                <!-- <i class="fas fa-camera"></i> -->
-                                                            </div>
-                                                            <!-- <p class="help-block">Example block-level help text here.</p> -->
-                                                        </div>
-                                                    </div>
                                                 </div>
-
-                                                <div class="col-sm-12 col-md-4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="SectionTwo">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordion" href="#PropertyAmenities"
+                                                    aria-expanded="false" aria-controls="PropertyAmenities">
+                                                    <strong>2. Property Amenities</strong>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="PropertyAmenities" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="SectionTwo">
+                                            <div class="panel-body">
+                                                <div class="col-sm-12 col-md-12">
                                                     <div class="row">
                                                         <div class="property_basic col-sm-12 col-md-12">
                                                             <div class="property_heading col-xs-12 col-md-12">
@@ -637,7 +724,7 @@ function generate_string($input, $strength = 16) {
                                                         </div>
                                                         <div class="col-sm-12 col-md-12">
                                                             <?php $__currentLoopData = $amenities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <div class="col-xs-6 col-md-6">
+                                                            <div class="col-xs-6 col-md-4">
                                                                 <div class="form-group">
                                                                     <label>
                                                                         <input type="checkbox" name="amenity[]"
@@ -650,183 +737,89 @@ function generate_string($input, $strength = 16) {
                                                                 </div>
                                                             </div>
                                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-                                                            <div class="box-footer">
-                                                                <input type="submit" id="AddPropertyAdmin"
-                                                                    class="btn btn-success btn-md btn-block"
-                                                                    value="Submit Property">
-                                                                <span class="" id="error_msg_btn"></span>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
-                                        </div>
-
-
-                                        <div class="tab-pane fade in" id="AddPropertyAgentBuilder">
-                                            <div id="AddBuilderData" style="background:#ddd;"
-                                                class="builder_info col-sm-12 col-md-12 hidden">
-                                                <form name="add-agent-builder" id="addAgentBuilder"
-                                                    action="<?php echo e(url('/admin/add-new-user')); ?>" method="post">
-                                                    <div class="builder_heading col-xs-12 col-md-12">
-                                                        <h4><strong>Add Builder/Agent/Owner</strong></h4>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="First Name">First Name</label>
-                                                            <input type="text" name="first_name" id="first_name"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="Last Name">Last Name</label>
-                                                            <input type="text" name="last_name" id="last_name"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="Usertype">Usertype</label>
-                                                            <select name="usertype" id="usertype" class="form-control">
-                                                                <option selected value="">Select Usertype</option>
-                                                                <option value="B">Builder</option>
-                                                                <option value="A">Agent</option>
-                                                                <option value="U">Owner</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="Email">Email</label>
-                                                            <input type="text" name="email" id="email"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-6 hidden">
-                                                        <div class="form-group">
-                                                            <label for="Password">Password</label>
-                                                            <input type="password" name="password" id="password"
-                                                                value="<?php echo generate_string($permitted_chars, 20); ?>"
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-4 col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Code</label>
-                                                            <select name="phonecode" id="phonecode"
-                                                                class="form-control">
-                                                                <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                                <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->iso3); ?>
-
-                                                                    &nbsp;<?php echo e($code->phonecode); ?></option>
-                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-8 col-md-4">
-                                                        <div class="form-group">
-                                                            <label>Phone</label>
-                                                            <input type="tel" name="phone" id="phone"
-                                                                class="form-control" placeholder="Phone">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-xs-12 col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" name="submit_user"
-                                                                id="submit_new_user"
-                                                                class="btn btn-md btn-info pull-right">Add User</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /.box-body -->
-                                </div>
-                                <div class="tab-pane fade" id="AddAgentBuilder">
-                                <div id="AddBuilderData" style="background:#ddd;" class="builder_info col-sm-12 col-md-12">
-                                        <form name="add-agent-builder" id="addAgentBuilder" action="<?php echo e(url('/admin/add-new-agent')); ?>" method="post">
-                                            <div class="builder_heading col-xs-12 col-md-12">
-                                                <h4><strong>Add Builder/Agent/Owner</strong></h4>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="SectionThree">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordion" href="#PropertyImages"
+                                                    aria-expanded="false" aria-controls="PropertyImages">
+                                                    <strong>3. Property Images</strong>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="PropertyImages" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="SectionThree">
+                                            <div class="panel-body">
+                                                <div class="property_images col-sm-12 col-md-12">
+                                                    <div class="property_heading">
+                                                        <h4><strong>Property Images</strong></h4>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <!-- <label for="Property Images">Add Images</label> -->
+                                                        <!-- <input type="file" id="property_images" name="property_images"> -->
+                                                        <div class="add_image">
+                                                            <input type="button" id="add_more" class="btn btn-info"
+                                                                value="add image" />
+                                                            <!-- <i class="fas fa-camera"></i> -->
+                                                        </div>
+                                                        <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="SectionFour">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#SeoSection" aria-expanded="false" aria-controls="SeoSection">
+                                                <strong>4. SEO</strong>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="SeoSection" class="panel-collapse collapse" role="tabpanel" aria-labelledby="SectionFour">
+                                            <div class="panel-body">
+                                                <div class="col-xs-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="Meta Title">Meta Title</label>
+                                                        <input type="text" name="meta_title" id="meta_title"
+                                                            class="form-control">
+                                                    </div>
+                                                </div>
 
-                                            <div class="col-xs-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="First Name">First Name</label>
-                                                    <input type="text" name="first_name" id="first_name" class="form-control">
+                                                <div class="col-xs-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="Meta Description">Meta Description</label>
+                                                        <textarea name="meta_description" id="meta_description"
+                                                            class="form-control"></textarea>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xs-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="Last Name">Last Name</label>
-                                                    <input type="text" name="last_name" id="last_name" class="form-control">
+                                                <div class="col-xs-12 col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="Meta Keywords">Meta Keywords</label>
+                                                        <input type="text" name="meta_keywords" id="meta_keywords"
+                                                            class="form-control">
+                                                    </div>
                                                 </div>
                                             </div>
-
-                                            <div class="col-xs-12 col-md-4">
-                                                <div class="form-group">
-                                                    <label for="Usertype">Usertype</label>
-                                                    <select name="usertype" id="usertype" class="form-control">
-                                                        <option selected value="">Select Usertype</option>
-                                                        <option value="B">Builder</option>
-                                                        <option value="A">Agent</option>
-                                                        <option value="U">Owner</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="Email">Email</label>
-                                                    <input type="text" name="email" id="email" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-md-6 hidden">
-                                                <div class="form-group">
-                                                    <label for="Password">Password</label>
-                                                    <input type="password" name="password" id="password" value="<?php echo generate_string($permitted_chars, 20); ?>" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-4 col-md-2">
-                                                <div class="form-group">
-                                                    <label>Code</label>
-                                                    <select name="phonecode" id="phonecode" class="form-control">
-                                                    <?php $__currentLoopData = $phonecode; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($code->phonecode); ?>"><?php echo e($code->iso3); ?> &nbsp;<?php echo e($code->phonecode); ?></option>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-8 col-md-4">
-                                                <div class="form-group">
-                                                <label>Phone</label>
-                                                <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone">
-                                                </div>
-                                            </div>
-
-                                            <div class="col-xs-12 col-md-12">
-                                                <div class="form-group">
-                                                    <button type="submit" name="submit_user" id="submit_new_user" class="btn btn-md btn-info pull-right">Add User</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="box-footer">
+                                    <input type="submit" id="AddPropertyAdmin" class="btn btn-success btn-lg pull-right"
+                                        value="Submit Property">
+                                    <span class="pull-right" id="error_msg_btn"></span>
+                                </div>
+                            </form>
                         </div>
                     </div>
+                    <!-- /.box-body -->
                 </div>
             </div>
         </div>

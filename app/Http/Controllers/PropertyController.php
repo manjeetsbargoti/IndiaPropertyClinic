@@ -28,7 +28,7 @@ use function GuzzleHttp\json_encode;
 class PropertyController extends Controller
 {
 
-    protected $posts_per_page = 12;
+    protected $posts_per_page = 18;
 
     // This is the function for Add New Property by Admin
     public function addProperty(Request $request)
@@ -38,7 +38,7 @@ class PropertyController extends Controller
 
             $property_code = 'IPC'.rand(00001, 9999999);
 
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
 
             // Add Logged In User name to Property
             $add_by = Auth::user()->id;
@@ -73,117 +73,145 @@ class PropertyController extends Controller
                 $amenity = '';
             }
 
-            $user = new User;
-            // Add Builder/Agent with Property
-            if (!empty($data['first_name'])) {
-                    $user->first_name    = $data['first_name'];
-                    $user->last_name     = $data['last_name'];
-                    $user->email         = $data['email'];
-                    $user->password      = bcrypt($data['password']);
-                    $user->phonecode     = $data['phonecode'];
-                    $user->phone         = $data['phone'];
-                    $user->usertype      = $data['usertype'];
+            DB::beginTransaction();
 
-                    echo "<pre>"; print_r($user); die;
+            try {
+                $user = new User;
+                // Add Builder/Agent with Property
+                if (!empty($data['first_name'])) {
+                        $user->first_name    = $data['first_name'];
+                        $user->last_name     = $data['last_name'];
+                        $user->email         = $data['email'];
+                        $user->password      = bcrypt($data['password']);
+                        $user->phonecode     = $data['phonecode'];
+                        $user->phone         = $data['phone'];
+                        $user->usertype      = $data['usertype'];
 
-                    $user->save();
-
-                    return redirect()->back()->with('flash_message_success', 'User Added Successfully!');
+                        $user->save();
+                        // echo "<pre>"; print_r($user); die;
+                }
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
             }
 
-            // get Builder id
-            if (empty($builder->id)) {
-                $builder_id = $data['builder'];
-            } else {
-                $builder_id = $builder->id;
+            try {
+                // get Builder id
+                if (empty($user->id)) {
+                    $builder_id = $data['builder'];
+                } else {
+                    $builder_id = $user->id;
+                }
+
+                // echo "<pre>"; print_r($builder_id); die;
+
+                $value = Property::create([
+                    'property_name'         => $data['property_name'],
+                    'property_url'          => $data['slug'],
+                    'property_type_id'      => $property_type,
+                    'property_code'         => $property_code,
+                    'property_price'        => $data['property_price'],
+                    // 'booking_price'         => $data['booking_price'],
+                    'description'           => $data['description'],
+                    'featured'              => $feature,
+                    'commercial'            => $commercial,
+                    'amenities'             => $amenity,
+                    'map_pass'              => $data['map_passed'],
+                    'open_sides'            => $data['open_sides'],
+                    'parea'                 => $data['property_area'],
+                    'widthroad'             => $data['width_road_facing'],
+                    'furnish_type'          => $data['furnish_type'],
+                    'floorno'               => $data['floor_no'],
+                    'total_floors'          => $data['total_floors'],
+                    'apple_trees'           => $data['trees'],
+                    'parea'                 => $data['property_area'],
+                    // 'pfacing'               => $data['property_facing'],
+                    'transaction_type'      => $data['transection_type'],
+                    'construction_status'   => $data['construction_status'],
+                    'bedrooms'              => $data['bedrooms'],
+                    'bathrooms'             => $data['bathrooms'],
+                    'balconies'             => $data['balconies'],
+                    'p_washrooms'           => $data['p_washroom'],
+                    'cafeteria'             => $data['cafeteria'],
+                    'road_facing'           => $data['roadfacing'],
+                    'c_shop'                => $data['corner_shop'],
+                    'wall_made'             => $data['boundrywall'],
+                    'p_showroom'            => $data['pshowroom'],
+                    'property_age'          => $data['property_age'],
+                    // 'plotno'                => $data['plot_no'],
+                    'address1'              => $data['property_address1'],
+                    'address2'              => $data['property_address2'],
+                    'locality'              => $data['locality'],
+                    'country'               => $data['country'],
+                    'state'                 => $data['state'],
+                    'city'                  => $data['city'],
+                    'zipcode'               => $data['zipcode'],
+                    'add_by'                => $add_by,
+                    'service_id'            => $property_for,
+                    'builder'               => $builder_id,
+                    'agent'                 => $data['agent'],
+                    'meta_title'            => $data['meta_title'],
+                    'meta_description'      => $data['meta_description'],
+                    'meta_keywords'         => $data['meta_keywords'],
+                ]);
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
             }
-
-            // echo "<pre>"; print_r($data); die;
-
-            $value = Property::create([
-                'property_name'         => $data['property_name'],
-                'property_url'          => $data['slug'],
-                'property_type_id'      => $property_type,
-                'property_code'         => $property_code,
-                'property_price'        => $data['property_price'],
-                // 'booking_price'         => $data['booking_price'],
-                'description'           => $data['description'],
-                'featured'              => $feature,
-                'commercial'            => $commercial,
-                'amenities'             => $amenity,
-                'map_pass'              => $data['map_passed'],
-                'open_sides'            => $data['open_sides'],
-                'parea'                 => $data['property_area'],
-                'widthroad'             => $data['width_road_facing'],
-                'furnish_type'          => $data['furnish_type'],
-                'floorno'               => $data['floor_no'],
-                'total_floors'          => $data['total_floors'],
-                'apple_trees'           => $data['trees'],
-                'parea'                 => $data['property_area'],
-                // 'pfacing'               => $data['property_facing'],
-                'transaction_type'      => $data['transection_type'],
-                'construction_status'   => $data['construction_status'],
-                'bedrooms'              => $data['bedrooms'],
-                'bathrooms'             => $data['bathrooms'],
-                'balconies'             => $data['balconies'],
-                'p_washrooms'           => $data['p_washroom'],
-                'cafeteria'             => $data['cafeteria'],
-                'road_facing'           => $data['roadfacing'],
-                'c_shop'                => $data['corner_shop'],
-                'wall_made'             => $data['boundrywall'],
-                'p_showroom'            => $data['pshowroom'],
-                'property_age'          => $data['property_age'],
-                // 'plotno'                => $data['plot_no'],
-                'address1'              => $data['property_address1'],
-                'address2'              => $data['property_address2'],
-                'locality'              => $data['locality'],
-                'country'               => $data['country'],
-                'state'                 => $data['state'],
-                'city'                  => $data['city'],
-                'zipcode'               => $data['zipcode'],
-                'add_by'                => $add_by,
-                'service_id'            => $property_for,
-                'builder'               => $builder_id,
-                'agent'                 => $data['agent'],
-            ]);
 
             // echo "<pre>"; print_r($value); die;
 
             // Upload image
-            if ($request->hasFile('file')) {
-                $image_array = Input::file('file');
-                // if($image_array->isValid()){
-                $array_len = count($image_array);
-                for ($i = 0; $i < $array_len; $i++) {
-                    // $image_name = $image_array[$i]->getClientOriginalName();
-                    $image_size = $image_array[$i]->getClientSize();
-                    $extension = $image_array[$i]->getClientOriginalExtension();
-                    $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
-                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
-                    $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
-                    $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
-                    $small_image_path = 'images/backend_images/property_images/small/' . $filename;
-                    // Resize image
-                    Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+            try{
+                if ($request->hasFile('file')) {
+                    $image_array = Input::file('file');
+                    // if($image_array->isValid()){
+                    $array_len = count($image_array);
+                    for ($i = 0; $i < $array_len; $i++) {
+                        // $image_name = $image_array[$i]->getClientOriginalName();
+                        $image_size = $image_array[$i]->getClientSize();
+                        $extension = $image_array[$i]->getClientOriginalExtension();
+                        $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                        $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                        $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                        $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                        $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                        // Resize image
+                        Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
 
-                    // Store image in property folder
-                    $property->image = $filename;
+                        // Store image in property folder
+                        $property->image = $filename;
+                        $propertyimage = PropertyImages::create([
+                            'image_name' => $filename,
+                            'image_size' => $image_size,
+                            'property_id' => $value->id,
+                        ]);
+                        // }
+                    }
+                } else {
+                    $filename = "default.jpg";
+                    $property->image = "default.jpg";
                     $propertyimage = PropertyImages::create([
                         'image_name' => $filename,
-                        'image_size' => $image_size,
+                        'image_size' => '7.4',
                         'property_id' => $value->id,
                     ]);
-                    // }
                 }
-            } else {
-                $filename = "default.jpg";
-                $property->image = "default.jpg";
-                $propertyimage = PropertyImages::create([
-                    'image_name' => $filename,
-                    'image_size' => '7.4',
-                    'property_id' => $value->id,
-                ]);
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
             }
+
+            DB::commit();
 
             return redirect('/admin/add-new-property')->with('flash_message_success', 'Property Added Successfully!');
         }

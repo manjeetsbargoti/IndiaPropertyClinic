@@ -478,18 +478,18 @@ $("#NewBuilderName").change(function() {
 });
 
 // Show add Agent on add new select
-$("#NewAgentName").change(function() {
-    if ($(this).val() == 'addNewAgent') {
-        $("#AddBuilderData").show();
-        $('#AddBuilderData').removeClass('hidden').addClass('show');
-    } else {
-        $("#AddBuilderData").hide();
-    }
-    if ($(this).val() != 'addNewAgent') {
-        $("#AddBuilderData").hide();
-        $('#AddBuilderData').removeClass('show').addClass('hidden');
-    }
-});
+// $("#NewAgentName").change(function() {
+//     if ($(this).val() == 'addNewAgent') {
+//         $("#AddBuilderData").show();
+//         $('#AddBuilderData').removeClass('hidden').addClass('show');
+//     } else {
+//         $("#AddBuilderData").hide();
+//     }
+//     if ($(this).val() != 'addNewAgent') {
+//         $("#AddBuilderData").hide();
+//         $('#AddBuilderData').removeClass('show').addClass('hidden');
+//     }
+// });
 
 // Access Datatables
 $(function() {

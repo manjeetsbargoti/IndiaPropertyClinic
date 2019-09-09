@@ -354,7 +354,7 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     
-    
+    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d7623feab6f1000123c84da&product=inline-share-buttons' async='async'></script>
 
 </footer>
 

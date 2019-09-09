@@ -88,6 +88,9 @@
                 </div>
             </div>
         </div>
+        <div style="padding-top: 1em;">
+            <div class="sharethis-inline-share-buttons"></div>
+        </div>
     </div>
     </div>
 
