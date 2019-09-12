@@ -84,7 +84,7 @@ function generate_string($input, $strength = 16) {
                     <div class="box-body">
                         <div id="PropertyInformationData">
                             <form enctype="multipart/form-data" method="post"
-                                action="<?php echo e(url('/admin/add-new-property')); ?>" name="add_property" id="add_property"
+                                action="<?php echo e(url('/admin/property/new')); ?>" name="add_property" id="add_property"
                                 novalidate="novalidate">
                                 <?php echo e(csrf_field()); ?>
 

@@ -31,7 +31,7 @@
                   @endif
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/edit-repair-services/'.$servicesDetails->id) }}" id="add_service" name="add_service" novalidate="novalidate">
+                      <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/repair-service/'.$servicesDetails->id.'/edit') }}" id="add_service" name="add_service" novalidate="novalidate">
                       {{ csrf_field() }}
                         <div class="row">
                             <div class="col-xs-12 col-md-12">

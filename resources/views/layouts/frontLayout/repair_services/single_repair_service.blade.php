@@ -540,6 +540,7 @@
                     @endforeach
                 </div>
             </div>
+            
             <div id="ser_professionals" class="serview_conbox">
                 <div class="row">
                     @foreach($vendor as $v)
@@ -562,6 +563,7 @@
                     @endforeach
                 </div>
             </div>
+            
         </div>
     </div>
 

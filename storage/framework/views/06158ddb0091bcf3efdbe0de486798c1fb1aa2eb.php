@@ -1,5 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -7,7 +6,7 @@
     <section class="content-header">
         <h1>Add New Contact</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo e(url('/admin')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Add New Contact</li>
         </ol>
     </section>
@@ -19,9 +18,10 @@
                 <div class="box box-info">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/contacts/new') }}"
+                        <form enctype="multipart/form-data" method="POST" action="<?php echo e(url('/admin/contacts/new')); ?>"
                             id="add_contact" name="add_contact" novalidate="novalidate">
-                            {{ csrf_field() }}
+                            <?php echo e(csrf_field()); ?>
+
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
                                     <div class="form-group">
@@ -54,4 +54,5 @@
 </div>
 <!-- /.content-wrapper -->
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/contact/add_contact.blade.php ENDPATH**/ ?>

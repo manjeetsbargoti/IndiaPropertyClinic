@@ -542,9 +542,10 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
+            <?php $__currentLoopData = $vendor; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div id="ser_professionals" class="serview_conbox">
                 <div class="row">
-                    <?php $__currentLoopData = $vendor; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                         <a href="<?php echo e(url('/profile/'.$v->id.'/user')); ?>">
                             <div class="fireman">
@@ -561,9 +562,10 @@
                             </div>
                         </a>
                     </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
                 </div>
             </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
     </div>
 

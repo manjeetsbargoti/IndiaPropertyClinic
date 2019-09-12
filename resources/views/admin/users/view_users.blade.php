@@ -61,7 +61,7 @@
                                     <td>{{ date('d M, Y', strtotime($u->created_at)) }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/edit-user/{{ $u->id }}" tite="Edit"
+                                            <a href="/admin/user/{{ $u->id }}/edit" tite="Edit"
                                                 class="label label-warning label-sm"><i class="fa fa-pencil-square-o"
                                                     aria-hidden="true"></i></a>
                                             @if($u->status == 1)
@@ -73,7 +73,7 @@
                                                 class="label label-success label-sm"><i class="fa fa-check-square-o"
                                                     aria-hidden="true"></i></a>
                                             @endif
-                                            <a href="/admin/delete-user/{{ $u->id }}" tite="Delete"
+                                            <a href="/admin/user/{{ $u->id }}/delete" tite="Delete"
                                                 class="label label-danger label-sm"><i class="fa fa-trash"
                                                     aria-hidden="true"></i></a>
                                         </div>

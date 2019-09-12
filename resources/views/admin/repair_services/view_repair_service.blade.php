@@ -67,7 +67,7 @@
                                         </td>
                                         <td>
                                             <div id="donate">
-                                                <a href=" {{ url('/admin/edit-repair-services/'.$rservice->id) }} " class="btn btn-warning btn-sm">Edit</a>
+                                                <a href=" {{ url('/admin/repair-service/'.$rservice->id.'/edit') }} " class="btn btn-warning btn-sm">Edit</a>
                                             </div>
                                         </td>
                                         @endif

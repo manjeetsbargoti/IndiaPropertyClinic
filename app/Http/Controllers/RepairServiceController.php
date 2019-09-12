@@ -128,23 +128,27 @@ class RepairServiceController extends Controller
     {
         $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
 
+        $ots_data = OtherServices::where('url', $url)->get();
+
+        $ots_p_id = $ots_data[0]['parent_id'];
+
+        if($ots_p_id > 0){
+            $ots_p_id = $ots_data[0]['parent_id'];
+        }else{
+            $ots_p_id = $ots_data[0]['id'];
+        }
+
+        $randervice = OtherServices::where('parent_id', $ots_p_id)->limit(4)->get();
+        
+        // echo "<pre>"; print_r($randervice); die;
+
         $otherServices = OtherServices::get();
-        $randervice = OtherServices::inRandomOrder()->limit(4)->get();
+        // $randervice = OtherServices::inRandomOrder()->limit(4)->get();
         $services = OtherServices::where(['url'=>$url])->get();
         $services = json_decode(json_encode($services));
         $sub_services = OtherServices::where(['parent_id'=>$services[0]->id])->get();
         $vendor = User::where(['usertype'=> 'V'])->where('country', $arr_ip->iso_code)->take(4)->get();
         // echo "<pre>"; print_r($arr_ip); die;
-
-        // foreach($vendor as $key => $val)
-        // {
-        //     $countryname = DB::table('countries')->where(['id'=>$val->country])->first();
-        //     $vendor[$key]->country_name = $countryname->name;
-        //     $state = DB::table('states')->where(['id'=>$val->state])->first();
-        //     $vendor[$key]->state_name = $state->name;
-        //     $city = DB::table('cities')->where(['id'=>$val->city])->first();
-        //     $vendor[$key]->city_name = $city->name;
-        // }
 
         return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'sub_services'));
     }

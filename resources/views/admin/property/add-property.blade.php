@@ -85,7 +85,7 @@ function generate_string($input, $strength = 16) {
                     <div class="box-body">
                         <div id="PropertyInformationData">
                             <form enctype="multipart/form-data" method="post"
-                                action="{{ url('/admin/add-new-property') }}" name="add_property" id="add_property"
+                                action="{{ url('/admin/property/new') }}" name="add_property" id="add_property"
                                 novalidate="novalidate">
                                 {{ csrf_field() }}
 

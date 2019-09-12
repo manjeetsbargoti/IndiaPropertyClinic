@@ -7,7 +7,7 @@
     <section class="content-header">
         <h1>Add New Page</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Add New Page</li>
         </ol>
     </section>
@@ -19,7 +19,7 @@
                 <div class="box box-info">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/new-page') }}"
+                        <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/pages/new') }}"
                             id="add_page" name="add_page" novalidate="novalidate">
                             {{ csrf_field() }}
                             <div class="col-sm-8 col-md-8">

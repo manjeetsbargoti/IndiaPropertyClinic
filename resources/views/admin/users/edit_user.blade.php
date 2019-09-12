@@ -30,7 +30,7 @@
                   @endif
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="edit_user" id="edit_user" method="POST" action="{{ url('/admin/edit-user/'.$userdetails->id) }}">
+                    <form role="form" name="edit_user" id="edit_user" method="POST" action="{{ url('/admin/user/'.$userdetails->id.'/edit') }}">
                     {{ csrf_field() }}
                       <div class="box-body">
                         <div class="row">

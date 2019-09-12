@@ -12,7 +12,7 @@
     <section class="content-header">
       <h1>Add New User</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Add User</li>
       </ol>
     </section>
@@ -23,7 +23,7 @@
             <div class="col-xs-12 col-md-8">
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="{{ url('/admin/add-new-user') }}">
+                    <form role="form" name="add_new_user" id="add_new_user" method="POST" action="{{ url('/admin/user/new') }}">
                     {{ csrf_field() }}
                       <div class="box-body">
                         <div class="row">

@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@updatePassword');
 
     // Admin Property Module (Add/Update/View/Delete)
-    Route::match(['get', 'post'], '/admin/add-new-property', 'PropertyController@addProperty');
+    Route::match(['get', 'post'], '/admin/property/new', 'PropertyController@addProperty');
     Route::get('/admin/properties', 'PropertyController@viewProperty');
     Route::match(['get', 'post'], '/admin/property/{id}/edit', 'PropertyController@editProperty');
     Route::match(['get', 'post'], '/add-new-property/check_slug', 'PropertyController@checkSlug');
@@ -33,16 +33,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/delete-property-image/{id}', 'PropertyController@deletePropertyImage');
 
     // Amenity Routes
-    Route::match(['get', 'post'], '/admin/add-amenity', 'AmenityController@addAmenity');
-    Route::get('/admin/amenities', 'AmenityController@viewAmenity');
-    Route::match(['get', 'post'], '/admin/amenity/{id}/edit', 'AmenityController@editAmenity');
-    Route::match(['get', 'post'], '/admin/amenity/{id}/enable', 'AmenityController@enableAmenity');
-    Route::match(['get', 'post'], '/admin/amenity/{id}/disable', 'AmenityController@disableAmenity');
-    Route::match(['get', 'post'], '/admin/amenity/{id}/delete', 'AmenityController@deleteAmenity');
+    Route::match(['get', 'post'], '/admin/property/amenity/new', 'AmenityController@addAmenity');
+    Route::get('/admin/property/amenities', 'AmenityController@viewAmenity');
+    Route::match(['get', 'post'], '/admin/property/amenity/{id}/edit', 'AmenityController@editAmenity');
+    Route::match(['get', 'post'], '/admin/property/amenity/{id}/enable', 'AmenityController@enableAmenity');
+    Route::match(['get', 'post'], '/admin/property/amenity/{id}/disable', 'AmenityController@disableAmenity');
+    Route::match(['get', 'post'], '/admin/property/amenity/{id}/delete', 'AmenityController@deleteAmenity');
 
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/property/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/property/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/{id}/edit/get-state-list', 'PropertyController@getStateList');
@@ -51,26 +53,26 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
 
     // Admin Services Module (Add/Update/View/Disable)
-    Route::match(['get', 'post'], '/admin/add-new-service', 'ServiceController@addService');
+    Route::match(['get', 'post'], '/admin/service/new', 'ServiceController@addService');
     Route::get('/admin/services', 'ServiceController@viewService');
     Route::match(['get', 'post'], '/admin/sdisable/{id}', 'ServiceController@disableService');
     Route::match(['get', 'post'], '/admin/senable/{id}', 'ServiceController@enableService');
 
     // Repair Services Module (Add/Update/View/Disable)
-    Route::match(['get', 'post'], '/admin/add-repair-service', 'RepairServiceController@addRService');
+    Route::match(['get', 'post'], '/admin/repair-service/new', 'RepairServiceController@addRService');
     Route::get('/admin/repair-services', 'RepairServiceController@viewRService');
-    Route::match(['get', 'post'], '/admin/edit-repair-services/{id}', 'RepairServiceController@editRService');
+    Route::match(['get', 'post'], '/admin/repair-service/{id}/edit', 'RepairServiceController@editRService');
     Route::match(['get', 'post'], '/admin/rdisable/{id}', 'RepairServiceController@disableService');
     Route::match(['get', 'post'], '/admin/renable/{id}', 'RepairServiceController@enableService');
     Route::match(['get', 'post'], '/repair-services/check_slug', 'RepairServiceController@checkSlug');
 
     // User Module by Admin (Add/Update/View/Disable)
-    Route::match(['get', 'post'], '/admin/add-new-user', 'AdminController@addUser');
-    Route::match(['get', 'post'], '/admin/edit-user/{id}', 'AdminController@editUser')->name('edituser');
+    Route::match(['get', 'post'], '/admin/user/new', 'AdminController@addUser');
+    Route::match(['get', 'post'], '/admin/user/{id}/edit', 'AdminController@editUser')->name('edituser');
     Route::get('/admin/users', 'AdminController@viewUser');
     Route::match(['get', 'post'], '/admin/udisable/{id}', 'AdminController@disableUser');
     Route::match(['get', 'post'], '/admin/uenable/{id}', 'AdminController@enableUser');
-    Route::match(['get', 'post'], '/admin/delete-user/{id}', 'AdminController@deleteUser');
+    Route::match(['get', 'post'], '/admin/user/{id}/delete', 'AdminController@deleteUser');
     Route::match(['get', 'post'], '/checkemail', 'AdminController@checkEmail');
     Route::match(['get', 'post'], '/checkuserphone', 'AdminController@checkPhone');
 
@@ -100,24 +102,24 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/add-state', 'AdminController@addState');
 
     // System Options Routes
-    Route::get('/admin/options', 'SystemController@getOptions');
-    Route::post('/admin/options','SystemController@postOption');
-    Route::get('/admin/robots.txt','SystemController@getRobot');
-    Route::post('/admin/robots.txt','SystemController@postRobot');
-    Route::get('/admin/htaccess','SystemController@getHtaccess');
-    Route::post('/admin/htaccess','SystemController@postHtaccess');
-    Route::get('/admin/custom-code','SystemController@getCode');
-    Route::post('/admin/custom-code','SystemController@postCodes');
-    Route::get('/admin/editor','SystemController@getStyle');
-    Route::post('/admin/editor','SystemController@postStyle');
+    Route::get('/admin/system/options', 'SystemController@getOptions');
+    Route::post('/admin/system/options','SystemController@postOption');
+    Route::get('/admin/system/robots.txt','SystemController@getRobot');
+    Route::post('/admin/system/robots.txt','SystemController@postRobot');
+    Route::get('/admin/system/htaccess','SystemController@getHtaccess');
+    Route::post('/admin/system/htaccess','SystemController@postHtaccess');
+    Route::get('/admin/system/custom-code','SystemController@getCode');
+    Route::post('/admin/system/custom-code','SystemController@postCodes');
+    Route::get('/admin/system/editor','SystemController@getStyle');
+    Route::post('/admin/system/editor','SystemController@postStyle');
     Route::get('/admin/sitemap', 'SystemController@getSitemap');
     Route::post('/admin/sitemap', 'SystemController@postSitemap');
-    Route::match(['get','post'], '/admin/new-contact', 'SystemController@newContact');
+    Route::match(['get','post'], '/admin/contacts/new', 'SystemController@newContact');
     Route::get('/admin/contacts', 'SystemController@contactList');
 
     // Website Contact Details
-    Route::get('/admin/contact-info', 'SystemController@getContactInfo');
-    Route::post('/admin/contact-info','SystemController@postContactInfo');
+    Route::get('/admin/system/contact-info', 'SystemController@getContactInfo');
+    Route::post('/admin/system/contact-info','SystemController@postContactInfo');
 
 
     // Admin Logout Function
@@ -127,9 +129,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Route::match(['get', 'post'], '/admin/update-pimages', 'SystemController@pImages');
 
     // CMS Routes Management
-    Route::match(['get', 'post'], '/admin/new-page', 'PageController@newPage');
+    Route::match(['get', 'post'], '/admin/pages/new', 'PageController@newPage');
     Route::match(['get', 'post'], '/admin/pages', 'PageController@allPages');
-    Route::match(['get', 'post'], '/admin/page/{id}/edit', 'PageController@editPage');
+    Route::match(['get', 'post'], '/admin/pages/{id}/edit', 'PageController@editPage');
     Route::match(['get', 'post'], '/admin/page/{id}/disable', 'PageController@disablePage');
     Route::match(['get', 'post'], '/admin/page/{id}/enable', 'PageController@enablePage');
     Route::match(['get', 'post'], '/admin/page/{id}/delete', 'PageController@deletePage');
