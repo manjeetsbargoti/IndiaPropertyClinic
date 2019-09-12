@@ -794,6 +794,11 @@ ul#searchTab li {
     background: #fff;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.07);
     margin-bottom: 15px;
+    color: #707070;
+}
+
+.product_box a {
+    color: #707070;
 }
 
 .product_img {
@@ -975,7 +980,7 @@ i.staricon {
 
 .price_sec li h5 {
     font-size: 14px;
-    color: #444;
+    color: #171747;
 }
 
 .price_sec li h5 span {
@@ -1154,7 +1159,7 @@ i.staricon {
 .serbox_txt h4 {
     font-weight: 400;
     color: #000;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0;
 }
 

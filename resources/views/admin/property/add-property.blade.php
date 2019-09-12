@@ -91,15 +91,17 @@ function generate_string($input, $strength = 16) {
 
                                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="SectionOne">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
                                                     href="#PropertyDetailSection" aria-expanded="true"
                                                     aria-controls="PropertyDetailSection">
+                                            <div class="panel-heading" role="tab" id="SectionOne">
+                                            <h4 class="panel-title">
+                                                
                                                     <strong>1. Property Details</strong>
-                                                </a>
+                                                
                                             </h4>
-                                        </div>
+                                            </div>
+                                            </a>
                                         <div id="PropertyDetailSection" class="panel-collapse collapse in"
                                             role="tabpanel" aria-labelledby="SectionOne">
                                             <div class="panel-body">
@@ -700,15 +702,15 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="SectionTwo">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                    <a class="collapsed" role="button" data-toggle="collapse"
                                                     data-parent="#accordion" href="#PropertyAmenities"
                                                     aria-expanded="false" aria-controls="PropertyAmenities">
+                                                    <div class="panel-heading" role="tab" id="SectionTwo">
+                                                <h4 class="panel-title">
                                                     <strong>2. Property Amenities</strong>
-                                                </a>
-                                            </h4>
-                                        </div>
+                                                </h4>
+                                            </div>
+                                        </a>
                                         <div id="PropertyAmenities" class="panel-collapse collapse" role="tabpanel"
                                             aria-labelledby="SectionTwo">
                                             <div class="panel-body">
@@ -740,15 +742,15 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="SectionThree">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                            <a class="collapsed" role="button" data-toggle="collapse"
                                                     data-parent="#accordion" href="#PropertyImages"
                                                     aria-expanded="false" aria-controls="PropertyImages">
-                                                    <strong>3. Property Images</strong>
-                                                </a>
-                                            </h4>
-                                        </div>
+                                                <div class="panel-heading" role="tab" id="SectionThree">
+                                                    <h4 class="panel-title">
+                                                        <strong>3. Property Images</strong>
+                                                    </h4>
+                                                </div>
+                                            </a>
                                         <div id="PropertyImages" class="panel-collapse collapse" role="tabpanel"
                                             aria-labelledby="SectionThree">
                                             <div class="panel-body">
@@ -771,13 +773,13 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="SectionFour">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#SeoSection" aria-expanded="false" aria-controls="SeoSection">
-                                                <strong>4. SEO</strong>
-                                                </a>
-                                            </h4>
-                                        </div>
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#SeoSection" aria-expanded="false" aria-controls="SeoSection">
+                                            <div class="panel-heading" role="tab" id="SectionFour">
+                                                <h4 class="panel-title">
+                                                    <strong>4. SEO</strong>
+                                                </h4>
+                                            </div>
+                                        </a>
                                         <div id="SeoSection" class="panel-collapse collapse" role="tabpanel" aria-labelledby="SectionFour">
                                             <div class="panel-body">
                                                 <div class="col-xs-12 col-md-12">

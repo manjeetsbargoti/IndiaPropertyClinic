@@ -86,57 +86,94 @@ class HomeController extends Controller
             $properties = array_merge($properties2, $properties3);
             $propertyType = PropertyTypes::get();
             $otherServices = OtherServices::get();
+
+            foreach ($properties as $key => $val) {
+                $service_name = Services::where(['id' => $val->service_id])->first();
+                $properties[$key]->service_name = $service_name->service_name;
+                $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
+                if ($propertyimage_count > 0) {
+                    $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
+                    $properties[$key]->image_name = $propertyimage_name->image_name;
+                }
+                $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
+                if ($country_count > 0) {
+                    $country = DB::table('countries')->where(['iso2' => $val->country])->first();
+                    $properties[$key]->country_name = $country->name;
+                    $properties[$key]->currency = $country->currency;
+                }
+                $state_count = DB::table('states')->where(['id' => $val->state])->count();
+                if ($state_count > 0) {
+                    $state = DB::table('states')->where(['id' => $val->state])->first();
+                    $properties[$key]->state_name = $state->name;
+                }
+                $city_count = DB::table('cities')->where(['id' => $val->city])->count();
+                if ($city_count) {
+                    $city = DB::table('cities')->where(['id' => $val->city])->first();
+                    $properties[$key]->city_name = $city->name;
+                }
+            }
+
+            // Get Featured Property Data
+            foreach ($featureProperty as $key => $val) {
+                $service_name = Services::where(['id' => $val->service_id])->first();
+                $featureProperty[$key]->service_name = $service_name->service_name;
+                $country_countf = DB::table('countries')->where(['iso2' => $val->country])->count();
+                if ($country_countf > 0) {
+                    $country = DB::table('countries')->where(['iso2' => $val->country])->first();
+                    $featureProperty[$key]->country_name = $country->name;
+                    $featureProperty[$key]->currency = $country->currency;
+                }
+                $state_countf = DB::table('states')->where(['id' => $val->state])->count();
+                if ($state_countf > 0) {
+                    $state = DB::table('states')->where(['id' => $val->state])->first();
+                    $featureProperty[$key]->state_name = $state->name;
+                }
+                $city_countf = DB::table('cities')->where(['id' => $val->city])->count();
+                if ($city_countf) {
+                    $city = DB::table('cities')->where(['id' => $val->city])->first();
+                    $featureProperty[$key]->city_name = $city->name;
+                }
+            }
+    
         
         // echo "<pre>"; print_r($properties); die;
 
-        // $properties = json_decode(json_encode($properties));
+        // Get Commercial Properties Data
+        $ip_commercial_property = Property::where('commercial', 1)->where('country', $arr_ip->iso_code)->count();
 
-        foreach ($properties as $key => $val) {
+        if($ip_commercial_property > 0){
+            $commercial_property = Property::where('commercial', 1)->where('country', $arr_ip->iso_code)->orderBy('created_at', 'desc')->take(4)->get();
+        }else{
+            $commercial_property = Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        }
+
+        foreach ($commercial_property as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
-            $properties[$key]->service_name = $service_name->service_name;
+            $commercial_property[$key]->service_name = $service_name->service_name;
             $propertyimage_count = PropertyImages::where(['property_id' => $val->id])->count();
             if ($propertyimage_count > 0) {
                 $propertyimage_name = PropertyImages::where(['property_id' => $val->id])->first();
-                $properties[$key]->image_name = $propertyimage_name->image_name;
+                $commercial_property[$key]->image_name = $propertyimage_name->image_name;
             }
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
                 $country = DB::table('countries')->where(['iso2' => $val->country])->first();
-                $properties[$key]->country_name = $country->name;
-                $properties[$key]->currency = $country->currency;
+                $commercial_property[$key]->country_name = $country->name;
+                $commercial_property[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id' => $val->state])->count();
             if ($state_count > 0) {
                 $state = DB::table('states')->where(['id' => $val->state])->first();
-                $properties[$key]->state_name = $state->name;
+                $commercial_property[$key]->state_name = $state->name;
             }
             $city_count = DB::table('cities')->where(['id' => $val->city])->count();
             if ($city_count) {
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
-                $properties[$key]->city_name = $city->name;
+                $commercial_property[$key]->city_name = $city->name;
             }
         }
 
-        foreach ($featureProperty as $key => $val) {
-            $service_name = Services::where(['id' => $val->service_id])->first();
-            $featureProperty[$key]->service_name = $service_name->service_name;
-            $country_countf = DB::table('countries')->where(['iso2' => $val->country])->count();
-            if ($country_countf > 0) {
-                $country = DB::table('countries')->where(['iso2' => $val->country])->first();
-                $featureProperty[$key]->country_name = $country->name;
-                $featureProperty[$key]->currency = $country->currency;
-            }
-            $state_countf = DB::table('states')->where(['id' => $val->state])->count();
-            if ($state_countf > 0) {
-                $state = DB::table('states')->where(['id' => $val->state])->first();
-                $featureProperty[$key]->state_name = $state->name;
-            }
-            $city_countf = DB::table('cities')->where(['id' => $val->city])->count();
-            if ($city_countf) {
-                $city = DB::table('cities')->where(['id' => $val->city])->first();
-                $featureProperty[$key]->city_name = $city->name;
-            }
-        }
+
         if ($country_count > 0) {
             $countrycount = $country_count;
         } else {
@@ -167,7 +204,7 @@ class HomeController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
 
-        return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'commercialProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'commercialProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'commercial_property'));
     }
 
     // View All Properties

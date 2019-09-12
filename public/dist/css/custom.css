@@ -1,4 +1,3 @@
-
 #donate {
     margin: 0;
     position: relative;
@@ -18,21 +17,21 @@
 }
 
 #donate label span {
-    text-align:center;
+    text-align: center;
     font-size: 14px;
-    padding:3px 0px;
-    display:block;
+    padding: 3px 0px;
+    display: block;
     font-weight: normal;
 }
 
 #donate label input {
-    position:absolute;
-    top:-20px;
+    position: absolute;
+    top: -20px;
 }
 
-#donate input:checked + span {
-    background-color:#00a65a;
-    color:#F7F7F7;
+#donate input:checked+span {
+    background-color: #00a65a;
+    color: #F7F7F7;
     border-color: #00a65a;
 }
 
@@ -49,34 +48,51 @@ a.editbtn {
     margin-right: 3px;
 }
 
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
     background: #333;
     border-color: #333;
 }
 
 label {
-    font-weight:600 !important;
-}
-.table>thead>tr>th{
-    font-weight:600 !important;
-}
-tfoot th{
-    font-weight:600 !important;
+    font-weight: 600 !important;
 }
 
+.table>thead>tr>th {
+    font-weight: 600 !important;
+}
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+tfoot th {
+    font-weight: 600 !important;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
     vertical-align: middle;
 }
 
 .box.box-purple {
     border-top-color: #555299;
 }
-.pl-1{
+
+.pl-1 {
     padding-left: 5px;
 }
 
 .user-count {
     margin-top: 0.2em;
     display: block;
+}
+
+.panel-group .panel-heading {
+    background: #3c8dbc;
+    color: #ecf0f5;
 }

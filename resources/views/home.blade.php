@@ -124,12 +124,13 @@
             <div class="row">
                 @foreach($featureProperty as $property)
                 @if($loop->index < 2) <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-xl-6">
-                    <div class="product_box featurepro_box">
+                    <a href="{{ url('/properties/'.$property->property_url) }}"><div class="product_box featurepro_box">
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                 <div class="item">
-                                <img height="180" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                    <img height="180"
+                                        src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                 </div>
                                 @endforeach
                             </div>
@@ -177,13 +178,13 @@
                                                 Price</a>
                                             @endif
                                         </li>
-                                        <li><a href="{{ url('/properties/'.$property->property_url) }}"
-                                                class="btn_fullinfo">Full Info</a></li>
+                                        <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
+                                                class="btn_fullinfo">Full Info</a></li> -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
             </div>
             @endif
             @endforeach
@@ -246,11 +247,13 @@
                             @foreach($properties as $property)
                             @if($property->service_id == $service->id )
                             <?php $counter++;?>
-                            @if( $counter <= 4) <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                                <div class="product_box">
+                            @if( $counter <= 4) 
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{ url('/properties/'.$property->property_url) }}"><div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
-                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as
+                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get()
+                                            as
                                             $pimage)
                                             <div class="item">
                                                 <img
@@ -300,23 +303,23 @@
                                                             class="btn_fullinfo">Get Price</a>
                                                         @endif
                                                     </li>
-                                                    <li><a href="{{ url('/properties/'.$property->property_url) }}"
-                                                            class="btn_fullinfo">Full Info</a></li>
+                                                    <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
+                                                            class="btn_fullinfo">Full Info</a></li> -->
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div></a>
+                            </div>
+                            @endif
+                            @endif
+                            @endforeach
                         </div>
-                        @endif
-                        @endif
-                        @endforeach
-                    </div>
                     <!--<div class="view_sec text-center"><a class="btnview_all" href="{{ url('/properties') }}">View-->
                     <!--        All</a></div>-->
-                </div>
-                @endif
-                @endforeach
+                    </div>
+                    @endif
+                    @endforeach
             </div>
         </div>
         <div class="col-12 col-md-3 col-xl-3" style="display:none;">
@@ -365,15 +368,15 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    @foreach(\App\Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(3)->get() as
-                    $property)
+                    @foreach($commercial_property as $property)
                     <?php $counter++;?>
                     @if($counter <= 3) <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <div class="product_box">
+                    <a href="{{ url('/properties/'.$property->property_url) }}">
+                    <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                    <div class="item"><img
+                                    <div class="item"><img style="max-height: 223px;"
                                             src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                     </div>
                                     @endforeach
@@ -381,20 +384,16 @@
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i>
                                         @if(!empty($property->city))
-                                        <span>@foreach(\App\Cities::where('id', $property->city)->get() as $c)
-                                            {{ $c->name }}, @endforeach</span>
+                                            {{ $property->city_name }}, </span>
                                         @endif
                                         @if(!empty($property->country))
-                                        <span>@foreach(\App\Country::where('iso2', $property->country)->get() as $ct)
-                                            {{ $ct->name }} @endforeach</span>
+                                        <span> {{ $property->country_name }}</span>
                                         @endif
                                     </h6>
                                     <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
-                                    @foreach(\App\Services::where('id', $property->service_id)->get() as $pt)
                                     <span class="tagbtn rent">
-                                        {{ $pt->service_name }}
+                                        {{ $property->service_name }}
                                     </span>
-                                    @endforeach
                                 </div>
                             </div>
                             <div class="product_text">
@@ -418,23 +417,21 @@
                                         <ul>
                                             <li>
                                                 @if(!empty($property->property_price))
-                                                <h5><span>@if(!empty($property->country))
-                                                        @foreach(\App\Country::where('iso2', $property->country)->get()
-                                                        as $ct) {{ $ct->currency }} @endforeach
+                                                <h5><span>@if(!empty($property->country)) {{ $property->currency }}
                                                         @endif</span> {{ $property->property_price }}</h5>
                                                 @else
                                                 <a href="/properties/{{ $property->property_url }}"
                                                     class="btn_fullinfo">Get Price</a>
                                                 @endif
                                             </li>
-                                            <li><a href="{{ url('/properties/'.$property->property_url) }}"
-                                                    class="btn_fullinfo">Full Info</a></li>
+                                            <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
+                                                    class="btn_fullinfo">Full Info</a></li> -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div></a>
                 @endif
                 @endforeach
             </div>
@@ -570,7 +567,8 @@
 <?php $arry_ip = geoip()->getLocation('14.98.69.170'); ?>
 
 <!-- Dealers -->
-<div class="latest_product @if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0) d-none @endif">
+<div
+    class="latest_product @if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0) d-none @endif">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
@@ -585,8 +583,7 @@
                                 <div class="item">
                                     <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
-                                            <div class="dealers_img"><img
-                                                    src="{{ url('/images/user.png') }}"></div>
+                                            <div class="dealers_img"><img src="{{ url('/images/user.png') }}"></div>
                                             <div class="dealers_txt">
                                                 <h4>{{ $d->first_name }}</h4>
                                             </div>

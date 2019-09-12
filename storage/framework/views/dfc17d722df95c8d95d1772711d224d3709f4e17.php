@@ -147,16 +147,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
-                        <li class="breadcrumb-item">All Properties in 
-                        <?php if(!empty($scityname)): ?>
-                            <span> <?php echo e($scityname); ?> </span></li>
-                        <?php elseif(!empty($cityname)): ?>
-                            <span> <?php echo e($cityname[0]); ?> </span></li>
-                        <?php elseif(!empty($statename)): ?>
-                            <span> <?php echo e($statename[0]); ?> </span></li>
-                        <?php elseif(!empty($countryname)): ?>
-                            <span> <?php echo e($countryname[0]); ?> </span></li>
-                        <?php endif; ?>
+                        <li class="breadcrumb-item">All Properties for <?php echo e($properties[0]->service_name); ?></li>
                         </ol>
                     </nav>
                     <p><span><?php echo $contRow; ?> Properties </span></p>
@@ -165,14 +156,8 @@
                     <p style="text-align:center; padding-top: 2em;"><img src="<?php echo e(url('/images/no-result.png')); ?>"></p>
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?>
-                <div class="description">
-                    <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php echo $d->content; ?>
-
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </div>
                 <div class="row">
-                    <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                         <div class="product_box">
                             <div class="product_img">
@@ -227,7 +212,7 @@
                 </div>
 
                 <div class="product_loadding">
-                    <?php echo $posts->render(); ?>
+                    <?php echo $properties->render(); ?>
 
                 </div>
 
@@ -323,4 +308,4 @@ $(window).on('hashchange', function() {
 </style>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.frontLayout.frontend_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_csc.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.frontLayout.frontend_design2', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/frontend/filter_templates/filter_by_service.blade.php ENDPATH**/ ?>

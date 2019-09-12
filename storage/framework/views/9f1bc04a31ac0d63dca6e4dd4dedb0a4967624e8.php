@@ -126,12 +126,13 @@
             <div class="row">
                 <?php $__currentLoopData = $featureProperty; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($loop->index < 2): ?> <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-xl-6">
-                    <div class="product_box featurepro_box">
+                    <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><div class="product_box featurepro_box">
                         <div class="product_img">
                             <div class="owl-carousel feauture-slide owl-theme">
                                 <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="item">
-                                <img height="180" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                    <img height="180"
+                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                 </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
@@ -180,13 +181,13 @@
                                                 Price</a>
                                             <?php endif; ?>
                                         </li>
-                                        <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                class="btn_fullinfo">Full Info</a></li>
+                                        <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                class="btn_fullinfo">Full Info</a></li> -->
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
             </div>
             <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -249,8 +250,9 @@
                             <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($property->service_id == $service->id ): ?>
                             <?php $counter++;?>
-                            <?php if( $counter <= 4): ?> <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                                <div class="product_box">
+                            <?php if( $counter <= 4): ?> 
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><div class="product_box">
                                     <div class="product_img">
                                         <div class="owl-carousel product-slide owl-theme">
                                             <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -302,23 +304,23 @@
                                                             class="btn_fullinfo">Get Price</a>
                                                         <?php endif; ?>
                                                     </li>
-                                                    <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                            class="btn_fullinfo">Full Info</a></li>
+                                                    <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                            class="btn_fullinfo">Full Info</a></li> -->
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div></a>
+                            </div>
+                            <?php endif; ?>
+                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
-                        <?php endif; ?>
-                        <?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </div>
                     <!--<div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View-->
                     <!--        All</a></div>-->
-                </div>
-                <?php endif; ?>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
         <div class="col-12 col-md-3 col-xl-3" style="display:none;">
@@ -367,14 +369,15 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    <?php $__currentLoopData = \App\Property::where('commercial', 1)->orderBy('created_at', 'desc')->take(3)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $commercial_property; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php $counter++;?>
                     <?php if($counter <= 3): ?> <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <div class="product_box">
+                    <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>">
+                    <div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="item"><img
+                                    <div class="item"><img style="max-height: 223px;"
                                             src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                     </div>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -382,21 +385,17 @@
                                 <div class="bottom_strip">
                                     <h6><i class="fas fa-map-marker-alt"></i>
                                         <?php if(!empty($property->city)): ?>
-                                        <span><?php $__currentLoopData = \App\Cities::where('id', $property->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php echo e($c->name); ?>, <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
+                                            <?php echo e($property->city_name); ?>, </span>
                                         <?php endif; ?>
                                         <?php if(!empty($property->country)): ?>
-                                        <span><?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php echo e($ct->name); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></span>
+                                        <span> <?php echo e($property->country_name); ?></span>
                                         <?php endif; ?>
                                     </h6>
                                     <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
-                                    <?php $__currentLoopData = \App\Services::where('id', $property->service_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <span class="tagbtn rent">
-                                        <?php echo e($pt->service_name); ?>
+                                        <?php echo e($property->service_name); ?>
 
                                     </span>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
                             </div>
                             <div class="product_text">
@@ -420,22 +419,22 @@
                                         <ul>
                                             <li>
                                                 <?php if(!empty($property->property_price)): ?>
-                                                <h5><span><?php if(!empty($property->country)): ?>
-                                                        <?php $__currentLoopData = \App\Country::where('iso2', $property->country)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ct): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> <?php echo e($ct->currency); ?> <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                <h5><span><?php if(!empty($property->country)): ?> <?php echo e($property->currency); ?>
+
                                                         <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
                                                 <?php else: ?>
                                                 <a href="/properties/<?php echo e($property->property_url); ?>"
                                                     class="btn_fullinfo">Get Price</a>
                                                 <?php endif; ?>
                                             </li>
-                                            <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                    class="btn_fullinfo">Full Info</a></li>
+                                            <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                    class="btn_fullinfo">Full Info</a></li> -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                </div>
+                    </div></a>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
@@ -571,7 +570,8 @@
 <?php $arry_ip = geoip()->getLocation('14.98.69.170'); ?>
 
 <!-- Dealers -->
-<div class="latest_product <?php if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0): ?> d-none <?php endif; ?>">
+<div
+    class="latest_product <?php if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0): ?> d-none <?php endif; ?>">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
@@ -586,8 +586,7 @@
                                 <div class="item">
                                     <a href="<?php echo e(url('/profile/'.$d->id.'/user')); ?>">
                                         <div class="dealers_box">
-                                            <div class="dealers_img"><img
-                                                    src="<?php echo e(url('/images/user.png')); ?>"></div>
+                                            <div class="dealers_img"><img src="<?php echo e(url('/images/user.png')); ?>"></div>
                                             <div class="dealers_txt">
                                                 <h4><?php echo e($d->first_name); ?></h4>
                                             </div>

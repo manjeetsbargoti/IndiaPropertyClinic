@@ -166,6 +166,11 @@
                     <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?>
+                <div class="description">
+                    @foreach($datas as $d)
+                        {!! $d->content !!}
+                    @endforeach
+                </div>
                 <div class="row">
                     @foreach($posts as $property)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">

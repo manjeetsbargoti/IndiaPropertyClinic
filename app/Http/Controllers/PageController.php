@@ -208,14 +208,16 @@ class PageController extends Controller
                 } else {
                     $contRow = 0;
                 }
-                // echo "<pre>"; print_r($countryname); die;
+
+                $datas = json_decode(json_encode($data));
+                // echo "<pre>"; print_r($data); die;
 
                 if ($data[0]['property_for'] == 1) {
-                    return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount'));
+                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'contRow', 'countryname', 'posts', 'countrycount'));
                 } elseif ($data[0]['property_for'] == 2) {
-                    return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
+                    return view('frontend.filter_templates.filter_by_csc')->with(compact('datas', 'posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
                 } elseif ($data[0]['property_for'] == 3) {
-                    return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
+                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
                 }
             }
         } else {
