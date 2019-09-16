@@ -4,10 +4,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Property Queries</h1>
+      <h1>Home Loan Application</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">View Queries</li>
+        <li class="active">View Application</li>
       </ol>
     </section>
 
@@ -34,53 +34,53 @@
                             <thead>
                                 <tr>
                                   <th>SR No.</th>
-                                  <th>Type</th>
                                   <th>Name</th>
                                   <th>Email</th>
                                   <th>Phone</th>
-                                  <th>Query For</th>
+                                  <th>City</th>
+                                  <th>Loan Amount</th>
                                   <th>Time</th>
                                   <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 0 ?>
-                                <?php $__currentLoopData = $propertyquery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pq): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = $loanapplication; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $loan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php $i++ ?>
                                 <tr>
                                     <td><?php echo e($i); ?></td>
-                                    <td><?php echo e($pq->usertype); ?></td>
-                                    <td><?php echo e($pq->name); ?></td>
-                                    <td><?php echo e($pq->email); ?></td>
-                                    <td><?php echo e($pq->phone); ?></td>
-                                    <td><a href="<?php echo e($pq->queryfor); ?>" target="_blank"><?php echo e($pq->queryforname); ?></a></td>
-                                    <td><?php echo e(date('d M, Y', strtotime($pq->created_at))); ?></td>
+                                    <td><?php echo e($loan->name); ?></td>
+                                    <td><?php echo e($loan->email); ?></td>
+                                    <td><?php echo e($loan->phone); ?></td>
+                                    <td><?php echo e($loan->property_city); ?></td>
+                                    <td><?php echo e($loan->loan_amount); ?>/-</td>
+                                    <td><?php echo e(date('d M, Y', strtotime($loan->created_at))); ?></td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#pq_<?php echo e($pq->id); ?>" data-toggle="modal" class="btn btn-info btn-xs">info</a>
+                                        <a data-toggle="modal" data-target="#loan_<?php echo e($loan->id); ?>" data-toggle="modal" class="btn btn-info btn-xs">info</a>
                                         <a class="btn btn-warning btn-xs">Edit</a>
-                                        <?php if($pq->status == 1): ?>
-                                        <a href="<?php echo e(url('/admin/pending/'.$pq->id)); ?>" class="btn btn-success btn-xs">Done</a>
+                                        <?php if($loan->resolved == 1): ?>
+                                        <a href="<?php echo e(url('/admin/pending/'.$loan->id)); ?>" class="btn btn-success btn-xs">Resolved</a>
                                         <?php else: ?>
-                                        <a href="<?php echo e(url('/admin/done/'.$pq->id)); ?>" class="btn btn-danger btn-xs">Pending</a>
+                                        <a href="<?php echo e(url('/admin/resolved/'.$loan->id)); ?>" class="btn btn-danger btn-xs">Pending</a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
 
                                 <!-- Property Information Model -->
-                                <div class="modal fade bs-example-modal-lg" id="pq_<?php echo e($pq->id); ?>" tabindex="-1" role="dialog" aria-labelledby="propertyView">
+                                <div class="modal fade bs-example-modal-lg" id="loan_<?php echo e($loan->id); ?>" tabindex="-1" role="dialog" aria-labelledby="propertyView">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content row">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="myModalLabel"><?php echo e($pq->name); ?> | Property Query for <?php echo e($pq->queryforname); ?></h4>
+                                                <h4 class="modal-title" id="myModalLabel"><?php echo e($loan->name); ?> | Home Loan Application</h4>
                                             </div>
                                             <div class="modal-body col-sm-12">
                                                 <div class="col-sm-12">
-                                                    <p><strong>Name:</strong> <?php echo e($pq->name); ?></p>
-                                                    <p><strong>Type:</strong> <?php echo e($pq->usertype); ?></p>
-                                                    <p><strong>Email:</strong> <?php echo e($pq->email); ?></p>
-                                                    <h5><strong>Phone:</strong> <span style="color: #e60f0f;"><?php echo e($pq->phone); ?></span></h5>
-                                                    <p><strong>Query For:</strong> <a target="_blank" href="<?php echo e($pq->queryfor); ?>"><?php echo e($pq->queryforname); ?></a></p>
+                                                    <p><strong>Name:</strong> <?php echo e($loan->name); ?></p>
+                                                    <p><strong>Email:</strong> <?php echo e($loan->email); ?></p>
+                                                    <h5><strong>Phone:</strong> <span style="color: #e60f0f;"><?php echo e($loan->phone); ?></span></h5>
+                                                    <p><strong>Loan Amount:</strong> <?php echo e($loan->loan_amount); ?>/-</p>
+                                                    <p><strong>City:</strong> <?php echo e($loan->city); ?>/-</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -89,6 +89,17 @@
                                 <!-- /. Property information Model -->
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>SR No.</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>City</th>
+                                    <th>Loan Amount</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->
@@ -101,4 +112,4 @@
 <!-- /.content-wrapper -->
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/queries/property_query.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/queries/home_loan_application.blade.php ENDPATH**/ ?>

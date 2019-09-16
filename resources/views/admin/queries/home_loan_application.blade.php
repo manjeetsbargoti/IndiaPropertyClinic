@@ -40,6 +40,7 @@
                                   <th>Phone</th>
                                   <th>City</th>
                                   <th>Loan Amount</th>
+                                  <th>Time</th>
                                   <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td>{{ $loan->phone }}</td>
                                     <td>{{ $loan->property_city }}</td>
                                     <td>{{ $loan->loan_amount }}/-</td>
+                                    <td>{{ date('d M, Y', strtotime($loan->created_at)) }}</td>
                                     <td>
                                         <a data-toggle="modal" data-target="#loan_{{ $loan->id }}" data-toggle="modal" class="btn btn-info btn-xs">info</a>
                                         <a class="btn btn-warning btn-xs">Edit</a>

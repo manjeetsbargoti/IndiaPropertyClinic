@@ -40,6 +40,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Location</th>
+                                    <th>Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                     <td><?php if(!empty($pq->city)): ?> <?php $__currentLoopData = \App\Cities::where('id', $pq->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($c->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php if(!empty($pq->state)): ?>
                                         <?php $__currentLoopData = \App\State::where('id', $pq->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <?php echo e($s->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php echo e($pq->country); ?></td>
+                                    <td><?php echo e(date('d M, Y', strtotime($pq->created_at))); ?></td>
                                     <td>
                                         <a data-toggle="modal" data-target="#pq_<?php echo e($pq->id); ?>" data-toggle="modal"
                                             class="btn btn-info btn-xs">info</a>
@@ -111,6 +113,12 @@
                             <td>Property Type</td>
                             <td><label class="label label-md label-success"><?php echo e($pq->property_type); ?></label>
                                 <label class="label label-md label-info"><?php echo e($pq->property_for); ?></label></td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td><?php if(!empty($pq->city)): ?> <?php $__currentLoopData = \App\Cities::where('id', $pq->city)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php echo e($c->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php if(!empty($pq->state)): ?>
+                                <?php $__currentLoopData = \App\State::where('id', $pq->state)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e($s->name); ?>,<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <?php endif; ?> <?php echo e($pq->country); ?></td>
                         </tr>
                         <tr>
                             <td>Description</td>

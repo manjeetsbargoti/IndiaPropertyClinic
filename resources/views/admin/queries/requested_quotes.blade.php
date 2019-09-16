@@ -28,6 +28,7 @@
                                     <th>Phone</th>
                                     <th>Req. Service</th>
                                     <th>Query</th>
+                                    <th>Time</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -48,6 +49,7 @@
                                         @endforeach
                                     </td>
                                     <td>{{ $rq->quote_message }}</td>
+                                    <td>{{ date('d M, Y', strtotime($rq->created_at)) }}</td>
                                     <td>
                                         @if($rq->status == 1)
                                         <a href="{{ url('/admin/req_quote/'.$rq->id.'/open') }}" class="btn btn-success btn-xs">Closed</a>

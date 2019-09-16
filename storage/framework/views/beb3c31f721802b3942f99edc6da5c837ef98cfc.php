@@ -129,7 +129,7 @@ $country = Controller::countries();
                 <ul class="navbar-nav ml-auto">
                     <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-item">
-                        <a class="nav-link"
+                        <a class="nav-link <?php echo e((request()->is('properties*')) ? 'active':''); ?>"
                             href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?>
 
                             <span class="sr-only">(current)</span></a>

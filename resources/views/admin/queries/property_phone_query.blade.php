@@ -41,6 +41,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Location</th>
+                                    <th>Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,6 +60,7 @@
                                         $c){{ $c->name }},@endforeach @endif @if(!empty($pq->state))
                                         @foreach(\App\State::where('id', $pq->state)->get() as $s)
                                         {{ $s->name }},@endforeach @endif {{ $pq->country }}</td>
+                                    <td>{{ date('d M, Y', strtotime($pq->created_at)) }}</td>
                                     <td>
                                         <a data-toggle="modal" data-target="#pq_{{ $pq->id }}" data-toggle="modal"
                                             class="btn btn-info btn-xs">info</a>

@@ -580,6 +580,8 @@ class PropertyController extends Controller
         // $properties = json_decode(json_encode($properties));
         // echo "<pre>"; print_r($properties); die;
 
+
+
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $properties[$key]->service_name = $service_name->service_name;
@@ -627,7 +629,14 @@ class PropertyController extends Controller
         } else {
             $contRow = 0;
         }
-        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'countrycount', 'statecount', 'citycount'));
+
+        $service_metaname = Services::where('id', $id)->first();
+
+        $meta_title = $service_metaname->service_name." Properties | India Property Clinic | IPC";
+        $meta_description = "India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+
+        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
     // Property Query

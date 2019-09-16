@@ -28,6 +28,7 @@
                                     <th>Phone</th>
                                     <th>Req. Service</th>
                                     <th>Assign to</th>
+                                    <th>Time</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                         $vd) <a href="javascript:void()" data-toggle="modal"
                                             data-target="#vendor_{{$sr->assign_to}}">{{ str_limit($vd->first_name, $limit=25) }}</a>
                                         @endforeach</td>
+                                    <td>{{ date('d M, Y', strtotime($sr->created_at)) }}</td>
                                     <td>
                                         <a data-toggle="modal" data-target="#sr_{{ $sr->id }}"
                                             class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>

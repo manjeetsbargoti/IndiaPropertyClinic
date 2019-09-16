@@ -40,6 +40,7 @@
                                   <th>Email</th>
                                   <th>Phone</th>
                                   <th>Query For</th>
+                                  <th>Time</th>
                                   <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td>{{ $pq->email }}</td>
                                     <td>{{ $pq->phone }}</td>
                                     <td><a href="{{ $pq->queryfor }}" target="_blank">{{ $pq->queryforname }}</a></td>
+                                    <td>{{ date('d M, Y', strtotime($pq->created_at)) }}</td>
                                     <td>
                                         <a data-toggle="modal" data-target="#pq_{{ $pq->id }}" data-toggle="modal" class="btn btn-info btn-xs">info</a>
                                         <a class="btn btn-warning btn-xs">Edit</a>
@@ -88,17 +90,6 @@
                                 <!-- /. Property information Model -->
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>SR No.</th>
-                                    <th>Type</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Query For</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

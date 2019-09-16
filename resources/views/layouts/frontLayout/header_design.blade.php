@@ -129,7 +129,7 @@ $country = Controller::countries();
                 <ul class="navbar-nav ml-auto">
                     @foreach($mainnavservice as $mainnav)
                     <li class="nav-item">
-                        <a class="nav-link"
+                        <a class="nav-link {{ (request()->is('properties*')) ? 'active':'' }}"
                             href="{{ url('/properties/'.$mainnav->id.'/'.$mainnav->url) }}">{{ $mainnav->service_name }}
                             <span class="sr-only">(current)</span></a>
                     </li>
