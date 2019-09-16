@@ -109,14 +109,26 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     <div class="footer_menu">
-        <div class="container">
-            <ul>
-                <li><a href="<?php echo e(url('/properties/2/buy-properties')); ?>">Buy</a></li>
-                <li><a href="<?php echo e(url('/properties/3/rent-properties')); ?>">Rent</a></li>
-                <li><a href="<?php echo e(url('/properties/4/sell-properties')); ?>">Sell</a></li>
-                <li><a href="<?php echo e(url('/country/IN/properties')); ?>">Properties in India</a></li>
-                <li><a href="<?php echo e(url('/Apply-Home-Loan')); ?>">Home Loan</a></li>
+        <div class="container footer-states <?php echo e((request()->is('state*')) ? 'd-none':'d-block'); ?> <?php echo e((request()->is('country*')) ? 'd-block':'d-none'); ?>">
+            <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\State::where('country', $arr_ip->iso_code)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/state/'.$s->name.'/properties?id='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
+
+        </div>
+        <div class="container footer-states <?php echo e((request()->is('state*')) ? 'd-block':'d-none'); ?>">
+            <?php // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+            <?php if(!empty($_GET['id'])): ?>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('state_id', $_GET['id'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/city/'.$c->name.'/properties?id='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php endif; ?>
+
         </div>
     </div>
 

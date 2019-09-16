@@ -167,9 +167,7 @@
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?>
                 <div class="description">
-                    @foreach($datas as $d)
-                        {!! $d->content !!}
-                    @endforeach
+                    
                 </div>
                 <div class="row">
                     @foreach($posts as $property)

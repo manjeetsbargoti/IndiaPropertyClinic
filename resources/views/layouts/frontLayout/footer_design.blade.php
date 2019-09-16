@@ -109,14 +109,26 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     <div class="footer_menu">
-        <div class="container">
-            <ul>
-                <li><a href="{{ url('/properties/2/buy-properties') }}">Buy</a></li>
-                <li><a href="{{ url('/properties/3/rent-properties') }}">Rent</a></li>
-                <li><a href="{{ url('/properties/4/sell-properties') }}">Sell</a></li>
-                <li><a href="{{ url('/country/IN/properties') }}">Properties in India</a></li>
-                <li><a href="{{ url('/Apply-Home-Loan') }}">Home Loan</a></li>
+        <div class="container footer-states {{ (request()->is('state*')) ? 'd-none':'d-block' }} {{ (request()->is('country*')) ? 'd-block':'d-none' }}">
+            <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
+                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/state/'.$s->name.'/properties?id='.$s->id) }}">Properties in {{ $s->name }}</a></li>
+                @endforeach
             </ul>
+
+        </div>
+        <div class="container footer-states {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
+            <?php // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+            @if(!empty($_GET['id']))
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $_GET['id'])->get() as $c)
+                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/city/'.$c->name.'/properties?id='.$c->id) }}">Properties in {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+
         </div>
     </div>
 

@@ -166,10 +166,7 @@
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?>
                 <div class="description">
-                    <?php $__currentLoopData = $datas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <?php echo $d->content; ?>
-
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    
                 </div>
                 <div class="row">
                     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

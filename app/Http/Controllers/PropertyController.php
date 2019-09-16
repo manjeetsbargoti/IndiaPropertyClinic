@@ -392,11 +392,16 @@ class PropertyController extends Controller
         // return view('frontend.view_single_property');
     }
 
-    public function searchByState($state_id = null)
+    public function searchByState(Request $request, $state_id = null)
     {
-        $statename = DB::table('states')->where(['id' => $state_id])->pluck('name');
-        $properties = Property::where(['state' => $state_id])->get();
-        $posts = Property::where(['state' => $state_id])->paginate($this->posts_per_page);
+        // $stid = $request->get('state_id');
+        // echo "<pre>"; print_r($stid); die;
+        
+        $statename = DB::table('states')->where(['name' => $state_id])->pluck('name');
+        // $statename = $state_id;
+        $sid = State::where('name', $state_id)->first();
+        $properties = Property::where(['state' => $sid['id']])->get();
+        $posts = Property::where(['state' => $sid['id']])->paginate($this->posts_per_page);
         $properties = json_decode(json_encode($properties));
 
         foreach ($posts as $key => $val) {
@@ -444,8 +449,8 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        $state_metaname = State::where('id', $state_id)->first();
-        $meta_title = "All Properties in ".$state_metaname->name." | India Property Clinic | IPC";
+        // $state_metaname = State::where('id', $state_id)->first();
+        $meta_title = "All Properties in ".$state_id." | India Property Clinic | IPC";
         $meta_description = "India Property Clinic | Property Listing and Home Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
 
@@ -513,9 +518,10 @@ class PropertyController extends Controller
 
     public function searchByCity($city_id = null)
     {
-        $cityname = DB::table('cities')->where(['id' => $city_id])->pluck('name');
-        $properties = Property::where(['city' => $city_id])->get();
-        $posts = Property::where(['city' => $city_id])->paginate($this->posts_per_page);
+        $cityname = DB::table('cities')->where(['name' => $city_id])->pluck('name');
+        $cid = Cities::where('name', $city_id)->first();
+        $properties = Property::where(['city' => $cid['id']])->get();
+        $posts = Property::where(['city' => $cid['id']])->paginate($this->posts_per_page);
         // echo "<pre>"; print_r($posts); die;
 
         foreach ($posts as $key => $val) {
@@ -563,7 +569,7 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        $city_metaname = Cities::where('id', $city_id)->first();
+        $city_metaname = Cities::where('name', $city_id)->first();
         $meta_title = "All Properties in ".$city_metaname->name." | India Property Clinic | IPC";
         $meta_description = "India Property Clinic | Property Listing and Home Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";

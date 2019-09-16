@@ -18,7 +18,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><?php echo e($property->property_name); ?></li>
                         </ol>
                     </nav>
-                    <p><span><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <a href="<?php echo e(url('/country/'.$property->country.'/properties')); ?>"><?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/state/'.$property->state.'/properties')); ?>"><?php if(!empty($property->state_name)): ?> <?php echo e($property->state_name); ?> <?php endif; ?></a> </p>
+                    <p><span><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <a href="<?php echo e(url('/country/'.$property->country.'/properties')); ?>"><?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/state/'.$property->state_name.'/properties')); ?>"><?php if(!empty($property->state_name)): ?> <?php echo e($property->state_name); ?> <?php endif; ?></a> </p>
                 </div>
             <div class="row">
             
