@@ -526,7 +526,7 @@
             <ul class="continents">
                 <?php $__currentLoopData = $continents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $continent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <li data-toggle="tooltip" data-placement="top" title="<?php echo e($continent->name); ?>">
-                    <a href="#_<?php echo e($continent->code); ?>" data-toggle="modal">
+                    <a href="javascript:avoid();" data-target="#_<?php echo e($continent->code); ?>" data-toggle="modal">
                         <img src="/images/frontend_images/images/<?php echo e($continent->icon_image); ?>">
                         <p><?php echo e($continent->name); ?></p>
                     </a>
@@ -544,11 +544,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <ul class="country_list">
+                                <ul class="country_list" style="column-count: 4; column-gap: 1em;">
                                     <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($country->continent == $continent->code): ?>
-                                    <li>
-                                        <a href="<?php echo e(url('/country/'.$country->iso2.'/properties')); ?>"
+                                    <li style="display: block;">
+                                        <a href="<?php echo e(url('/country/'.$country->iso2.'/properties?country='.$country->iso2)); ?>"
                                             style="margin: 0.2em 0em;"
                                             class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
                                     </li>

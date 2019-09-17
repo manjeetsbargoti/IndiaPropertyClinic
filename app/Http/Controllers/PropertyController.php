@@ -36,7 +36,7 @@ class PropertyController extends Controller
         if ($request->isMethod('POST')) {
             $data = $request->all();
 
-            $property_code = 'IPC'.rand(00001, 9999999);
+            $property_code = 'IPC'.rand(00001, 999999999);
 
             // echo "<pre>"; print_r($data); die;
 
@@ -878,7 +878,12 @@ class PropertyController extends Controller
         if($request->isMethod('post')){
             $data = $request->all();
 
-            // echo "<pre>"; print_r($data); die;
+            $email = $data['email'];
+            $user_count = User::where('email', $email)->count();
+
+            $property_code = 'IPC'.rand(00001, 999999999);
+
+            // echo "<pre>"; print_r($user_count); die;
 
             $property = new Property;
             if (!empty($request->property_for)) {
@@ -904,100 +909,182 @@ class PropertyController extends Controller
                 $commercial = 1;
             }
 
-            // Add User with Property
-            if (!empty($data['name'])) {
-                $user = User::create([
-                    'first_name'    => $data['name'],
-                    'email'         => $data['email'],
-                    'phonecode'     => $data['phonecode'],
-                    'phone'         => $data['phone'],
-                    'usertype'      => $data['user_type'],
+            if($user_count > 0)
+            {
+                $user_data = User::where('email', $email)->first();
+                $user_id = $user_data['id'];
+                
+                // echo "<pre>"; print_r($property_code); die;
+
+                $value = Property::create([
+                    'property_name'         => $data['property_name'],
+                    'property_url'          => $data['slug'],
+                    'property_type_id'      => $property_type,
+                    'property_code'         => $property_code,
+                    'property_price'        => $data['property_price'],
+                    'description'           => $data['description'],
+                    'featured'              => $feature,
+                    'commercial'            => $commercial,
+                    'map_pass'              => $data['map_passed'],
+                    'open_sides'            => $data['open_sides'],
+                    'parea'                 => $data['property_area'],
+                    'furnish_type'          => $data['furnish_type'],
+                    'floorno'               => $data['floor_no'],
+                    'total_floors'          => $data['total_floors'],
+                    'apple_trees'           => $data['trees'],
+                    'parea'                 => $data['property_area'],
+                    'transaction_type'      => $data['transection_type'],
+                    'construction_status'   => $data['construnction_status'],
+                    'bedrooms'              => $data['bedrooms'],
+                    'bathrooms'             => $data['bathrooms'],
+                    'balconies'             => $data['balconies'],
+                    'p_washrooms'           => $data['p_washroom'],
+                    'cafeteria'             => $data['cafeteria'],
+                    'p_showroom'            => $data['pshowroom'],
+                    'property_age'          => $data['property_age'],
+                    'plotno'                => $data['houseno'],
+                    'locality'              => $data['locality'],
+                    'country'               => $data['country'],
+                    'state'                 => $data['state'],
+                    'city'                  => $data['city'],
+                    'zipcode'               => $data['zipcode'],
+                    'add_by'                => $user_id,
+                    'service_id'            => $property_for,
                 ]);
-            }
-
-            // Send Confirmation Email
-            $email = $data['email'];
-            $messageData = ['email' => $data['email'], 'phone'=>$data['phone'], 'phonecode'=>$data['phonecode'], 'name' => $data['name'], 'property_url'=>$data['slug'], 'property_name'=>$data['property_name'], 'code' => base64_encode($data['email'])];
-            Mail::send('emails.user_register_list_property', $messageData, function ($message) use ($email) {
-                $message->to($email)->subject('IPC | Generate account password with India Property Clinic');
-            });
-
-            // echo "<pre>"; print_r($data); die;
-
-            $value = Property::create([
-                'property_name'         => $data['property_name'],
-                'property_url'          => $data['slug'],
-                'property_type_id'      => $property_type,
-                // 'property_code'         => $data['property_code'],
-                'property_price'        => $data['property_price'],
-                'description'           => $data['description'],
-                'featured'              => $feature,
-                'commercial'            => $commercial,
-                'map_pass'              => $data['map_passed'],
-                'open_sides'            => $data['open_sides'],
-                'parea'                 => $data['property_area'],
-                'furnish_type'          => $data['furnish_type'],
-                'floorno'               => $data['floor_no'],
-                'total_floors'          => $data['total_floors'],
-                'apple_trees'           => $data['trees'],
-                'parea'                 => $data['property_area'],
-                'transaction_type'      => $data['transection_type'],
-                'construction_status'   => $data['construnction_status'],
-                'bedrooms'              => $data['bedrooms'],
-                'bathrooms'             => $data['bathrooms'],
-                'balconies'             => $data['balconies'],
-                'p_washrooms'           => $data['p_washroom'],
-                'cafeteria'             => $data['cafeteria'],
-                'p_showroom'            => $data['pshowroom'],
-                'property_age'          => $data['property_age'],
-                'plotno'                => $data['houseno'],
-                'locality'              => $data['locality'],
-                'country'               => $data['country'],
-                'state'                 => $data['state'],
-                'city'                  => $data['city'],
-                'zipcode'               => $data['zipcode'],
-                'add_by'                => $user->id,
-                'service_id'            => $property_for,
-            ]);
-
-            // Upload image
-            if ($request->hasFile('file')) {
-                $image_array = Input::file('file');
-                // if($image_array->isValid()){
-                $array_len = count($image_array);
-                for ($i = 0; $i < $array_len; $i++) {
-                    // $image_name = $image_array[$i]->getClientOriginalName();
-                    $image_size = $image_array[$i]->getClientSize();
-                    $extension = $image_array[$i]->getClientOriginalExtension();
-                    $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
-                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
-                    $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
-                    $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
-                    $small_image_path = 'images/backend_images/property_images/small/' . $filename;
-                    // Resize image
-                    Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
-
-                    // Store image in property folder
-                    $property->image = $filename;
+    
+                // Upload image
+                if ($request->hasFile('file')) {
+                    $image_array = Input::file('file');
+                    // if($image_array->isValid()){
+                    $array_len = count($image_array);
+                    for ($i = 0; $i < $array_len; $i++) {
+                        // $image_name = $image_array[$i]->getClientOriginalName();
+                        $image_size = $image_array[$i]->getClientSize();
+                        $extension = $image_array[$i]->getClientOriginalExtension();
+                        $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                        $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                        $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                        $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                        $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                        // Resize image
+                        Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+    
+                        // Store image in property folder
+                        $property->image = $filename;
+                        $propertyimage = PropertyImages::create([
+                            'image_name' => $filename,
+                            'image_size' => $image_size,
+                            'property_id' => $value->id,
+                        ]);
+                        // }
+                    }
+                } else {
+                    $filename = "default.jpg";
+                    $property->image = "default.jpg";
                     $propertyimage = PropertyImages::create([
                         'image_name' => $filename,
-                        'image_size' => $image_size,
+                        'image_size' => '7.4',
                         'property_id' => $value->id,
                     ]);
-                    // }
                 }
-            } else {
-                $filename = "default.jpg";
-                $property->image = "default.jpg";
-                $propertyimage = PropertyImages::create([
-                    'image_name' => $filename,
-                    'image_size' => '7.4',
-                    'property_id' => $value->id,
+                return redirect('/list-property/thank-you')->with('flash_thanx_message', '<h2>Thank you!</h2> <p>Property Listed Successfully! We will give you a call in the next 1 to 2 business days.</p>');
+            }else{
+
+                // Add User with Property
+                if (!empty($data['name'])) {
+                    $user = User::create([
+                        'first_name'    => $data['name'],
+                        'email'         => $data['email'],
+                        'phonecode'     => $data['phonecode'],
+                        'phone'         => $data['phone'],
+                        'usertype'      => $data['user_type'],
+                    ]);
+                }
+
+                // Send Confirmation Email
+                $email = $data['email'];
+                $messageData = ['email' => $data['email'], 'phone'=>$data['phone'], 'phonecode'=>$data['phonecode'], 'name' => $data['name'], 'property_url'=>$data['slug'], 'property_name'=>$data['property_name'], 'code' => base64_encode($data['email'])];
+                Mail::send('emails.user_register_list_property', $messageData, function ($message) use ($email) {
+                    $message->to($email)->subject('IPC | Generate account password with India Property Clinic');
+                });
+
+                // echo "<pre>"; print_r($data); die;
+
+                $value = Property::create([
+                    'property_name'         => $data['property_name'],
+                    'property_url'          => $data['slug'],
+                    'property_type_id'      => $property_type,
+                    'property_code'         => $property_code,
+                    'property_price'        => $data['property_price'],
+                    'description'           => $data['description'],
+                    'featured'              => $feature,
+                    'commercial'            => $commercial,
+                    'map_pass'              => $data['map_passed'],
+                    'open_sides'            => $data['open_sides'],
+                    'parea'                 => $data['property_area'],
+                    'furnish_type'          => $data['furnish_type'],
+                    'floorno'               => $data['floor_no'],
+                    'total_floors'          => $data['total_floors'],
+                    'apple_trees'           => $data['trees'],
+                    'parea'                 => $data['property_area'],
+                    'transaction_type'      => $data['transection_type'],
+                    'construction_status'   => $data['construnction_status'],
+                    'bedrooms'              => $data['bedrooms'],
+                    'bathrooms'             => $data['bathrooms'],
+                    'balconies'             => $data['balconies'],
+                    'p_washrooms'           => $data['p_washroom'],
+                    'cafeteria'             => $data['cafeteria'],
+                    'p_showroom'            => $data['pshowroom'],
+                    'property_age'          => $data['property_age'],
+                    'plotno'                => $data['houseno'],
+                    'locality'              => $data['locality'],
+                    'country'               => $data['country'],
+                    'state'                 => $data['state'],
+                    'city'                  => $data['city'],
+                    'zipcode'               => $data['zipcode'],
+                    'add_by'                => $user->id,
+                    'service_id'            => $property_for,
                 ]);
+
+                // Upload image
+                if ($request->hasFile('file')) {
+                    $image_array = Input::file('file');
+                    // if($image_array->isValid()){
+                    $array_len = count($image_array);
+                    for ($i = 0; $i < $array_len; $i++) {
+                        // $image_name = $image_array[$i]->getClientOriginalName();
+                        $image_size = $image_array[$i]->getClientSize();
+                        $extension = $image_array[$i]->getClientOriginalExtension();
+                        $filename = 'IPC_' . rand(1, 99999) . '.' . $extension;
+                        $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
+                        $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                        $medium_image_path = 'images/backend_images/property_images/medium/' . $filename;
+                        $small_image_path = 'images/backend_images/property_images/small/' . $filename;
+                        // Resize image
+                        Image::make($image_array[$i])->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
+
+                        // Store image in property folder
+                        $property->image = $filename;
+                        $propertyimage = PropertyImages::create([
+                            'image_name' => $filename,
+                            'image_size' => $image_size,
+                            'property_id' => $value->id,
+                        ]);
+                        // }
+                    }
+                } else {
+                    $filename = "default.jpg";
+                    $property->image = "default.jpg";
+                    $propertyimage = PropertyImages::create([
+                        'image_name' => $filename,
+                        'image_size' => '7.4',
+                        'property_id' => $value->id,
+                    ]);
+                }
+
+                return redirect('/list-property/thank-you')->with('flash_thanx_message', '<h2>Thank you!</h2> <p>Property Listed Successfully! <br>Please check your Email to generate Login Password and activate your Account. We will give you a call in the next 1 to 2 business days.</p>');
+
             }
-
-            return redirect('/list-property/thank-you')->with('flash_thanx_message', '<h2>Thank you!</h2> <p>Property Listed Successfully! <br>Please check your Email to generate Login Password and activate your Account.</p> <p>We will give you a call in the next 1 to 2 business days.</p>');
-
         }
 
         $phonecode = Country::get();

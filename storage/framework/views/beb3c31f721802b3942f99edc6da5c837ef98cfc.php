@@ -129,7 +129,7 @@ $country = Controller::countries();
                 <ul class="navbar-nav ml-auto">
                     <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo e((request()->is('properties*')) ? 'active':''); ?>"
+                        <a class="nav-link <?php echo e((request()->is('properties/'.$mainnav->id.'/'.$mainnav->url)) ? 'active':''); ?>"
                             href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?>
 
                             <span class="sr-only">(current)</span></a>
@@ -215,7 +215,7 @@ $country = Controller::countries();
                                                 <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <?php if($coun->continent == $c->code): ?>
                                                 <li>
-                                                    <a href="<?php echo e(url('/country/'.$coun->iso2.'/properties')); ?>"
+                                                    <a href="<?php echo e(url('/country/'.$coun->iso2.'/properties?country='.$coun->iso2)); ?>"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
                                                 </li>

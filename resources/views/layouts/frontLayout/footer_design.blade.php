@@ -50,6 +50,9 @@ $footerProperties = Controller::footersection();
     .list-business-float:hover {
         color: #fff;
     }
+    .footer-csc a.active {
+        color: #f15a27 !important;
+    }
 </style>
 
 <footer>
@@ -109,26 +112,50 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     <div class="footer_menu">
-        <div class="container footer-states {{ (request()->is('state*')) ? 'd-none':'d-block' }} {{ (request()->is('country*')) ? 'd-block':'d-none' }}">
+        <div class="container footer-csc {{ (request()->is('state*')) ? 'd-none':'d-block' }} {{ (request()->is('city*')) ? 'd-none':'d-block' }}">
             <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
 
+            @if(!empty($_GET['country']))
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
-                @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
-                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/state/'.$s->name.'/properties?id='.$s->id) }}">Properties in {{ $s->name }}</a></li>
+                @foreach(\App\State::where('country', $_GET['country'])->get() as $s)
+                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/state/'.$s->name.'/properties?state='.$s->id) }}">Properties in {{ $s->name }}</a></li>
                 @endforeach
             </ul>
-
-        </div>
-        <div class="container footer-states {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
-            <?php // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
-            @if(!empty($_GET['id']))
+            @else
+            <h3>Properties in <?php echo $arr_ip->country; ?></h3>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
-                @foreach(\App\Cities::where('state_id', $_GET['id'])->get() as $c)
-                <li style="display: block;"><a style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/city/'.$c->name.'/properties?id='.$c->id) }}">Properties in {{ $c->name }}</a></li>
+                @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
+                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/state/'.$s->name.'/properties?state='.$s->id) }}">Properties in {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @endif
 
+        </div>
+        <div class="container footer-csc {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
+            
+            @if(!empty($_GET['state']))
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $_GET['state'])->get() as $c)
+                <li style="display: block;"><a class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/city/'.$c->name.'/properties?city='.$c->id) }}">Properties in {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
+
+        <div class="container footer-csc {{ (request()->is('city*')) ? 'd-block':'d-none' }}">
+            
+            @if(!empty($_GET['city']))
+            <?php $stateid = \App\Cities::select('state_id')->where('id', $_GET['city'])->first(); ?>
+            <p><?php // echo $stateid['state_id']; ?></p>
+            @endif
+           
+            @if(!empty($_GET['city']))
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $stateid['state_id'])->get() as $c)
+                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 12px;" href="{{ url('/city/'.$c->name.'/properties?city='.$c->id) }}">Properties in {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
         </div>
     </div>
 

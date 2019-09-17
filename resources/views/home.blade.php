@@ -523,7 +523,7 @@
             <ul class="continents">
                 @foreach($continents as $continent)
                 <li data-toggle="tooltip" data-placement="top" title="{{ $continent->name }}">
-                    <a href="#_{{ $continent->code }}" data-toggle="modal">
+                    <a href="javascript:avoid();" data-target="#_{{ $continent->code }}" data-toggle="modal">
                         <img src="/images/frontend_images/images/{{ $continent->icon_image }}">
                         <p>{{ $continent->name }}</p>
                     </a>
@@ -541,11 +541,11 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <ul class="country_list">
+                                <ul class="country_list" style="column-count: 4; column-gap: 1em;">
                                     @foreach($countries as $country)
                                     @if($country->continent == $continent->code)
-                                    <li>
-                                        <a href="{{ url('/country/'.$country->iso2.'/properties') }}"
+                                    <li style="display: block;">
+                                        <a href="{{ url('/country/'.$country->iso2.'/properties?country='.$country->iso2) }}"
                                             style="margin: 0.2em 0em;"
                                             class="btn btn-outline-dark">{{ $country->name }}</a>
                                     </li>

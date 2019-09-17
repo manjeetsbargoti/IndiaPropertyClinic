@@ -158,6 +158,7 @@ Route::match(['get', 'post'], '/login', 'AdminController@login');
 Route::match(['get', 'post'], '/register', 'AdminController@register');
 Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword');
 Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
+Route::match(['get', 'post'], '/checkphone', 'AdminController@checkPhone');
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/properties', 'HomeController@viewAll');
