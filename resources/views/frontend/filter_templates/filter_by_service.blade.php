@@ -151,9 +151,9 @@
                         <li class="breadcrumb-item">All Properties for {{ $properties[0]->service_name }}</li>
                         </ol>
                     </nav>
-                    <p><span><?php echo $contRow; ?> Properties </span></p>
+                    <p><span><?php echo $property_count; ?> Properties </span></p>
                 </div>
-                <?php if($contRow == 0) { ?>
+                <?php if($property_count == 0) { ?>
                     <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
                     <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
                 <?php } ?>

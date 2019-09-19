@@ -189,39 +189,39 @@
               </li>
               @endif
               @if(Auth::user()->admin == 1)
-              <li class="treeview">
-                  <a href="#"><i class="fa fa-building"></i> <span>Queries</span>
+              <li class="treeview {{ (request()->is('admin/queries*')) ? 'active':'' }}">
+                  <a href="{{ url('/admin/queries/property') }}"><i class="fa fa-ticket text-green"></i> <span>Support Center</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                       </span>
                   </a>
                   <ul class="treeview-menu">
-                      <li><a href="{{ url('/admin/property-query') }}"><i
-                                  class="fa fa-circle-o text-purple"></i>Property</a></li>
-                      <li><a href="{{ url('/admin/home-loan-application') }}"><i
-                                  class="fa fa-circle-o text-purple"></i>Home Loan</a></li>
-                      <li><a href="{{ url('/admin/requested-quote') }}"><i class="fa fa-circle-o text-purple"></i>Vendor
+                      <li class="{{ (request()->is('admin/queries/property')) ? 'active':'' }}"><a href="{{ url('/admin/queries/property') }}"><i
+                                  class="fa fa-building text-yellow"></i>Property Support</a></li>
+                      <li class="{{ (request()->is('admin/queries/home-loan')) ? 'active':'' }}"><a href="{{ url('/admin/queries/home-loan') }}"><i
+                                  class="fa fa-rupee text-yellow"></i>Home Loan Support</a></li>
+                      <li class="{{ (request()->is('admin/queries/requested-quote')) ? 'active':'' }}"><a href="{{ url('/admin/queries/requested-quote') }}"><i class="fa fa-address-book-o text-yellow"></i>Vendor
                               Query</a></li>
-                      <li><a href="{{ url('/admin/service-requests') }}"><i
-                                  class="fa fa-circle-o text-purple"></i>Service Requests</a></li>
-                      <li><a href="{{ url('/admin/phone-queries') }}"><i class="fa fa-circle-o text-purple"></i>Phone
+                      <li class="{{ (request()->is('admin/queries/service-requests')) ? 'active':'' }}"><a href="{{ url('/admin/queries/service-requests') }}"><i
+                                  class="fa fa-thumbs-up text-yellow"></i>Service Requests</a></li>
+                      <li class="{{ (request()->is('admin/queries/phone-queries')) ? 'active':'' }}"><a href="{{ url('/admin/queries/phone-queries') }}"><i class="fa fa-phone text-yellow"></i>Phone
                               Queries</a></li>
                   </ul>
               </li>
               @endif
-              <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li>
+              <!-- <li><a href="#"><i class="fa fa-envelope"></i> <span>Mail</span></a></li> -->
               @if(Auth::user()->admin == 1 || Auth::user()->usertype == 'B' || Auth::user()->usertype == 'A' ||
               Auth::user()->usertype == 'U')
-              <li class="treeview">
-                  <a href="#"><i class="fa fa-globe"></i> <span>CSC Database</span>
+              <li class="treeview {{ (request()->is('admin/csc*')) ? 'active':'' }}">
+                  <a href="{{ url('/admin/csc/city/add') }}"><i class="fa fa-globe text-green"></i> <span>CSC Database</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                       </span>
                   </a>
                   <ul class="treeview-menu">
-                      <li><a href="{{ url('/admin/add-city') }}"><i class="fa fa-building text-green"></i> <span>Add
+                      <li class="{{ (request()->is('admin/csc/city/add')) ? 'active':'' }}"><a href="{{ url('/admin/csc/city/add') }}"><i class="fa fa-check-square text-yellow"></i> <span>Add
                                   City</span></a></li>
-                      <li><a href="{{ url('/admin/add-state') }}"><i class="fa fa-building text-green"></i> <span>Add
+                      <li class="{{ (request()->is('admin/csc/state/add')) ? 'active':'' }}"><a href="{{ url('/admin/csc/state/add') }}"><i class="fa fa-check-square text-yellow"></i> <span>Add
                                   State</span></a></li>
                   </ul>
               </li>

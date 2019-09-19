@@ -66,7 +66,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 
-<body class="hold-transition skin-purple sidebar-mini fixed">
+<body class="hold-transition skin-blue sidebar-mini fixed">
 
     <div class="wrapper">
 

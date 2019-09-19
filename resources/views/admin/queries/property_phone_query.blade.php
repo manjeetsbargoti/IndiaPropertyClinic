@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/add-phone-query') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('admin/queries/phone-query/add') }}" class="label label-lg label-success">Add New</a></h3>
         <h1>Phone Queries</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>

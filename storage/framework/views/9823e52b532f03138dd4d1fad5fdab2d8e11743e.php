@@ -18,7 +18,7 @@
                 <div class="box box-info">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="POST" action="<?php echo e(url('/admin/add-phone-query')); ?>"
+                        <form enctype="multipart/form-data" method="POST" action="<?php echo e(url('/admin/queries/phone-query/add')); ?>"
                             id="add_page" name="add_page" novalidate="novalidate">
                             <?php echo e(csrf_field()); ?>
 

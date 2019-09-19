@@ -2,9 +2,20 @@
 @section('content')
 
 <style>
-   .box{width:600px;margin:0 auto;border:1px solid #ccc;}
-   .has-error{border-color:#FF0000 !important;background-color:#ffff99;}
-   .formtab{display:block;}
+.box {
+    width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+}
+
+.has-error {
+    border-color: #FF0000 !important;
+    background-color: #ffff99;
+}
+
+.formtab {
+    display: block;
+}
 </style>
 
 <div class="vender_formsec">
@@ -15,9 +26,10 @@
         <div class="row h-100">
             <div class="col-12 col-md-8 col-lg-8 col-xl-8 vender_formleft p-0">
                 <div class="mainform">
-                    
-                    <form id="regForm" enctype="multipart/form-data" name="listproperty" method="post"action="{{ url('/list-property') }}">
-                    {{ csrf_field() }}
+
+                    <form id="regForm" enctype="multipart/form-data" name="listproperty" method="post"
+                        action="{{ url('/list-property') }}">
+                        {{ csrf_field() }}
                         <div class="stepstrip">
                             <ul>
                                 <li class="step"><i class="far fa-check-circle"></i>
@@ -40,16 +52,16 @@
                         <div class="mainform_inn">
                             <!-- One "tab" for each step in the form: -->
                             @if(Session::has('flash_message_success'))
-                                <div class="alert alert-success alert-dismissible">
-                                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                                    <strong>{!! session('flash_message_success') !!}</strong>
-                                </div>
-                            @endif   
-                            @if(Session::has('flash_message_error')) 
-                                <div class="alert alert-error alert-dismissible">
-                                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
-                                    <strong>{!! session('flash_message_error') !!}</strong>
-                                </div>
+                            <div class="alert alert-success alert-dismissible">
+                                <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                                <strong>{!! session('flash_message_success') !!}</strong>
+                            </div>
+                            @endif
+                            @if(Session::has('flash_message_error'))
+                            <div class="alert alert-error alert-dismissible">
+                                <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                                <strong>{!! session('flash_message_error') !!}</strong>
+                            </div>
                             @endif
                             <div class="formtab">
                                 <div class="formboxed">
@@ -80,28 +92,32 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Name</label>
-                                        <input type="text" id="ListName" name="name" class="form-control emptyformvalidation"
-                                            placeholder="Enter your name">
+                                        <input type="text" id="ListName" name="name"
+                                            class="form-control emptyformvalidation" placeholder="Enter your name">
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-sm-6 col-md-3 col-xs-6">
                                             <label class="title_txt">Country Code</label>
                                             <select name="phonecode" id="phonecode" class="form-control">
                                                 @foreach($phonecode as $pcode)
-                                                <option value="{{ $pcode->phonecode }}">{{ $pcode->iso3 }} {{ $pcode->phonecode }}</option>
+                                                <option value="{{ $pcode->phonecode }}">{{ $pcode->iso3 }}
+                                                    {{ $pcode->phonecode }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-sm-6 col-md-9 col-xs-6">
-                                            <label class="title_txt">Mobile</label><span class="float-right" id="error_listphone"></span>
-                                            <input type="tel" id="ListPhone" name="phone" class="form-control emptyformvalidation"
+                                            <label class="title_txt">Mobile</label><span class="float-right"
+                                                id="error_listphone"></span>
+                                            <input type="tel" id="ListPhone" name="phone"
+                                                class="form-control emptyformvalidation"
                                                 placeholder="Enter mobile number">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="title_txt">Email</label><span class="float-right" id="error_email"></span>
-                                        <input type="email" id="ListEmail" name="email" required class="form-control emptyformvalidation"
-                                            placeholder="Enter your email">
+                                        <label class="title_txt">Email</label><span class="float-right"
+                                            id="error_email"></span>
+                                        <input type="email" id="ListEmail" name="email" required
+                                            class="form-control emptyformvalidation" placeholder="Enter your email">
                                         <small id="emailHelp" class="form-text text-muted">We'll never share your email
                                             with anyone else.</small>
                                     </div>
@@ -119,9 +135,8 @@
                                                 </label>
                                             </li>
                                             <li>
-                                            <label class="radio_container">Rent
-                                                    <input type="radio" id="PropertyFor3"
-                                                        name="property_for" value="3">
+                                                <label class="radio_container">Rent
+                                                    <input type="radio" id="PropertyFor3" name="property_for" value="3">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </li>
@@ -129,10 +144,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Property Type</label>
-                                        <select id="PropertyType" name="property_type" class="form-control emptyformvalidation">
+                                        <select id="PropertyType" name="property_type"
+                                            class="form-control emptyformvalidation">
                                             <option value="" selected>Select Property Type</option>
                                             @foreach(\App\PropertyTypes::get() as $pt)
-                                            <option value="{{ $pt->property_type_code }}">{{ $pt->property_type }}</option>
+                                            <option value="{{ $pt->property_type_code }}">{{ $pt->property_type }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -145,7 +162,8 @@
                                         <div class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">Country</label>
-                                                <select id="country" name="country" class="form-control emptyformvalidation">
+                                                <select id="country" name="country"
+                                                    class="form-control emptyformvalidation">
                                                     <option selected value="">Select Country</option>
                                                     @foreach(\App\Country::get() as $country)
                                                     <option value="{{ $country->iso2 }}">{{ $country->name }}</option>
@@ -156,7 +174,8 @@
                                         <div class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">State</label>
-                                                <select id="state" name="state" class="form-control emptyformvalidation">
+                                                <select id="state" name="state"
+                                                    class="form-control emptyformvalidation">
                                                     <option selected value="">Select State</option>
                                                 </select>
                                             </div>
@@ -179,8 +198,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">Locality</label>
-                                        <input type="text" class="form-control emptyformvalidation" name="locality" id="locality"
-                                            placeholder="Enter locality">
+                                        <input type="text" class="form-control emptyformvalidation" name="locality"
+                                            id="locality" placeholder="Enter locality">
                                     </div>
                                     <div class="form-group">
                                         <label class="title_txt">House no./Flat no.</label>
@@ -211,7 +230,8 @@
                                             <div class="form-group">
                                                 <label class="title_txt">Property Name</label>
                                                 <input type="text" name="property_name" id="property_name"
-                                                    class="form-control emptyformvalidation" placeholder="Enter property name">
+                                                    class="form-control emptyformvalidation"
+                                                    placeholder="Enter property name">
                                             </div>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-12 col-xl-12">
@@ -229,16 +249,21 @@
                                             <div class="form-group">
                                                 <label class="title_txt">Property Description</label>
                                                 <textarea name="description" id="ListPropertyDescription"
-                                                    class="form-control my-editor emptyformvalidation" rows="10"></textarea>
+                                                    class="form-control my-editor emptyformvalidation"
+                                                    rows="10"></textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-12 col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label class="checkbox_container"> Featured Property
-                                                    <input type="checkbox" name="featured" id="featured" value="1">
-                                                    <span class="checkmark"></span>
-                                                </label>
+                                                <a href="javascript:avoid(0);" data-toggle="modal"
+                                                    data-target="#FeatureModal"><label class="checkbox_container">
+                                                        Featured Property
+                                                        <input type="checkbox" disabled name="featured" id="featured"
+                                                            value="1">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </a>
                                             </div>
                                         </div>
 
@@ -259,16 +284,16 @@
                                                     <div class="input-group-prepend">
                                                         <div class="input-group-text">sq/ft</div>
                                                     </div>
-                                                    <input type="text" name="property_area" class="form-control" id="property_area">
+                                                    <input type="text" name="property_area" class="form-control"
+                                                        id="property_area">
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div id="MapPassed" class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">Map Passed</label>
-                                                <select id="map_passed" name="map_passed"
-                                                    class="form-control">
+                                                <select id="map_passed" name="map_passed" class="form-control">
                                                     <option selected value="">Select</option>
                                                     <option value="1">Yes</option>
                                                     <option value="0">No</option>
@@ -279,8 +304,7 @@
                                         <div id="OpenSides" class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">Open Sides</label>
-                                                <select id="open_sides" name="open_sides"
-                                                    class="form-control">
+                                                <select id="open_sides" name="open_sides" class="form-control">
                                                     <option value="" selected>Select Open Sides</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
@@ -293,8 +317,7 @@
                                         <div id="FurnishStatus" class="col-12 col-md-6 col-xl-6">
                                             <div class="form-group">
                                                 <label class="title_txt">Furnish Type</label>
-                                                <select id="furnish_type" name="furnish_type"
-                                                    class="form-control">
+                                                <select id="furnish_type" name="furnish_type" class="form-control">
                                                     <option value="" selected>Select Furnish Type</option>
                                                     <option value="F">Fully Furnished</option>
                                                     <option value="S">Semi Furnished</option>
@@ -333,7 +356,7 @@
                                                 <select name="floor_no" id="floor_no" class="form-control">
                                                     <option value="" selected>Select Floor no.</option>
                                                     <?php for($i=1; $i<165; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -345,7 +368,7 @@
                                                 <select name="total_floors" id="total_floors" class="form-control">
                                                     <option value="" selected>Select Total Floors</option>
                                                     <?php for($i=1; $i<165; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -357,7 +380,7 @@
                                                 <select name="trees" id="trees" class="form-control">
                                                     <option value="" selected>Select Trees</option>
                                                     <?php for($i=1; $i<1001; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -369,7 +392,7 @@
                                                 <select name="bedrooms" id="bedrooms" class="form-control">
                                                     <option value="" selected>Select Bedrooms</option>
                                                     <?php for($i=1; $i<250; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -381,7 +404,7 @@
                                                 <select name="bathrooms" id="bathrooms" class="form-control">
                                                     <option value="" selected>Select Bathrooms</option>
                                                     <?php for($i=1; $i<150; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -393,7 +416,7 @@
                                                 <select name="balconies" id="balconies" class="form-control">
                                                     <option value="" selected>Select Balconies</option>
                                                     <?php for($i=1; $i<165; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -438,7 +461,7 @@
                                                 <select name="property_age" id="property_age" class="form-control">
                                                     <option value="" selected>Select</option>
                                                     <?php for($i=1; $i<100; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -453,8 +476,10 @@
                                     <div class="row">
                                         <div class="col-12 col-md-12 col-xl-12">
                                             <div class="form-group">
-                                                <label class="title_txt">Property Price (Price must be in your local currency)</label>
-                                                <input type="text" class="form-control" name="property_price" id="property_price" placeholder="Property Price">
+                                                <label class="title_txt">Property Price (Price must be in your local
+                                                    currency)</label>
+                                                <input type="text" class="form-control" name="property_price"
+                                                    id="property_price" placeholder="Property Price">
                                             </div>
                                         </div>
                                     </div>
@@ -511,6 +536,33 @@
             <div class="col-12 col-md-4 col-lg-4 col-xl-4 venderbanner">
                 <div class="vender_right">
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Feature Property Modal -->
+<div class="modal fade" id="FeatureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalTitle" style="color:#F15A27 !important;">Want to make this Feature Property?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: #171747;font-size: 14px;font-weight: 500;">If you want to make this feature property, Please call on this number:</p>
+                <p style="display: block; text-align:center;"><a href="tel:+91-9555396371" class="btn btn-md btn-success">+91-9555396371</a></p>
+                <hr>
+                <p style="color: #222;font-size: 14px;font-weight: 600;">Benefits of making featured:</p>
+                <ol style="color: #171747 !important;">
+                     <li>Property will be Listed on top of the pages.</li>
+                     <li>Property will show on high priority.</li>
+                     <li>Property will get more hits and more leads than others.</li>
+                     <li>Property will be advertise on social media pages.</li>
+                </ol>
             </div>
         </div>
     </div>

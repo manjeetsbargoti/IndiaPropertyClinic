@@ -94,8 +94,8 @@ $footerProperties = Controller::footersection();
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/seller.svg">
                         <h5>Seller Prefer Us</h5>
-                        <p>1,000 new properties posted week, making us
-                            the biggest platform to sell & rent properties.</p>
+                        <p>1,000+ new properties posted every week, making us
+                            the biggest platform.</p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3">

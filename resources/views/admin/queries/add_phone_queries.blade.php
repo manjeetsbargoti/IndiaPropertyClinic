@@ -19,7 +19,7 @@
                 <div class="box box-info">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/add-phone-query') }}"
+                        <form enctype="multipart/form-data" method="POST" action="{{ url('/admin/queries/phone-query/add') }}"
                             id="add_page" name="add_page" novalidate="novalidate">
                             {{ csrf_field() }}
                             <div class="col-sm-8 col-md-8">

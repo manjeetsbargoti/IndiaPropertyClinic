@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/property/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/csc/city/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/queries/phone-query/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/queries/phone-query/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/{id}/edit/get-state-list', 'PropertyController@getStateList');
@@ -77,17 +80,17 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/checkuserphone', 'AdminController@checkPhone');
 
     // Home Loan Applications
-    Route::get('/admin/home-loan-application', 'HomeLoanController@homeLoanQuery');
+    Route::get('/admin/queries/home-loan', 'HomeLoanController@homeLoanQuery');
     Route::match(['get', 'post'], '/admin/resolved/{id}', 'HomeLoanController@applicationResolved');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'HomeLoanController@applicationPending');
 
     // Property Query Routes
-    Route::get('/admin/property-query', 'PropertyController@propertyQuery');
+    Route::get('/admin/queries/property', 'PropertyController@propertyQuery');
     Route::match(['get', 'post'], '/admin/done/{id}', 'PropertyController@queryDone');
     Route::match(['get', 'post'], '/admin/pending/{id}', 'PropertyController@queryPending');
 
     // Service Requests Query
-    Route::get('/admin/service-requests', 'RepairServiceController@requestService');
+    Route::get('/admin/queries/service-requests', 'RepairServiceController@requestService');
     Route::match(['get', 'post'], '/admin/service/request/{id}/done', 'RepairServiceController@statusDone');
     Route::match(['get', 'post'], '/admin/service/request/{id}/pending', 'RepairServiceController@statusPending');
 
@@ -95,11 +98,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/service/request/{id}/assign', 'RepairServiceController@assignVendorService');
 
     // Requested Quotes
-    Route::get('/admin/requested-quote', 'AdminController@requestedQuotes');
+    Route::get('/admin/queries/requested-quote', 'AdminController@requestedQuotes');
 
     // Add Missing City/State
-    Route::match(['get', 'post'], '/admin/add-city', 'AdminController@addCity');
-    Route::match(['get', 'post'], '/admin/add-state', 'AdminController@addState');
+    Route::match(['get', 'post'], '/admin/csc/city/add', 'AdminController@addCity');
+    Route::match(['get', 'post'], '/admin/csc/state/add', 'AdminController@addState');
 
     // System Options Routes
     Route::get('/admin/system/options', 'SystemController@getOptions');
@@ -138,8 +141,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
 
     // Phone Query
-    Route::match(['get', 'post'], '/admin/add-phone-query', 'HomeController@addPhoneQuery');
-    Route::match(['get', 'post'], '/admin/phone-queries', 'HomeController@phoneQueryData');
+    Route::match(['get', 'post'], '/admin/queries/phone-query/add', 'HomeController@addPhoneQuery');
+    Route::match(['get', 'post'], '/admin/queries/phone-queries', 'HomeController@phoneQueryData');
 
     // Add new agent
     // Route::match(['get', 'post'], '/admin/add-new-agent', 'PropertyController@addNewPropertyUser');

@@ -28,7 +28,7 @@ use function GuzzleHttp\json_encode;
 class PropertyController extends Controller
 {
 
-    protected $posts_per_page = 18;
+    protected $posts_per_page = 21;
 
     // This is the function for Add New Property by Admin
     public function addProperty(Request $request)
@@ -581,10 +581,11 @@ class PropertyController extends Controller
     // Search By Service
     public function searchByService($id = null)
     {
-        $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->paginate(18);
-        $propertyImages = PropertyImages::get();
+        $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->paginate($this->posts_per_page);
+        // $propertyImages = PropertyImages::get();
         // $properties = json_decode(json_encode($properties));
         // echo "<pre>"; print_r($properties); die;
+        $property_count = Property::where(['service_id' => $id])->count();
 
 
 
@@ -629,12 +630,12 @@ class PropertyController extends Controller
             $citycount = 0;
         }
 
-        if (!empty($properties)) {
-            $contRow = count($properties);
-            // echo "<pre>"; print_r($contRow); die;
-        } else {
-            $contRow = 0;
-        }
+        // if (!empty($properties)) {
+        //     $contRow = count($properties);
+        //     // echo "<pre>"; print_r($contRow); die;
+        // } else {
+        //     $contRow = 0;
+        // }
 
         $service_metaname = Services::where('id', $id)->first();
 
@@ -642,7 +643,7 @@ class PropertyController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Home Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
 
-        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'propertyImages', 'contRow', 'city', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('frontend.filter_templates.filter_by_service')->with(compact('properties', 'city', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'property_count'));
     }
 
     // Property Query
