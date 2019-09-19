@@ -146,7 +146,7 @@
                                     <span>{{ $property->country_name }}</span>
                                     @endif
                                 </h6>
-                                <p>{{ $property->parea }} Square Ft</p>
+                                @if(!empty($property->parea))<p>{{ $property->parea }} Square Ft</p>@endif
                                 <span class="tagbtn rent">{{ $property->service_name }}</span>
                             </div>
                         </div>
@@ -256,7 +256,7 @@
                                             as
                                             $pimage)
                                             <div class="item">
-                                                <img
+                                                <img style="max-height: 161px;"
                                                     src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                             </div>
                                             @endforeach

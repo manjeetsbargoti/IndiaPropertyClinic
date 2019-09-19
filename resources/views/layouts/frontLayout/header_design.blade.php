@@ -135,11 +135,11 @@ $country = Controller::countries();
                     </li>
                     @endforeach
                     <li class="dropdown">
-                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle {{ (request()->is('services/*')) ? 'active':'' }}" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Repair Services</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
                             @foreach(\App\OtherServices::where('parent_id', 0)->get() as $rservice)
-                            <a class="dropdown-item" href="{{ url('/services/'.$rservice->url) }}">{{ $rservice->service_name }}</a>
+                            <a class="dropdown-item {{ (request()->is('services/'.$rservice->url)) ? 'active':'' }}" href="{{ url('/services/'.$rservice->url) }}">{{ $rservice->service_name }}</a>
                             @endforeach
                         </div>
                     </li>

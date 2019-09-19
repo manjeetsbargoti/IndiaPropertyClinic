@@ -148,7 +148,7 @@
                                     <span><?php echo e($property->country_name); ?></span>
                                     <?php endif; ?>
                                 </h6>
-                                <p><?php echo e($property->parea); ?> Square Ft</p>
+                                <?php if(!empty($property->parea)): ?><p><?php echo e($property->parea); ?> Square Ft</p><?php endif; ?>
                                 <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                                         <div class="owl-carousel product-slide owl-theme">
                                             <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <div class="item">
-                                                <img
+                                                <img style="max-height: 161px;"
                                                     src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
                                             </div>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

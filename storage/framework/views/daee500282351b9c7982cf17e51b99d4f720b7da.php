@@ -79,25 +79,23 @@ $footerProperties = Controller::footersection();
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 border_right">
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/choice.svg">
-                        <h5>Maximum Choices</h5>
-                        <p>5 Lac + & counting. New properties every hour to
-                            help buyers find the right home</p>
+                        <!-- <h5>List your Property</h5> -->
+                        <p style="padding-top:0.6em;"><a href="<?php echo e(url('/list-property')); ?>" class="btn btn-sm btn-outline-warning"><span class="spinner-grow spinner-grow-sm"></span>&nbsp; List Property</a></p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 border_right border_bottom">
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/trust.svg">
-                        <h5>Buyers Trust Us</h5>
-                        <p>2 million users visit us every month for
-                            their buying and renting needs</p>
+                        <!-- <h5>Buyers Trust Us</h5> -->
+                        <p style="padding-top:0.6em;"><a href="<?php echo e(url('/list-your-business')); ?>" class="btn btn-sm btn-outline-warning"><span class="spinner-grow spinner-grow-sm"></span>&nbsp; List Business</a></p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 border_right border_bottomb">
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/seller.svg">
                         <h5>Seller Prefer Us</h5>
-                        <p>7,000 new properties posted daily, making us
-                            the biggest platform to sell & rent properties</p>
+                        <p>1,000 new properties posted week, making us
+                            the biggest platform to sell & rent properties.</p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3">
@@ -112,20 +110,22 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     <div class="footer_menu">
-        <div class="container footer-csc <?php echo e((request()->is('state*')) ? 'd-none':'d-block'); ?> <?php echo e((request()->is('city*')) ? 'd-none':'d-block'); ?>">
+        <div class="container footer-csc <?php echo e((request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block'); ?>">
             <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
 
             <?php if(!empty($_GET['country'])): ?>
+            <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
+            <h5 style="color: #000;">Properties in <?php echo e($cntryname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $_GET['country'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php else: ?>
-            <h3>Properties in <?php echo $arr_ip->country; ?></h3>
+            <h5 style="color: #000;">Properties in <?php echo $arr_ip->country; ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $arr_ip->iso_code)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -134,9 +134,11 @@ $footerProperties = Controller::footersection();
         <div class="container footer-csc <?php echo e((request()->is('state*')) ? 'd-block':'d-none'); ?>">
             
             <?php if(!empty($_GET['state'])): ?>
+            <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
+            <h5 style="color: #000;">Properties in <?php echo e($statname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $_GET['state'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -145,14 +147,15 @@ $footerProperties = Controller::footersection();
         <div class="container footer-csc <?php echo e((request()->is('city*')) ? 'd-block':'d-none'); ?>">
             
             <?php if(!empty($_GET['city'])): ?>
-            <?php $stateid = \App\Cities::select('state_id')->where('id', $_GET['city'])->first(); ?>
+            <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
             <p><?php // echo $stateid['state_id']; ?></p>
             <?php endif; ?>
            
             <?php if(!empty($_GET['city'])): ?>
+            <h5 style="color: #000;">Properties in <?php echo e($stateid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $stateid['state_id'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 12px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>

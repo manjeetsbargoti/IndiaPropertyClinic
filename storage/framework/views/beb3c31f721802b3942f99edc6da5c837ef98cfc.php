@@ -136,11 +136,11 @@ $country = Controller::countries();
                     </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <li class="dropdown">
-                        <a class="nav-link dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle <?php echo e((request()->is('services/*')) ? 'active':''); ?>" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Repair Services</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow:scroll;max-height: 30em;">
                             <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <a class="dropdown-item" href="<?php echo e(url('/services/'.$rservice->url)); ?>"><?php echo e($rservice->service_name); ?></a>
+                            <a class="dropdown-item <?php echo e((request()->is('services/'.$rservice->url)) ? 'active':''); ?>" href="<?php echo e(url('/services/'.$rservice->url)); ?>"><?php echo e($rservice->service_name); ?></a>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </li>
