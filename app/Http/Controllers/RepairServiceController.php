@@ -202,7 +202,7 @@ class RepairServiceController extends Controller
             }else {
                 $bannername = $data['current_banner'];
             }
-            OtherServices::where(['id'=>$id])->update(['service_name'=>$data['rservice_name'], 's_description'=>$data['s_description'], 'description'=>$data['description'], 'url'=>$data['rservice_url'], 'status'=>$status, 'service_image'=>$filename, 'service_banner'=>$bannername]);
+            OtherServices::where(['id'=>$id])->update(['service_name'=>$data['rservice_name'],'parent_id'=>$data['parent_id'], 's_description'=>$data['s_description'], 'description'=>$data['description'], 'url'=>$data['rservice_url'], 'status'=>$status, 'service_image'=>$filename, 'service_banner'=>$bannername]);
             return redirect('/admin/repair-services')->with('flash_message_success', 'Service updated Successfully!');
         }
         $servicesDetails = OtherServices::where(['id'=>$id])->first();
@@ -210,7 +210,7 @@ class RepairServiceController extends Controller
         // echo "<pre>"; print_r($servicesDetails); die;
         // Repair Services Dropdown
         $repairServices = OtherServices::where(['parent_id'=>0])->get();
-        $repairServices_dropdown = "<option selected disabled>Select Service</option>";
+        $repairServices_dropdown = "<option selected value='0' >Main Service</option>";
         foreach($repairServices as $rService){
             if($rService->id==$servicesDetails->parent_id)
             {
@@ -218,7 +218,7 @@ class RepairServiceController extends Controller
             }else {
                 $selected = "";
             }
-            $repairServices_dropdown .= "<option value='".$rService->id."'><b>".$rService->service_name."</b></option>";
+            $repairServices_dropdown .= "<option value='".$rService->id."' ".$selected."><b>".$rService->service_name."</b></option>";
             $sub_repairServices = OtherServices::where(['parent_id'=>$rService->id])->get();
             foreach($sub_repairServices as $sub_rService){
                 if($sub_rService->id==$servicesDetails->parent_id)
@@ -227,10 +227,10 @@ class RepairServiceController extends Controller
                 }else {
                     $selected = "";
                 }
-                $repairServices_dropdown .= "<option value='".$sub_rService->id."'>&nbsp;--&nbsp;".$sub_rService->service_name."</option>";
+                $repairServices_dropdown .= "<option value='".$sub_rService->id."' ".$selected.">&nbsp;=>&nbsp;".$sub_rService->service_name."</option>";
                 $sub_subRepairServices = OtherServices::where(['parent_id'=>$sub_rService->id])->get();
                 foreach($sub_subRepairServices as $sub_subRService){
-                    $repairServices_dropdown .= "<option value='".$sub_subRService->id."'>&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;".$sub_subRService->service_name."</option>";
+                    $repairServices_dropdown .= "<option value='".$sub_subRService->id."' ".$selected.">&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;".$sub_subRService->service_name."</option>";
                 }
             }
         }

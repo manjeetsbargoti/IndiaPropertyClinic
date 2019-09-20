@@ -153,7 +153,7 @@
               <?php endif; ?>
               <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'): ?>
               <li class="treeview <?php echo e((request()->is('admin/repair-service*')) ? 'active':''); ?>">
-                  <a href="<?php echo e(url('/admin/repair-services')); ?>"><i class="fa fa-gear"></i> <span>Repair Services</span>
+                  <a href="<?php echo e(url('/admin/repair-services')); ?>"><i class="fa fa-gear"></i> <span>Home Services</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                       </span>
