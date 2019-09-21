@@ -169,7 +169,7 @@ $country = Controller::countries();
                                 
                                 <li><a><?php echo e(Auth::user()->first_name); ?></a></li>
                                 <li><a
-                                        href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/My-Account')); ?> <?php endif; ?>"><i
+                                        href="<?php if(Auth::user()->admin == 1): ?> <?php echo e(url('/admin/dashboard')); ?>  <?php else: ?> <?php echo e(url('/user/account')); ?> <?php endif; ?>"><i
                                             class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>

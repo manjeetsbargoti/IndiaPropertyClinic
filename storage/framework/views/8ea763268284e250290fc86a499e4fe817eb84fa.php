@@ -39,7 +39,11 @@
                   <a href="#">
                     <div class="pull-left">
                       <!-- User Image -->
-                      <img src="<?php echo e(url('/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
+                      <?php if(!empty(Auth::user()->provider_id)): ?>
+                      <img class="profile-user-img img-responsive img-circle" src="<?php echo e(Auth::user()->avatar); ?>" alt="User profile picture">
+                      <?php else: ?>
+                      <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
+                      <?php endif; ?>
                     </div>
                     <!-- Message title and timestamp -->
                     <h4>

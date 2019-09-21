@@ -136,7 +136,7 @@ function generate_string($input, $strength = 16) {
                                                                         id="property_name" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xs-12 col-md-6">
+                                                            <div class="col-xs-12 col-md-6 hidden">
                                                                 <div class="form-group">
                                                                     <label for="Url">Url</label>
                                                                     <div class="input-group">
@@ -165,7 +165,7 @@ function generate_string($input, $strength = 16) {
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xs-12 col-md-4">
+                                                            <div class="col-xs-12 col-md-6">
                                                                 <div class="form-group">
                                                                     <label name="Expected Total Price">Expected Total
                                                                         Price</label>
@@ -173,7 +173,7 @@ function generate_string($input, $strength = 16) {
                                                                         type="text" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xs-12 col-md-4">
+                                                            <div class="col-xs-12 col-md-6">
                                                                 <div class="form-group">
                                                                     <label name="Builder">Builder</label>
                                                                     <select name="builder" id="NewBuilderName"
@@ -193,7 +193,7 @@ function generate_string($input, $strength = 16) {
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xs-12 col-md-4">
+                                                            <div class="col-xs-12 col-md-6">
                                                                 <div class="form-group">
                                                                     <label name="Agent">Agent</label>
                                                                     <select name="agent" id="NewAgentName"

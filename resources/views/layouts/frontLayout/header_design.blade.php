@@ -168,7 +168,7 @@ $country = Controller::countries();
                                 
                                 <li><a>{{ Auth::user()->first_name }}</a></li>
                                 <li><a
-                                        href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/My-Account') }} @endif"><i
+                                        href="@if(Auth::user()->admin == 1) {{ url('/admin/dashboard') }}  @else {{ url('/user/account') }} @endif"><i
                                             class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>

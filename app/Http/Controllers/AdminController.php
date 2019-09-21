@@ -610,7 +610,7 @@ class AdminController extends Controller
     {
 
         $getInfo = Socialite::driver($provider)->user();
-        // echo "<pre>"; print_r($getInfo); die;
+        echo "<pre>"; print_r($getInfo); die;
         $user = $this->createUser($getInfo, $provider);
         auth()->login($user);
         // echo "<pre>"; print_r($user['email']); die;
@@ -623,12 +623,20 @@ class AdminController extends Controller
 
         $user = User::where('provider_id', $getInfo->id)->first();
 
+        if(empty($user->avatar))
+        {
+            User::where('provider_id', $getInfo->id)->update(['avatar'=>$getInfo->avatar_original]);
+        }
+
+        // echo "<pre>"; print_r($user); die;
+
         if (!$user) {
             $user = User::create([
                 'first_name' => $getInfo->name,
                 'email'    => $getInfo->email,
                 'provider' => $provider,
-                'provider_id' => $getInfo->id
+                'provider_id' => $getInfo->id,
+                'avatar'    => $getInfo->avatar
             ]);
         }
         return $user;
