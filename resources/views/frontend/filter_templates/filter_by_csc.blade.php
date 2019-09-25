@@ -225,6 +225,8 @@
                 </div>
 
                 <div class="product_loadding">
+                <?php $ip_country = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+                    
                     {!! $posts->render() !!}
                 </div>
 

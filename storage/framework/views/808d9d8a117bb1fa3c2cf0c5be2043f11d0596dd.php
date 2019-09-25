@@ -255,6 +255,18 @@
                   </ul>
               </li>
               <?php endif; ?>
+              <?php if(Auth::user()->admin == 1): ?>
+              <li class="treeview <?php echo e((request()->is('admin/ads/*') ? 'active':'')); ?>">
+                  <a href="<?php echo e(url('/admin/ads/ads-script')); ?>"><i class="fa fa-bullhorn text-green"></i> <span>Ads Management</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li class="<?php echo e((request()->is('admin/ads/ads-script') ? 'active':'')); ?>"><a href="<?php echo e(url('/admin/ads/ads-script')); ?>"><i class="fa fa-code-o-file text-yellow"></i> <span>Insert Code</span></a></li>
+                  </ul>
+              </li>
+              <?php endif; ?>
           </ul>
           <!-- /.sidebar-menu -->
       </section>

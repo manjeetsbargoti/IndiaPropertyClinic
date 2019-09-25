@@ -255,6 +255,18 @@
                   </ul>
               </li>
               @endif
+              @if(Auth::user()->admin == 1)
+              <li class="treeview {{ (request()->is('admin/ads/*') ? 'active':'') }}">
+                  <a href="{{ url('/admin/ads/ads-script') }}"><i class="fa fa-bullhorn text-green"></i> <span>Ads Management</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li class="{{ (request()->is('admin/ads/ads-script') ? 'active':'') }}"><a href="{{ url('/admin/ads/ads-script') }}"><i class="fa fa-code-o-file text-yellow"></i> <span>Insert Code</span></a></li>
+                  </ul>
+              </li>
+              @endif
           </ul>
           <!-- /.sidebar-menu -->
       </section>

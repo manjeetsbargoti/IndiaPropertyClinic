@@ -228,7 +228,7 @@
 <script>  
 $(window).on('hashchange', function() {
       if (window.location.hash) {
-          var page = window.location.hash.replace('#', '');
+          var page = window.location.hash.replace('?page=', '');
           if (page == Number.NaN || page <= 0) {
               return false;
           } else {

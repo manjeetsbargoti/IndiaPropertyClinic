@@ -13,6 +13,7 @@ use App\Property;
 use App\Services;
 use App\UserType;
 use App\HomeLoan;
+use App\Country;
 use App\RequestQuote;
 use App\OtherServices;
 use App\PropertyImages;
@@ -610,9 +611,18 @@ class AdminController extends Controller
     {
 
         $getInfo = Socialite::driver($provider)->user();
-        echo "<pre>"; print_r($getInfo); die;
+        // echo "<pre>"; print_r($getInfo); die;
         $user = $this->createUser($getInfo, $provider);
+        
         auth()->login($user);
+
+        if(empty($user->country) || empty($user->state) || empty($user->city) || empty($user->usertype) || empty($user->phone))
+        {
+            // return redirect('/social/user/complete-info');
+            // echo "<pre>"; print_r($user); die;
+
+            return view('auth.users.user_info.get_social_user_details', compact('user'));
+        }
         // echo "<pre>"; print_r($user['email']); die;
         Session::put('UserSession', $user['email']);
         return redirect()->to('/user/account');
@@ -640,6 +650,12 @@ class AdminController extends Controller
             ]);
         }
         return $user;
+    }
+
+    // Get Social User Info
+    public function getSocialUserInfo(Request $request)
+    {
+        return view('auth.users.user_info.get_social_user_details');
     }
 
     // Delete User function
@@ -817,5 +833,30 @@ class AdminController extends Controller
         }
 
         return view('auth.verify_email_for_reset_password');
+    }
+
+    // Get All Users
+    public function getUserApi(Request $request)
+    {
+        $user = User::select('id', 'first_name', 'last_name', 'country', 'state', 'city', 'phonecode', 'phone', 'email', 'usertype', 'servicetypeid')->where('provider', null)->get();
+        // $user_count = User::where('provider', null)->count();
+
+        $user = json_decode(json_encode($user));
+
+        foreach($user as $key => $val)
+        {
+            $country_count = Country::where('iso2', $val->country)->count();
+            if($country_count > 0){
+                $country = Country::where('iso2', $val->country)->first();
+                $user[$key]->country_name = $country->name;
+            }
+        }
+
+        $user = json_decode(json_encode($user), true);
+
+        $data['count'] = User::where('provider', null)->count();
+        $data['users'] = $user;
+
+        return $data;
     }
 }

@@ -144,8 +144,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/queries/phone-query/add', 'HomeController@addPhoneQuery');
     Route::match(['get', 'post'], '/admin/queries/phone-queries', 'HomeController@phoneQueryData');
 
-    // Add new agent
-    // Route::match(['get', 'post'], '/admin/add-new-agent', 'PropertyController@addNewPropertyUser');
+    // Google Ads Management
+    Route::get('/admin/ads/ads-script', 'AdsController@getAdsCode');
+    Route::post('/admin/ads/ads-script','AdsController@postAdsCode');
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {
@@ -231,3 +232,6 @@ Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@th
 
 // CMS Pages Route
 Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
+
+// Get Social User Details
+Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@getSocialUserInfo');
