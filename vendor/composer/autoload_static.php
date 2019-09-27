@@ -459,6 +459,8 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
 
     public static $classMap = array (
         'App\\Amenity' => __DIR__ . '/../..' . '/app/Amenity.php',
+        'App\\Blog' => __DIR__ . '/../..' . '/app/Blog.php',
+        'App\\BlogCategory' => __DIR__ . '/../..' . '/app/BlogCategory.php',
         'App\\Cities' => __DIR__ . '/../..' . '/app/Cities.php',
         'App\\Console\\Commands\\GenerateSitemap' => __DIR__ . '/../..' . '/app/Console/Commands/GenerateSitemap.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
@@ -467,12 +469,14 @@ class ComposerStaticInit08d9caefa1f9ca8b5a64a1b98bc85d91
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\HomeLoan' => __DIR__ . '/../..' . '/app/HomeLoan.php',
         'App\\Http\\Controllers\\AdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdminController.php',
+        'App\\Http\\Controllers\\AdsController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdsController.php',
         'App\\Http\\Controllers\\AmenityController' => __DIR__ . '/../..' . '/app/Http/Controllers/AmenityController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\BlogController' => __DIR__ . '/../..' . '/app/Http/Controllers/BlogController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\HomeLoanController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeLoanController.php',

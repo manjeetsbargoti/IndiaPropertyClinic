@@ -663,4 +663,20 @@ class HomeController extends Controller
         // return view('admin.queries.user_phone_query_tmp', compact('userPhoneQueryData'));
         return view('admin.queries.property_phone_query', compact('propertyquery'));
     }
+
+    // Get Homepage Content
+    public function getHomeContent()
+    {
+        $data['home_page_content'] = file_get_contents(resource_path('views/admin/homepage/partials/home_page_content.blade.php'));
+
+        return view('admin.homepage.home_page_show', $data);
+    }
+
+    // Update Homepage Content
+    public function postHomeContent(Request $request)
+    {
+        file_put_contents(resource_path('views/admin/homepage/partials/home_page_content.blade.php'), $request->home_page_content);
+
+        return back();
+    }
 }

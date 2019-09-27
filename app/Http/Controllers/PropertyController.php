@@ -454,13 +454,14 @@ class PropertyController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Home Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
 
-        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords', 'sid'));
     }
 
     public function searchByCountry($country_id = null)
     {
         $countryname = DB::table('countries')->where(['iso2' => $country_id])->pluck('name');
         // echo "<pre>"; print_r($countryname); die;
+        $ctryid = Country::where('iso2', $country_id)->first();
         $properties = Property::where(['country' => $country_id])->get();
         $posts = Property::where(['country' => $country_id])->paginate($this->posts_per_page);
         $properties = json_decode(json_encode($properties));
@@ -513,7 +514,7 @@ class PropertyController extends Controller
         
         // echo "<pre>"; print_r($meta_name); die;
 
-        return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'ctryid'));
     }
 
     public function searchByCity($city_id = null)
@@ -542,8 +543,7 @@ class PropertyController extends Controller
             $city_count = DB::table('cities')->where(['id' => $val->city])->count();
             if ($city_count > 0) {
                 $city = DB::table('cities')->where(['id' => $val->city])->first();
-                $posts[$key]->city_name = $city->name;
-                
+                $posts[$key]->city_name = $city->name;  
             }
         }
         if (!empty($country_count)) {
@@ -575,19 +575,15 @@ class PropertyController extends Controller
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
 
         // echo "<pre>"; print_r($properties); die;
-        return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
+        return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'cid'));
     }
 
     // Search By Service
     public function searchByService($id = null)
     {
         $properties = Property::where(['service_id' => $id])->orderBy('created_at', 'desc')->paginate($this->posts_per_page);
-        // $propertyImages = PropertyImages::get();
-        // $properties = json_decode(json_encode($properties));
         // echo "<pre>"; print_r($properties); die;
         $property_count = Property::where(['service_id' => $id])->count();
-
-
 
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();

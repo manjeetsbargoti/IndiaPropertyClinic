@@ -120,6 +120,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get','post'], '/admin/contacts/new', 'SystemController@newContact');
     Route::get('/admin/contacts', 'SystemController@contactList');
 
+    // Update Home Page Content
+    Route::get('/admin/system/homepage-content','HomeController@getHomeContent');
+    Route::post('/admin/system/homepage-content','HomeController@postHomeContent');
+
     // Website Contact Details
     Route::get('/admin/system/contact-info', 'SystemController@getContactInfo');
     Route::post('/admin/system/contact-info','SystemController@postContactInfo');
@@ -147,6 +151,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Google Ads Management
     Route::get('/admin/ads/ads-script', 'AdsController@getAdsCode');
     Route::post('/admin/ads/ads-script','AdsController@postAdsCode');
+
+    // Blog Post Management
+    Route::match(['get','post'], '/admin/blog/post/new', 'BlogController@addNewPost');
+    Route::get('/admin/blog/view', 'BlogController@viewBlog');
+    
 });
 
 Route::group(['middleware' => ['auth', 'admin:0']], function () {

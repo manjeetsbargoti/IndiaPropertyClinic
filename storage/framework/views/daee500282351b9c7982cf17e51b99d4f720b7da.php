@@ -110,35 +110,48 @@ $footerProperties = Controller::footersection();
         </div>
     </div>
     <div class="footer_menu">
+        <?php // echo $cid; ?>
         <div class="container footer-csc <?php echo e((request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block'); ?>">
             <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
-
-            <?php if(!empty($_GET['country'])): ?>
+            <?php if(!empty($ctryid)): ?>
+            <h5 style="color: #000;">Properties in <?php echo e($ctryid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\State::where('country', $ctryid->iso2)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['country'])): ?>
             <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
             <h5 style="color: #000;">Properties in <?php echo e($cntryname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $_GET['country'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Properties in <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php else: ?>
             <h5 style="color: #000;">Properties in <?php echo $arr_ip->country; ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $arr_ip->iso_code)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties?state='.$s->id)); ?>">Properties in <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Properties in <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
 
         </div>
         <div class="container footer-csc <?php echo e((request()->is('state*')) ? 'd-block':'d-none'); ?>">
-            
-            <?php if(!empty($_GET['state'])): ?>
+            <?php if(!empty($sid)): ?>
+            <h5 style="color: #000;">Properties in <?php echo e($sid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('state_id', $sid->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['state'])): ?>
             <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
             <h5 style="color: #000;">Properties in <?php echo e($statname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $_GET['state'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Properties in <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -148,14 +161,20 @@ $footerProperties = Controller::footersection();
             
             <?php if(!empty($_GET['city'])): ?>
             <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
-            <p><?php // echo $stateid['state_id']; ?></p>
             <?php endif; ?>
            
-            <?php if(!empty($_GET['city'])): ?>
+            <?php if(!empty($cid)): ?>
+            <h5 style="color: #000;">Properties in <?php echo e($cid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('state_id', $cid->state_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['city'])): ?>
             <h5 style="color: #000;">Properties in <?php echo e($stateid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $stateid['state_id'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties?city='.$c->id)); ?>">Properties in <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Properties in <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -163,7 +182,6 @@ $footerProperties = Controller::footersection();
     </div>
 
     <div class="footer_bottom">
-
         <div class="container">
             <div class="footer_web">
                 <div class="row">

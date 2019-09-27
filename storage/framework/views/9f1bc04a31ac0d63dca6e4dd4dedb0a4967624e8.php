@@ -82,8 +82,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
-                            <img src="/images/frontend_images/images/18.gif">
+                        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center"
+                            style="max-height: 100px; max-width: 1190px;">
+                            <?php echo $__env->make('admin.google_ads.partials.leaderboard_728_90', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                         </div>
                     </div>
                 </div>
@@ -126,68 +127,71 @@
             <div class="row">
                 <?php $__currentLoopData = $featureProperty; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php if($loop->index < 2): ?> <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-xl-6">
-                    <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><div class="product_box featurepro_box">
-                        <div class="product_img">
-                            <div class="owl-carousel feauture-slide owl-theme">
-                                <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="item">
-                                    <img height="180"
-                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                    <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>">
+                        <div class="product_box featurepro_box">
+                            <div class="product_img">
+                                <div class="owl-carousel feauture-slide owl-theme">
+                                    <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="item">
+                                        <img height="180"
+                                            src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                    </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </div>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <div class="rateing">
+                                    <i class="staricon">Featured</i>
+                                </div>
+                                <div class="bottom_strip">
+                                    <h6><i class="fas fa-map-marker-alt"></i>
+                                        <?php if(!empty($property->city_name)): ?>
+                                        <span><?php echo e($property->city_name); ?>,</span>
+                                        <?php endif; ?>
+                                        <?php if(!empty($property->country_name)): ?>
+                                        <span><?php echo e($property->country_name); ?></span>
+                                        <?php endif; ?>
+                                    </h6>
+                                    <?php if(!empty($property->parea)): ?><p><?php echo e($property->parea); ?> Square Ft</p><?php endif; ?>
+                                    <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
+                                </div>
                             </div>
-                            <div class="rateing">
-                                <i class="staricon">Featured</i>
-                            </div>
-                            <div class="bottom_strip">
-                                <h6><i class="fas fa-map-marker-alt"></i>
-                                    <?php if(!empty($property->city_name)): ?>
-                                    <span><?php echo e($property->city_name); ?>,</span>
-                                    <?php endif; ?>
-                                    <?php if(!empty($property->country_name)): ?>
-                                    <span><?php echo e($property->country_name); ?></span>
-                                    <?php endif; ?>
-                                </h6>
-                                <?php if(!empty($property->parea)): ?><p><?php echo e($property->parea); ?> Square Ft</p><?php endif; ?>
-                                <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
-                            </div>
-                        </div>
-                        <div class="product_text">
-                            <div class="protxt_top">
-                                <ul>
-                                    <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                        <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
-                                    </li>
-                                    <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                        <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
-                                    </li>
-                                    <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                        <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="protxt_inn">
-                                <h6><?php echo e($property->property_name); ?></h6>
-                                <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
-                                <div class="price_sec">
+                            <div class="product_text">
+                                <div class="protxt_top">
                                     <ul>
-                                        <li>
-                                            <?php if(!empty($property->property_price)): ?>
-                                            <h5><span><?php if(!empty($property->currency)): ?> <?php echo e($property->currency); ?>
-
-                                                    <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
-                                            <?php else: ?>
-                                            <a href="/properties/<?php echo e($property->property_url); ?>" class="btn_fullinfo">Get
-                                                Price</a>
-                                            <?php endif; ?>
+                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                            <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
                                         </li>
-                                        <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                class="btn_fullinfo">Full Info</a></li> -->
+                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                            <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                            <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
+                                        </li>
                                     </ul>
                                 </div>
+                                <div class="protxt_inn">
+                                    <h6><?php echo e($property->property_name); ?></h6>
+                                    <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
+                                    <div class="price_sec">
+                                        <ul>
+                                            <li>
+                                                <?php if(!empty($property->property_price)): ?>
+                                                <h5><span><?php if(!empty($property->currency)): ?> <?php echo e($property->currency); ?>
+
+                                                        <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
+                                                <?php else: ?>
+                                                <a href="/properties/<?php echo e($property->property_url); ?>"
+                                                    class="btn_fullinfo">Get
+                                                    Price</a>
+                                                <?php endif; ?>
+                                            </li>
+                                            <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                class="btn_fullinfo">Full Info</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div></a>
+                    </a>
             </div>
             <?php endif; ?>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -250,77 +254,78 @@
                             <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($property->service_id == $service->id ): ?>
                             <?php $counter++;?>
-                            <?php if( $counter <= 4): ?> 
-                            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                                <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"><div class="product_box">
-                                    <div class="product_img">
-                                        <div class="owl-carousel product-slide owl-theme">
-                                            <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <div class="item">
-                                                <img style="max-height: 161px;"
-                                                    src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                            <?php if( $counter <= 4): ?> <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>">
+                                    <div class="product_box">
+                                        <div class="product_img">
+                                            <div class="owl-carousel product-slide owl-theme">
+                                                <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <div class="item">
+                                                    <img style="max-height: 161px;"
+                                                        src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                                </div>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </div>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="bottom_strip">
+                                                <h6><i class="fas fa-map-marker-alt"></i>
+                                                    <?php if(!empty($property->city_name)): ?>
+                                                    <span><?php echo e($property->city_name); ?>,</span>
+                                                    <?php endif; ?>
+                                                    <?php if(!empty($property->country_name)): ?>
+                                                    <span><?php echo e($property->country_name); ?></span>
+                                                    <?php endif; ?>
+                                                </h6>
+                                                <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
+                                                <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
+                                            </div>
                                         </div>
-                                        <div class="bottom_strip">
-                                            <h6><i class="fas fa-map-marker-alt"></i>
-                                                <?php if(!empty($property->city_name)): ?>
-                                                <span><?php echo e($property->city_name); ?>,</span>
-                                                <?php endif; ?>
-                                                <?php if(!empty($property->country_name)): ?>
-                                                <span><?php echo e($property->country_name); ?></span>
-                                                <?php endif; ?>
-                                            </h6>
-                                            <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
-                                            <span class="tagbtn rent"><?php echo e($property->service_name); ?></span>
-                                        </div>
-                                    </div>
-                                    <div class="product_text">
-                                        <div class="protxt_top">
-                                            <ul>
-                                                <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                                    <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
-                                                </li>
-                                                <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                                    <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
-                                                </li>
-                                                <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                                    <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="protxt_inn">
-                                            <h6><?php echo e($property->property_name); ?></h6>
-                                            <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
-                                            <div class="price_sec">
+                                        <div class="product_text">
+                                            <div class="protxt_top">
                                                 <ul>
-                                                    <li>
-                                                        <?php if(!empty($property->property_price)): ?>
-                                                        <h5><span><?php if(!empty($property->currency)): ?>
-                                                                <?php echo e($property->currency); ?> <?php endif; ?></span>
-                                                            <?php echo e($property->property_price); ?></h5>
-                                                        <?php else: ?>
-                                                        <a href="/properties/<?php echo e($property->property_url); ?>"
-                                                            class="btn_fullinfo">Get Price</a>
-                                                        <?php endif; ?>
+                                                    <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                                        <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
                                                     </li>
-                                                    <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                            class="btn_fullinfo">Full Info</a></li> -->
+                                                    <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                                        <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
+                                                    </li>
+                                                    <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                                        <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
+                                                    </li>
                                                 </ul>
                                             </div>
+                                            <div class="protxt_inn">
+                                                <h6><?php echo e($property->property_name); ?></h6>
+                                                <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
+                                                <div class="price_sec">
+                                                    <ul>
+                                                        <li>
+                                                            <?php if(!empty($property->property_price)): ?>
+                                                            <h5><span><?php if(!empty($property->currency)): ?>
+                                                                    <?php echo e($property->currency); ?> <?php endif; ?></span>
+                                                                <?php echo e($property->property_price); ?></h5>
+                                                            <?php else: ?>
+                                                            <a href="/properties/<?php echo e($property->property_url); ?>"
+                                                                class="btn_fullinfo">Get Price</a>
+                                                            <?php endif; ?>
+                                                        </li>
+                                                        <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                            class="btn_fullinfo">Full Info</a></li> -->
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div></a>
-                            </div>
-                            <?php endif; ?>
-                            <?php endif; ?>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </a>
                         </div>
+                        <?php endif; ?>
+                        <?php endif; ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
                     <!--<div class="view_sec text-center"><a class="btnview_all" href="<?php echo e(url('/properties')); ?>">View-->
                     <!--        All</a></div>-->
-                    </div>
-                    <?php endif; ?>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+                <?php endif; ?>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
         <div class="col-12 col-md-3 col-xl-3" style="display:none;">
@@ -372,69 +377,69 @@
                     <?php $__currentLoopData = $commercial_property; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $property): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php $counter++;?>
                     <?php if($counter <= 3): ?> <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                    <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>">
-                    <div class="product_box">
-                            <div class="product_img">
-                                <div class="owl-carousel product-slide owl-theme">
-                                    <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <div class="item"><img style="max-height: 223px;"
-                                            src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                        <a href="<?php echo e(url('/properties/'.$property->property_url)); ?>">
+                            <div class="product_box">
+                                <div class="product_img">
+                                    <div class="owl-carousel product-slide owl-theme">
+                                        <?php $__currentLoopData = \App\PropertyImages::where('property_id', $property->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pimage): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <div class="item"><img style="max-height: 223px;"
+                                                src="<?php echo e(asset('/images/backend_images/property_images/large/'.$pimage->image_name)); ?>">
+                                        </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </div>
-                                <div class="bottom_strip">
-                                    <h6><i class="fas fa-map-marker-alt"></i>
-                                        <?php if(!empty($property->city)): ?>
+                                    <div class="bottom_strip">
+                                        <h6><i class="fas fa-map-marker-alt"></i>
+                                            <?php if(!empty($property->city)): ?>
                                             <?php echo e($property->city_name); ?>, </span>
-                                        <?php endif; ?>
-                                        <?php if(!empty($property->country)): ?>
-                                        <span> <?php echo e($property->country_name); ?></span>
-                                        <?php endif; ?>
-                                    </h6>
-                                    <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
-                                    <span class="tagbtn rent">
-                                        <?php echo e($property->service_name); ?>
+                                            <?php endif; ?>
+                                            <?php if(!empty($property->country)): ?>
+                                            <span> <?php echo e($property->country_name); ?></span>
+                                            <?php endif; ?>
+                                        </h6>
+                                        <p><?php if($property->parea): ?><?php echo e($property->parea); ?> Square Ft <?php endif; ?></p>
+                                        <span class="tagbtn rent">
+                                            <?php echo e($property->service_name); ?>
 
-                                    </span>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product_text">
-                                <div class="protxt_top">
-                                    <ul>
-                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                            <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
-                                        </li>
-                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                            <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
-                                        </li>
-                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                            <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="protxt_inn">
-                                    <h6><?php echo e($property->property_name); ?></h6>
-                                    <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
-                                    <div class="price_sec">
+                                <div class="product_text">
+                                    <div class="protxt_top">
                                         <ul>
-                                            <li>
-                                                <?php if(!empty($property->property_price)): ?>
-                                                <h5><span><?php if(!empty($property->country)): ?> <?php echo e($property->currency); ?>
-
-                                                        <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
-                                                <?php else: ?>
-                                                <a href="/properties/<?php echo e($property->property_url); ?>"
-                                                    class="btn_fullinfo">Get Price</a>
-                                                <?php endif; ?>
+                                            <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                                <p><span><?php echo e($property->rooms); ?></span>Rooms</p>
                                             </li>
-                                            <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
-                                                    class="btn_fullinfo">Full Info</a></li> -->
+                                            <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                                <p><span><?php echo e($property->bedrooms); ?></span>Bedrooms</p>
+                                            </li>
+                                            <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                                <p><span><?php echo e($property->bathrooms); ?></span>Bathroom</p>
+                                            </li>
                                         </ul>
                                     </div>
+                                    <div class="protxt_inn">
+                                        <h6><?php echo e($property->property_name); ?></h6>
+                                        <p><?php echo e(str_limit(strip_tags($property->description), $limit=80)); ?></p>
+                                        <div class="price_sec">
+                                            <ul>
+                                                <li>
+                                                    <?php if(!empty($property->property_price)): ?>
+                                                    <h5><span><?php if(!empty($property->country)): ?> <?php echo e($property->currency); ?>
+
+                                                            <?php endif; ?></span> <?php echo e($property->property_price); ?></h5>
+                                                    <?php else: ?>
+                                                    <a href="/properties/<?php echo e($property->property_url); ?>"
+                                                        class="btn_fullinfo">Get Price</a>
+                                                    <?php endif; ?>
+                                                </li>
+                                                <!-- <li><a href="<?php echo e(url('/properties/'.$property->property_url)); ?>"
+                                                    class="btn_fullinfo">Full Info</a></li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div></a>
+                </div></a>
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
@@ -445,6 +450,16 @@
 </div>
 </div>
 <!-- /.Commercial Properties -->
+
+<div class="home_page_content" style="padding-top: 1em;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <?php echo $__env->make('admin.homepage.partials.home_page_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Other Services -->
 <div class="oter_services">
