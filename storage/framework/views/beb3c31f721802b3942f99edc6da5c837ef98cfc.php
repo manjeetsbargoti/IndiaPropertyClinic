@@ -215,7 +215,7 @@ $country = Controller::countries();
                                                 <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <?php if($coun->continent == $c->code): ?>
                                                 <li>
-                                                    <a href="<?php echo e(url('/country/'.$coun->iso2.'/properties?country='.$coun->iso2)); ?>"
+                                                    <a href="<?php echo e(url('/country/'.$coun->iso2.'/properties')); ?>"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
                                                 </li>

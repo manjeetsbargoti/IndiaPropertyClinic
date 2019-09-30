@@ -508,13 +508,14 @@ class PropertyController extends Controller
         }
 
         $country_metaname = Country::where('iso2', $country_id)->first();
-        $meta_title = "All Properties in ".$country_metaname->name." | India Property Clinic | IPC";
+        $meta_title = "Property in $country_metaname->name | India Property Clinic | IPC";
         $meta_description = "India Property Clinic | Property Listing and Home Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+        $info_description = "Here you can find list of Residential and mercial property for sale from $country_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from country or state registered with us.";
         
         // echo "<pre>"; print_r($meta_name); die;
 
-        return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'ctryid'));
+        return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'ctryid', 'info_description'));
     }
 
     public function searchByCity($city_id = null)

@@ -43,6 +43,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/blog/post/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/blog/post/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/property/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/csc/city/get-state-list', 'PropertyController@getStateList');
