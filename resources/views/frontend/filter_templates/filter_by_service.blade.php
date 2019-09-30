@@ -148,10 +148,13 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item">All Properties for {{ $properties[0]->service_name }}</li>
+                        <li class="breadcrumb-item">All Property for {{ $properties[0]->service_name }}</li>
                         </ol>
                     </nav>
                     <p><span><?php echo $property_count; ?> Properties </span></p>
+                    @if(!empty($info_description))
+                    <p style="color: #171747; font-size: 1.1em; font-weight: 500;"><?php  echo $info_description; ?></p>
+                    @endif
                 </div>
                 <?php if($property_count == 0) { ?>
                     <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>

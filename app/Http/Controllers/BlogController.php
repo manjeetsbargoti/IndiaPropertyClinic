@@ -58,4 +58,12 @@ class BlogController extends Controller
         }
         return view('admin.blog.add_new_post');
     }
+
+    // View Blog Posts in Admin Panel
+    public function returnBlogPost()
+    {
+        $posts = Blog::orderBy('created_at', 'desc')->get();
+
+        return view('admin.blog.view_post', compact('posts'));
+    }
 }

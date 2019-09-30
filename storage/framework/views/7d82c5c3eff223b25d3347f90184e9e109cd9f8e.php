@@ -147,7 +147,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?php echo e(url('/')); ?>">Home</a></li>
-                        <li class="breadcrumb-item">All Properties in 
+                        <li class="breadcrumb-item">Property in 
                         <?php if(!empty($scityname)): ?>
                             <span> <?php echo e($scityname); ?> </span></li>
                         <?php elseif(!empty($cityname)): ?>
@@ -160,6 +160,9 @@
                         </ol>
                     </nav>
                     <p><span><?php echo $contRow; ?> Properties </span></p>
+                    <?php if(!empty($info_description)): ?>
+                    <p style="color: #171747; font-size: 1.1em; font-weight: 500;"><?php  echo $info_description; ?></p>
+                    <?php endif; ?>
                 </div>
                 <?php if($contRow == 0) { ?>
                     <p style="text-align:center; padding-top: 2em;"><img src="<?php echo e(url('/images/no-result.png')); ?>"></p>
