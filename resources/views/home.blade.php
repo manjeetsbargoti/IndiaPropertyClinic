@@ -449,16 +449,6 @@
 </div>
 <!-- /.Commercial Properties -->
 
-<div class="home_page_content" style="padding-top: 1em;">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-12 col-xl-12">
-                @include('admin.homepage.partials.home_page_content')
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Other Services -->
 <div class="oter_services">
     <div class="container">
@@ -616,5 +606,18 @@
     </div>
 </div>
 <!-- /.Dealers -->
+
+<!-- Home Page Content Start here -->
+<div class="home_page_content" style="padding-top: 1em;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                @include('admin.homepage.partials.home_page_content')
+                <p class="text-center"><a href="{{ url('/about-us') }}" class="btn btn-md btn-custom">Read More</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. Home Page Content Start here -->
 
 @endsection

@@ -156,7 +156,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     // Blog Post Management
     Route::match(['get','post'], '/admin/blog/post/new', 'BlogController@addNewPost');
-    Route::get('/admin/blog/view', 'BlogController@viewBlog');
+    Route::get('/admin/blog/post/view', 'BlogController@returnBlogPost');
+    Route::match(['get','post'], '/admin/blog/category/new', 'BlogController@addBlogCategory');
+    Route::get('/admin/blog/category/view', 'BlogController@returnBlogCategory');
     
 });
 

@@ -110,7 +110,6 @@
                                     <button type="submit" id="AddNewBlog" class="btn btn-success btn-block btn-md">Publish</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
                     <!-- /.box-body -->

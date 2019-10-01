@@ -107,6 +107,29 @@
                   </ul>
               </li>
               <?php endif; ?>
+              <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'): ?>
+              <li class="treeview <?php echo e((request()->is('admin/blog*')) ? 'active':''); ?>">
+                  <a href="<?php echo e(url('/admin/blog/post/view')); ?>"><i class="fa fa-file-o text-yellow"></i> <span>Blog</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li class="<?php echo e((request()->is('admin/blog/post/view')) ? 'active':''); ?>"><a
+                              href="<?php echo e(url('/admin/blog/post/view')); ?>"><i class="fa fa-file text-green"></i>
+                              <span>All Post</span></a></li>
+                      <li class="<?php echo e((request()->is('admin/blog/post/new')) ? 'active':''); ?>"><a
+                              href="<?php echo e(url('/admin/blog/post/new')); ?>"><i class="fa fa-plus text-green"></i> <span>New
+                                  Post</span></a></li>
+                        <li class="<?php echo e((request()->is('admin/blog/category/view')) ? 'active':''); ?>"><a
+                              href="<?php echo e(url('/admin/blog/category/view')); ?>"><i class="fa fa-list text-green"></i> <span>All
+                                  Category</span></a></li>
+                        <li class="<?php echo e((request()->is('admin/blog/category/new')) ? 'active':''); ?>"><a
+                              href="<?php echo e(url('/admin/blog/category/new')); ?>"><i class="fa fa-plus text-green"></i> <span>New
+                                  Category</span></a></li>
+                  </ul>
+              </li>
+              <?php endif; ?>
               <?php if(Auth::user()->admin == 1): ?>
               <li class="treeview <?php echo e((request()->is('admin/user*')) ? 'active':''); ?>">
                   <a href="<?php echo e(url('/admin/users')); ?>"><i class="fa fa-users text-red"></i> <span>Users</span>

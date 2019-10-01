@@ -23,30 +23,28 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Parent Category</th>
                                     <th>Status</th>
-                                    <th>Author</th>
                                     <th>Publish Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 0 ?>
-                                @foreach($posts as $post)
+                                @foreach($blog_cat as $bcat)
                                 <?php $i++ ?>
                                 <tr>
                                     <td>{{ $i }}</td>
-                                    <td><a href="{{ url('/blog/'.$post->url) }}">{{ $post->title }}</a></td>
-                                    <td>{{ $post->category }}</td>
-                                    <td>@if($post->status == 1) <label class="label label-sm label-success">Publish</label> @elseif($post->status == 0) <label class="label label-sm label-danger">Draft</label> @endif</td>
-                                    <td>{{ $post->add_by }}</td>
-                                    <td>{{ date('d M, Y h:i:s A', strtotime($post->created_at)) }}</td>
+                                    <td>{{ $bcat->name }}</td>
+                                    <td>{{ $bcat->parent_category }}</td>
+                                    <td>@if($bcat->status == 1) <label class="label label-sm label-success">Enable</label> @elseif($bcat->status == 0) <label class="label label-sm label-danger">Disable</label> @endif</td>
+                                    <td>{{ $bcat->created_at }}</td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/blog/post/{{ $post->id }}/edit" class="label label-warning label-sm"><i
+                                            <a href="/admin/blog/category/{{ $bcat->id }}/edit" class="label label-warning label-sm"><i
                                                     class="fa fa-edit"></i></a>
-                                            <a href="/admin/blog/post/{{ $post->id }}/delete" class="label label-danger label-sm"><i
+                                            <a href="/admin/blog/category/{{ $bcat->id }}/delete" class="label label-danger label-sm"><i
                                                     class="fa fa-trash"></i></a>
                                         </div>
                                     </td>

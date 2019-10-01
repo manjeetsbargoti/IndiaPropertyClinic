@@ -4832,3 +4832,64 @@ ul.jiodropdown li:hover {
     font-size: 15px;
     color: #333;
 }
+
+.home_page_content h1,
+.home_page_content h2,
+.home_page_content h3,
+.home_page_content h4,
+.home_page_content h5,
+.home_page_content h6 {
+    color: #171747 !important;
+}
+
+.home_page_content h1 {
+    color: #171747;
+    font-size: 2em !important;
+}
+
+.home_page_content h2 {
+    color: #171747;
+    font-size: 1.8em !important;
+}
+
+.home_page_content h3 {
+    color: #171747;
+    font-size: 1.6em !important;
+}
+
+.home_page_content p {
+    color: #171747;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.home_page_content ul {
+    color: #171747;
+    font-size: 14px;
+    /*list-style:none;*/
+}
+
+.home_page_content .btn {
+    border: 1px solid #171747;
+    padding: 0.5em 1em;
+    border-radius: 0.2em;
+    color: #fff;
+    background: #171747;
+}
+
+.thankyou_box h1 {
+    font-size: 2.4em;
+}
+
+.thankyou_box h2 {
+    font-size: 2em;
+}
+
+.thankyou_box h3 {
+    font-size: 1.8em;
+}
+
+.thankyou_box li {
+    color: #171747 !important;
+    font-size: 1.4em !important;
+}

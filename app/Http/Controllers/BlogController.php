@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\User;
 use App\Blog;
+use App\BlogCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -63,7 +65,52 @@ class BlogController extends Controller
     public function returnBlogPost()
     {
         $posts = Blog::orderBy('created_at', 'desc')->get();
+        // $posts = json_encode(json_decode($posts));
+
+        foreach($posts as $key => $val)
+        {
+            $post_cat_count = BlogCategory::where('id', $val->category)->count();
+            if($post_cat_count > 0){
+                $post_cat = BlogCategory::where('id', $val->category)->first();
+                $posts[$key]->category = $post_cat->name;
+            }
+            $user_add_by_count = User::where('id', $val->add_by)->count();
+            if($user_add_by_count > 0){
+                $user_add_by = User::where('id', $val->add_by)->first();
+                $posts[$key]->add_by = $user_add_by->first_name;
+            }
+            
+        }
 
         return view('admin.blog.view_post', compact('posts'));
+    }
+
+    // Add Blog Category
+    public function addBlogCategory(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            BlogCategory::create([
+                'name'              => $data['category_name'],
+                'url'               => $data['url'],
+                'parent_category'   => $data['parent_category'],
+                'description'       => $data['description'],
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Blog Category Added Successfully!');
+        }
+
+        return view('admin.blog.category.add_category');
+    }
+
+    // View all blog Category
+    public function returnBlogCategory()
+    {
+        $blog_cat = BlogCategory::orderBy('created_at', 'desc')->get();
+
+        return view('admin.blog.category.view_category', compact('blog_cat'));
     }
 }

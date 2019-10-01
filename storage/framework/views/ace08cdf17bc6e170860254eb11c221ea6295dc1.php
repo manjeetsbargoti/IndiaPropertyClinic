@@ -1,5 +1,4 @@
-@extends('layouts.adminLayout.admin_design')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -7,7 +6,7 @@
     <section class="content-header">
         <h1>Contact List</h1>
         <ol class="breadcrumb">
-            <li><a href="{{ url('/admin') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo e(url('/admin')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Contact List</li>
         </ol>
     </section>
@@ -23,35 +22,33 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Title</th>
-                                    <th>Category</th>
+                                    <th>Name</th>
+                                    <th>Parent Category</th>
                                     <th>Status</th>
-                                    <th>Author</th>
                                     <th>Publish Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 0 ?>
-                                @foreach($posts as $post)
+                                <?php $__currentLoopData = $blog_cat; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bcat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php $i++ ?>
                                 <tr>
-                                    <td>{{ $i }}</td>
-                                    <td><a href="{{ url('/blog/'.$post->url) }}">{{ $post->title }}</a></td>
-                                    <td>{{ $post->category }}</td>
-                                    <td>@if($post->status == 1) <label class="label label-sm label-success">Publish</label> @elseif($post->status == 0) <label class="label label-sm label-danger">Draft</label> @endif</td>
-                                    <td>{{ $post->add_by }}</td>
-                                    <td>{{ date('d M, Y h:i:s A', strtotime($post->created_at)) }}</td>
+                                    <td><?php echo e($i); ?></td>
+                                    <td><?php echo e($bcat->name); ?></td>
+                                    <td><?php echo e($bcat->parent_category); ?></td>
+                                    <td><?php if($bcat->status == 1): ?> <label class="label label-sm label-success">Enable</label> <?php elseif($bcat->status == 0): ?> <label class="label label-sm label-danger">Disable</label> <?php endif; ?></td>
+                                    <td><?php echo e($bcat->created_at); ?></td>
                                     <td>
                                         <div id="donate">
-                                            <a href="/admin/blog/post/{{ $post->id }}/edit" class="label label-warning label-sm"><i
+                                            <a href="/admin/blog/category/<?php echo e($bcat->id); ?>/edit" class="label label-warning label-sm"><i
                                                     class="fa fa-edit"></i></a>
-                                            <a href="/admin/blog/post/{{ $post->id }}/delete" class="label label-danger label-sm"><i
+                                            <a href="/admin/blog/category/<?php echo e($bcat->id); ?>/delete" class="label label-danger label-sm"><i
                                                     class="fa fa-trash"></i></a>
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -65,4 +62,5 @@
 <!-- /.content-wrapper -->
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.adminLayout.admin_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/admin/blog/category/view_category.blade.php ENDPATH**/ ?>

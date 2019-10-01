@@ -451,16 +451,6 @@
 </div>
 <!-- /.Commercial Properties -->
 
-<div class="home_page_content" style="padding-top: 1em;">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-12 col-xl-12">
-                <?php echo $__env->make('admin.homepage.partials.home_page_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Other Services -->
 <div class="oter_services">
     <div class="container">
@@ -618,6 +608,19 @@
     </div>
 </div>
 <!-- /.Dealers -->
+
+<!-- Home Page Content Start here -->
+<div class="home_page_content" style="padding-top: 1em;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-12 col-xl-12">
+                <?php echo $__env->make('admin.homepage.partials.home_page_content', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                <p class="text-center"><a href="<?php echo e(url('/about-us')); ?>" class="btn btn-md btn-custom">Read More</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /. Home Page Content Start here -->
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.frontLayout.frontend_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/home.blade.php ENDPATH**/ ?>
