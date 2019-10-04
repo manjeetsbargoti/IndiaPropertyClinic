@@ -1,0 +1,1 @@
+<?php /**PATH D:\GIT_Code\IndiaPropertyClinic\resources\views/sitemap/index.blade.php ENDPATH**/ ?>

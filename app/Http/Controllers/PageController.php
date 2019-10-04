@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use DB;
 use Image;
 use App\Page;
+use App\State;
+use App\Cities;
 use App\Country;
 use App\Property;
 use App\Services;
+use App\PpcQuery;
 use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,7 +81,6 @@ class PageController extends Controller
         // echo "<pre>"; print_r($data); die;
 
         if (!empty($data)) {
-
 
             if ($data[0]['page_type'] == 1) {
                 $data = json_decode(json_encode($data));
@@ -213,11 +215,32 @@ class PageController extends Controller
                 // echo "<pre>"; print_r($data); die;
 
                 if ($data[0]['property_for'] == 1) {
-                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'contRow', 'countryname', 'posts', 'countrycount'));
+                    $country_metaname = Country::where('iso2', $country_id)->first();
+                    $service_metaname = Services::where('id', $service_id)->first();
+                    $meta_title = $data[0]['title']." | India Property Clinic | IPC";
+                    $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name.";
+                    $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+                    $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
+
+                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'info_description'));
                 } elseif ($data[0]['property_for'] == 2) {
-                    return view('frontend.filter_templates.filter_by_csc')->with(compact('datas', 'posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename'));
+                    $state_metaname = State::where('id', $state_id)->first();
+                    $service_metaname = Services::where('id', $service_id)->first();
+                    $meta_title = $data[0]['title']." | India Property Clinic | IPC";
+                    $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_metaname->name.";
+                    $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+                    $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $state_metaname->name registered with us.";
+
+                    return view('frontend.filter_templates.filter_by_csc')->with(compact('datas', 'posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords', 'info_description'));
                 } elseif ($data[0]['property_for'] == 3) {
-                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount'));
+                    $city_metaname = Cities::where('id', $city_id)->first();
+                    $service_metaname = Services::where('id', $service_id)->first();
+                    $meta_title = $data[0]['title']." | India Property Clinic | IPC";
+                    $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name.";
+                    $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+                    $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
+
+                    return view('frontend.filter_templates.filter_by_csc', compact('datas', 'posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'info_description'));
                 }
             }
         } else {
@@ -347,5 +370,32 @@ class PageController extends Controller
         }
 
         return view('admin.pages.edit_page', compact('page', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
+    }
+
+    // PPC Pages
+    public function ppcPages(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            PpcQuery::create([
+                'name'          => $data['full_name'],
+                'email'         => $data['email'],
+                'phone'         => $data['phone'],
+                'main_service'  => $data['main_service'],
+                'sub_service'   => $data['sub_service'],
+                'subs_service'  => $data['subs_service'],
+                'message'       => $data['message'],
+                'country'       => $data['country'],
+                'state'         => $data['state'],
+                'city'          => $data['city'],
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
+
+        }
+        return view('frontend.custom_pages.plumbing_services');
     }
 }

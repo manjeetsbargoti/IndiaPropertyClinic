@@ -6,7 +6,7 @@
     <section class="content-header">
         <h1>Edit Page</h1>
         <ol class="breadcrumb">
-            <li><a href="<?php echo e(url('/admin')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Edit Page</li>
         </ol>
     </section>
@@ -18,7 +18,7 @@
                 <div class="box box-info">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="POST" action="<?php echo e(url('/admin/page/'.$page->id.'/edit')); ?>"
+                        <form enctype="multipart/form-data" method="POST" action="<?php echo e(url('/admin/pages/'.$page->id.'/edit')); ?>"
                             id="add_page" name="add_page" novalidate="novalidate">
                             <?php echo e(csrf_field()); ?>
 

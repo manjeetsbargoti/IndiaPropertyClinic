@@ -1,5 +1,7 @@
 <?php
 
+use Spatie\Sitemap\SitemapGenerator;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +58,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/property/{id}/edit/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/page/{id}/edit/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
+    
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/service/new', 'ServiceController@addService');
@@ -162,6 +165,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     
 });
 
+// Get State, City List
+Route::get('/ipc/get-state-list', 'PropertyController@getStateList');
+Route::get('/ipc/get-city-list', 'PropertyController@getCityList');
+
 Route::group(['middleware' => ['auth', 'admin:0']], function () {
     Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
 });
@@ -239,6 +246,8 @@ Route::match(['get', 'post'], '/service/get-services-list', 'RepairServiceContro
 Route::match(['get', 'post'], '/services/{url}/get-services-list', 'RepairServiceController@getSubServices');
 Route::match(['get', 'post'], '/services/{url}/get-state-list', 'PropertyController@getStateList');
 Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@getStateList');
+Route::match(['get', 'post'], '/ipc/get-services-list', 'RepairServiceController@getSubServices');
+Route::match(['get', 'post'], '/ipc/get-services-list', 'RepairServiceController@getSubServices');
 
 // Thank you Page
 Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@thankYou');
@@ -248,3 +257,6 @@ Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
 
 // Get Social User Details
 Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@getSocialUserInfo');
+
+// Custom url
+Route::match(['get', 'post'], '/ipc/plumbing-services', 'PageController@ppcPages');
