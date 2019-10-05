@@ -2,6 +2,11 @@
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
+
+    <?php if($index_status == 0): ?>
+    <meta name="robots" content="noindex">
+    <?php endif; ?>
+
     <?php // print_r($service); ?>
     <!-- for Google -->
     <meta name="title"

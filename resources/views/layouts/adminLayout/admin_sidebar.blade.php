@@ -109,7 +109,8 @@
               @endif
               @if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
               <li class="treeview {{ (request()->is('admin/blog*')) ? 'active':'' }}">
-                  <a href="{{ url('/admin/blog/post/view') }}"><i class="fa fa-file-o text-yellow"></i> <span>Blog</span>
+                  <a href="{{ url('/admin/blog/post/view') }}"><i class="fa fa-file-o text-yellow"></i>
+                      <span>Blog</span>
                       <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                       </span>
@@ -121,12 +122,32 @@
                       <li class="{{ (request()->is('admin/blog/post/new')) ? 'active':'' }}"><a
                               href="{{ url('/admin/blog/post/new') }}"><i class="fa fa-plus text-green"></i> <span>New
                                   Post</span></a></li>
-                        <li class="{{ (request()->is('admin/blog/category/view')) ? 'active':'' }}"><a
-                              href="{{ url('/admin/blog/category/view') }}"><i class="fa fa-list text-green"></i> <span>All
+                      <li class="{{ (request()->is('admin/blog/category/view')) ? 'active':'' }}"><a
+                              href="{{ url('/admin/blog/category/view') }}"><i class="fa fa-list text-green"></i>
+                              <span>All
                                   Category</span></a></li>
-                        <li class="{{ (request()->is('admin/blog/category/new')) ? 'active':'' }}"><a
-                              href="{{ url('/admin/blog/category/new') }}"><i class="fa fa-plus text-green"></i> <span>New
+                      <li class="{{ (request()->is('admin/blog/category/new')) ? 'active':'' }}"><a
+                              href="{{ url('/admin/blog/category/new') }}"><i class="fa fa-plus text-green"></i>
+                              <span>New
                                   Category</span></a></li>
+                  </ul>
+              </li>
+              @endif
+              @if(Auth::user()->admin == 1)
+              <li class="treeview {{ (request()->is('admin/ppc*')) ? 'active':'' }}">
+                  <a href="{{ url('/admin/ppc/pages') }}"><i class="fa fa-telegram text-green"></i> <span>PPC
+                          Management</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li class="{{ (request()->is('admin/ppc/pages')) ? 'active':'' }}"><a
+                              href="{{ url('/admin/ppc/pages') }}"><i class="fa fa-file text-yellow"></i>
+                              <span>PPC Pages</span></a></li>
+                      <li class="{{ (request()->is('admin/ppc/page/new')) ? 'active':'' }}"><a
+                              href="{{ url('/admin/ppc/page/new') }}"><i class="fa fa-plus text-yellow"></i> <span>New
+                                  Page</span></a></li>
                   </ul>
               </li>
               @endif
@@ -250,6 +271,10 @@
                       <li class="{{ (request()->is('admin/queries/phone-queries')) ? 'active':'' }}"><a
                               href="{{ url('/admin/queries/phone-queries') }}"><i
                                   class="fa fa-phone text-yellow"></i>Phone
+                              Queries</a></li>
+                      <li class="{{ (request()->is('admin/queries/ppc-queries')) ? 'active':'' }}"><a
+                              href="{{ url('/admin/queries/ppc-queries') }}"><i
+                                  class="fa fa-telegram text-yellow"></i>PPC
                               Queries</a></li>
                   </ul>
               </li>

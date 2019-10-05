@@ -157,6 +157,17 @@ desired effect
             });
     });
 
+    // Creating PPC Page URL
+    $('#title').change(function(e) {
+        $.get('{{ url("/add-new-ppc-page/check_slug") }}', {
+                'title': $(this).val()
+            },
+            function(data) {
+                $('#slug').val(data.slug);
+            }
+        );
+    });
+
     // Creating CMS Page URL
     $('#CMSPageTitle').change(function(e) {
         $.get('{{ url("/admin/new-page/cms-page-url/check_slug") }}', {
@@ -173,7 +184,7 @@ desired effect
                 // $("#CMSPageTemplates").show();
                 $('#CMSPageTemplates').removeClass('hidden').addClass('show');
             } else {
-              $('#CMSPageTemplates').removeClass('show').addClass('hidden');
+                $('#CMSPageTemplates').removeClass('show').addClass('hidden');
                 // $("#CMSPageCountry").hide();
             }
         });
@@ -313,6 +324,70 @@ desired effect
     Session::forget('flash_message_error');
     @endphp
     @endif
+    </script>
+
+    <script>
+    // Get Sub Services List Ajax Fetch for PPC Pages
+    $('#MainServiceList').change(function() {
+        var parentID = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        if (parentID) {
+            $.ajax({
+                type: "get",
+                url: "get-services-list?parent_id=" + parentID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#SubServiceList").empty();
+                        $("#SubServiceList").append(
+                            '<option value=""> -- Select Service -- </option>');
+                        $.each(res, function(key, value) {
+                            $("#SubServiceList").append('<option value="' + key + '">' +
+                                value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#SubServiceList").empty();
+                    }
+                }
+            });
+        } else {
+            $("#SubServiceList").empty();
+        }
+    });
+
+    // Get Subs Services List Ajax Fetch
+    $('#SubServiceList').change(function() {
+        var parentID = $(this).val();
+        var _token = $('input[name="_token"]').val();
+        if (parentID) {
+            $.ajax({
+                type: "get",
+                url: "get-services-list?parent_id=" + parentID,
+                data: {
+                    _token: _token
+                },
+                success: function(res) {
+                    if (res) {
+                        $("#SubsServiceList").empty();
+                        $("#SubsServiceList").append(
+                            '<option value=""> -- Select Service -- </option>');
+                        $.each(res, function(key, value) {
+                            $("#SubsServiceList").append('<option value="' + key + '">' +
+                                value +
+                                '</option>');
+                        });
+                    } else {
+                        $("#SubsServiceList").empty();
+                    }
+                }
+            });
+        } else {
+            $("#SubsServiceList").empty();
+        }
+    });
     </script>
 
 </body>

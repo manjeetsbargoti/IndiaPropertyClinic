@@ -848,7 +848,6 @@ class PropertyController extends Controller
 
             return redirect()->back()->with('flash_message_success', 'Property Deleted Successfully!');
         }
-        // return ('<h2>Coming Soon!</h2>');
     }
 
     // Creating unique Slug

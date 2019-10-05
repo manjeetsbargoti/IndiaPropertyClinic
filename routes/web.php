@@ -58,6 +58,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/property/{id}/edit/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/page/{id}/edit/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/ppc/page/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/ppc/page/get-city-list', 'PropertyController@getCityList');
     
 
     // Admin Services Module (Add/Update/View/Disable)
@@ -162,6 +164,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/blog/post/view', 'BlogController@returnBlogPost');
     Route::match(['get','post'], '/admin/blog/category/new', 'BlogController@addBlogCategory');
     Route::get('/admin/blog/category/view', 'BlogController@returnBlogCategory');
+
+    // PPC Pages Module
+    Route::match(['get', 'post'], '/admin/ppc/page/new', 'PpcController@addPpcPage');
+    Route::match(['get', 'post'], '/add-new-ppc-page/check_slug', 'PpcController@checkSlug');
+    Route::match(['get', 'post'], '/admin/ppc/page/get-services-list', 'RepairServiceController@getSubServices');
+    Route::get('/admin/ppc/pages', 'PpcController@returnPpcPages');
+    Route::get('/admin/queries/ppc-queries', 'PpcController@returnPpcQuery');
+    Route::match(['get', 'post'], '/admin/ppc/page/{id}/edit', 'PpcController@editPpcPage');
     
 });
 
@@ -259,4 +269,7 @@ Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
 Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@getSocialUserInfo');
 
 // Custom url
-Route::match(['get', 'post'], '/ipc/plumbing-services', 'PageController@ppcPages');
+// Route::match(['get', 'post'], '/ipc/plumbing-services', 'PpcController@ppcPages');
+
+// PPC Pages Module
+Route::match(['get', 'post'], '/ipc/{url}', 'PpcController@ppcPages');

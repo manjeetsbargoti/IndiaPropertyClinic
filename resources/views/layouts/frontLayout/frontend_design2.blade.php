@@ -2,6 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+
+    @if($index_status == 0)
+    <meta name="robots" content="noindex">
+    @endif
+
     <?php // print_r($service); ?>
     <!-- for Google -->
     <meta name="title"

@@ -372,30 +372,4 @@ class PageController extends Controller
         return view('admin.pages.edit_page', compact('page', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
     }
 
-    // PPC Pages
-    public function ppcPages(Request $request)
-    {
-        if($request->isMethod('post'))
-        {
-            $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
-            PpcQuery::create([
-                'name'          => $data['full_name'],
-                'email'         => $data['email'],
-                'phone'         => $data['phone'],
-                'main_service'  => $data['main_service'],
-                'sub_service'   => $data['sub_service'],
-                'subs_service'  => $data['subs_service'],
-                'message'       => $data['message'],
-                'country'       => $data['country'],
-                'state'         => $data['state'],
-                'city'          => $data['city'],
-            ]);
-
-            return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
-
-        }
-        return view('frontend.custom_pages.plumbing_services');
-    }
 }
