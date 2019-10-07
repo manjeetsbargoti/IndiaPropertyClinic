@@ -153,6 +153,14 @@
                                     <label for="Banner Image">Banner Image</label>
                                     <input type="file" class="form-control" name="banner_image" id="BannerImage">
                                 </div>
+
+                                <div class="form-group" id="IndexStatus">
+                                    <label for="Index (yes=index, no=no-index)">Index (yes=index, no=no-index)</label>
+                                    <select name="index_status" id="index_status" class="form-control">
+                                        <option value="1" selected>Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
                                 <div class="box-footer">
                                     <button type="submit" id="AddNewPpcPage" class="btn btn-success btn-block btn-md">Add Page</button>
                                 </div>

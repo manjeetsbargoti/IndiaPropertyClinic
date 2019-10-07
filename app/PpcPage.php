@@ -26,6 +26,7 @@ class PpcPage extends Model
     // Insert data into database
     protected $fillable = [
         'title','url','ppc_type','email','phone','main_service','sub_service','subs_service','banner_content','description',
-        'country','state','city','status','banner_image','template_design','meta_title','meta_description','meta_keywords'
+        'country','state','city','status','banner_image','template_design','meta_title','meta_description','meta_keywords',
+        'index_status'
     ];
 }

@@ -4,10 +4,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>Add PPC Page</h1>
+        <h1>Edit PPC Page</h1>
         <ol class="breadcrumb">
             <li><a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Add PPC Page</li>
+            <li class="active">Edit PPC Page</li>
         </ol>
     </section>
 
@@ -139,23 +139,35 @@
                                 <div class="form-group" id="PpcPageState">
                                     <label for="State">State</label>
                                     <select name="state" id="state" class="form-control" data-placeholder="-- Select State --">
-                                        <option value="" selected>Select State</option>
+                                        <?php echo $state_dropdown; ?>
                                     </select>
                                 </div>
                                 <div class="form-group" id="PpcPageCity">
                                     <label for="City">City</label>
                                     <select name="city" id="city" class="form-control" data-placeholder="-- Select City --">
-                                        <option value="" selected>Select City</option>
+                                        <?php echo $city_dropdown; ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="Banner Image">Banner Image</label>
+                                    <input type="hidden" name="current_image" id="BannerCurrentImage" value="<?php echo e($ppcPageData->banner_image); ?>">
                                     <input type="file" class="form-control" name="banner_image" id="BannerImage">
-                                    <img width="200" src="<?php echo e(url('/images/backend_images/ppc_images/large/'.$ppcPageData->banner_image)); ?>" alt="<?php echo e($ppcPageData->title); ?>" >
+                                    <?php if(!empty($ppcPageData->banner_image)): ?>
+                                    <img class="img-responsive" width="200" src="<?php echo e(url('/images/backend_images/ppc_images/large/'.$ppcPageData->banner_image)); ?>" alt="<?php echo e($ppcPageData->title); ?>" >
+                                    <?php endif; ?>
                                 </div>
+
+                                <div class="form-group" id="IndexStatus">
+                                    <label for="Index (yes=index, no=no-index)">Index (yes=index, no=no-index)</label>
+                                    <select name="index_status" id="index_status" class="form-control">
+                                        <option value="1" <?php if($ppcPageData->index_status == 1): ?> selected <?php endif; ?>>Yes</option>
+                                        <option value="0" <?php if($ppcPageData->index_status == 0): ?> selected <?php endif; ?>>No</option>
+                                    </select>
+                                </div>
+
                                 <div class="box-footer">
-                                    <button type="submit" id="AddNewPpcPage" class="btn btn-success btn-block btn-md">Add Page</button>
+                                    <button type="submit" id="UpdatePpcPage" class="btn btn-success btn-block btn-md">Update Page</button>
                                 </div>
                             </div>
                         </form>

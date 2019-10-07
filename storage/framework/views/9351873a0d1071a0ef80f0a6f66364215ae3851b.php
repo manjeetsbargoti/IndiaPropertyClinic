@@ -3,7 +3,7 @@
 
 <head>
 
-    <?php if($index_status == 0): ?>
+    <?php if(empty($index_status)): ?>
     <meta name="robots" content="noindex">
     <?php endif; ?>
 

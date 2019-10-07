@@ -60,6 +60,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/ppc/page/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/ppc/page/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/ppc/page/{id}/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/ppc/page/{id}/get-city-list', 'PropertyController@getCityList');
     
 
     // Admin Services Module (Add/Update/View/Disable)

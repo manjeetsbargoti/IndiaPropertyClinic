@@ -59,6 +59,7 @@ class PpcController extends Controller
                 'meta_title'        => $data['meta_title'],
                 'meta_description'  => $data['meta_description'],
                 'meta_keywords'     => $data['meta_keywords'],
+                'index_status'      => $data['index_status'],
             ]);
 
             return redirect()->back()->with('flash_message_success', 'Page Created!');
@@ -115,14 +116,64 @@ class PpcController extends Controller
         if($request->isMethod('post'))
         {
             $data = $request->all();
-            echo "<pre>"; print_r($data); die;
+            // echo "<pre>"; print_r($data); die;
+
+            // Upload Featured Banner
+            if($request->hasFile('banner_image')){
+                $image_tmp = Input::file('banner_image');
+                if($image_tmp->isValid()){
+                    
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $filename = 'IPC_PPC_PAGE_'.rand(1, 99999).'.'.$extension;
+                    $large_image_path = 'images/backend_images/ppc_images/large/'.$filename;
+                    // Resize image
+                    Image::make($image_tmp)->resize(1920, 500)->save($large_image_path);
+
+                    // Store image in Services folder
+                    // $page_data->image = $filename;
+                }
+            }else {
+                $filename = $data['current_image'];
+            }
+
+            PpcPage::where('id',$id)->update(['title'=>$data['title'],'url'=> $data['slug'],'ppc_type'=> $data['ppc_type'],'banner_content'=> $data['banner_content'],'description'=> $data['description'],
+            'phone'=> $data['phone'],'email'=> $data['email'],'template_design'=> $data['template_design'],'main_service'=> $data['main_service'],'status'=> $data['status'],'country'=> $data['country'],
+            'state'=> $data['state'],'city'=> $data['city'],'banner_image'=> $filename,'meta_title'=> $data['meta_title'],'meta_description'=> $data['meta_description'],'meta_keywords'=> $data['meta_keywords'],
+            'index_status'=> $data['index_status']]);
+
+            return redirect()->back()->with('flash_message_success', 'Page Updated!');
         }
 
         $ppcPageData = PpcPage::where('id', $id)->first();
+        $statename = State::where(['country' => $ppcPageData->country])->get();
+        $cityname = Cities::where(['state_id' => $ppcPageData->state])->get();
+
+        // Select State Name
+        $state_dropdown = "<option selected value=''>Select State</option>";
+        foreach ($statename as $sname) {
+            if ($sname->id == $ppcPageData->state) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $state_dropdown .= "<option value='" . $sname->id . "' " . $selected . ">" . $sname->name . "</option>";
+        }
+
+        // Select City Name
+        $city_dropdown = "<option selected value=''>Select City</option>";
+        foreach ($cityname as $cname) {
+            if ($cname->id == $ppcPageData->city) {
+                $selected = "selected";
+            } else {
+                $selected = "";
+            }
+            $city_dropdown .= "<option value='" . $cname->id . "' " . $selected . ">" . $cname->name . "</option>";
+        }
+
         $county_list = Country::orderBy('name', 'asc')->get();
         $homeServices = OtherServices::where('parent_id', 0)->orderBy('service_name', 'asc')->get();
 
-        return view('admin.ppc_pages.edit_ppc_page', compact('ppcPageData','county_list','homeServices'));
+        return view('admin.ppc_pages.edit_ppc_page', compact('ppcPageData','county_list','homeServices','state_dropdown','city_dropdown'));
     }
 
     // PPC Single Pages

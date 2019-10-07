@@ -3,7 +3,7 @@
 
 <head>
 
-    @if($index_status == 0)
+    @if(empty($index_status))
     <meta name="robots" content="noindex">
     @endif
 
