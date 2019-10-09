@@ -280,7 +280,7 @@ class HomeController extends Controller
         // Meta tags
         $meta_title = "India Property Clinic | Property Listing and Home Services";
         $meta_description = "India Property Clinic | Property Listing and Home Services";
-        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
 
         return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
         // return response()->json($posts);

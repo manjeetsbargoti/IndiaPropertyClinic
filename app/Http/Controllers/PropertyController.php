@@ -304,9 +304,9 @@ class PropertyController extends Controller
         $propertyCount = Property::where(['property_url' => $url])->count();
         $p_location = Property::select('city', 'state', 'country', 'service_id')->where(['property_url' => $url])->first();
         // echo "<pre>"; print_r($p_location); die;
-        if ($propertyCount == 0) {
-            abort(404);
-        }
+        // if ($propertyCount == 0) {
+        //     abort(404);
+        // }
 
         if ($request->isMethod('post')) {
             $data = $request->all();
@@ -334,6 +334,15 @@ class PropertyController extends Controller
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $properties[$key]->service_name = $service_name->service_name;
+
+            $property_type_name = PropertyTypes::where(['property_type_code' => $val->property_type_id])->first();
+            $properties[$key]->property_type_name = $property_type_name->property_type;
+
+            $propertyImages_count = PropertyImages::where(['property_id' => $val->id])->count();
+            if ($propertyImages_count > 0) {
+                $propertyImages = PropertyImages::where(['property_id' => $val->id])->first();
+                $properties[$key]->property_image = $propertyImages->image_name;
+            }
             
             $country_count = DB::table('countries')->where(['iso2' => $val->country])->count();
             if ($country_count > 0) {
@@ -354,7 +363,7 @@ class PropertyController extends Controller
             $addby_count = User::where(['id' => $val->add_by])->count();
             if ($addby_count > 0) {
                 $addBy = User::where(['id' => $val->add_by])->first();
-                $properties[$key]->addby_name   = $addBy->first_name;
+                $properties[$key]->add_by        = $addBy->first_name;
                 $properties[$key]->status       = $addBy->status;
             }
             $builder_count = User::where(['id' => $val->builder])->count();
@@ -386,9 +395,40 @@ class PropertyController extends Controller
             $property_on_location = Property::where('country', $p_location->country)->where('service_id', $p_location->service_id)->orderBy('created_at', 'desc')->take(8)->get();
         }
 
-        // echo "<pre>"; print_r($properties); die;
-        $menuServices = Services::get();
-        return view('frontend.view_single_property')->with(compact('properties', 'country_count', 'state_count', 'city_count', 'property_on_location'));
+        $property = json_decode(json_encode($properties),true);
+        // echo "<pre>"; print_r($property); die;
+
+        if(!empty($property[0]['meta_title'])){
+            $meta_title = $property[0]['meta_title']." | ".config('app.name');
+        }else{
+            $meta_title = $property[0]['property_name']." | ".config('app.name');
+        }
+
+        if(!empty($property[0]['meta_description'])){
+            $meta_description = str_limit(strip_tags($property[0]['meta_description']), $limit=200);
+        }else{
+            $meta_description = str_limit(strip_tags($property[0]['description']), $limit=200);
+        }
+
+        if(!empty($property[0]['meta_keywords'])){
+            $meta_keywords = $property[0]['meta_keywords'];
+        }else{
+            $meta_keywords = $property[0]['property_type_name']." for ".$property[0]['service_name']." in ".$property[0]['country_name'].", ".$property[0]['property_type_name']." for ".$property[0]['service_name']." in ".$property[0]['state_name'].", ".$property[0]['property_type_name']." for ".$property[0]['service_name']." in ".$property[0]['city_name'].", ".$property[0]['property_name'].", ".$property[0]['property_type_name']." for ".$property[0]['service_name'].", ".$property[0]['property_type_name'].", ".$property[0]['property_type_name']." in ".$property[0]['city_name'];
+        }
+
+        if(!empty($property[0]['canonical_url'])){
+            $canonical_url = $property[0]['canonical_url'];
+        }else{
+            $canonical_url = config('app.url')."/properties/".$property[0]['property_url'];
+        }
+
+        if(!empty($property[0]['property_image'])){
+            $page_image = config('app.url')."/images/backend_images/property_images/large".$property[0]['property_image'];
+        }
+
+        // echo "<pre>"; print_r($property); die;
+
+        return view('frontend.view_single_property')->with(compact('properties','country_count','state_count','city_count','property_on_location','meta_title','meta_description','meta_keywords','canonical_url','page_image'));
         // return view('frontend.view_single_property');
     }
 
@@ -450,9 +490,9 @@ class PropertyController extends Controller
         }
 
         // $state_metaname = State::where('id', $state_id)->first();
-        $meta_title = "All Property in $state_id | India Property Clinic | IPC";
+        $meta_title = "Property for Sale in $state_id | India Property Clinic | IPC";
         $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_id.";
-        $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
+        $meta_keywords = "Property for Sale in $state_id, Property in $state_id, India Property Clinic, Property Listing, Repair Services, Home Services";
         $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_id. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $state_id registered with us.";
 
         return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords', 'sid', 'info_description'));
@@ -508,11 +548,11 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        $country_metaname = Country::where('iso2', $country_id)->first();
-        $meta_title = "Property in $country_metaname->name | India Property Clinic | IPC";
-        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name.";
+        // $country_metaname = Country::where('iso2', $country_id)->first();
+        $meta_title = "Property for Sale in $country_id | India Property Clinic | IPC";
+        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_id";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
-        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
+        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_id If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
         
         // echo "<pre>"; print_r($meta_name); die;
 
@@ -571,11 +611,11 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        $city_metaname = Cities::where('name', $city_id)->first();
-        $meta_title = "All Properties in ".$city_metaname->name." | India Property Clinic | IPC";
-        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name.";
+        // $city_metaname = Cities::where('name', $city_id)->first();
+        $meta_title = "Property for Sale in $city_id | India Property Clinic | IPC";
+        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_id";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
-        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
+        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_id If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
 
         // echo "<pre>"; print_r($properties); die;
         return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'cid', 'info_description'));

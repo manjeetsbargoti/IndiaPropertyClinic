@@ -4,55 +4,38 @@
 <head>
 
     @if(empty($index_status))
-    <meta name="robots" content="noindex">
+    <!-- <meta name="robots" content="noindex"> -->
     @endif
 
     <?php // print_r($service); ?>
     <!-- for Google -->
-    <meta name="title"
-        content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
-    <meta name="description"
-        content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif" />
-    <meta name="keywords"
-        content="@if(!empty($meta_keywords)) {{ $meta_keywords }} @elseif(!empty($property->city_name)){{ 'Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name }},<?php echo implode(',', explode(' ', $property->property_name)); ?>@elseif(!empty($service->service_name))<?php echo implode(',', explode(' ', $service->service_name)); ?>@else{{ config('app.name') }} @endif" />
-    <link rel="canonical"
-        href="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@elseif(!empty($service->url)){{ url('/services/'.$service->url) }}@else{{ config('app.name') }}@endif" />
-    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
+    <meta name="title" content="@if(!empty($meta_title)){{ $meta_title }}@endif" />
+    <meta name="description" content="@if(!empty($meta_description)){{ $meta_description }}@endif" />
+    <meta name="keywords" content="@if(!empty($meta_keywords)){{ $meta_keywords }}@endif" />
+    <link rel="canonical" href="@if(!empty($canonical_url)){{ $canonical_url }}@endif" />
+    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by {{config('app.name')}}" />
 
     <!-- for Facebook -->
-    <meta property="og:title"
-        content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
+    <meta property="og:title" content="@if(!empty($meta_title)){{ $meta_title }}@endif" />
     <meta property="og:type" content="article" />
-    <meta property="og:description"
-        content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif" />
-    <meta property="og:image"
-        content="@if(!empty($property->image_name)){{ asset('/images/backend_images/property_images/large/'.$property->image_name)}}@elseif(!empty($service->service_banner)){{ asset('/images/backend_images/repair_service_images/large/'.$service->service_banner) }}@endif" />
-    <meta property="og:url"
-        content="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@elseif(!empty($service->url)){{ url('/services/'.$service->url) }}@else{{ config('app.name') }}@endif" />
+    <meta property="og:description" content="@if(!empty($meta_description)){{ $meta_description }}@endif" />
+    <meta property="og:image" content="@if(!empty($page_image)){{ $page_image }}@endif" />
+    <meta property="og:url" content="@if(!empty($canonical_url)){{ $canonical_url }}@endif" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title"
-        content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
-    <meta name="twitter:description"
-        content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif" />
-    <meta name="twitter:image"
-        content="@if(!empty($property->image_name)){{ asset('/images/backend_images/property_images/large/'.$property->image_name) }}@elseif(!empty($service->service_banner)){{ asset('/images/backend_images/repair_service_images/large/'.$service->service_banner) }}@endif" />
-
+    <meta name="twitter:title" content="@if(!empty($meta_title)){{ $meta_title }}@endif" />
+    <meta name="twitter:description" content="@if(!empty($meta_description)){{ $meta_description }}@endif" />
+    <meta name="twitter:image" content="@if(!empty($page_image)){{ $page_image }}@endif" />
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <?php
-            // echo"<pre>"; print_r($property); die;
-    ?>
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@if(!empty($meta_title)) {{ $meta_title }}
-        @elseif(!empty($property->property_name)){{ $property->property_name.' | '.config('app.name') }}@elseif(!empty($service->service_name)){!!
-        $service->service_name.' | '.config('app.name') !!}@else {{ config('app.name') }}@endif</title>
+    <title>@if(!empty($meta_title)){{ $meta_title }}@endif</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon" />

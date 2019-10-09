@@ -18,7 +18,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><?php echo e($property->property_name); ?></li>
                         </ol>
                     </nav>
-                    <p><span><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <a href="<?php echo e(url('/country/'.$property->country.'/properties')); ?>"><?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/state/'.$property->state_name.'/properties')); ?>"><?php if(!empty($property->state_name)): ?> <?php echo e($property->state_name); ?> <?php endif; ?></a> </p>
+                    <p><span><?php if(!empty($property->city)): ?> <?php echo e($property->city); ?>,<?php endif; ?> <a href="<?php echo e(url('/country/'.$property->country.'/properties')); ?>"><?php if(!empty($property->country)): ?> <?php echo e($property->country); ?> <?php endif; ?></a> </span> | All Residential for Sale in <a href="<?php echo e(url('/state/'.$property->state.'/properties')); ?>"><?php if(!empty($property->state)): ?> <?php echo e($property->state); ?> <?php endif; ?></a> </p>
                 </div>
             <div class="row">
             
@@ -45,7 +45,7 @@
            
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
-                    <h1><i class="fas fa-map-marker-alt"></i> <a href="<?php echo e(url('/city/'.$property->city.'/properties')); ?>"><?php if(!empty($property->city_name)): ?> <?php echo e($property->city_name); ?>,<?php endif; ?> <?php if(!empty($property->country_name)): ?> <?php echo e($property->country_name); ?> <?php endif; ?></a></h1>
+                    <h1><i class="fas fa-map-marker-alt"></i> <a href="<?php echo e(url('/city/'.$property->city.'/properties')); ?>"><?php if(!empty($property->city)): ?> <?php echo e($property->city); ?>,<?php endif; ?> <?php if(!empty($property->country)): ?> <?php echo e($property->country); ?> <?php endif; ?></a></h1>
                     <h5><?php if($property->parea): ?>Plot Area: <span><?php echo e($property->parea); ?> Square Ft <?php endif; ?></span></h5>
                     <h6><?php echo e($property->property_name); ?></h6>
                     <!--<h5>Age of Property: <span>Under Construction</span></h5>-->
@@ -137,9 +137,9 @@
                                         <ul style="list-style: none;">
                                             <li><strong>Address:</strong> <?php echo e($property->address1); ?> <?php echo e($property->address2); ?></li>
                                             <li><strong>Locality:</strong> <?php echo e($property->locality); ?></li>
-                                            <li><strong>City:</strong> <?php echo e($property->city_name); ?></li>
-                                            <li><strong>State:</strong> <?php echo e($property->state_name); ?></li>
-                                            <li><strong>Country:</strong> <?php echo e($property->country_name); ?></li>
+                                            <li><strong>City:</strong> <?php echo e($property->city); ?></li>
+                                            <li><strong>State:</strong> <?php echo e($property->state); ?></li>
+                                            <li><strong>Country:</strong> <?php echo e($property->country); ?></li>
                                         </ul>
                                     </div>
                                 </div>

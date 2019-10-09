@@ -76,6 +76,7 @@ class PageController extends Controller
     // View Single Page
     public function singlePage(Request $request, $url)
     {
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
         $data = Page::where('url', $url)->get();
         $data = json_decode(json_encode($data), true);
         // echo "<pre>"; print_r($data); die;
@@ -85,7 +86,16 @@ class PageController extends Controller
             if ($data[0]['page_type'] == 1) {
                 $data = json_decode(json_encode($data));
 
-                return view('frontend.pages.templates.full_width', compact('data'));
+                $pdata = json_decode(json_encode($data),true);
+
+                $meta_title = $pdata[0]['title']." | ".config('app.name');
+                $meta_description = str_limit(strip_tags($pdata[0]['content']), $limit=200);
+                $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
+
+                // echo "<pre>"; print_r($meta_title); die;
+
+                return view('frontend.pages.templates.'.$pdata[0]['template'], compact('data','meta_title','meta_description','meta_keywords'));
+
             } elseif ($data[0]['page_type'] == 2) {
 
                 $service_id = $data[0]['service_id'];

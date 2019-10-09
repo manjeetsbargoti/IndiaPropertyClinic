@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">{{ $property->property_name }}</li>
                         </ol>
                     </nav>
-                    <p><span>@if(!empty($property->city_name)) {{ $property->city_name }},@endif <a href="{{ url('/country/'.$property->country.'/properties') }}">@if(!empty($property->country_name)) {{ $property->country_name }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/state/'.$property->state_name.'/properties') }}">@if(!empty($property->state_name)) {{ $property->state_name }} @endif</a> </p>
+                    <p><span>@if(!empty($property->city)) {{ $property->city }},@endif <a href="{{ url('/country/'.$property->country.'/properties') }}">@if(!empty($property->country)) {{ $property->country }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/state/'.$property->state.'/properties') }}">@if(!empty($property->state)) {{ $property->state }} @endif</a> </p>
                 </div>
             <div class="row">
             
@@ -46,7 +46,7 @@
            
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
-                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/city/'.$property->city.'/properties') }}">@if(!empty($property->city_name)) {{ $property->city_name }},@endif @if(!empty($property->country_name)) {{ $property->country_name }} @endif</a></h1>
+                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/city/'.$property->city.'/properties') }}">@if(!empty($property->city)) {{ $property->city }},@endif @if(!empty($property->country)) {{ $property->country }} @endif</a></h1>
                     <h5>@if($property->parea)Plot Area: <span>{{ $property->parea }} Square Ft @endif</span></h5>
                     <h6>{{ $property->property_name }}</h6>
                     <!--<h5>Age of Property: <span>Under Construction</span></h5>-->
@@ -137,9 +137,9 @@
                                         <ul style="list-style: none;">
                                             <li><strong>Address:</strong> {{ $property->address1 }} {{ $property->address2 }}</li>
                                             <li><strong>Locality:</strong> {{ $property->locality }}</li>
-                                            <li><strong>City:</strong> {{ $property->city_name }}</li>
-                                            <li><strong>State:</strong> {{ $property->state_name }}</li>
-                                            <li><strong>Country:</strong> {{ $property->country_name }}</li>
+                                            <li><strong>City:</strong> {{ $property->city }}</li>
+                                            <li><strong>State:</strong> {{ $property->state }}</li>
+                                            <li><strong>Country:</strong> {{ $property->country }}</li>
                                         </ul>
                                     </div>
                                 </div>

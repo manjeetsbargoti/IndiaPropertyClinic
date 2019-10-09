@@ -4,55 +4,38 @@
 <head>
 
     <?php if(empty($index_status)): ?>
-    <meta name="robots" content="noindex">
+    <!-- <meta name="robots" content="noindex"> -->
     <?php endif; ?>
 
     <?php // print_r($service); ?>
     <!-- for Google -->
-    <meta name="title"
-        content="<?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?> <?php elseif(!empty($property->property_name)): ?><?php echo $property->property_name.' | '.config('app.name'); ?><?php elseif(!empty($service->service_name)): ?><?php echo $service->service_name.' | '.config('app.name'); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="description"
-        content="<?php if(!empty($meta_description)): ?> <?php echo e($meta_description); ?> <?php elseif(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php elseif(!empty($service->s_description)): ?><?php echo str_limit(strip_tags($service->s_description), $limit=150); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="keywords"
-        content="<?php if(!empty($meta_keywords)): ?> <?php echo e($meta_keywords); ?> <?php elseif(!empty($property->city_name)): ?><?php echo e('Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name); ?>,<?php echo implode(',', explode(' ', $property->property_name)); ?><?php elseif(!empty($service->service_name)): ?><?php echo implode(',', explode(' ', $service->service_name)); ?><?php else: ?><?php echo e(config('app.name')); ?> <?php endif; ?>" />
-    <link rel="canonical"
-        href="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php elseif(!empty($service->url)): ?><?php echo e(url('/services/'.$service->url)); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
+    <meta name="title" content="<?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?>" />
+    <meta name="description" content="<?php if(!empty($meta_description)): ?><?php echo e($meta_description); ?><?php endif; ?>" />
+    <meta name="keywords" content="<?php if(!empty($meta_keywords)): ?><?php echo e($meta_keywords); ?><?php endif; ?>" />
+    <link rel="canonical" href="<?php if(!empty($canonical_url)): ?><?php echo e($canonical_url); ?><?php endif; ?>" />
+    <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by <?php echo e(config('app.name')); ?>" />
 
     <!-- for Facebook -->
-    <meta property="og:title"
-        content="<?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?> <?php elseif(!empty($property->property_name)): ?><?php echo $property->property_name.' | '.config('app.name'); ?><?php elseif(!empty($service->service_name)): ?><?php echo $service->service_name.' | '.config('app.name'); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
+    <meta property="og:title" content="<?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?>" />
     <meta property="og:type" content="article" />
-    <meta property="og:description"
-        content="<?php if(!empty($meta_description)): ?> <?php echo e($meta_description); ?> <?php elseif(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php elseif(!empty($service->s_description)): ?><?php echo str_limit(strip_tags($service->s_description), $limit=150); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta property="og:image"
-        content="<?php if(!empty($property->image_name)): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php elseif(!empty($service->service_banner)): ?><?php echo e(asset('/images/backend_images/repair_service_images/large/'.$service->service_banner)); ?><?php endif; ?>" />
-    <meta property="og:url"
-        content="<?php if(!empty($property->property_url)): ?><?php echo e(url('properties/'.$property->property_url)); ?><?php elseif(!empty($service->url)): ?><?php echo e(url('/services/'.$service->url)); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
+    <meta property="og:description" content="<?php if(!empty($meta_description)): ?><?php echo e($meta_description); ?><?php endif; ?>" />
+    <meta property="og:image" content="<?php if(!empty($page_image)): ?><?php echo e($page_image); ?><?php endif; ?>" />
+    <meta property="og:url" content="<?php if(!empty($canonical_url)): ?><?php echo e($canonical_url); ?><?php endif; ?>" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title"
-        content="<?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?> <?php elseif(!empty($property->property_name)): ?><?php echo $property->property_name.' | '.config('app.name'); ?><?php elseif(!empty($service->service_name)): ?><?php echo $service->service_name.' | '.config('app.name'); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="twitter:description"
-        content="<?php if(!empty($meta_description)): ?> <?php echo e($meta_description); ?> <?php elseif(!empty($property->description)): ?><?php echo e(strip_tags(str_limit($property->description, $limit=150))); ?><?php elseif(!empty($service->s_description)): ?><?php echo str_limit(strip_tags($service->s_description), $limit=150); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>" />
-    <meta name="twitter:image"
-        content="<?php if(!empty($property->image_name)): ?><?php echo e(asset('/images/backend_images/property_images/large/'.$property->image_name)); ?><?php elseif(!empty($service->service_banner)): ?><?php echo e(asset('/images/backend_images/repair_service_images/large/'.$service->service_banner)); ?><?php endif; ?>" />
-
+    <meta name="twitter:title" content="<?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?>" />
+    <meta name="twitter:description" content="<?php if(!empty($meta_description)): ?><?php echo e($meta_description); ?><?php endif; ?>" />
+    <meta name="twitter:image" content="<?php if(!empty($page_image)): ?><?php echo e($page_image); ?><?php endif; ?>" />
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <?php
-            // echo"<pre>"; print_r($property); die;
-    ?>
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title><?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?>
-
-        <?php elseif(!empty($property->property_name)): ?><?php echo e($property->property_name.' | '.config('app.name')); ?><?php elseif(!empty($service->service_name)): ?><?php echo $service->service_name.' | '.config('app.name'); ?><?php else: ?> <?php echo e(config('app.name')); ?><?php endif; ?></title>
+    <title><?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?></title>
 
     <!-- Favicon -->
     <link rel="icon" href="<?php echo e(asset(config('app.favicon'))); ?>" type="image/x-icon" />

@@ -150,7 +150,34 @@ class RepairServiceController extends Controller
         $vendor = User::where(['usertype'=> 'V'])->where('country', $arr_ip->iso_code)->take(4)->get();
         // echo "<pre>"; print_r($arr_ip); die;
 
-        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'sub_services'));
+        $services_meta = json_decode(json_encode($services), true);
+
+        if(!empty($services_meta[0]['meta_title'])){
+            $meta_title = $services_meta[0]['meta_title'];
+        }else{
+            $meta_title = $services_meta[0]['service_name']." | IPC - Home Services and Repair Services";
+        }
+        if(!empty($services_meta[0]['meta_description'])){
+            $meta_description = $services_meta[0]['meta_description'];
+        }else{
+            $meta_description = str_limit(strip_tags($services_meta[0]['s_description']), $limit=200);
+        }
+        if(!empty($services_meta[0]['meta_keywords'])){
+            $meta_keywords = $services_meta[0]['meta_keywords'];
+        }else{
+            $meta_keywords = $services_meta[0]['service_name']." in ".$arr_ip->country.", ".$services_meta[0]['service_name']." in ".$arr_ip->state_name.", ".$services_meta[0]['service_name']." in ".$arr_ip->city.", ".$services_meta[0]['service_name']." near by ".$arr_ip->city;
+        }
+        if(!empty($services_meta[0]['canonical_url'])){
+            $canonical_url = $services_meta[0]['canonical_url'];
+        }else{
+            $canonical_url = config('app.url')."/services/".$services_meta[0]['url'];
+        }
+
+        if(!empty($services_meta[0]['service_banner'])){
+            $page_image = config('app.url')."/images/backend_images/repair_service_images/large/".$services_meta[0]['service_banner'];
+        }
+
+        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor','randervice','services','otherServices','sub_services','meta_title','meta_description','meta_keywords','canonical_url','page_image'));
     }
 
     // Edit Repair Service function
