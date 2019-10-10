@@ -45,6 +45,26 @@
                                     <label for="Description">Description</label>
                                     <textarea name="description" id="description" class="form-control my-editor"></textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="Meta Title">Meta Title</label>
+                                    <input name="meta_title" id="MetaTitle" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Meta Description">Meta Description</label>
+                                    <textarea name="meta_description" id="MetaDescription" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Meta Keywords">Meta Keywords</label>
+                                    <textarea name="meta_keywords" id="MetaKeywords" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Canonical Url">Canonical Url</label>
+                                    <input name="canonical_url" id="CanonicalUrl" type="text" class="form-control">
+                                </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
                                 <div class="form-group">
@@ -121,8 +141,6 @@
                                     <button type="submit" id="AddNewPage" class="btn btn-info btn-block btn-md">Publish</button>
                                 </div>
                             </div>
-
-                            
                         </form>
                     </div>
                     <!-- /.box-body -->
