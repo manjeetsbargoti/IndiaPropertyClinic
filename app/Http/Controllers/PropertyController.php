@@ -1132,13 +1132,5 @@ class PropertyController extends Controller
         return view('frontend.templates.thank_you');
     }
 
-    // // Add User from Add Property Page
-    // public function addNewPropertyUser(Request $request)
-    // {
-    //     $data = $request->all();
-    //     echo "<pre>"; print_r($data); die;
-
-    //     return redirect()->back();
-    // }
 
 }

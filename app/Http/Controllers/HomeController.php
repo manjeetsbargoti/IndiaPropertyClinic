@@ -565,66 +565,6 @@ class HomeController extends Controller
         return $output;
     }
 
-
-    // Business List by Vendor
-    public function listBusiness(Request $request)
-    {
-
-        if($request->isMethod('Post'))
-        {
-            $data = $request->all();
-            // echo"<pre>"; print_r($data);die;
-
-            // $rservice = implode(',', $data['offered_service']);
-            $rservice = $data['offered_service'];
-            // echo"<pre>"; print_r($rservice);die;
-
-            DB::beginTransaction();
-
-            try{
-
-                User::create([
-                    'first_name'            => $data['first_name'],
-                    'last_name'             => $data['last_name'],
-                    'email'                 => $data['email'],
-                    'phone'                 => $data['phone'],
-                    'business_name'         => $data['business_name'],
-                    'experience'            => $data['experience'],
-                    'about_business'        => $data['business_description'],
-                    'country'               => $data['business_country'],
-                    'state'                 => $data['business_state'],
-                    'city'                  => $data['business_city'],
-                    'servicetypeid'         => $rservice,
-                    'usertype'              => 'V'
-                ]);
-
-            }catch(ValidationException $e){
-                DB::rollback();
-                return Redirect()->back()->withErrors($e->getErrors())->withInput();
-            }catch(\Exception $e){
-                DB::rollback();
-                throw $e;
-            }
-
-            DB::commit();
-
-            // Send Confirmation Email
-            $email = $data['email'];
-            $messageData = ['email' => $data['email'], 'name' => $data['first_name'], 'code' => base64_encode($data['email'])];
-            Mail::send('emails.generate_user_password', $messageData, function ($message) use ($email) {
-                $message->to($email)->subject('Generate account password and Confirm account with India Property Clinic');
-            });
-
-            return redirect()->back()->with('flash_message_success','Business Submitted Successfully! Please Check your email and generate password.');
-
-        }
-
-        $repair_services = OtherServices::where('parent_id', 0)->orderBy('service_name', 'asc')->get();
-        $countries = Country::orderBy('name', 'asc')->get();
-
-        return view('frontend.list_business', compact('countries', 'repair_services'));
-    }
-
     // Add New Phone Queries
     public function addPhoneQuery(Request $request)
     {

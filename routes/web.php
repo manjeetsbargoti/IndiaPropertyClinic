@@ -245,7 +245,7 @@ Route::match(['get','post'], '/list-property', 'PropertyController@listProperty'
 Route::match(['get', 'post'], '/list-property/check_slug', 'PropertyController@checkListSlug');
 
 // List Your Business
-Route::match(['get','post'], '/list-your-business', 'HomeController@listBusiness');
+Route::match(['get','post'], '/list-your-business', 'BusinessController@listBusiness');
 
 // Routes for Getting State List and City List Dynamically
 Route::get('/get-state-list', 'PropertyController@getStateList');
