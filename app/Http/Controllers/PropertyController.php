@@ -548,11 +548,11 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        // $country_metaname = Country::where('iso2', $country_id)->first();
-        $meta_title = "Property for Sale in $country_id | India Property Clinic | IPC";
-        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_id";
+        $country_metaname = Country::where('iso2', $country_id)->first();
+        $meta_title = "Property for Sale in $country_metaname->name | India Property Clinic | IPC";
+        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name.";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
-        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_id If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
+        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
         
         // echo "<pre>"; print_r($meta_name); die;
 
@@ -909,6 +909,8 @@ class PropertyController extends Controller
     // List Property by New User
     public function listProperty(Request $request)
     {
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        
         if($request->isMethod('post')){
             $data = $request->all();
 
@@ -1123,7 +1125,11 @@ class PropertyController extends Controller
 
         $phonecode = Country::get();
 
-        return view('frontend.list_property', compact('phonecode'));
+        $meta_title = "List Your Property | India Property Clinic";
+        $meta_description = "List your property with India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
+
+        return view('frontend.list_property', compact('phonecode','meta_title','meta_description','meta_keywords'));
     }
 
     // Thank you page
@@ -1132,5 +1138,194 @@ class PropertyController extends Controller
         return view('frontend.templates.thank_you');
     }
 
+    // Add Dubai Properties
+    public function dubaiProperty()
+    {
+        $data = DB::table('dubai_properties')->where('city','Dubai')->take(4)->get();
+        $data = json_decode(json_encode($data));
+
+        foreach($data as $key => $val){
+            // Maping Property Offering Type
+            if($val->offering_type == 'sale'){
+                $data[$key]->offering_type = 4;
+            }elseif($val->offering_type == 'rent'){
+                $data[$key]->offering_type = 3;
+            }
+
+            // Creating Property URL
+            $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $val->pro_title);
+            $data[$key]->slug = $slug;
+
+            // Maping Property Type name
+            if($val->t_name == 'Apartment'){
+                $data[$key]->t_name = 1004;
+            }elseif($val->t_name == 'Office Space'){
+                $data[$key]->t_name = 1009;
+            }elseif($val->t_name == 'Townhouse'){
+                $data[$key]->t_name = 1002;
+            }elseif($val->t_name == 'Villa'){
+                $data[$key]->t_name = 1005;
+            }elseif($val->t_name == 'Penthouse'){
+                $data[$key]->t_name = 1006;
+            }elseif($val->t_name == 'Land' && $val->t_category == 'commercial'){
+                $data[$key]->t_name = 1014;
+            }elseif($val->t_name == 'Land' && $val->t_category == 'residential'){
+                $data[$key]->t_name = 1017;
+            }elseif($val->t_name == 'Shop'){
+                $data[$key]->t_name = 1010;
+            }elseif($val->t_name == 'Warehouse'){
+                $data[$key]->t_name = 1013;
+            }elseif($val->t_name == 'Duplex'){
+                $data[$key]->t_name = 1025;
+            }elseif($val->t_name == 'Labor Camp'){
+                $data[$key]->t_name = 1026;
+            }elseif($val->t_name == 'Retail'){
+                $data[$key]->t_name = 1011;
+            }elseif($val->t_name == 'Whole Building'){
+                $data[$key]->t_name = 1003;
+            }
+
+            // Maping Furnished Type
+            if($val->furnished == 'unfurnished'){
+                $data[$key]->furnished = 'U';
+            }elseif($val->furnished == 'furnished'){
+                $data[$key]->furnished = 'F';
+            }elseif($val->furnished == 'semi-furnished'){
+                $data[$key]->furnished = 'S';
+            }
+
+            // Maping Category
+            if($val->t_category == 'residential'){
+                $data[$key]->t_category = 0;
+            }else{
+                $data[$key]->t_category = 1;
+            }
+
+            // Maping Construction Type
+            if($val->status == 'available'){
+                $data[$key]->construction_status = 'Ready to Move';
+            }
+
+            // Maping Map Passed
+            if($val->state == 'approved'){
+                $data[$key]->map_passed = 1;
+            }
+
+            // Location Maping
+            $state = State::where('name',$val->city)->first();
+            $city = Cities::where('name','like', '%'.$val->community.'%')->first();
+            $city = json_decode(json_encode($city), true);
+            // echo "<pre>"; print_r($city);die;
+            $data[$key]->state_id = $city['state_id'];
+            $data[$key]->country = $state->country;
+            $data[$key]->city = $city['id'];
+
+            // Amenities Maping
+            $ame = array();
+            $i = 0;
+            foreach(explode(',',$val->amenities_name) as $am){
+                $amenity = Amenity::where('name','like','%'.$am.'%')->get();
+                $amenity = json_decode(json_encode($amenity), true);
+                // $amenities_name = $amenity->amenity_code;
+                // $data[$key]->amenities_name = $amenity['amenity_code'];
+                foreach($amenity as $amty){
+                    $amenities_name = $amty['amenity_code'];
+                    if(!empty($amty['amenity_code'])){
+                        $amenities_name = $amty['amenity_code']; 
+                        $ame[$i] = $amenities_name;
+                        $i++;
+                    }else{
+                        $amenities_name = '';
+                    }
+                }
+                $amenities_name = implode(',' , $ame); 
+                $data[$key]->amenities_name = $amenities_name;
+            }
+
+            // $data = json_decode(json_encode($data), true);
+            // echo "<pre>"; print_r($data);die;
+            DB::beginTransaction();
+            
+            DB::commit();
+        }
+
+        foreach($data as $da)
+        {
+            DB::beginTransaction();
+            try {
+                // insert property to database
+                $value = Property::create([
+                    'property_name'         => $da->pro_title,
+                    'property_url'          => $da->slug,
+                    'property_type_id'      => $da->t_name,
+                    'property_code'         => $da->reference,
+                    'property_price'        => $da->price_value,
+                    // 'booking_price'         => $da->booking_price,
+                    'description'           => $da->pro_description,
+                    // 'featured'              => $feature,
+                    'commercial'            => $da->t_category,
+                    'amenities'             => $da->amenities_name,
+                    'map_pass'              => $da->map_passed,
+                    'furnish_type'          => $da->furnished,
+                    // 'total_floors'          => $da->floors,
+                    'parea'                 => $da->plot_size,
+                    // 'transaction_type'      => $da->transection_type,
+                    'construction_status'   => $da->construction_status,
+                    'bedrooms'              => $da->bedrooms,
+                    'bathrooms'             => $da->bathrooms,
+                    // 'balconies'             => $da->balconies,
+                    'address1'              => $da->sub_community,
+                    'address2'              => $da->tower,
+                    'locality'              => $da->community,
+                    'country'               => $da->country,
+                    'state'                 => $da->state_id,
+                    'city'                  => $da->city,
+                    // 'zipcode'               => $da->zipcode,
+                    'add_by'                => '1',
+                    'service_id'            => $da->offering_type,
+                    'agent'                 => '1',
+                    'meta_title'            => $da->pro_title,
+                    // 'meta_description'      => $da->meta_description,
+                    // 'meta_keywords'         => $da->meta_keywords,
+                ]);
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
+            }
+
+            try{
+                // Dounloading Property images to folder and saving name to database
+                foreach($data as $key => $val){
+                    $image_full = explode(',',$val->images_flink);
+                    // $array_len = count($image_full);
+                    for ($j = 0; $j < 5; $j++) {
+
+                        $filename = basename($image_full[$j]);
+                        $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                        Image::make($image_full[$j])->save(public_path('/images/dubai_images/' . $filename));
+                        // Store image in property folder
+                        // $property->image = $filename;
+                        $propertyimage = PropertyImages::create([
+                            'image_name' => $filename,
+                            // 'image_size' => $image_size,
+                            'property_id' => $value->id,
+                        ]);
+                    }
+                }
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
+            }
+
+            DB::commit();
+        }
+        // echo "<pre>"; print_r($data);die;
+    }
 
 }

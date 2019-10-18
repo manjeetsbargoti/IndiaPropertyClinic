@@ -22,6 +22,8 @@ class HomeLoanController extends Controller
     public function applyHomeLoan(Request $request)
     {
 
+        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+
         if($request->isMethod('post'))
         {
             $data = $request->all();
@@ -67,7 +69,11 @@ class HomeLoanController extends Controller
         //     $footerProperties[$key]->city_name = $city->name;
         // }
 
-        return view('frontend.home_loan_application');
+        $meta_title = "Apply Home Loan | India Property Clinic";
+        $meta_description = "Apply Home Loan for your property | India Property Clinic | Property Listing and Home Services";
+        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
+
+        return view('frontend.home_loan_application', compact('meta_title','meta_description','meta_keywords'));
     }
 
     // Home Loan Application

@@ -34,7 +34,7 @@
                   <?php endif; ?>
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_city" id="add_city" method="POST" action="<?php echo e(url('/admin/add-city')); ?>">
+                    <form role="form" name="add_city" id="add_city" method="POST" action="<?php echo e(url('/admin/csc/city/add')); ?>">
                     <?php echo e(csrf_field()); ?>
 
                       <div class="box-body">

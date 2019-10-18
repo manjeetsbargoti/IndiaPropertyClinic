@@ -35,7 +35,7 @@
                   @endif
                   <div class="box box-success">
                     <!-- form start -->
-                    <form role="form" name="add_city" id="add_city" method="POST" action="{{ url('/admin/add-city') }}">
+                    <form role="form" name="add_city" id="add_city" method="POST" action="{{ url('/admin/csc/city/add') }}">
                     {{ csrf_field() }}
                       <div class="box-body">
                         <div class="row">

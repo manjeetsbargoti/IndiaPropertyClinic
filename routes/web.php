@@ -275,3 +275,6 @@ Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@get
 
 // PPC Pages Module
 Route::match(['get', 'post'], '/ipc/{url}', 'PpcController@ppcPages');
+
+// Get Dubai Properties
+Route::match(['get', 'post'], '/get/dubai-property', 'PropertyController@dubaiProperty');

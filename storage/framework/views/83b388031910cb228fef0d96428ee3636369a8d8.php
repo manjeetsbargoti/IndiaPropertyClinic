@@ -264,7 +264,8 @@
                                                         <input type="checkbox" disabled name="featured" id="featured"
                                                             value="1">
                                                         <span class="checkmark"></span>
-                                                    </label></a>
+                                                    </label>
+                                                </a>
                                             </div>
                                         </div>
 
@@ -542,7 +543,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Feature Property Modal -->
 <div class="modal fade" id="FeatureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
