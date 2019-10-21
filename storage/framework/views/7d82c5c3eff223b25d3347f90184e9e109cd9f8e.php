@@ -243,72 +243,72 @@
 </div>
 
 <script>  
-$(window).on('hashchange', function() {
-      if (window.location.hash) {
-          var page = window.location.hash.replace('#', '');
-          if (page == Number.NaN || page <= 0) {
-              return false;
-          } else {
-              filterSearch(page);
-          }
-      }
-  });
+// $(window).on('hashchange', function() {
+//       if (window.location.hash) {
+//           var page = window.location.hash.replace('#', '');
+//           if (page == Number.NaN || page <= 0) {
+//               return false;
+//           } else {
+//               filterSearch(page);
+//           }
+//       }
+//   });
 
-  $(document).ready(function() {
-      $(document).on('click', '.pagination a', function (e) {
-          filterSearch($(this).attr('href').split('page=')[1]);
-          e.preventDefault();
-      });
-  });
-    $(document).ready(function(){
-        $('.productDetail').click(function(){
-            filterSearch();
-        });	
-    });
-    function filterSearch(page) {
-        var id = $('#sort').val();
-        var service = getFilterData('service');
-        var minPrice = $('min-Price').val();
-        var maxPrice = $('max-Price').val();
-        var bed = getFilterData('bed');
-        var bathroom = getFilterData('bathroom');
-        var room = getFilterData('room');
-    $.ajax({
-    url:"properties_filter",
-    dataType: "html",		
-    data:{id:id, page:page, service:service, minPrice:minPrice, maxPrice:maxPrice, bed:bed, bathroom:bathroom, room:room},
-    success:function(data){
-       if(data != '') 
-        {
-          $('#breadcrumb_view').remove();
-          $('.product_loadding').remove();
-          $('#property_cont').html(data);
-          location.hash = page;
-          $('.product-slide').owlCarousel({
-            items:1,
-            loop:true,
-            margin:0,
-            autoplay:true,
-            nav:true,
-            dots:false,
-            lazyLoad: true
-        });
+//   $(document).ready(function() {
+//       $(document).on('click', '.pagination a', function (e) {
+//           filterSearch($(this).attr('href').split('page=')[1]);
+//           e.preventDefault();
+//       });
+//   });
+//     $(document).ready(function(){
+//         $('.productDetail').click(function(){
+//             filterSearch();
+//         });	
+//     });
+//     function filterSearch(page) {
+//         var id = $('#sort').val();
+//         var service = getFilterData('service');
+//         var minPrice = $('min-Price').val();
+//         var maxPrice = $('max-Price').val();
+//         var bed = getFilterData('bed');
+//         var bathroom = getFilterData('bathroom');
+//         var room = getFilterData('room');
+//     $.ajax({
+//     url:"properties_filter",
+//     dataType: "html",		
+//     data:{id:id, page:page, service:service, minPrice:minPrice, maxPrice:maxPrice, bed:bed, bathroom:bathroom, room:room},
+//     success:function(data){
+//        if(data != '') 
+//         {
+//           $('#breadcrumb_view').remove();
+//           $('.product_loadding').remove();
+//           $('#property_cont').html(data);
+//           location.hash = page;
+//           $('.product-slide').owlCarousel({
+//             items:1,
+//             loop:true,
+//             margin:0,
+//             autoplay:true,
+//             nav:true,
+//             dots:false,
+//             lazyLoad: true
+//         });
         
-        }
-        else
-        {
-          $('.product_loadding').html("No Data");
-        }
-      }
-    });
-    }
-    function getFilterData(className) {
-    var filter = [];
-    $('.'+className+':checked').each(function(){
-        filter.push($(this).val());
-        });
-    return filter;
-    }
+//         }
+//         else
+//         {
+//           $('.product_loadding').html("No Data");
+//         }
+//       }
+//     });
+//     }
+//     function getFilterData(className) {
+//     var filter = [];
+//     $('.'+className+':checked').each(function(){
+//         filter.push($(this).val());
+//         });
+//     return filter;
+//     }
 </script>
 
 <style>

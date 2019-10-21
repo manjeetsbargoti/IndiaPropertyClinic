@@ -611,11 +611,11 @@ class PropertyController extends Controller
             $contRow = 0;
         }
 
-        // $city_metaname = Cities::where('name', $city_id)->first();
-        $meta_title = "Property for Sale in $city_id | India Property Clinic | IPC";
-        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_id";
+        $city_metaname = Cities::where('name', $city_id)->first();
+        $meta_title = "Property for Sale in $city_metaname->name | India Property Clinic | IPC";
+        $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services, Home Services";
-        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_id If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
+        $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
 
         // echo "<pre>"; print_r($properties); die;
         return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'cid', 'info_description'));
@@ -1141,7 +1141,7 @@ class PropertyController extends Controller
     // Add Dubai Properties
     public function dubaiProperty()
     {
-        $data = DB::table('dubai_properties')->where('city','Dubai')->take(4)->get();
+        $data = DB::table('dubai_properties')->where('city','Dubai')->take(100)->get();
         $data = json_decode(json_encode($data));
 
         foreach($data as $key => $val){
@@ -1243,10 +1243,8 @@ class PropertyController extends Controller
             }
 
             // $data = json_decode(json_encode($data), true);
-            // echo "<pre>"; print_r($data);die;
-            DB::beginTransaction();
+            echo "<pre>"; print_r($data);die;
             
-            DB::commit();
         }
 
         foreach($data as $da)
@@ -1260,33 +1258,25 @@ class PropertyController extends Controller
                     'property_type_id'      => $da->t_name,
                     'property_code'         => $da->reference,
                     'property_price'        => $da->price_value,
-                    // 'booking_price'         => $da->booking_price,
                     'description'           => $da->pro_description,
-                    // 'featured'              => $feature,
                     'commercial'            => $da->t_category,
                     'amenities'             => $da->amenities_name,
                     'map_pass'              => $da->map_passed,
                     'furnish_type'          => $da->furnished,
-                    // 'total_floors'          => $da->floors,
                     'parea'                 => $da->plot_size,
-                    // 'transaction_type'      => $da->transection_type,
                     'construction_status'   => $da->construction_status,
                     'bedrooms'              => $da->bedrooms,
                     'bathrooms'             => $da->bathrooms,
-                    // 'balconies'             => $da->balconies,
                     'address1'              => $da->sub_community,
                     'address2'              => $da->tower,
                     'locality'              => $da->community,
                     'country'               => $da->country,
                     'state'                 => $da->state_id,
                     'city'                  => $da->city,
-                    // 'zipcode'               => $da->zipcode,
                     'add_by'                => '1',
                     'service_id'            => $da->offering_type,
                     'agent'                 => '1',
                     'meta_title'            => $da->pro_title,
-                    // 'meta_description'      => $da->meta_description,
-                    // 'meta_keywords'         => $da->meta_keywords,
                 ]);
             }catch(ValidationException $e){
                 DB::rollback();
@@ -1302,12 +1292,11 @@ class PropertyController extends Controller
                     $image_full = explode(',',$val->images_flink);
                     // $array_len = count($image_full);
                     for ($j = 0; $j < 5; $j++) {
-
                         $filename = basename($image_full[$j]);
                         $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
                         Image::make($image_full[$j])->save(public_path('/images/dubai_images/' . $filename));
+                        
                         // Store image in property folder
-                        // $property->image = $filename;
                         $propertyimage = PropertyImages::create([
                             'image_name' => $filename,
                             // 'image_size' => $image_size,
@@ -1326,6 +1315,7 @@ class PropertyController extends Controller
             DB::commit();
         }
         // echo "<pre>"; print_r($data);die;
+        echo "Success!";
     }
 
 }
