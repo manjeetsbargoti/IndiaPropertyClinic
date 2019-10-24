@@ -64,14 +64,14 @@ class AddDubaiProperty extends Command
         }
         $count = (int)($data_count / $limit) + $rem;
 
-        $phase = 1;
+        $phase = $count;
 
         // echo "$count \n"; die;
 
         for($k=0; $k<$phase; $k++){
             $value = $k*$limit;
-            $data = DB::table('dubai_properties')->where('id',58)->offset($value)->limit($limit)->get();
-            // echo "$data \n"; 
+            $data = DB::table('dubai_properties')->where('city','Dubai')->offset($value)->limit($limit)->get();
+            // echo "$data \n";die; 
 
             // $data = DB::table('dubai_properties')->where('city','Dubai')->take(100)->get();
             $data = json_decode(json_encode($data));
@@ -86,7 +86,7 @@ class AddDubaiProperty extends Command
 
                 // Creating Property URL
                 $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $val->pro_title);
-                $data[$key]->slug = $slug;
+                $data[$key]->slug = $slug.'-'.$val->reference;
 
                 // Maping Property Type name
                 if($val->t_name == 'Apartment'){
@@ -136,11 +136,17 @@ class AddDubaiProperty extends Command
                 // Maping Construction Type
                 if($val->status == 'available'){
                     $data[$key]->construction_status = 'Ready to Move';
+                }else{
+                    $data[$key]->construction_status = '';
                 }
 
                 // Maping Map Passed
                 if($val->state == 'approved'){
                     $data[$key]->map_passed = 1;
+                }elseif($val->state == 'draft'){
+                    $data[$key]->map_passed = 0;
+                }else{
+                    $data[$key]->map_passed = '';
                 }
 
                 // Location Maping
@@ -221,19 +227,22 @@ class AddDubaiProperty extends Command
                 try{
                     // Dounloading Property images to folder and saving name to database
                     foreach($data as $key => $val){
-                        if($val->images_flink > 0){
+                        if($val->images_flink != ''){
                             $image_full = explode(',',$val->images_flink);
                             $image_count = count($image_full);
-                        }elseif($val->images_flink == 0){
+                        }elseif($val->images_flink == ''){
                             $image_full = '';
                             $image_count = 0;
                         }
+
+                        // echo "<pre>"; print_r($image_count);die;
 
                         $array_len = $image_count;
                         if($array_len >= 5){
                             for ($j = 0; $j < 5; $j++) {
                                 $filename = basename($image_full[$j]);
                                 $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
+                                // Image::make($image_full[$j])->save($large_image_path);
                                 Image::make($image_full[$j])->save(public_path('/images/dubai_images/' . $filename));
                                 
                                 // Store image in property folder
