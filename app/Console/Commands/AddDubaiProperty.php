@@ -64,7 +64,7 @@ class AddDubaiProperty extends Command
         }
         $count = (int)($data_count / $limit) + $rem;
 
-        $phase = $count;
+        $phase = 1;
 
         // echo "$count \n"; die;
 
@@ -145,8 +145,10 @@ class AddDubaiProperty extends Command
                     $data[$key]->map_passed = 1;
                 }elseif($val->state == 'draft'){
                     $data[$key]->map_passed = 0;
+                }elseif($val->state == null){
+                    $data[$key]->map_passed = null;
                 }else{
-                    $data[$key]->map_passed = '';
+                    $data[$key]->map_passed = null;
                 }
 
                 // Location Maping

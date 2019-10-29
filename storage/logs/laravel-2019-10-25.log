@@ -1,0 +1,88 @@
+[2019-10-25 12:49:38] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Kid-s-Play-area-Garden-facing-2BR-near-school-rapiddeals-1632369' for key 'property_url' (SQL: insert into `properties` (`property_name`, `property_url`, `property_type_id`, `property_code`, `property_price`, `description`, `commercial`, `amenities`, `map_pass`, `furnish_type`, `parea`, `construction_status`, `bedrooms`, `bathrooms`, `address1`, `address2`, `locality`, `country`, `state`, `city`, `add_by`, `service_id`, `agent`, `meta_title`, `updated_at`, `created_at`) values (Kid's Play area & Garden facing 2BR near school, Kid-s-Play-area-Garden-facing-2BR-near-school-rapiddeals-1632369, 1004, rapiddeals-1632369, 840000, RERA Permit 33367
+
+2BR @ Al Thamam 51
+Vacant on Transfer
+With Kitchen Appliances
+Kid's Play Area and Garden Facing
+Next to school and Carrefour
+Very close to area's community
+Size : 1,499 Sq.ft.
+Sale Price : AED 840,000
+
+For more details contact 0559462578 / 0503290136
+
+2BR @ الثمام 51
+شاغر عند النقل
+مع أدوات المطبخ
+كيد منطقة اللعب والحديقة التي تواجه
+بجانب المدرسة و كارفور
+قريب جدا من مجتمع المنطقة
+الحجم: 1499 قدم مربع
+سعر البيع: 840،000 درهم
+
+لمزيد من التفاصيل ، اتصل على 0559462578/0503290136
+
+RAPID DEALS REAL ESTATE BROKERS
+Established with a view to provide comprehensive and customized solutions to all property related requirements, Rapid Deals aims to be one of the top real estate companies in Dubai. With over 20 years of experience in international property, the founders have catered to the tastes of the most discerning clients. The company boast of a long list of encouraging testimonials, detailing the expertise and quality of the service that Rapid Deals Real Estate Brokers provides. The core of the company is based on extensive research and knowledge of Dubai real estate. Rapid Deals is here to help build and add value to property - for individuals as well as corporate clients.
+دائرة التنمية الاقتصادية: 614741
+ORN : 12756, 0, AM4243,AM8729,AM4890,AM9509,AM8709,AM1548,AM8875,AM7488,AM2169, 1, U, , Ready to Move, 2, 3, Al Thamam, Al Thamam 51, Remraam, AE, 3705, 48087, 1, 4, 1, Kid's Play area & Garden facing 2BR near school, 2019-10-25 12:49:37, 2019-10-25 12:49:37)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Kid-s-Play-area-Garden-facing-2BR-near-school-rapiddeals-1632369' for key 'property_url' (SQL: insert into `properties` (`property_name`, `property_url`, `property_type_id`, `property_code`, `property_price`, `description`, `commercial`, `amenities`, `map_pass`, `furnish_type`, `parea`, `construction_status`, `bedrooms`, `bathrooms`, `address1`, `address2`, `locality`, `country`, `state`, `city`, `add_by`, `service_id`, `agent`, `meta_title`, `updated_at`, `created_at`) values (Kid's Play area & Garden facing 2BR near school, Kid-s-Play-area-Garden-facing-2BR-near-school-rapiddeals-1632369, 1004, rapiddeals-1632369, 840000, RERA Permit 33367
+
+2BR @ Al Thamam 51
+Vacant on Transfer
+With Kitchen Appliances
+Kid's Play Area and Garden Facing
+Next to school and Carrefour
+Very close to area's community
+Size : 1,499 Sq.ft.
+Sale Price : AED 840,000
+
+For more details contact 0559462578 / 0503290136
+
+2BR @ الثمام 51
+شاغر عند النقل
+مع أدوات المطبخ
+كيد منطقة اللعب والحديقة التي تواجه
+بجانب المدرسة و كارفور
+قريب جدا من مجتمع المنطقة
+الحجم: 1499 قدم مربع
+سعر البيع: 840،000 درهم
+
+لمزيد من التفاصيل ، اتصل على 0559462578/0503290136
+
+RAPID DEALS REAL ESTATE BROKERS
+Established with a view to provide comprehensive and customized solutions to all property related requirements, Rapid Deals aims to be one of the top real estate companies in Dubai. With over 20 years of experience in international property, the founders have catered to the tastes of the most discerning clients. The company boast of a long list of encouraging testimonials, detailing the expertise and quality of the service that Rapid Deals Real Estate Brokers provides. The core of the company is based on extensive research and knowledge of Dubai real estate. Rapid Deals is here to help build and add value to property - for individuals as well as corporate clients.
+دائرة التنمية الاقتصادية: 614741
+ORN : 12756, 0, AM4243,AM8729,AM4890,AM9509,AM8709,AM1548,AM8875,AM7488,AM2169, 1, U, , Ready to Move, 2, 3, Al Thamam, Al Thamam 51, Remraam, AE, 3705, 48087, 1, 4, 1, Kid's Play area & Garden facing 2BR near school, 2019-10-25 12:49:37, 2019-10-25 12:49:37)) at D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:664, PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'Kid-s-Play-area-Garden-facing-2BR-near-school-rapiddeals-1632369' for key 'property_url' at D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:458)
+[stacktrace]
+#0 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(624): Illuminate\\Database\\Connection->runQueryCallback('insert into `pr...', Array, Object(Closure))
+#1 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(459): Illuminate\\Database\\Connection->run('insert into `pr...', Array, Object(Closure))
+#2 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(411): Illuminate\\Database\\Connection->statement('insert into `pr...', Array)
+#3 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Processors\\Processor.php(32): Illuminate\\Database\\Connection->insert('insert into `pr...', Array)
+#4 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Query\\Builder.php(2690): Illuminate\\Database\\Query\\Processors\\Processor->processInsertGetId(Object(Illuminate\\Database\\Query\\Builder), 'insert into `pr...', Array, 'id')
+#5 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(1353): Illuminate\\Database\\Query\\Builder->insertGetId(Array, 'id')
+#6 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(839): Illuminate\\Database\\Eloquent\\Builder->__call('insertGetId', Array)
+#7 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(804): Illuminate\\Database\\Eloquent\\Model->insertAndSetId(Object(Illuminate\\Database\\Eloquent\\Builder), Array)
+#8 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(667): Illuminate\\Database\\Eloquent\\Model->performInsert(Object(Illuminate\\Database\\Eloquent\\Builder))
+#9 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(795): Illuminate\\Database\\Eloquent\\Model->save()
+#10 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\helpers.php(1124): Illuminate\\Database\\Eloquent\\Builder->Illuminate\\Database\\Eloquent\\{closure}(Object(App\\Property))
+#11 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Builder.php(796): tap(Object(App\\Property), Object(Closure))
+#12 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Support\\Traits\\ForwardsCalls.php(23): Illuminate\\Database\\Eloquent\\Builder->create(Array)
+#13 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(1618): Illuminate\\Database\\Eloquent\\Model->forwardCallTo(Object(Illuminate\\Database\\Eloquent\\Builder), 'create', Array)
+#14 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Eloquent\\Model.php(1630): Illuminate\\Database\\Eloquent\\Model->__call('create', Array)
+#15 D:\\GIT_Code\\IndiaPropertyClinic\\app\\Console\\Commands\\AddDubaiProperty.php(219): Illuminate\\Database\\Eloquent\\Model::__callStatic('create', Array)
+#16 [internal function]: App\\Console\\Commands\\AddDubaiProperty->handle()
+#17 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(32): call_user_func_array(Array, Array)
+#18 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(90): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php(34): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php(576): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(183): Illuminate\\Container\\Container->call(Array)
+#22 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\symfony\\console\\Command\\Command.php(255): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#23 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php(170): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\symfony\\console\\Application.php(915): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#25 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\symfony\\console\\Application.php(272): Symfony\\Component\\Console\\Application->doRunCommand(Object(App\\Console\\Commands\\AddDubaiProperty), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\symfony\\console\\Application.php(148): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php(90): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 D:\\GIT_Code\\IndiaPropertyClinic\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(133): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 D:\\GIT_Code\\IndiaPropertyClinic\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 {main}
+"} 

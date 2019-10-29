@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        \App\Console\Commands\GenerateSitemap::class
+        // \App\Console\Commands\GenerateSitemap::class,
+        '\App\Console\Commands\AddDubaiProperty',
     ];
 
     /**
@@ -27,7 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('sitemap:generate')->everyFiveMinutes();
+        // $schedule->command('sitemap:generate')->everyFiveMinutes();
+        $schedule->command('AddDubaiProperty:addDubaiProperty')->daily();
     }
 
     /**
