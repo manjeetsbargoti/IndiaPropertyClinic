@@ -1,0 +1,1 @@
+<!-- Custom Head --><?php /**PATH D:\GITHUB\IndiaPropertyClinic\resources\views/admin/system/partials/code_head.blade.php ENDPATH**/ ?>

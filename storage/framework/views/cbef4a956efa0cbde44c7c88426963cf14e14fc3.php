@@ -1,0 +1,1 @@
+<img src="/images/frontend_images/images/18.gif"><?php /**PATH D:\GITHUB\IndiaPropertyClinic\resources\views/admin/google_ads/partials/leaderboard_728_90.blade.php ENDPATH**/ ?>

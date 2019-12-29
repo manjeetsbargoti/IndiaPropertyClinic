@@ -223,7 +223,7 @@ $country = Controller::countries();
                                                 @foreach($country as $coun)
                                                 @if($coun->continent == $c->code)
                                                 <li>
-                                                    <a href="{{ url('/country/'.$coun->iso2.'/properties') }}"
+                                                    <a href="{{ url('/country_property/property-for-sale-in-'.str_replace(' ','-',$coun->name)) }}"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark">{{ $coun->name }}</a>
                                                 </li>

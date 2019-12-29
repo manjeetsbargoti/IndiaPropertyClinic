@@ -182,7 +182,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         SSD\Currency\CurrencyServiceProvider::class,
-        Roumen\Sitemap\SitemapServiceProvider::class,
+        // Roumen\Sitemap\SitemapServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
 
         /*

@@ -1,0 +1,1 @@
+<!-- Custom Footer --><?php /**PATH D:\GITHUB\IndiaPropertyClinic\resources\views/admin/system/partials/code_footer.blade.php ENDPATH**/ ?>

@@ -148,16 +148,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item">Property in 
-                        @if(!empty($scityname))
-                            <span> {{ $scityname }} </span></li>
-                        @elseif(!empty($cityname))
-                            <span> {{ $cityname[0] }} </span></li>
-                        @elseif(!empty($statename))
-                            <span> {{ $statename[0] }} </span></li>
-                        @elseif(!empty($countryname))
-                            <span> {{ $countryname[0] }} </span></li>
-                        @endif
+                        <li class="breadcrumb-item">{{ $page_title }}</li>
                         </ol>
                     </nav>
                     <p><span><?php echo $contRow; ?> Properties </span></p>

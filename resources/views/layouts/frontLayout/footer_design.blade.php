@@ -6,71 +6,77 @@ $footerProperties = Controller::footersection();
 ?>
 
 <style>
-    .list-property-float{
-        position:fixed;
-        width:160px;
-        height:30px;
-        top:10em;
-        right:1px;
-        z-index: 999;
-        background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
-        color:#FFF;
-        border-radius: 5px;
-        text-align:center;
-        cursor: pointer;
-        /* box-shadow: 2px 2px 3px #999; */
-    }
-    .list-property-float span {
-        position: relative;
-        top: 2px;
-        font-size: 18px;
-    }
-    .list-property-float:hover {
-        color: #fff;
-    }
-    .list-business-float{
-        position:fixed;
-        width:160px;
-        height:30px;
-        top:13em;
-        right:1px;
-        z-index: 999;
-        background:linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
-        color:#FFF;
-        border-radius: 5px;
-        text-align:center;
-        cursor: pointer;
-        /* box-shadow: 2px 2px 3px #999; */
-    }
-    .list-business-float span {
-        position: relative;
-        top: 2px;
-        font-size: 18px;
-    }
-    .list-business-float:hover {
-        color: #fff;
-    }
-    .footer-csc a.active {
-        color: #f15a27 !important;
-    }
+.list-property-float {
+    position: fixed;
+    width: 160px;
+    height: 30px;
+    top: 10em;
+    right: 1px;
+    z-index: 999;
+    background: linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
+    color: #FFF;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    /* box-shadow: 2px 2px 3px #999; */
+}
+
+.list-property-float span {
+    position: relative;
+    top: 2px;
+    font-size: 18px;
+}
+
+.list-property-float:hover {
+    color: #fff;
+}
+
+.list-business-float {
+    position: fixed;
+    width: 160px;
+    height: 30px;
+    top: 13em;
+    right: 1px;
+    z-index: 999;
+    background: linear-gradient(to left, #171747, #171747 30%, #F15A27 85%);
+    color: #FFF;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    /* box-shadow: 2px 2px 3px #999; */
+}
+
+.list-business-float span {
+    position: relative;
+    top: 2px;
+    font-size: 18px;
+}
+
+.list-business-float:hover {
+    color: #fff;
+}
+
+.footer-csc a.active {
+    color: #f15a27 !important;
+}
 </style>
 
 <footer>
     @if(Route::current()->getName() == 'repair-services' || Route::current()->getName() == 'service-request')
     <a href="{{ url('/list-your-business') }}" class="list-business-float">
-       <span>List Your Business</span>
+        <span>List Your Business</span>
     </a>
     @elseif(Route::current()->getName() == 'home')
     <a href="{{ url('/list-your-business') }}" class="list-business-float">
-       <span>List Your Business</span>
+        <span>List Your Business</span>
     </a>
     <br>
     <a href="{{ url('/list-property') }}" class="list-property-float">
-       <span>List Your Property</span>
+        <span>List Your Property</span>
     </a>
     @else
     <a href="{{ url('/list-property') }}" class="list-property-float">
-       <span>List Your Property</span>
+        <span>List Your Property</span>
     </a>
     @endif
     <div class="footer_top">
@@ -80,14 +86,18 @@ $footerProperties = Controller::footersection();
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/choice.svg">
                         <!-- <h5>List your Property</h5> -->
-                        <p style="padding-top:0.6em;"><a href="{{ url('/list-property') }}" class="btn btn-sm btn-outline-warning"><span class="spinner-grow spinner-grow-sm"></span>&nbsp; List Property</a></p>
+                        <p style="padding-top:0.6em;"><a href="{{ url('/list-property') }}"
+                                class="btn btn-sm btn-outline-warning"><span
+                                    class="spinner-grow spinner-grow-sm"></span>&nbsp; List Property</a></p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 border_right border_bottom">
                     <div class="footer_topbox">
                         <img src="/images/frontend_images/images/trust.svg">
                         <!-- <h5>Buyers Trust Us</h5> -->
-                        <p style="padding-top:0.6em;"><a href="{{ url('/list-your-business') }}" class="btn btn-sm btn-outline-warning"><span class="spinner-grow spinner-grow-sm"></span>&nbsp; List Business</a></p>
+                        <p style="padding-top:0.6em;"><a href="{{ url('/list-your-business') }}"
+                                class="btn btn-sm btn-outline-warning"><span
+                                    class="spinner-grow spinner-grow-sm"></span>&nbsp; List Business</a></p>
                     </div>
                 </div>
                 <div class="col-6 col-sm-6 col-md-6 col-lg-3 border_right border_bottomb">
@@ -111,28 +121,41 @@ $footerProperties = Controller::footersection();
     </div>
     <div class="footer_menu">
         <?php // echo $cid; ?>
-        <div class="container footer-csc {{ (request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block' }}">
+        <div
+            class="container footer-csc {{ (request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block' }}">
             <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
             @if(!empty($ctryid))
             <h5 style="color: #000;">Properties in {{ $ctryid->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $ctryid->iso2)->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['country']))
             <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
             <h5 style="color: #000;">Properties in {{ $cntryname->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $_GET['country'])->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @else
             <h5 style="color: #000;">Properties in <?php echo $arr_ip->country; ?></h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/state/'.$s->name.'/properties') }}">Properties in {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @endif
@@ -141,40 +164,159 @@ $footerProperties = Controller::footersection();
         <div class="container footer-csc {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
             @if(!empty($sid))
             <h5 style="color: #000;">Properties in {{ $sid->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $sid->id)->get() as $c)
-                <li style="display: block;"><a class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['state']))
             <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
             <h5 style="color: #000;">Properties in {{ $statname->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $_GET['state'])->get() as $c)
-                <li style="display: block;"><a class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @endif
         </div>
 
         <div class="container footer-csc {{ (request()->is('city*')) ? 'd-block':'d-none' }}">
-            
+
             @if(!empty($_GET['city']))
             <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
             @endif
-           
+
             @if(!empty($cid))
             <h5 style="color: #000;">Properties in {{ $cid->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $cid->state_id)->get() as $c)
-                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['city']))
             <h5 style="color: #000;">Properties in {{ $stateid->name }}</h5>
-            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $stateid['state_id'])->get() as $c)
-                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'.$c->name.'/properties') }}">Properties in {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
+    </div>
+
+    <div class="footer_menu">
+        <?php // echo $cid; ?>
+        <div
+            class="container footer-csc {{ (request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block' }}">
+            <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+            @if(!empty($ctryid))
+            <h5 style="color: #000;">Properties by type in {{ $ctryid->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('country/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$ctryid->name))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/country/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$ctryid->name)) }}">{{ $s->property_type }}
+                        for sale in {{ $ctryid->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['country']))
+            <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
+            <h5 style="color: #000;">Properties by type in {{ $cntryname->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('country/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$cntryname->name))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/country/'.str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$cntryname->name)) }}">{{ $s->property_type }} for Sale in {{ $cntryname->name }}</a></li>
+                @endforeach
+            </ul>
+            @else
+            <h5 style="color: #000;">Properties by type in <?php echo $arr_ip->country; ?></h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$arr_ip->country))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/country/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$arr_ip->country)) }}">{{ $s->property_type }}
+                        for sale in <?php echo $arr_ip->country; ?></a></li>
+                @endforeach
+            </ul>
+            @endif
+
+        </div>
+        <div class="container footer-csc {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
+            @if(!empty($sid))
+            <h5 style="color: #000;">Properties by type in {{ $sid->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$sid->name))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/state/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$sid->name)) }}">{{ $s->property_type }} for Sale in {{ $sid->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['state']))
+            <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
+            <h5 style="color: #000;">Properties by type in {{ $statname->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('state/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$statname->name))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/state/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$statname->name)) }}">{{ $s->property_type }} for Sale in {{ $statname->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
+
+        <div class="container footer-csc {{ (request()->is('city*')) ? 'd-block':'d-none' }}">
+
+            @if(!empty($_GET['city']))
+            <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
+            @endif
+
+            @if(!empty($cid))
+            <h5 style="color: #000;">Properties by type in {{ $cid->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$cid->name))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$cid->name)) }}">{{ $s->property_type }} for Sale in {{ $cid->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['city']))
+            <h5 style="color: #000;">Properties by type in {{ $stateid->name }}</h5>
+            <ul
+                style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\PropertyTypes::get() as $s)
+                <li style="display: block;"><a
+                        class="{{ (request()->is('city/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$_GET['city']))) ? 'active':'' }}"
+                        style="color: #171747; font-weight: 500; font-size: 14px;"
+                        href="{{ url('/city/'. str_replace(' ','_',$s->property_type).'/'.str_replace(' ','_',$s->property_type).'-for-sale-in-'.str_replace(' ','_',$_GET['city'])) }}">Properties in $_GET['city']</a></li>
                 @endforeach
             </ul>
             @endif
@@ -230,19 +372,23 @@ $footerProperties = Controller::footersection();
                                                 <span>
                                                     @if(!empty($footerproperty->image_name))<img
                                                         src="{{ asset('/images/backend_images/property_images/large/'.$footerproperty->image_name)}}">
-                                                        @else
-                                                        <img
+                                                    @else
+                                                    <img
                                                         src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}">
-                                                        @endif
+                                                    @endif
                                                 </span>
                                                 <h6>
                                                     @if(!empty($footerproperty->city_name))
-                                                    <span>{{ $footerproperty->city_name }}, {{ $footerproperty->country }}</span>
+                                                    <span>{{ $footerproperty->city_name }},
+                                                        {{ $footerproperty->country }}</span>
                                                     @endif
-                                                    
+
                                                 </h6>
-                                                @if($footerproperty->parea)<p>{{ $footerproperty->parea }} Square Ft</p>@endif
-                                                <h5>@foreach(\App\Country::where('iso2', $footerproperty->country)->get() as $curen) {{ $curen->currency }} @endforeach {{ $footerproperty->property_price }}</h5>
+                                                @if($footerproperty->parea)<p>{{ $footerproperty->parea }} Square Ft</p>
+                                                @endif
+                                                <h5>@foreach(\App\Country::where('iso2',
+                                                    $footerproperty->country)->get() as $curen) {{ $curen->currency }}
+                                                    @endforeach {{ $footerproperty->property_price }}</h5>
                                             </a>
                                             </li>
                                             @endif
@@ -413,9 +559,9 @@ $footerProperties = Controller::footersection();
             </div>
         </div>
     </div>
-    
-    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5d7623feab6f1000123c84da&product=inline-share-buttons' async='async'></script>
+
+    <script type='text/javascript'
+        src='https://platform-api.sharethis.com/js/sharethis.js#property=5d7623feab6f1000123c84da&product=inline-share-buttons'
+        async='async'></script>
 
 </footer>
-
-

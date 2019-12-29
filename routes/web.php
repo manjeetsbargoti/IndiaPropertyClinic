@@ -207,6 +207,12 @@ Route::get('/city/{city_id}/properties', 'PropertyController@searchByCity');
 Route::get('/properties/{id}/{name}', 'PropertyController@searchByService');
 Route::get('/country/{country_id}/properties', 'PropertyController@searchByCountry');
 
+Route::get('/country_property/property-for-sale-in-{country_name}', 'PropertyController@searchByCountryName');
+
+Route::get('/country/{property_types}/{property_type}-for-sale-in-{country_name}', 'PropertyController@searchByCountryPropertyType');
+Route::get('/state/{property_types}/{property_type}-for-sale-in-{state_name}', 'PropertyController@searchByStatePropertyType');
+Route::get('/city/{property_types}/{property_type}-for-sale-in-{city_name}', 'PropertyController@searchByCityPropertyType');
+
 Route::get('/user/logout', 'AdminController@logout');
 
 // Homepage search start
@@ -270,11 +276,11 @@ Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
 // Get Social User Details
 Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@getSocialUserInfo');
 
-// Custom url
-// Route::match(['get', 'post'], '/ipc/plumbing-services', 'PpcController@ppcPages');
-
 // PPC Pages Module
 Route::match(['get', 'post'], '/ipc/{url}', 'PpcController@ppcPages');
 
 // Get Dubai Properties
 Route::match(['get', 'post'], '/get/dubai-property', 'PropertyController@dubaiProperty');
+
+// Generate Sitemap
+Route::match(['get','post'], '/sitemap.xml', 'SitemapController@index');
