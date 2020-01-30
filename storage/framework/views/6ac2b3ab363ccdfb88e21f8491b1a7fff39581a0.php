@@ -1,13 +1,9 @@
-<!doctype html>
+ <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 
 <head>
 
-    <?php if(empty($index_status)): ?>
-    <!-- <meta name="robots" content="noindex"> -->
-    <?php endif; ?>
-
-    <?php // print_r($service); ?>
+    <?php $arr_loc = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
     <!-- for Google -->
     <meta name="title" content="<?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?>" />
     <meta name="description" content="<?php if(!empty($meta_description)): ?><?php echo e($meta_description); ?><?php endif; ?>" />
@@ -27,10 +23,11 @@
     <meta name="twitter:title" content="<?php if(!empty($meta_title)): ?><?php echo e($meta_title); ?><?php endif; ?>" />
     <meta name="twitter:description" content="<?php if(!empty($meta_description)): ?><?php echo e($meta_description); ?><?php endif; ?>" />
     <meta name="twitter:image" content="<?php if(!empty($page_image)): ?><?php echo e($page_image); ?><?php endif; ?>" />
-    
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -41,7 +38,9 @@
     <link rel="icon" href="<?php echo e(asset(config('app.favicon'))); ?>" type="image/x-icon" />
 
     <!-- Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     <link rel="stylesheet" type="text/css"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
@@ -50,6 +49,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo e(asset('css/frontend_css/jquery.mmenu.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/owl.carousel.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/style.css')); ?>">
+
 
 
     <?php echo $__env->make('admin.system.partials.code_head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -67,19 +67,21 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/bootstrap.min.js')); ?>"></script>
-    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.mmenu.js')); ?>"></script>
+    
     <script src="<?php echo e(asset('js/frontend_js/tagsinput.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-lib.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-main.min.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.validate.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/frontend_js/owl.carousel.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/frontend_js/custom.js')); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js">
     </script>
+    <script src="<?php echo e(asset('js/frontend_js/custom.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.mmenu.js')); ?>"></script>
+    
 
 
     <script>
@@ -311,7 +313,7 @@
             $('#ListEmail').addClass('has-error');
         } else {
             $.ajax({
-                url: "<?php echo e(url('/checkemail')); ?>",
+                url: "<?php echo e(url('/checkuseremail')); ?>",
                 method: "POST",
                 data: {
                     email: email,
@@ -343,7 +345,7 @@
             $('#ListPhone').addClass('has-error');
         } else {
             $.ajax({
-                url: "<?php echo e(url('/checkuserphone')); ?>",
+                url: "<?php echo e(url('/checkphone')); ?>",
                 method: "POST",
                 data: {
                     phone: phone,
@@ -364,7 +366,7 @@
         }
     });
     </script>
-
+    
     <script>
     // Check user email while verifing email for reset password
     $('#VerifyResetEmailPassword').blur(function() {

@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
-use Spatie\Sitemap\SitemapGenerator;
 
 class SystemController extends Controller
 {
@@ -138,7 +137,7 @@ class SystemController extends Controller
         // dd($option2);
 
         if ($request->submit) {
-            Artisan::call('sitemap:generate');
+            Artisan::call('generate:sitemap');
         }
 
         return back();

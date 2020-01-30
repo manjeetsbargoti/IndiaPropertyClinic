@@ -18,7 +18,8 @@
         "sebastiansulinski/laravel-currency": "^1.4",
         "spatie/laravel-sitemap": "^5.5",
         "torann/geoip": "^1.0",
-        "unisharp/laravel-filemanager": "~1.8"
+        "unisharp/laravel-filemanager": "~1.8",
+        "intervention/image": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

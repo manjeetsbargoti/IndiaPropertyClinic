@@ -7,7 +7,7 @@
     <section class="content-header">
       <h1>Add New User</h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active">Add User</li>
       </ol>
     </section>

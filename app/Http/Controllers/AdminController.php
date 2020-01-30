@@ -13,7 +13,6 @@ use App\Property;
 use App\Services;
 use App\UserType;
 use App\HomeLoan;
-use App\Country;
 use App\RequestQuote;
 use App\OtherServices;
 use App\PropertyImages;
@@ -51,9 +50,10 @@ class AdminController extends Controller
         return view('admin.admin_login');
     }
 
+    // Admin, User Dashboard
     public function dashboard(Request $request)
     {
-        if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
+        if(Auth::user()->admin == 1)
         {
             $property = Property::orderBy('created_at', 'desc')->take(10)->get();
             $property_count = Property::count();
@@ -224,21 +224,45 @@ class AdminController extends Controller
     // View All User
     public function viewUser(Request $request)
     {
-        $user = User::where(['admin' => 0])->orderBy('created_at', 'desc')->paginate(10);
-        // $user = json_decode(json_encode($user));
-
-        foreach ($user as $key => $val) {
-            $usertype = UserType::where(['usercode' => $val->usertype])->first();
-            $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
-            if ($usertype_count > 0) {
-                $user[$key]->usertype_name = $usertype->usertype_name;
+        $keyword = $request->get('search');
+        $perPage = 20;
+        
+        if($keyword)
+        {
+            // echo $keyword;
+            $user = User::where(['admin' => 0])
+                        ->where('first_name','LIKE',"%$keyword%")
+                        ->orWhere('last_name','LIKE',"%$keyword%")
+                        ->orWhere('phone','LIKE',"%$keyword%")
+                        ->orWhere('email','LIKE',"%$keyword%")
+                        ->latest()->paginate($perPage);
+            // $user = json_decode(json_encode($user));
+    
+            foreach ($user as $key => $val) {
+                $usertype = UserType::where(['usercode' => $val->usertype])->first();
+                $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
+                if ($usertype_count > 0) {
+                    $user[$key]->usertype_name = $usertype->usertype_name;
+                }
             }
-            // $rservices_count = OtherServices::where(['id' => $val->servicetypeid])->count();
-            // if ($rservices_count > 0) {
-            //     $rservices = OtherServices::where(['id' => $val->servicetypeid])->first();
-            //     $user[$key]->service_name = $rservices->service_name;
-            // }
+        }else{
+            $user = User::where(['admin' => 0])->latest()->paginate($perPage);
+            // $user = json_decode(json_encode($user));
+    
+            foreach ($user as $key => $val) {
+                $usertype = UserType::where(['usercode' => $val->usertype])->first();
+                $usertype_count = UserType::where(['usercode' => $val->usertype])->count();
+                if ($usertype_count > 0) {
+                    $user[$key]->usertype_name = $usertype->usertype_name;
+                }
+                // $rservices_count = OtherServices::where(['id' => $val->servicetypeid])->count();
+                // if ($rservices_count > 0) {
+                //     $rservices = OtherServices::where(['id' => $val->servicetypeid])->first();
+                //     $user[$key]->service_name = $rservices->service_name;
+                // }
+            }
         }
+        
 
         // echo "<pre>"; print_r($user); die;
 
@@ -355,7 +379,6 @@ class AdminController extends Controller
 
         if ($request->isMethod('post')) {
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
 
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'admin' => 0])) {
                 $userStatus = User::where(['email' => $data['email']])->first();
@@ -436,7 +459,7 @@ class AdminController extends Controller
         // echo "<pre>"; print_r($id); die;
         $users = User::where(['id' => $id])->get();
         // $users = json_decode(json_encode($users));
-
+        
         if($request->isMethod('post'))
         {
             $data = $request->all();
@@ -613,16 +636,7 @@ class AdminController extends Controller
         $getInfo = Socialite::driver($provider)->user();
         // echo "<pre>"; print_r($getInfo); die;
         $user = $this->createUser($getInfo, $provider);
-        
         auth()->login($user);
-
-        if(empty($user->country) || empty($user->state) || empty($user->city) || empty($user->usertype) || empty($user->phone))
-        {
-            // return redirect('/social/user/complete-info');
-            // echo "<pre>"; print_r($user); die;
-
-            return view('auth.users.user_info.get_social_user_details', compact('user'));
-        }
         // echo "<pre>"; print_r($user['email']); die;
         Session::put('UserSession', $user['email']);
         return redirect()->to('/user/account');
@@ -633,29 +647,15 @@ class AdminController extends Controller
 
         $user = User::where('provider_id', $getInfo->id)->first();
 
-        if(empty($user->avatar))
-        {
-            User::where('provider_id', $getInfo->id)->update(['avatar'=>$getInfo->avatar_original]);
-        }
-
-        // echo "<pre>"; print_r($user); die;
-
         if (!$user) {
             $user = User::create([
                 'first_name' => $getInfo->name,
                 'email'    => $getInfo->email,
                 'provider' => $provider,
-                'provider_id' => $getInfo->id,
-                'avatar'    => $getInfo->avatar
+                'provider_id' => $getInfo->id
             ]);
         }
         return $user;
-    }
-
-    // Get Social User Info
-    public function getSocialUserInfo(Request $request)
-    {
-        return view('auth.users.user_info.get_social_user_details');
     }
 
     // Delete User function
@@ -736,18 +736,15 @@ class AdminController extends Controller
     public function resetPassword(Request $request)
     {
         $data = $request->all();
-
         if ($data) {
             $code = $data['email'];
             $email = base64_decode($code);
-            $user_count = User::where('email', $email)->count();
         } else {
             $email = '';
         }
 
         if ($request->isMethod('post')) {
             $form_data = $request->all();
-            // echo"<pre>"; print_r($form_data); die;
             $password = bcrypt($form_data['password']);
 
             $datetime = date("Y-m-d h:i:s", time());
@@ -770,12 +767,7 @@ class AdminController extends Controller
             // echo "<pre>"; print_r($form_data); die;
         }
 
-        if($user_count > 0){
-            return view('auth.reset_password', compact('email'));
-        }else{
-            return redirect('/');
-        }
-        
+        return view('auth.reset_password', compact('email'));
     }
 
     //**************************************//
@@ -807,7 +799,7 @@ class AdminController extends Controller
             return redirect()->back()->with('flash_message_success', 'Opened Successfully!');
         }
     }
-
+    
     // Verify Email for Reset Password
     public function verifyEmailResetPassword(Request $request)
     {
@@ -833,30 +825,5 @@ class AdminController extends Controller
         }
 
         return view('auth.verify_email_for_reset_password');
-    }
-
-    // Get All Users
-    public function getUserApi(Request $request)
-    {
-        $user = User::select('id', 'first_name', 'last_name', 'country', 'state', 'city', 'phonecode', 'phone', 'email', 'usertype', 'servicetypeid')->where('provider', null)->get();
-        // $user_count = User::where('provider', null)->count();
-
-        $user = json_decode(json_encode($user));
-
-        foreach($user as $key => $val)
-        {
-            $country_count = Country::where('iso2', $val->country)->count();
-            if($country_count > 0){
-                $country = Country::where('iso2', $val->country)->first();
-                $user[$key]->country_name = $country->name;
-            }
-        }
-
-        $user = json_decode(json_encode($user), true);
-
-        $data['count'] = User::where('provider', null)->count();
-        $data['users'] = $user;
-
-        return $data;
     }
 }

@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col-12 col-md-3 col-lg-3">
                     <div class="ven_leftside">
-                        <div class="ven_propic">
-                            <img src="{{ asset('/images/backend_images/user_images/user2.jpg') }}">
+                        <div class="ven_propic" style="text-align:center;">
+                            <img src="{{ asset('/images/user.png') }}">
                         </div>
                         <div class="contact_details">
                             <ul>
@@ -27,13 +27,14 @@
                         </div>
                     </div>
                     <a class="allphotos" href="#"> <i class="far fa-images"></i> See all 10 photos</a>
+                    @include('admin.google_ads.partials.square_250_250')
                 </div>
                 <div class="col-12 col-md-3 col-lg-6">
                     <div class="vender_content">
                         <h4>{{ $ud->first_name }} {{ $ud->last_name }}@if($ud->status == 1)<sup><img class="img-responsive" width="16" src="{{ url('/images/verified_badge.png') }}" alt="user verified badge"></sup>@endif</h4>
                         <div class="overview_rateingsec">
                             <h4 class="overview_rateing"><i class="staricon"><img
-                                        src="../../images/frontend_images/images/star.svg">
+                                        src="../../images/frontend_images/../../images/frontend_images/images/star.svg">
                                 </i><span class="autorate">4</span> / 5 </h4>
                             <a id="rateing_revbtn" href="javascript:void(0);">59,634 Ratings &amp; 10,710 Reviews</a>
                         </div>
@@ -156,7 +157,7 @@
                                             <h3 class="overview_rateinglist"><i class="staricon"><img
                                                         src="../../images/frontend_images/images/star.svg"></i><span
                                                     class="autorate">3.5</span> / 5 </h3>
-                                            <h6>Nilanchi Kumari</h6>
+                                            <h6>John Doe</h6>
                                             <p>India Property Clinic – Property portal and has been the most preferred
                                                 property
                                                 site in India,</p>
@@ -166,7 +167,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+                        @include('admin.google_ads.partials.large_leaderboard_970_90')
+                    </div>
                 </div>
+                
                 <div class="col-12 col-md-3 col-lg-3">
                     <div class="vender_right">
                         <div class="req_quote">
@@ -223,6 +228,7 @@
                                         <th>Sun</th>
                                         <td>Closed</td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>

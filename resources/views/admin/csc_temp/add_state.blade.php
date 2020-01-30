@@ -44,7 +44,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_state" id="add_state" method="POST"
-                        action="{{ url('/admin/add-state') }}">
+                        action="{{ url('/admin/csc/state/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

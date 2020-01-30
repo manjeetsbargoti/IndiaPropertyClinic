@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/queries/phone-query/add') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('/admin/queries/phone-query/add') }}" class="label label-lg label-success">Add New</a></h3>
         <h1>Phone Queries</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -114,13 +114,6 @@
                             <td>Property Type</td>
                             <td><label class="label label-md label-success">{{ $pq->property_type }}</label>
                                 <label class="label label-md label-info">{{ $pq->property_for }}</label></td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td>@if(!empty($pq->city)) @foreach(\App\Cities::where('id', $pq->city)->get() as
-                                $c){{ $c->name }},@endforeach @endif @if(!empty($pq->state))
-                                @foreach(\App\State::where('id', $pq->state)->get() as $s)
-                                {{ $s->name }},@endforeach @endif {{ $pq->country }}</td>
                         </tr>
                         <tr>
                             <td>Description</td>

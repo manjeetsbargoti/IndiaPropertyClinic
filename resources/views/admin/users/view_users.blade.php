@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/add-new-user') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('admin/user/new') }}" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">All User</li>
@@ -22,7 +22,20 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="allusers-table" class="table table-bordered table-striped">
+                        <form method="GET" action="{{ url('/admin/users') }}" accept-charset="UTF-8"
+                                class="form-inline my-2 my-lg-0 float-right" role="search">
+                            <div class="input-group pull-right">
+                                <input type="text" class="form-control" name="search" placeholder="Search..."
+                                        value="{{ request('search') }}">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <br>
+                        <table id="users-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>S.No</th>
@@ -96,15 +109,8 @@
                         </table>
                     </div>
                     <div class="row">
-                        <div class="col-sm-5">
-                            <div class="dataTables_info_1" id="allusers-table_info_1" role="status" aria-live="polite">
-                                Showing 1 to 10 of 10 entries</div>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="dataTables_paginate paging_simple_numbers_1" id="allusers-table_paginate_1">
-                                {!! $user->render() !!}
-                            </div>
-                        </div>
+                        <div class="pagination-wrapper"> {!! $user->appends(['search' =>
+                                Request::get('search')])->render() !!} </div>
                     </div>
                     <!-- /.box-body -->
                 </div>

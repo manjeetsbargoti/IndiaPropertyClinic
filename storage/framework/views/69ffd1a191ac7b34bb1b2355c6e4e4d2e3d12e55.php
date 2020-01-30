@@ -51,7 +51,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
 
-    <form method="POST" action="<?php echo e(url('admin')); ?>" id="loginform">
+    <form method="POST" action="<?php echo e(url('admin')); ?>" id="loginform" method="post">
       <?php echo e(csrf_field()); ?>
 
       <div class="form-group has-feedback">

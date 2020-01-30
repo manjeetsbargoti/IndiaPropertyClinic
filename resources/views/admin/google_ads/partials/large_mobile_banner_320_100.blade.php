@@ -1,1 +1,0 @@
-Large Mobile Banner

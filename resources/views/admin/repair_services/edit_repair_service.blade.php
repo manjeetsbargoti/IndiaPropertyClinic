@@ -5,10 +5,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Edit Services</h1>
+      <h1>Add Property Services</h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Edit Services</li>
+        <li class="active">Add Services</li>
       </ol>
     </section>
 

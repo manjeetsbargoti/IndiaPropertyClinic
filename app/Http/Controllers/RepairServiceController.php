@@ -50,9 +50,10 @@ class RepairServiceController extends Controller
                     
                     $extension = $image_tmp->getClientOriginalExtension();
                     $filename = rand(1, 99999).'.'.$extension;
+                    $watermark = Image::make(public_path('/images/frontend_images/images/logo.png'));
                     $large_image_path = 'images/backend_images/repair_service_images/large/'.$filename;
                     // Resize image
-                    Image::make($image_tmp)->resize(730, 464)->save($large_image_path);
+                    Image::make($image_tmp)->resize(730, 464)->insert($watermark, 'center', 30, 30)->save($large_image_path);
 
                     // Store image in Services folder
                     $rservices->service_image = $filename;
@@ -127,7 +128,7 @@ class RepairServiceController extends Controller
     public function SingleRepairService(Request $request, $url=null)
     {
         $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
-
+        
         $ots_data = OtherServices::where('url', $url)->get();
 
         $ots_p_id = $ots_data[0]['parent_id'];
@@ -140,16 +141,14 @@ class RepairServiceController extends Controller
 
         $randervice = OtherServices::where('parent_id', $ots_p_id)->limit(4)->get();
         
-        // echo "<pre>"; print_r($randervice); die;
-
+        $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
         // $randervice = OtherServices::inRandomOrder()->limit(4)->get();
         $services = OtherServices::where(['url'=>$url])->get();
         $services = json_decode(json_encode($services));
         $sub_services = OtherServices::where(['parent_id'=>$services[0]->id])->get();
         $vendor = User::where(['usertype'=> 'V'])->where('country', $arr_ip->iso_code)->take(4)->get();
-        // echo "<pre>"; print_r($arr_ip); die;
-
+        
         $services_meta = json_decode(json_encode($services), true);
 
         if(!empty($services_meta[0]['meta_title'])){
@@ -175,9 +174,12 @@ class RepairServiceController extends Controller
 
         if(!empty($services_meta[0]['service_banner'])){
             $page_image = config('app.url')."/images/backend_images/repair_service_images/large/".$services_meta[0]['service_banner'];
+        }else{
+            $page_image = '';
         }
 
-        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor','randervice','services','otherServices','sub_services','meta_title','meta_description','meta_keywords','canonical_url','page_image'));
+
+        return view('layouts.frontLayout.repair_services.single_repair_service')->with(compact('vendor' ,'randervice', 'services', 'otherServices', 'sub_services','meta_title','meta_description','meta_keywords','canonical_url','page_image'));
     }
 
     // Edit Repair Service function
@@ -229,12 +231,13 @@ class RepairServiceController extends Controller
             }else {
                 $bannername = $data['current_banner'];
             }
-            OtherServices::where(['id'=>$id])->update(['service_name'=>$data['rservice_name'],'parent_id'=>$data['parent_id'], 's_description'=>$data['s_description'], 'description'=>$data['description'], 'url'=>$data['rservice_url'], 'status'=>$status, 'service_image'=>$filename, 'service_banner'=>$bannername]);
+            OtherServices::where(['id'=>$id])->update(['service_name'=>$data['rservice_name'], 'parent_id'=>$data['parent_id'], 's_description'=>$data['s_description'], 'description'=>$data['description'], 'url'=>$data['rservice_url'], 'status'=>$status, 'service_image'=>$filename, 'service_banner'=>$bannername]);
             return redirect('/admin/repair-services')->with('flash_message_success', 'Service updated Successfully!');
         }
         $servicesDetails = OtherServices::where(['id'=>$id])->first();
         $servicesDetails = json_decode(json_encode($servicesDetails));
         // echo "<pre>"; print_r($servicesDetails); die;
+        
         // Repair Services Dropdown
         $repairServices = OtherServices::where(['parent_id'=>0])->get();
         $repairServices_dropdown = "<option selected value='0' >Main Service</option>";
@@ -297,59 +300,31 @@ class RepairServiceController extends Controller
                 $subs_services = '';
             }
 
-            DB::beginTransaction();
-
-            try {
-                $newservreq = RequestService::create([
-                    'name'              => $data['name'],
-                    'email'             => $data['email'],
-                    'phone'             => $data['phone'],
-                    'main_service'      => $data['main_service'],
-                    'sub_service'       => $sub_services,
-                    'subs_service'      => $subs_services,
-                    'project_status'    => $data['project_status'],
-                    'project_timeline'  => $data['project_timeline'],
-                    'address_type'      => $data['address_type'],
-                    'ownership'         => $data['ownership'],
-                    'financing'         => $data['financing'],
-                    'description'       => $data['description'],
-                    'address'           => $data['address'],
-                    'country'           => $data['country'],
-                    'state'             => $data['state'],
-                    'city_name'         => $city_id,
-                    'zipcode'           => $data['zipcode']
-                ]);
-            }catch(ValidationException $e){
-                DB::rollback();
-                return Redirect()->back()->withErrors($e->getErrors())->withInput();
-            }catch(\Exception $e){
-                DB::rollback();
-                throw $e;
-            }
-
-            try {
-                $newuser = User::create([
-                    'first_name'        => $data['name'],
-                    'email'             => $data['email'],
-                    'phone'             => $data['phone'],
-                    'country'           => $data['country'],
-                    'state'             => $data['state'],
-                    'city'              => $city_id,
-                ]);
-            }catch(ValidationException $e){
-                DB::rollback();
-                return Redirect()->back()->withErrors($e->getErrors())->withInput();
-            }catch(\Exception $e){
-                DB::rollback();
-                throw $e;
-            }
-
-            DB::commit();
+            RequestService::create([
+                'name'              => $data['name'],
+                'email'             => $data['email'],
+                'phone'             => $data['phone'],
+                'main_service'      => $data['main_service'],
+                'sub_service'       => $sub_services,
+                'subs_service'      => $subs_services,
+                'project_status'    => $data['project_status'],
+                'project_timeline'  => $data['project_timeline'],
+                'address_type'      => $data['address_type'],
+                'ownership'         => $data['ownership'],
+                'financing'         => $data['financing'],
+                'description'       => $data['description'],
+                'address'           => $data['address'],
+                'country'           => $data['country'],
+                'state'             => $data['state'],
+                'city_name'         => $city_id,
+                'zipcode'           => $data['zipcode']
+            ]);
 
             return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
         }
         return view('layouts.frontLayout.repair_services.service_request');
     }
+
 
     // Auto City List
     public function search(Request $request)

@@ -16,6 +16,18 @@
     <section class="content container-fluid">
         <div class="row">
             <div class="col-xs-12">
+            @if(Session::has('flash_message_success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                    <strong>{!! session('flash_message_success') !!}</strong>
+                </div>
+            @endif   
+            @if(Session::has('flash_message_error')) 
+                <div class="alert alert-error alert-dismissible">
+                    <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                    <strong>{!! session('flash_message_error') !!}</strong>
+                </div>
+            @endif
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -54,7 +66,7 @@
                                         @if($rq->status == 1)
                                         <a href="{{ url('/admin/req_quote/'.$rq->id.'/open') }}" class="btn btn-success btn-xs">Closed</a>
                                         @else
-                                        <a href="{{ url('/admin/req_quote/'.$rq->id.'/close') }}" class="btn btn-danger btn-xs">Open</a>
+                                        <a href="{{ url('/admin/req_quote/'.$rq->id.'/closed') }}" class="btn btn-danger btn-xs">Open</a>
                                         @endif
                                     </td>
                                 </tr>

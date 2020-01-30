@@ -51,7 +51,7 @@
 <div class="smart_container">
     <div class="services_viewsec">
         <div class="services_viewbanner background-image"
-            style="background-image:url('{{ url('images/backend_images/ppc_images/large/'.$pd->banner_image) }}')">
+            style="background-image:url('https://www.indiapropertyclinic.com/images/backend_images/repair_service_images/large/65789.jpg')">
             <span role="img" aria-label="Plumbing Services"> </span>
             <div class="overlay_services"></div>
             <div class="services_viewbannertxt">

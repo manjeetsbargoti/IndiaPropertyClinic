@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+Use DB;
 use Auth;
 use Image;
 use Session;
 use App\User;
 use App\Cities;
 use App\Country;
-use App\Services;
 use App\Property;
+use App\Services;
 use App\PhoneQuery;
 use App\PropertyTypes;
-use App\OtherServices;
-use App\PropertyImages;
+Use App\OtherServices;
+Use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Input;
@@ -200,9 +200,9 @@ class HomeController extends Controller
         // echo "<pre>"; print_r($dealer); die;
 
         // Meta tags
-        $meta_title = "India Property Clinic | Property Listing and Home Repairing Services";
+        $meta_title = "Real Estate Agency, Real Estate Listing, Home Repair - IPC";
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
-        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
 
         return view('home')->with(compact('properties', 'dealer', 'featureProperty', 'commercialProperty', 'otherServices', 'services', 'propertyType', 'continents', 'countries', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'commercial_property'));
     }
@@ -221,9 +221,9 @@ class HomeController extends Controller
         
         $ip_posts = Property::where('country',$arr_ip->iso_code)->count();
         if($ip_posts > 0){
-            $posts = Property::where('country',$arr_ip->iso_code)->orderBy('created_at', 'desc')->paginate(24);
+            $posts = Property::where('country',$arr_ip->iso_code)->orderBy('created_at', 'desc')->paginate(24)->onEachSide(1);
         }else{
-            $posts = Property::orderBy('created_at', 'desc')->paginate(24);
+            $posts = Property::orderBy('created_at', 'desc')->paginate(24)->onEachSide(1);
         }
         // $propertyImages = PropertyImages::get();
         $otherServices = OtherServices::get();
@@ -276,12 +276,12 @@ class HomeController extends Controller
             $contRow = count($properties);
             // echo "<pre>"; print_r($contRow); die;
         }
-
+        
         // Meta tags
-        $meta_title = "India Property Clinic | Property Listing and Home Services";
-        $meta_description = "India Property Clinic | Property Listing and Home Services";
-        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
-
+        $meta_title = "India Property Clinic | Property Listing and Home Repairing Services";
+        $meta_description = "India Property Clinic | Property Listing and Repairing Services";
+        $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
+        
         return view('frontend.viewall_properties', compact('properties', 'otherServices', 'contRow', 'posts', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords'));
         // return response()->json($posts);
     }
@@ -381,9 +381,9 @@ class HomeController extends Controller
         } else {
             $contRow = 0;
         }
-
+        
         // echo "<pre>"; print_r($data); die;
-
+       
         $service_name = Services::where('id', $data['property_cat'])->first();
         $property_type = PropertyTypes::where('property_type_code', $data['property_type'])->first();
 
@@ -392,6 +392,8 @@ class HomeController extends Controller
             $meta_title = $property_type['property_type']." in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
         }elseif(!empty($data['search_text']) && empty($data['property_type'])){
             $meta_title = "Properties in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }elseif(empty($data['search_text']) && !empty($data['property_type'])){
+            $meta_title = $property_type['property_type']." for ".$service_name['service_name']." | India Property Clinic | IPC";
         }elseif(empty($data['search_text']) && empty($data['property_type'])){
             $meta_title = "Properties for ".$service_name['service_name']." | India Property Clinic | IPC";
         }
@@ -399,14 +401,14 @@ class HomeController extends Controller
         $meta_description = "India Property Clinic | Property Listing and Repairing Services";
         $meta_keywords = "India Property Clinic, Property Listing, Repair Services";
 
-        return view('frontend.filter_templates.search_result')->with(compact('properties', 'contRow', 'countrycount', 'statecount', 'citycount', 'scityname', 'meta_title', 'meta_description', 'meta_keywords', 'properties_count'));
+        return view('frontend.filter_templates.search_result')->with(compact('properties', 'properties_count', 'countrycount', 'statecount', 'citycount', 'scityname', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
 
     //Sidebar filter
     public function filter(Request $request)
     {
-        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
+        // $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
         
         if (isset($request->id)) {
             if ($request->id == 1) {
@@ -442,13 +444,13 @@ class HomeController extends Controller
             if (isset($bathroom)) {
                 $query->whereIN('bathrooms', $bathroom);
             }
-        })->where('country', $country)->orderBy($type, $id);
+        })->orderBy($type, $id);
 
         $breadcrumb = $posts->get();
         $posts = $posts->paginate($this->posts_per_page);
 
 
-        $propertyImages = PropertyImages::get();
+        // $propertyImages = PropertyImages::get();
 
         foreach ($posts as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
@@ -507,13 +509,15 @@ class HomeController extends Controller
                             <div class="bottom_strip">
                                 <h6><i class="fas fa-map-marker-alt"></i> ';
                 if (!empty($property->city_name)) {
-                    echo '<span>' . $property->city_name . ',</span>';
+                    echo '<span>' . $property->city_name . ', </span>';
                 } {
                     if (!empty($property->country_name))
                         echo '<span>' . $property->country_name . '</span>';
                 }
                 echo '</h6>';
+                                if($property->parea){
                                 echo '<p>' . $property->parea . 'Square Ft</p>';
+                                }
                                 echo '<span class="tagbtn rent">' . $property->service_name . '</span>
                             </div> 
                         </div>
@@ -564,6 +568,65 @@ class HomeController extends Controller
         }
         return $output;
     }
+    
+    // Business List by Vendor
+    public function listBusiness(Request $request)
+    {
+
+        if($request->isMethod('Post'))
+        {
+            $data = $request->all();
+            // echo"<pre>"; print_r($data);die;
+
+            // $rservice = implode(',', $data['offered_service']);
+            $rservice = $data['offered_service'];
+            // echo"<pre>"; print_r($rservice);die;
+
+            DB::beginTransaction();
+
+            try{
+
+                User::create([
+                    'first_name'            => $data['first_name'],
+                    'last_name'             => $data['last_name'],
+                    'email'                 => $data['email'],
+                    'phone'                 => $data['phone'],
+                    'business_name'         => $data['business_name'],
+                    'experience'            => $data['experience'],
+                    'about_business'        => $data['business_description'],
+                    'country'               => $data['business_country'],
+                    'state'                 => $data['business_state'],
+                    'city'                  => $data['business_city'],
+                    'servicetypeid'         => $rservice,
+                    'usertype'              => 'V'
+                ]);
+
+            }catch(ValidationException $e){
+                DB::rollback();
+                return Redirect()->back()->withErrors($e->getErrors())->withInput();
+            }catch(\Exception $e){
+                DB::rollback();
+                throw $e;
+            }
+
+            DB::commit();
+
+            // Send Confirmation Email
+            $email = $data['email'];
+            $messageData = ['email' => $data['email'], 'name' => $data['first_name'], 'code' => base64_encode($data['email'])];
+            Mail::send('emails.generate_user_password', $messageData, function ($message) use ($email) {
+                $message->to($email)->subject('Generate account password and Confirm account with India Property Clinic');
+            });
+
+            return redirect()->back()->with('flash_message_success','Business Submitted Successfully! Please Check your email and generate password.');
+
+        }
+
+        $repair_services = OtherServices::where('parent_id', 0)->orderBy('service_name', 'asc')->get();
+        $countries = Country::orderBy('name', 'asc')->get();
+
+        return view('frontend.list_business', compact('countries', 'repair_services'));
+    }
 
     // Add New Phone Queries
     public function addPhoneQuery(Request $request)
@@ -588,7 +651,7 @@ class HomeController extends Controller
                 'zipcode'       => $data['zipcode']
             ]);
 
-            return redirect('/admin/phone-queries')->with('flash_message_success', 'Phone Property added Successfully!');
+            return redirect('/admin/queries/phone-queries')->with('flash_message_success', 'Phone Property added Successfully!');
         }
 
         return view('admin.queries.add_phone_queries');
@@ -603,7 +666,7 @@ class HomeController extends Controller
         // return view('admin.queries.user_phone_query_tmp', compact('userPhoneQueryData'));
         return view('admin.queries.property_phone_query', compact('propertyquery'));
     }
-
+    
     // Get Homepage Content
     public function getHomeContent()
     {

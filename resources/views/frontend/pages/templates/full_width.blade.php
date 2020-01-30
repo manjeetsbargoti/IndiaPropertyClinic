@@ -2,8 +2,8 @@
 @section('content')
 
 <style>
-body {
-    background-image: url('../../bg-tan.webp');
+.smart_container {
+    background-image: url('../../images/real-estate-bg.jpg');
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-position: center center;
@@ -23,8 +23,14 @@ body {
     vertical-align: middle;
     box-shadow: 2px 2px 10px #ccc;
 }
-.thankyou_box h2, .thankyou_box h3, .thankyou_box h4, .thankyou_box h5, .thankyou_box h6 {
+.thankyou_box h1, .thankyou_box h2, .thankyou_box h3, .thankyou_box h4, .thankyou_box h5, .thankyou_box h6 {
     color: #171747;
+}
+.thankyou_box p, .thankyou_box li {
+    font-size: 14px;
+    color: #000;
+    font-weight: 400;
+    text-align: justify;
 }
 .thankyou_box p {
     font-size: 14px;

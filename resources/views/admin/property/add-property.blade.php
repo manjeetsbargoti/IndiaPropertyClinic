@@ -71,7 +71,7 @@ function generate_string($input, $strength = 16) {
     <section class="content-header">
         <h1>Add New Property</h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Add Property</li>
         </ol>
     </section>
@@ -95,13 +95,11 @@ function generate_string($input, $strength = 16) {
                                                     href="#PropertyDetailSection" aria-expanded="true"
                                                     aria-controls="PropertyDetailSection">
                                             <div class="panel-heading" role="tab" id="SectionOne">
-                                            <h4 class="panel-title">
-                                                
+                                                <h4 class="panel-title">
                                                     <strong>1. Property Details</strong>
-                                                
-                                            </h4>
+                                                </h4>
                                             </div>
-                                            </a>
+                                        </a>
                                         <div id="PropertyDetailSection" class="panel-collapse collapse in"
                                             role="tabpanel" aria-labelledby="SectionOne">
                                             <div class="panel-body">
@@ -170,7 +168,7 @@ function generate_string($input, $strength = 16) {
                                                                     <label name="Expected Total Price">Expected Total
                                                                         Price</label>
                                                                     <input name="property_price" id="property_price"
-                                                                        type="text" class="form-control">
+                                                                        type="number" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="col-xs-12 col-md-6">
@@ -287,10 +285,10 @@ function generate_string($input, $strength = 16) {
 
                                                             <div class="col-xs-12 col-md-12">
                                                                 <div class="form-group">
-                                                                    <button type="submit" name="submit_user"
-                                                                        id="submit_new_user"
-                                                                        class="btn btn-md btn-info pull-right">Add
-                                                                        User</button>
+                                                                    <!--<button type="submit" name="submit_user"-->
+                                                                    <!--    id="submit_new_user"-->
+                                                                    <!--    class="btn btn-md btn-info pull-right">Add-->
+                                                                    <!--    User</button>-->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -702,12 +700,13 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="panel panel-default">
-                                    <a class="collapsed" role="button" data-toggle="collapse"
+                                        <a class="collapsed" role="button" data-toggle="collapse"
                                                     data-parent="#accordion" href="#PropertyAmenities"
                                                     aria-expanded="false" aria-controls="PropertyAmenities">
-                                                    <div class="panel-heading" role="tab" id="SectionTwo">
+                                            <div class="panel-heading" role="tab" id="SectionTwo">
                                                 <h4 class="panel-title">
                                                     <strong>2. Property Amenities</strong>
+                                                    
                                                 </h4>
                                             </div>
                                         </a>
@@ -742,15 +741,15 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                     </div>
                                     <div class="panel panel-default">
-                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                        <a class="collapsed" role="button" data-toggle="collapse"
                                                     data-parent="#accordion" href="#PropertyImages"
                                                     aria-expanded="false" aria-controls="PropertyImages">
-                                                <div class="panel-heading" role="tab" id="SectionThree">
-                                                    <h4 class="panel-title">
-                                                        <strong>3. Property Images</strong>
-                                                    </h4>
-                                                </div>
-                                            </a>
+                                            <div class="panel-heading" role="tab" id="SectionThree">
+                                            <h4 class="panel-title">
+                                                <strong>3. Property Images</strong>
+                                            </h4>
+                                        </div>
+                                        </a>
                                         <div id="PropertyImages" class="panel-collapse collapse" role="tabpanel"
                                             aria-labelledby="SectionThree">
                                             <div class="panel-body">
@@ -775,11 +774,11 @@ function generate_string($input, $strength = 16) {
                                     <div class="panel panel-default">
                                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#SeoSection" aria-expanded="false" aria-controls="SeoSection">
                                             <div class="panel-heading" role="tab" id="SectionFour">
-                                                <h4 class="panel-title">
-                                                    <strong>4. SEO</strong>
-                                                </h4>
-                                            </div>
-                                        </a>
+                                            <h4 class="panel-title">
+                                                <strong>4. SEO</strong>
+                                            </h4>
+                                        </div>
+                                                </a>
                                         <div id="SeoSection" class="panel-collapse collapse" role="tabpanel" aria-labelledby="SectionFour">
                                             <div class="panel-body">
                                                 <div class="col-xs-12 col-md-12">

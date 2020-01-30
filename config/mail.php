@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'sendmail'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'manjeet.singh@magicgroupinc.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@indiapropertyclinic.com'),
         'name' => env('MAIL_FROM_NAME', 'India Property Clinic'),
     ],
 

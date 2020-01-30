@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        <?php if(Auth::user()->admin == 1): ?>
+        <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'): ?>
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
@@ -42,7 +42,7 @@
         <?php endif; ?>
         <div class="clearfix visible-sm-block"></div>
 
-        <?php if(Auth::user()->admin == 1): ?>
+        <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'): ?>
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-help"></i></span>
@@ -55,7 +55,7 @@
         </div>
         <?php endif; ?>
 
-        <?php if(Auth::user()->admin == 1): ?>
+        <?php if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S'): ?>
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
@@ -90,7 +90,11 @@
                 <?php if( $counter <= 4): ?>
                 <li class="item">
                   <div class="product-img"><span class="label label-info"><?php echo e(date('d M, Y', strtotime($p->created_at))); ?> </span>
-                    <img style="width: 67px !important;" class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$p->image_name)); ?>" alt="<?php echo e($p->property_name); ?>">
+                    <?php if(!empty($p->image_name)): ?>
+                        <img style="width: 67px !important;" class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/'.$p->image_name)); ?>" alt="<?php echo e($p->property_name); ?>">
+                    <?php else: ?>
+                        <img style="width: 67px !important;" class="img-responsive" src="<?php echo e(asset('/images/backend_images/property_images/large/default.jpg')); ?>" alt="<?php echo e($p->property_name); ?>">
+                    <?php endif; ?>
                   </div>
                   <div class="product-info">
                     <a href="<?php echo e(url('/properties/')); ?>/<?php echo e($p->property_url); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->property_name, $limit=50)); ?>

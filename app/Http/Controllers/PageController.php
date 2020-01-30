@@ -7,10 +7,10 @@ use Image;
 use App\Page;
 use App\State;
 use App\Cities;
+use App\PpcQuery;
 use App\Country;
 use App\Property;
 use App\Services;
-use App\PpcQuery;
 use App\PropertyImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,12 +41,15 @@ class PageController extends Controller
                     $large_image_path = 'images/backend_images/page_images/large/' . $filename;
                     // Resize image
                     Image::make($image_tmp)->resize(1280, 720)->save($large_image_path);
+
+                    // Store image in Services folder
+                    // $rservices->service_image = $filename;
                 }
             }
 
-            if (!empty($filename)) {
+            if(!empty($filename)){
                 $filename = $filename;
-            } else {
+            }else{
                 $filename = '';
             }
 
@@ -84,6 +87,7 @@ class PageController extends Controller
 
         if (!empty($data)) {
 
+
             if ($data[0]['page_type'] == 1) {
                 $data = json_decode(json_encode($data));
 
@@ -93,9 +97,10 @@ class PageController extends Controller
                 $meta_description = str_limit(strip_tags($pdata[0]['content']), $limit=200);
                 $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
                 $canonical_url = config('app.url')."/".$pdata[0]['url'];
+
                 // echo "<pre>"; print_r($meta_title); die;
 
-                return view('frontend.pages.templates.'.$pdata[0]['template'], compact('data','meta_title','meta_description','meta_keywords'));
+                return view('frontend.pages.templates.'.$pdata[0]['template'], compact('data','meta_title','meta_description','meta_keywords','canonical_url'));
 
             } elseif ($data[0]['page_type'] == 2) {
 
@@ -221,22 +226,21 @@ class PageController extends Controller
                 } else {
                     $contRow = 0;
                 }
-
-                $datas = json_decode(json_encode($data));
-                // echo "<pre>"; print_r($data); die;
+                // echo "<pre>"; print_r($countryname); die;
 
                 if ($data[0]['property_for'] == 1) {
                     $country_metaname = Country::where('iso2', $country_id)->first();
                     $service_metaname = Services::where('id', $service_id)->first();
                     $ctry_metaname = Country::where('iso2', $data[0]['country'])->first();
 
+                    $page_title = $data[0]['title'];
                     $meta_title = $data[0]['title']." | India Property Clinic | IPC";
                     $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name.";
                     $meta_keywords = "Property for sale in $ctry_metaname->name, India Property Clinic, Property Listing, Repair Services, Home Services";
                     $canonical_url = config('app.url')."/".$data[0]['url'];
                     $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $country_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $country_metaname->name registered with us.";
 
-                    return view('frontend.filter_templates.filter_by_csc', compact('datas','contRow','countryname','posts','countrycount','meta_title','meta_description','meta_keywords','info_description','canonical_url'));
+                    return view('frontend.filter_templates.filter_by_csc', compact('contRow', 'countryname', 'posts', 'countrycount', 'meta_title', 'meta_description', 'meta_keywords', 'info_description','canonical_url','page_title'));
                 } elseif ($data[0]['property_for'] == 2) {
                     $state_metaname = State::where('id', $state_id)->first();
                     $service_metaname = Services::where('id', $service_id)->first();
@@ -244,13 +248,14 @@ class PageController extends Controller
                     $ctry_metaname = Country::where('iso2', $data[0]['country'])->first();
                     $st_name = State::where('id', $data[0]['state'])->first();
 
+                    $page_title = $data[0]['title'];
                     $meta_title = $data[0]['title']." | India Property Clinic | IPC";
                     $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_metaname->name.";
                     $meta_keywords = "Property for Sale in $ctry_metaname->name, Property for Sale in $st_name->name, India Property Clinic, Property Listing, Repair Services, Home Services";
                     $canonical_url = config('app.url')."/".$data[0]['url'];
                     $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $state_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $state_metaname->name registered with us.";
 
-                    return view('frontend.filter_templates.filter_by_csc')->with(compact('datas','posts','contRow','countrycount','statecount','citycount','statename','meta_title','meta_description','meta_keywords','info_description','canonical_url'));
+                    return view('frontend.filter_templates.filter_by_csc')->with(compact('posts', 'contRow', 'countrycount', 'statecount', 'citycount', 'statename', 'meta_title', 'meta_description', 'meta_keywords', 'info_description','canonical_url','page_title'));
                 } elseif ($data[0]['property_for'] == 3) {
                     $city_metaname = Cities::where('id', $city_id)->first();
                     $service_metaname = Services::where('id', $service_id)->first();
@@ -259,13 +264,14 @@ class PageController extends Controller
                     $st_name = State::where('id', $data[0]['state'])->first();
                     $ct_name = State::where('id', $data[0]['city'])->first();
 
+                    $page_title = $data[0]['title'];
                     $meta_title = $data[0]['title']." | India Property Clinic | IPC";
                     $meta_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name.";
                     $meta_keywords = "Property for Sale in $ctry_metaname->name, Property for Sale in $st_name->name, Property for Sale in $ct_name->name, India Property Clinic, Property Listing, Repair Services, Home Services";
                     $canonical_url = config('app.url')."/".$data[0]['url'];
                     $info_description = "Here you can find list of Residential and Commercial property for Sale or Rent from $city_metaname->name. If you want to sale your property in this location list your property with us. We have list of property dealers and property consultant from $city_metaname->name registered with us.";
 
-                    return view('frontend.filter_templates.filter_by_csc', compact('datas','posts','contRow','cityname','countrycount','statecount','citycount','meta_title','meta_description','meta_keywords','info_description','canonical_url'));
+                    return view('frontend.filter_templates.filter_by_csc', compact('posts', 'contRow', 'cityname', 'countrycount', 'statecount', 'citycount', 'meta_title', 'meta_description', 'meta_keywords', 'info_description','canonical_url','page_title'));
                 }
             }
         } else {
@@ -280,7 +286,7 @@ class PageController extends Controller
         // echo "<pre>"; print_r($slug); die;
         return response()->json(['slug' => $slug]);
     }
-
+    
     // View All Pages
     public function allPages()
     {
@@ -317,7 +323,7 @@ class PageController extends Controller
             return redirect()->back()->with('flash_message_success', 'Page Deleted Successfully!');
         }
     }
-
+    
     // Edit Page
     public function editPage(Request $request, $id=null)
     {
@@ -396,5 +402,31 @@ class PageController extends Controller
 
         return view('admin.pages.edit_page', compact('page', 'country_dropdown', 'state_dropdown', 'city_dropdown'));
     }
+    
+    // PPC Pages
+    public function ppcPages(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
 
+            PpcQuery::create([
+                'name'          => $data['full_name'],
+                'email'         => $data['email'],
+                'phone'         => $data['phone'],
+                'main_service'  => $data['main_service'],
+                'sub_service'   => $data['sub_service'],
+                'subs_service'  => $data['subs_service'],
+                'message'       => $data['message'],
+                'country'       => $data['country'],
+                'state'         => $data['state'],
+                'city'          => $data['city'],
+            ]);
+
+            return redirect()->back()->with('flash_message_success', 'Request Submited Successfully!');
+
+        }
+        return view('frontend.custom_pages.plumbing_services');
+    }
 }

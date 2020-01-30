@@ -5,11 +5,10 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/queries/phone-query/add') }}" class="label label-lg label-success">Add New</a></h3>
-        <h1>Phone Queries</h1>
+        <h1>PPC Queries</h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li class="active">Phone Queries</li>
+            <li class="active">PPC Queries</li>
         </ol>
     </section>
 
@@ -60,7 +59,7 @@
                                     <td>
                                         <a data-toggle="modal" data-target="#pq_{{ $pq->id }}" data-toggle="modal"
                                             class="btn btn-info btn-xs">info</a>
-                                        <a class="btn btn-success btn-xs">Publish</a>
+                                        <!--<a class="btn btn-success btn-xs">Publish</a>-->
                                     </td>
                                 </tr>
                                 @endforeach

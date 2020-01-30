@@ -140,20 +140,19 @@ return [
     */
 
     'default_location' => [
-        'ip' => '14.98.69.170',
-        'iso_code' => 'IN',
-        'country' => 'India',
-        'city' => 'Greater Noida',
-        'state' => 'UP',
-        'state_name' => 'Uttar Pradesh',
-        'postal_code' => '201311',
-        'lat' => 28.4962,
-        'lon' => 77.536,
-        'timezone' => 'Asia/Kolkata',
+        'ip' => '127.0.0.0',
+        'iso_code' => 'US',
+        'country' => 'United States',
+        'city' => 'New Haven',
+        'state' => 'CT',
+        'state_name' => 'Connecticut',
+        'postal_code' => '06510',
+        'lat' => 41.31,
+        'lon' => -72.92,
+        'timezone' => 'America/New_York',
         'continent' => 'NA',
         'default' => true,
-        'currency' => 'INR',
-        'cached' => true,
+        'currency' => 'USD',
     ],
 
 ];

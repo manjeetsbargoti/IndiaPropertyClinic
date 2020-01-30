@@ -1,4 +1,4 @@
-@extends('layouts.frontLayout.frontend_design2')
+@extends('layouts.frontLayout.frontend_design')
 @section('content')
 
 <style type="text/css">
@@ -10,7 +10,7 @@
     <div class="userlogin_form">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-lg-6 m-auto">
                     @if(Session::has('flash_message_success'))
                     <div class="alert alert-success alert-dismissible">
                         <button class="close" data-dismiss="alert" aria-label="close">&times;</button>
@@ -23,7 +23,7 @@
                         <strong>{!! session('flash_message_error') !!}</strong>
                     </div>
                     @endif
-                    <div class="card w-50 border-secondary">
+                    <div class="card border-secondary">
                         <div class="card-header">{{ __('Register') }}</div>
                             <div class="card-body">
                                 <form id="registerForm" name="registerForm" action="{{ url('/register') }}" method="post">
@@ -79,18 +79,34 @@
                                         <input type="text" class="form-control" id="mobilenumber" name="mobilenumber" placeholder="Mobile Number">
                                     </div>
                                 </div>
-                                <label for="usertype"><strong>I am</strong></label>
+                                <!--<label for="usertype"><strong>I am</strong></label>-->
+                                <!--<div class="form-group">-->
+                                <!--    @foreach($usertypes as $user)-->
+                                <!--    <div class="form-check form-check-inline">-->
+                                <!--        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $user->usercode }}">-->
+                                <!--        <label class="form-check-label" for="usertype">{{ $user->usertype_name }}</label>-->
+                                <!--    </div>-->
+                                <!--    @endforeach-->
+                                <!--</div>-->
+                                <h6>I Am</h6>
                                 <div class="form-group">
+                                <select class="form-control" name="usertype">
                                     @foreach($usertypes as $user)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="usertype" id="usertype" value="{{ $user->usercode }}">
-                                        <label class="form-check-label" for="usertype">{{ $user->usertype_name }}</label>
-                                    </div>
+                                    <option value="{{ $user->usercode }}">{{ $user->usertype_name }}</option>
                                     @endforeach
+                                </select>
                                 </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
                                 <label for="for vendor service"><strong>if you are a Vendor</strong></label>
                                 <div class="form-group">
-                                    <select class="form-control" name="servicetype[]" id="RegosetrUserServiceType" multiple='multiple'>
+                                    <select class="form-control" name="servicetype[]" multiple="multiple">
                                         <option selected value="">Select Service</option>
                                         @foreach($servicetype as $service)
                                         <option value="{{ $service->id }}">{{ $service->service_name }}</option>

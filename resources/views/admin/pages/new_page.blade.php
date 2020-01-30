@@ -45,7 +45,6 @@
                                     <label for="Description">Description</label>
                                     <textarea name="description" id="description" class="form-control my-editor"></textarea>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="Meta Title">Meta Title</label>
                                     <input name="meta_title" id="MetaTitle" type="text" class="form-control">
@@ -79,9 +78,9 @@
                                     <label for="Template">Template Design</label>
                                     <select name="template" id="CMSTemplates" class="form-control">
                                         <option value="" selected> -- Select Template -- </option>
-                                        <option value="1">Default (Full-width)</option>
-                                        <option value="2">Full with Sidebar</option>
-                                        <option value="3">Contact Page</option>
+                                        <option value="full_width">Default (Full-width)</option>
+                                        <option value="full_with_sidebar">Full with Sidebar</option>
+                                        <option value="contact_page">Contact Page</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -141,6 +140,8 @@
                                     <button type="submit" id="AddNewPage" class="btn btn-info btn-block btn-md">Publish</button>
                                 </div>
                             </div>
+
+                            
                         </form>
                     </div>
                     <!-- /.box-body -->

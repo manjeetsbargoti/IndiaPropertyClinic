@@ -1,0 +1,1 @@
+<?php /**PATH D:\GITHUB\IndiaPropertyClinic\resources\views/admin/google_ads/partials/large_leaderboard_970_90.blade.php ENDPATH**/ ?>

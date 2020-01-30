@@ -39,10 +39,9 @@ $country = Controller::countries();
                             <li><?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); echo $arr_ip->currency; ?></li>
                             <li>
                                 <div class="social_link">
-                                    <a href="#"><i class="fab fa-facebook"></i></a>
+                                    <a href="https://www.facebook.com/indiapropertyclinic" target="_blank"><i class="fab fa-facebook"></i></a>
                                     <a href="#"><i class="fab fa-twitter"></i></a>
                                     <a href="#"><i class="fab fa-youtube"></i></a>
-                                    <a href="#"><i class="fab fa-google"></i></a>
                                 </div>
                             </li>
                         </ul>
@@ -181,7 +180,7 @@ $country = Controller::countries();
                                             class="fas fa-user"></i> My Profile</a></li>
                                 <li><a href="#"><i class="fas fa-home"></i> My Properties List</a></li>
                                 <li><a href="#"><i class="fas fa-heart"></i> Favorites</a></li>
-                                <li><a href="{{ url('/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                                <li><a href="{{ url('/user/logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
                                 @endguest
                             </ul>
                         </div>
@@ -223,7 +222,7 @@ $country = Controller::countries();
                                                 @foreach($country as $coun)
                                                 @if($coun->continent == $c->code)
                                                 <li>
-                                                    <a href="{{ url('/country_property/property-for-sale-in-'.str_replace(' ','-',$coun->name)) }}"
+                                                    <a href="{{ url('country_property/properties-for-sale-in-'.str_replace(' ','-',$coun->name)) }}"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark">{{ $coun->name }}</a>
                                                 </li>

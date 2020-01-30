@@ -51,26 +51,6 @@
                                     <label for="Description">Description</label>
                                     <textarea name="description" id="description" class="form-control my-editor">{!! $page->content !!}</textarea>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="Meta Title">Meta Title</label>
-                                    <input name="meta_title" id="MetaTitle" type="text" class="form-control" placeholder="{{ $page->title }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="Meta Description">Meta Description</label>
-                                    <textarea name="meta_description" id="MetaDescription" class="form-control"></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="Meta Keywords">Meta Keywords</label>
-                                    <textarea name="meta_keywords" id="MetaKeywords" class="form-control"></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="Canonical Url">Canonical Url</label>
-                                    <input name="canonical_url" id="CanonicalUrl" type="text" class="form-control" placeholder="{{ url('/'.$page->url) }}">
-                                </div>
                             </div>
                             <div class="col-sm-4 col-md-4">
                                 <div class="form-group">
@@ -85,9 +65,9 @@
                                     <label for="Template">Template Design</label>
                                     <select name="template" id="CMSTemplates" class="form-control">
                                         <option value="" selected> -- Select Template -- </option>
-                                        <option value="1">Default (Full-width)</option>
-                                        <option value="2">Full with Sidebar</option>
-                                        <option value="3">Contact Page</option>
+                                        <option value="full_width" @if($page->template == 'full_width') selected @endif>Default (Full-width)</option>
+                                        <option value="full_with_sidebar" @if($page->template == 'full_with_sidebar') selected @endif>Full with Sidebar</option>
+                                        <option value="contact_page" @if($page->template == 'contact_page') selected @endif>Contact Page</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

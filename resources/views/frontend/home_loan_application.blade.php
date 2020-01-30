@@ -1,4 +1,4 @@
-@extends('layouts.frontLayout.frontend_design2')
+@extends('layouts.frontLayout.frontend_design')
 @section('content')
 
 <div class="smart_container">

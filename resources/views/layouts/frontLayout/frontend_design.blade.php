@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <!-- for Google -->
     <meta name="title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif"/>
@@ -27,46 +28,49 @@
 
     <title>@if(!empty($meta_title)) {{ $meta_title }} @else {{ config('app.name') }} @endif</title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon"/>
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">
+    <!--<link rel="stylesheet" href="{{ asset('css/frontend_css/bootstrap.min.css') }}">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <!--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" href="{{ asset('css/frontend_css/passtrength.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/frontend_css/jquery.mmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.min.css') }}">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">-->
+    
     <link rel="stylesheet" href="{{ asset('css/frontend_css/style.css') }}">
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ asset('js/frontend_js/owl.carousel.js') }}"></script>
-
+    
+    <!--Custom Code-->
     @include('admin.system.partials.code_head')
     
 </head>
 <body >
 
-@include('layouts.frontLayout.header_design')
+    @include('layouts.frontLayout.header_design')
 
-@yield('content')
+    @yield('content')
 
-@include('layouts.frontLayout.footer_design')
+    @include('layouts.frontLayout.footer_design')
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="{{ asset('js/frontend_js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.mmenu.js') }}"></script>
+    
     <script src="{{ asset('js/frontend_js/tagsinput.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-lib.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/emicalc-main.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/frontend_js/custom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/frontend_js/jquery.mmenu.js') }}"></script>
 
     <script type="text/javascript">
     $(function() {
@@ -250,43 +254,7 @@ $('#email').blur(function()
  });
 </script>
 
-<script>
-// Check User Phone
-$('#phone').blur(function()
-{
-  var error_phone = '';
-  var phone = $('#phone').val();
-  var _token = $('input[name="_token"]').val();
-//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if(!filter.test(phone))
-  {    
-   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
-   $('#phone').addClass('has-error');
-  }
-  else
-  {
-   $.ajax({
-    url:"{{ url('/checkphone') }}",
-    method:"POST",
-    data:{phone:phone, _token:_token},
-    success:function(result)
-    {
-     if(result == 'unique')
-     {
-      $('#error_phone').html('<label class="text-success">Phone Available</label>');
-      $('#phone').removeClass('has-error');
-     }
-     else
-     {
-      $('#error_phone').html('<label class="text-danger">Phone already exist.</label>');
-      $('#phone').addClass('has-error');
-     }
-    }
-   })
-  }
- });
-</script>
-
+    <!--Custom Code-->
     @include('admin.system.partials.code_footer')
 
   </body>

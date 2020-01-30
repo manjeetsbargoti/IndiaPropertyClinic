@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">{{ $property->property_name }}</li>
                         </ol>
                     </nav>
-                    <p><span>@if(!empty($property->city)) {{ $property->city }},@endif <a href="{{ url('/country/'.$property->country.'/properties') }}">@if(!empty($property->country)) {{ $property->country }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/state/'.$property->state.'/properties') }}">@if(!empty($property->state)) {{ $property->state }} @endif</a> </p>
+                    <p><span>@if(!empty($property->city_name)) {{ $property->city_name }},@endif <a href="{{ url('/country/'.$property->country.'/properties') }}">@if(!empty($property->country_name)) {{ $property->country_name }} @endif</a> </span> | All Residential for Sale in <a href="{{ url('/state/'.$property->state_name.'/properties') }}">@if(!empty($property->state_name)) {{ $property->state_name }} @endif</a> </p>
                 </div>
             <div class="row">
             
@@ -29,14 +29,14 @@
                             <div id="big" class="owl-carousel owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}" alt="{{ $property->property_name }}">
+                                        <img style="max-height: 450px;" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}" alt="{{ $property->property_name }}">
                                     </div>
                                 @endforeach
                             </div>
                             <div id="thumbs" class="owl-carousel owl-theme">
                                 @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
                                     <div class="item">
-                                        <img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}" alt="{{ $property->property_name }}">
+                                        <img style="max-height: 100px;" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -46,13 +46,13 @@
            
             <div class="col-12 col-xl-4">
                 <div class="overview_property">
-                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/city/'.$property->city.'/properties') }}">@if(!empty($property->city)) {{ $property->city }},@endif @if(!empty($property->country)) {{ $property->country }} @endif</a></h1>
+                    <h1><i class="fas fa-map-marker-alt"></i> <a href="{{ url('/city/'.$property->city_name.'/properties') }}">@if(!empty($property->city_name)) {{ $property->city_name }},@endif @if(!empty($property->country_name)) {{ $property->country_name }} @endif</a></h1>
                     <h5>@if($property->parea)Plot Area: <span>{{ $property->parea }} Square Ft @endif</span></h5>
                     <h6>{{ $property->property_name }}</h6>
                     <!--<h5>Age of Property: <span>Under Construction</span></h5>-->
                     <h5>@if($property->pfacing)Facing: <span>{{ $property->pfacing }} @endif</span></h5>
                     
-                    <p style="font-size: 14px; color: #171747; font-weight: 500;">{{ str_limit(strip_tags($property->description), $limit=350) }}</p>
+                    <p style="font-size: 14px; color: #171747; font-weight: 500;">{!! str_limit(strip_tags($property->description), $limit=350) !!}</p>
                     <!-- <h3>{{ $property->currency }} {{ $property->property_price }}</h3> -->
                     
                     @if(!empty($property->property_price))
@@ -70,8 +70,8 @@
                     </div>
                     <div class="agent_sec">
                         <div class="agent_profile">
-                            <!-- <i class="fa fa-user fa-2x"></i> -->
-                            <img class="img-responsive" src="{{ url('/images/user.png') }}"> 
+                            <!--<i class="fa fa-user fa-2x"></i>-->
+                             <img class="img-responsive" src="/images/user.png">  
                         </div>
                         <div class="agent_txt">
                         @if(!empty($property->agent_name))
@@ -91,6 +91,9 @@
         </div>
         <div style="padding-top: 1em;">
             <div class="sharethis-inline-share-buttons"></div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+            @include('admin.google_ads.partials.large_leaderboard_970_90')
         </div>
     </div>
     </div>
@@ -137,9 +140,9 @@
                                         <ul style="list-style: none;">
                                             <li><strong>Address:</strong> {{ $property->address1 }} {{ $property->address2 }}</li>
                                             <li><strong>Locality:</strong> {{ $property->locality }}</li>
-                                            <li><strong>City:</strong> {{ $property->city }}</li>
-                                            <li><strong>State:</strong> {{ $property->state }}</li>
-                                            <li><strong>Country:</strong> {{ $property->country }}</li>
+                                            <li><strong>City:</strong> {{ $property->city_name }}</li>
+                                            <li><strong>State:</strong> {{ $property->state_name }}</li>
+                                            <li><strong>Country:</strong> {{ $property->country_name }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -174,14 +177,15 @@
                 </div>
                 <div class="row">
                     <?php $counter = 0;?>
-                    @foreach($property_on_location as $relproperty)
+                    @foreach(\App\Property::where('service_id', $property->service_id)->where('country', $property->country)->where('state', $property->state)->orderBy('created_at', 'desc')->take(8)->get() as
+                    $relproperty)
                     <?php $counter++;?>
                     @if($counter <= 8) <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                        <div class="product_box">
+                        <a href="{{ url('/properties/'.$relproperty->property_url) }}"><div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     @foreach(\App\PropertyImages::where('property_id', $relproperty->id)->get() as $pimage)
-                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
+                                    <div class="item"><img class="img-fluid" style="max-height: 161px;" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}" alt="{{ $relproperty->property_name }}">
                                     </div>
                                     @endforeach
                                 </div>
@@ -234,13 +238,13 @@
                                                     class="btn_fullinfo">Get Price</a>
                                                 @endif
                                             </li>
-                                            <li><a href="{{ url('/properties/'.$relproperty->property_url) }}"
-                                                    class="btn_fullinfo">Full Info</a></li>
+                                            <!--<li><a href="{{ url('/properties/'.$relproperty->property_url) }}"-->
+                                            <!--        class="btn_fullinfo">Full Info</a></li>-->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                 </div>
                 @endif
                 @endforeach
@@ -271,7 +275,7 @@
                                     <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
                                             <div class="dealers_img"><img
-                                                    src="{{ url('/images/user.png') }}"></div>
+                                                    src="/images/user.png"></div>
                                             <div class="dealers_txt">
                                                 <h4>{{ $d->first_name }}</h4>
                                             </div>
@@ -290,13 +294,17 @@
 
 <!-- /. Agent/Builders in this Area -->
 
+        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+            @include('admin.google_ads.partials.large_leaderboard_970_90')
+        </div>
+
 <!-- Modal Property Agent Contact -->
 <div class="modal fade bd-example-modal-sm" id="agentContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="agentModalCenterTitle">
-                  User Name
+                  Request Query
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

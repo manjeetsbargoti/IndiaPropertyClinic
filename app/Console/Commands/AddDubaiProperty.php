@@ -64,7 +64,7 @@ class AddDubaiProperty extends Command
         }
         $count = (int)($data_count / $limit) + $rem;
 
-        $phase = 1;
+        $phase = $count;
 
         // echo "$count \n"; die;
 
@@ -244,8 +244,8 @@ class AddDubaiProperty extends Command
                             for ($j = 0; $j < 5; $j++) {
                                 $filename = basename($image_full[$j]);
                                 $large_image_path = public_path('images/backend_images/property_images/large/' . $filename);
-                                // Image::make($image_full[$j])->save($large_image_path);
-                                Image::make($image_full[$j])->save(public_path('/images/dubai_images/' . $filename));
+                                Image::make($image_full[$j])->save($large_image_path);
+                                // Image::make($image_full[$j])->save(public_path('/images/dubai_images/' . $filename));
                                 
                                 // Store image in property folder
                                 $propertyimage = PropertyImages::create([

@@ -15,7 +15,6 @@ class BusinessController extends Controller
     // Business List by Vendor
     public function listBusiness(Request $request)
     {
-        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
 
         if($request->isMethod('Post'))
         {
@@ -130,10 +129,6 @@ class BusinessController extends Controller
         $repair_services = OtherServices::where('parent_id', 0)->orderBy('service_name', 'asc')->get();
         $countries = Country::orderBy('name', 'asc')->get();
 
-        $meta_title = "List Your Business | India Property Clinic";
-        $meta_description = "List your business with India Property Clinic | Property Listing and Home Services";
-        $meta_keywords = "Sale or Rent Property in $arr_ip->country, Sale or Rent Property in $arr_ip->state_name, Sale or Rent Property in $arr_ip->city, Home Services in $arr_ip->city, Home Services in $arr_ip->state_name, Repair Services in $arr_ip->city, Repair Services in $arr_ip->state_name";
-
-        return view('frontend.list_business', compact('countries', 'repair_services','meta_title','meta_description','meta_keywords'));
+        return view('frontend.list_business', compact('countries', 'repair_services'));
     }
 }

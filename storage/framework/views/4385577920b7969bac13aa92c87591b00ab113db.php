@@ -39,11 +39,7 @@
                   <a href="#">
                     <div class="pull-left">
                       <!-- User Image -->
-                      <?php if(!empty(Auth::user()->provider_id)): ?>
-                      <img class="profile-user-img img-responsive img-circle" src="<?php echo e(Auth::user()->avatar); ?>" alt="User profile picture">
-                      <?php else: ?>
-                      <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
-                      <?php endif; ?>
+                      <img src="<?php echo e(url('/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
                     </div>
                     <!-- Message title and timestamp -->
                     <h4>
@@ -162,7 +158,7 @@
             <li class="user-footer">
               <div class="pull-left">
                 <?php if(Auth::user()->admin  == 1): ?>
-                <a href="<?php echo e(url('/user/account')); ?>" class="btn btn-default btn-flat">Profile</a>
+                <a href="<?php echo e(url('/admin/profile')); ?>" class="btn btn-default btn-flat">Profile</a>
                 <?php else: ?>
                 <a href="<?php echo e(url('/user/account')); ?>" class="btn btn-default btn-flat">Profile</a>
                 <?php endif; ?>

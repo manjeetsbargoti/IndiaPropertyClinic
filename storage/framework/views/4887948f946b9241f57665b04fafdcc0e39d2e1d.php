@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <!-- for Google -->
     <meta name="title" content="<?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?> <?php elseif(!empty($property->property_name)): ?><?php echo $property->property_name.' | '.config('app.name'); ?><?php elseif(!empty($service->service_name)): ?><?php echo $service->service_name.' | '.config('app.name'); ?><?php else: ?><?php echo e(config('app.name')); ?><?php endif; ?>"/>
@@ -27,46 +28,49 @@
 
     <title><?php if(!empty($meta_title)): ?> <?php echo e($meta_title); ?> <?php else: ?> <?php echo e(config('app.name')); ?> <?php endif; ?></title>
 
-    <!-- Favicon -->
-    <link rel="icon" href="<?php echo e(asset(config('app.favicon'))); ?>" type="image/x-icon"/>
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>">
+    <!--<link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/bootstrap.min.css')); ?>">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <!--<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/passtrength.css')); ?>">
     <link type="text/css" rel="stylesheet" href="<?php echo e(asset('css/frontend_css/jquery.mmenu.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/owl.carousel.min.css')); ?>">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">-->
+    
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/style.css')); ?>">
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/owl.carousel.js')); ?>"></script>
-
+    
+    <!--Custom Code-->
     <?php echo $__env->make('admin.system.partials.code_head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     
 </head>
 <body >
 
-<?php echo $__env->make('layouts.frontLayout.header_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('layouts.frontLayout.header_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<?php echo $__env->yieldContent('content'); ?>
+    <?php echo $__env->yieldContent('content'); ?>
 
-<?php echo $__env->make('layouts.frontLayout.footer_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo $__env->make('layouts.frontLayout.footer_design', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="<?php echo e(asset('js/frontend_js/bootstrap.min.js')); ?>"></script>
-    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.mmenu.js')); ?>"></script>
+    
     <script src="<?php echo e(asset('js/frontend_js/tagsinput.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-lib.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/emicalc-main.min.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.validate.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/frontend_js/custom.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('js/frontend_js/jquery.mmenu.js')); ?>"></script>
 
     <script type="text/javascript">
     $(function() {
@@ -250,43 +254,7 @@ $('#email').blur(function()
  });
 </script>
 
-<script>
-// Check User Phone
-$('#phone').blur(function()
-{
-  var error_phone = '';
-  var phone = $('#phone').val();
-  var _token = $('input[name="_token"]').val();
-//   var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if(!filter.test(phone))
-  {    
-   $('#error_phone').html('<label class="text-danger">Invalid Phone</label>');
-   $('#phone').addClass('has-error');
-  }
-  else
-  {
-   $.ajax({
-    url:"<?php echo e(url('/checkphone')); ?>",
-    method:"POST",
-    data:{phone:phone, _token:_token},
-    success:function(result)
-    {
-     if(result == 'unique')
-     {
-      $('#error_phone').html('<label class="text-success">Phone Available</label>');
-      $('#phone').removeClass('has-error');
-     }
-     else
-     {
-      $('#error_phone').html('<label class="text-danger">Phone already exist.</label>');
-      $('#phone').addClass('has-error');
-     }
-    }
-   })
-  }
- });
-</script>
-
+    <!--Custom Code-->
     <?php echo $__env->make('admin.system.partials.code_footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
   </body>

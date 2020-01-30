@@ -21,7 +21,6 @@
     max-height: 350px;
     width: 100%;
     font-family: Roboto !important;
-    position: absolute;
 }
 
 #ServiceQuery h1 {
@@ -159,15 +158,15 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-
+                                        <?php $arr_city = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
                                         <li class="breadcrumb-item active" aria-current="page">
-                                            {{ $service->service_name }}</li>
+                                            {{ $service->service_name }} in {{ $arr_city->city }}</li>
 
                                     </ol>
                                 </nav>
                             </div>
 
-                            <h1>{{ $service->service_name }}</h1>
+                            <h1>{{ $service->service_name }} in {{ $arr_city->city }}</h1>
 
                             <ul class="serliststyle">
 
@@ -178,6 +177,7 @@
                                 style="border: 1px solid #f15a27; background: #f15a27; padding: 0.5em 1em; color: #fff; font-size: 15px; font-weight: 400; border-radius: 5px;"
                                 role="button" class="get_quote_button">Get Quote</a>
                             <a href="tel:{{ config('app.phone') }}" role="button" class="btn btn-warning">Call Now</a>
+                            <p style="margin-top: 1.5em;"><a href="tel:+91-9555396371" role="button" class="btn-callnowbtn" style="background:#fff;padding: 0.3em 0.2em;font-size:2em;border-radius:5px;">Call Us: +91 9555396371</a></p>
                         </div>
                         <div class="col-12 col-sm-12 col-md-6 col-xl-7">
                             <div class="ser_prcessing">
@@ -367,11 +367,17 @@
                     </div>
                 </div>
             </div>
+            <div class="text-right">
+            <a href="tel:{{ config('app.phone') }}" role="button" class="btn btn-callnow">Contact Us: +91 9555396371</a>
+            </div>
         </div>
     </div>
 
 
     <div class="serview_container">
+        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+            @include('admin.google_ads.partials.large_leaderboard_970_90')
+        </div>
         <div class="container">
             <div id="ser_howitwork" class="serview_conbox">
                 <div class="verticalser_listsec">
@@ -518,6 +524,11 @@
             <!-- /. Get Quote Model -->
 
             @endforeach
+            
+            <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+                @include('admin.google_ads.partials.large_leaderboard_970_90')
+            </div>
+            
             <div class="related_product">
                 <h5>Related Product</h5>
                 <div class="row">
@@ -566,7 +577,5 @@
             
         </div>
     </div>
-
-    
 
     @endsection

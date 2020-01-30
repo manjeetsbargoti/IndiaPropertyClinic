@@ -136,6 +136,8 @@
                             </ul>
                         </div>
                     </div>
+                    @include('admin.google_ads.partials.square_250_250')
+                    @include('admin.google_ads.partials.wide_skyscraper_160_600')
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-9" id="property_cont">
@@ -148,20 +150,21 @@
                   </nav>
                   <p><span><?php echo $contRow; ?> Properties </span> </p>
                 </div>
-                <?php if($contRow == 0) { ?>
-                    <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
-                    <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
-                <?php } ?>
+                
+                    <?php if($contRow == 0) { ?>
+                        <p style="text-align:center; padding-top: 2em;"><img src="{{ url('/images/no-result.png') }}"></p>
+                        <h5 style="text-align: center;">Oh Snap! Zero Results found for your search.</h5>
+                    <?php } ?>
 
                   <div class="row posts endless-pagination" data-next-page="{{ $posts->nextPageUrl() }}" >
                     @foreach($posts as $property)
                     <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
                        
-                        <div class="product_box">
+                        <a href="/properties/{{ $property->property_url }}"><div class="product_box">
                             <div class="product_img">
                                 <div class="owl-carousel product-slide owl-theme">
                                     @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                    <div class="item"><img src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}"></div>
+                                    <div class="item"><img class="img-fluid" style="max-height: 161px" src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}"></div>
                                     @endforeach
                                 </div>
                                 <div class="bottom_strip">
@@ -197,12 +200,12 @@
                                                 <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get Price</a>
                                             @endif
                                             </li>
-                                            <li><a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Full Info</a></li>
+                                            <!--<li><a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Full Info</a></li>-->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div></a>
                     </div>
                     @endforeach
                 </div>
@@ -211,13 +214,14 @@
                     {!! $posts->render() !!}
                     <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
                 </div>
+                
+                @include('admin.google_ads.partials.large_leaderboard_970_90')
 
             </div>
         </div>
     </div>
 </div>
 </div>
-
 <script>  
 $(window).on('hashchange', function() {
       if (window.location.hash) {

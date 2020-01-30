@@ -90,6 +90,17 @@
                                 <!-- /. Property information Model -->
                                 @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>SR No.</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Query For</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <!-- /.box-body -->

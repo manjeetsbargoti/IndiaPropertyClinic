@@ -45,24 +45,25 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     // Routes for Getting State List and City List Dynamically
     Route::get('/admin/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/get-city-list', 'PropertyController@getCityList');
-    Route::get('/admin/blog/post/get-state-list', 'PropertyController@getStateList');
-    Route::get('/admin/blog/post/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/user/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/user/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/property/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/csc/city/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/queries/phone-query/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/queries/phone-query/get-city-list', 'PropertyController@getCityList');
-    Route::get('/admin/edit-user/get-state-list', 'PropertyController@getStateList');
-    Route::get('/admin/edit-user/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/user/{id}/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/user/{id}/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/property/{id}/edit/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/property/{id}/edit/get-city-list', 'PropertyController@getCityList');
+    Route::get('/admin/pages/get-state-list', 'PropertyController@getStateList');
+    Route::get('/admin/pages/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/page/{id}/edit/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/page/{id}/edit/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/ppc/page/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/ppc/page/get-city-list', 'PropertyController@getCityList');
     Route::get('/admin/ppc/page/{id}/get-state-list', 'PropertyController@getStateList');
     Route::get('/admin/ppc/page/{id}/get-city-list', 'PropertyController@getCityList');
-    
 
     // Admin Services Module (Add/Update/View/Disable)
     Route::match(['get', 'post'], '/admin/service/new', 'ServiceController@addService');
@@ -128,7 +129,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/admin/sitemap', 'SystemController@postSitemap');
     Route::match(['get','post'], '/admin/contacts/new', 'SystemController@newContact');
     Route::get('/admin/contacts', 'SystemController@contactList');
-
+    
     // Update Home Page Content
     Route::get('/admin/system/homepage-content','HomeController@getHomeContent');
     Route::post('/admin/system/homepage-content','HomeController@postHomeContent');
@@ -152,38 +153,30 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/page/{id}/enable', 'PageController@enablePage');
     Route::match(['get', 'post'], '/admin/page/{id}/delete', 'PageController@deletePage');
     Route::match(['get', 'post'], '/cms-page-url/check_slug', 'PageController@checkSlug');
-
+    
     // Phone Query
     Route::match(['get', 'post'], '/admin/queries/phone-query/add', 'HomeController@addPhoneQuery');
     Route::match(['get', 'post'], '/admin/queries/phone-queries', 'HomeController@phoneQueryData');
-
+    
     // Google Ads Management
     Route::get('/admin/ads/ads-script', 'AdsController@getAdsCode');
     Route::post('/admin/ads/ads-script','AdsController@postAdsCode');
-
-    // Blog Post Management
-    Route::match(['get','post'], '/admin/blog/post/new', 'BlogController@addNewPost');
-    Route::get('/admin/blog/post/view', 'BlogController@returnBlogPost');
-    Route::match(['get','post'], '/admin/blog/category/new', 'BlogController@addBlogCategory');
-    Route::get('/admin/blog/category/view', 'BlogController@returnBlogCategory');
-
-    // PPC Pages Module
+    
     Route::match(['get', 'post'], '/admin/ppc/page/new', 'PpcController@addPpcPage');
     Route::match(['get', 'post'], '/add-new-ppc-page/check_slug', 'PpcController@checkSlug');
     Route::match(['get', 'post'], '/admin/ppc/page/get-services-list', 'RepairServiceController@getSubServices');
     Route::get('/admin/ppc/pages', 'PpcController@returnPpcPages');
     Route::get('/admin/queries/ppc-queries', 'PpcController@returnPpcQuery');
     Route::match(['get', 'post'], '/admin/ppc/page/{id}/edit', 'PpcController@editPpcPage');
-    
+});
+
+Route::group(['middleware' => ['auth', 'admin:0']], function () {
+    Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
 });
 
 // Get State, City List
 Route::get('/ipc/get-state-list', 'PropertyController@getStateList');
 Route::get('/ipc/get-city-list', 'PropertyController@getCityList');
-
-Route::group(['middleware' => ['auth', 'admin:0']], function () {
-    Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
-});
 
 // Check Password
 Route::get('/admin/check-pwd', 'AdminController@chkpassword');
@@ -193,6 +186,7 @@ Route::match(['get', 'post'], '/admin/update-pwd', 'AdminController@changePasswo
 Route::match(['get', 'post'], '/login', 'AdminController@login');
 Route::match(['get', 'post'], '/register', 'AdminController@register');
 Route::match(['get', 'post'], '/password/reset', 'AdminController@resetPassword');
+Route::match(['get', 'post'], '/password/verify/email', 'AdminController@verifyEmailResetPassword');
 Route::match(['get', 'post'], '/checkuseremail', 'AdminController@checkEmail');
 Route::match(['get', 'post'], '/checkphone', 'AdminController@checkPhone');
 
@@ -207,11 +201,11 @@ Route::get('/city/{city_id}/properties', 'PropertyController@searchByCity');
 Route::get('/properties/{id}/{name}', 'PropertyController@searchByService');
 Route::get('/country/{country_id}/properties', 'PropertyController@searchByCountry');
 
-Route::get('/country_property/property-for-sale-in-{country_name}', 'PropertyController@searchByCountryName');
+Route::get('/country_property/properties-for-sale-in-{country_name}', 'PropertyController@searchByCountryName');
+Route::get('/country/{property_type}-for-sale-in-{country_name}', 'PropertyController@searchByCountryPropertyType');
+Route::get('/state/{property_type}-for-sale-in-{state_name}', 'PropertyController@searchByStatePropertyType');
+Route::get('/city/{property_type}-for-sale-in-{city_name}', 'PropertyController@searchByCityPropertyType');
 
-Route::get('/country/{property_types}/{property_type}-for-sale-in-{country_name}', 'PropertyController@searchByCountryPropertyType');
-Route::get('/state/{property_types}/{property_type}-for-sale-in-{state_name}', 'PropertyController@searchByStatePropertyType');
-Route::get('/city/{property_types}/{property_type}-for-sale-in-{city_name}', 'PropertyController@searchByCityPropertyType');
 
 Route::get('/user/logout', 'AdminController@logout');
 
@@ -265,7 +259,7 @@ Route::match(['get', 'post'], '/services/{url}/get-services-list', 'RepairServic
 Route::match(['get', 'post'], '/services/{url}/get-state-list', 'PropertyController@getStateList');
 Route::match(['get', 'post'], '/service/get-state-list', 'PropertyController@getStateList');
 Route::match(['get', 'post'], '/ipc/get-services-list', 'RepairServiceController@getSubServices');
-Route::match(['get', 'post'], '/ipc/get-services-list', 'RepairServiceController@getSubServices');
+Route::match(['get', 'post'], '/ipc/get-state-list', 'PropertyController@getStateList');
 
 // Thank you Page
 Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@thankYou');
@@ -273,14 +267,11 @@ Route::match(['get', 'post'], '/list-property/thank-you', 'PropertyController@th
 // CMS Pages Route
 Route::match(['get', 'post'], '/{url}', 'PageController@singlePage');
 
-// Get Social User Details
-Route::match(['get', 'post'], '/social/user/complete-info', 'AdminController@getSocialUserInfo');
 
+// Custom PPC URL
+Route::match(['get', 'post'], '/ipc/plumbing-services', 'PageController@ppcPages');
 // PPC Pages Module
 Route::match(['get', 'post'], '/ipc/{url}', 'PpcController@ppcPages');
 
-// Get Dubai Properties
-Route::match(['get', 'post'], '/get/dubai-property', 'PropertyController@dubaiProperty');
-
-// Generate Sitemap
-Route::match(['get','post'], '/sitemap.xml', 'SitemapController@index');
+// Generate Sitemap Manual
+Route::match(['get','post'], '/property/sitemap.xml', 'SitemapController@index');

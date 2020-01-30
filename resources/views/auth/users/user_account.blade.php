@@ -26,11 +26,8 @@
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
-              @if(!empty(Auth::user()->provider_id))
-              <img class="profile-user-img img-responsive img-circle" src="{{ Auth::user()->avatar }}" alt="User profile picture">
-              @else
               <img class="profile-user-img img-responsive img-circle" src="../dist/img/user2-160x160.jpg" alt="User profile picture">
-              @endif
+
               <h3 class="profile-username text-center text-blue">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h3>
                 @foreach($users as $u)
               <p class="text-muted text-center text-orange"><strong>{{ $u->user_type }}</strong></p>

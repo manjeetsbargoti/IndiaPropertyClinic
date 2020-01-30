@@ -19,7 +19,24 @@
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <table id="allusers-table" class="table table-bordered table-striped">
+                        <a href="{{ url('/admin/property/new') }}" class="btn btn-success btn-sm pull-left" title="Add New Property">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                        </a>
+
+                        <form method="GET" action="{{ url('/admin/properties') }}" accept-charset="UTF-8"
+                                class="form-inline my-2 my-lg-0 float-right" role="search">
+                            <div class="input-group pull-right">
+                                <input type="text" class="form-control" name="search" placeholder="Search..."
+                                        value="{{ request('search') }}">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <br>
+                        <table id="users-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Id</th>
@@ -160,7 +177,7 @@
                             <tbody>
                                 <tr>
                                     <td>Property Url</td>
-                                    <td><a href="{{ url('/propreties/'.$property->property_url) }}"
+                                    <td><a href="{{ url('/properties/'.$property->property_url) }}"
                                             target="_blank">{{ url('/propreties/'.$property->property_url) }}</a></td>
                                 </tr>
                                 <tr>
@@ -351,6 +368,10 @@
                                         <td>Joining Date</td>
                                         <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -426,6 +447,10 @@
                                     <tr>
                                         <td>City</td>
                                         <td>@if(!empty($userinfo->city)) @foreach(\App\Cities::where('id',$userinfo->city)->get() as $city){{ $city->name }}@endforeach @endif</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>
@@ -507,6 +532,10 @@
                                     <tr>
                                         <td>City</td>
                                         <td>@if(!empty($userinfo->city)) @foreach(\App\Cities::where('id',$userinfo->city)->get() as $city){{ $city->name }}@endforeach @endif</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Joining Date</td>
+                                        <td>{{ date('d M, Y h:i:s A', strtotime($userinfo->created_at)) }}</td>
                                     </tr>
                                     <tr>
                                         <td>Joining Date</td>

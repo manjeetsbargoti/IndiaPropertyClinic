@@ -71,7 +71,7 @@ function generate_string($input, $strength = 16) {
     <section class="content-header">
         <h1>Edit Property</h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Edit Property</li>
         </ol>
     </section>
@@ -142,7 +142,7 @@ function generate_string($input, $strength = 16) {
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
                                                 <label name="Expected Total Price">Expected Total Price</label>
-                                                <input name="property_price" id="property_price" type="text"
+                                                <input name="property_price" id="property_price" type="number"
                                                     class="form-control" value="{{ $properties->property_price }}">
                                             </div>
                                         </div>

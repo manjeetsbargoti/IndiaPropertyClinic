@@ -34,7 +34,6 @@ class Controller extends BaseController
         }else{
             $footerProperties = Property::orderBy('created_at', 'desc')->take(2)->get();
         }
-    
         $footerProperties = json_decode(json_encode($footerProperties));
 
         foreach($footerProperties as $key => $val) {
@@ -49,7 +48,6 @@ class Controller extends BaseController
             if($country_count > 0){
                 $country = DB::table('countries')->where(['id'=>$val->country])->first();
                 $footerProperties[$key]->country_name = $country->name;
-                $footerProperties[$key]->currency = $country->currency;
             }
             $state_count = DB::table('states')->where(['id'=>$val->state])->count();
             if($state_count > 0){

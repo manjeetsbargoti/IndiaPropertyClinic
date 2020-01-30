@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'country', 'state', 'city', 'usertype', 'business_name', 'experience', 'about_business', 'provider', 'provider_id', 'servicetypeid', 'remember_token'
+        'first_name', 'last_name', 'email', 'password', 'phonecode', 'phone', 'country', 'state', 'city', 'usertype', 'provider', 'provider_id', 'servicetypeid', 'business_name', 'experience', 'about_business', 'remember_token'
     ];
 
     /**
@@ -27,10 +27,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function hasRole($role){
-        return $this->admin==$role;
-    }
 
     /**
      * The attributes that should be cast to native types.

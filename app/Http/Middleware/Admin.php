@@ -23,7 +23,6 @@ class Admin
         //     return redirect()->guest('/login');
         // }
         return $next($request);
-        // return redirect()->guest('/login');
         
     }
 }

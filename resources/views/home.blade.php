@@ -1,3 +1,4 @@
+
 @extends('layouts.frontLayout.frontend_design')
 @section('content')
 
@@ -33,8 +34,7 @@
                                     </ul>
                                 </div>
                                 <div class="tab-content tab_conarea" id="myTabContent">
-                                    <h5>Property search for rent and sales <a href="javascript:void(0)"
-                                            data-toggle="modal" data-target="#exampleModalCenter">Advanced Search</a>
+                                    <h5>Property search for rent and sales 
                                     </h5>
                                     <?php $counter = 0;?>
                                     @foreach($services as $service)
@@ -59,7 +59,7 @@
                                                     <select name="property_type">
                                                         <option value="">Property Type</option>
                                                         @foreach( $propertyType as $type )
-                                                        <option value="{{ $type->id}}">{{ $type->property_type}}
+                                                        <option value="{{ $type->property_type_code}}">{{ $type->property_type}}
                                                         </option>
                                                         @endforeach
                                                     </select>
@@ -80,9 +80,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center"
-                            style="max-height: 100px; max-width: 1190px;">
-                            @include('admin.google_ads.partials.leaderboard_728_90')
+                        <div class="col-12 col-sm-12 col-md-12 mt-3 text-center">
+                            
+                            @include('admin.google_ads.partials.large_leaderboard_970_90')
                         </div>
                     </div>
                 </div>
@@ -125,70 +125,66 @@
             <div class="row">
                 @foreach($featureProperty as $property)
                 @if($loop->index < 2) <div class="col-12 col-sm-6 col-md-12 col-lg-6 col-xl-6">
-                    <a href="{{ url('/properties/'.$property->property_url) }}">
-                        <div class="product_box featurepro_box">
-                            <div class="product_img">
-                                <div class="owl-carousel feauture-slide owl-theme">
-                                    @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
-                                    <div class="item">
-                                        <img height="180"
-                                            src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
-                                    </div>
-                                    @endforeach
+                    <a href="{{ url('/properties/'.$property->property_url) }}"><div class="product_box featurepro_box">
+                        <div class="product_img">
+                            <div class="owl-carousel feauture-slide owl-theme">
+                                @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
+                                <div class="item"><img height="180"
+                                        src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                 </div>
-                                <div class="rateing">
-                                    <i class="staricon">Featured</i>
-                                </div>
-                                <div class="bottom_strip">
-                                    <h6><i class="fas fa-map-marker-alt"></i>
-                                        @if(!empty($property->city_name))
-                                        <span>{{ $property->city_name }},</span>
-                                        @endif
-                                        @if(!empty($property->country_name))
-                                        <span>{{ $property->country_name }}</span>
-                                        @endif
-                                    </h6>
-                                    @if(!empty($property->parea))<p>{{ $property->parea }} Square Ft</p>@endif
-                                    <span class="tagbtn rent">{{ $property->service_name }}</span>
-                                </div>
+                                @endforeach
                             </div>
-                            <div class="product_text">
-                                <div class="protxt_top">
+                            <div class="rateing">
+                                <i class="staricon">Featured</i>
+                            </div>
+                            <div class="bottom_strip">
+                                <h6><i class="fas fa-map-marker-alt"></i>
+                                    @if(!empty($property->city_name))
+                                    <span>{{ $property->city_name }},</span>
+                                    @endif
+                                    @if(!empty($property->country_name))
+                                    <span>{{ $property->country_name }}</span>
+                                    @endif
+                                </h6>
+                                @if(!empty($property->parea))<p>{{ $property->parea }} Square Ft</p>@endif
+                                <span class="tagbtn rent">{{ $property->service_name }}</span>
+                            </div>
+                        </div>
+                        <div class="product_text">
+                            <div class="protxt_top">
+                                <ul>
+                                    <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                        <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                    </li>
+                                    <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                        <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
+                                    </li>
+                                    <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                        <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="protxt_inn">
+                                <h6>{{ $property->property_name }}</h6>
+                                <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
+                                <div class="price_sec">
                                     <ul>
-                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                            <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                        <li>
+                                            @if(!empty($property->property_price))
+                                            <h5><span>@if(!empty($property->currency)) {{ $property->currency }}
+                                                    @endif</span> {{ $property->property_price }}</h5>
+                                            @else
+                                            <a href="/properties/{{ $property->property_url }}" class="btn_fullinfo">Get
+                                                Price</a>
+                                            @endif
                                         </li>
-                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                            <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
-                                        </li>
-                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                            <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
-                                        </li>
+                                        <!--<li><a href="{{ url('/properties/'.$property->property_url) }}"-->
+                                        <!--        class="btn_fullinfo">Full Info</a></li>-->
                                     </ul>
-                                </div>
-                                <div class="protxt_inn">
-                                    <h6>{{ $property->property_name }}</h6>
-                                    <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
-                                    <div class="price_sec">
-                                        <ul>
-                                            <li>
-                                                @if(!empty($property->property_price))
-                                                <h5><span>@if(!empty($property->currency)) {{ $property->currency }}
-                                                        @endif</span> {{ $property->property_price }}</h5>
-                                                @else
-                                                <a href="/properties/{{ $property->property_url }}"
-                                                    class="btn_fullinfo">Get
-                                                    Price</a>
-                                                @endif
-                                            </li>
-                                            <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
-                                                class="btn_fullinfo">Full Info</a></li> -->
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div></a>
             </div>
             @endif
             @endforeach
@@ -251,80 +247,79 @@
                             @foreach($properties as $property)
                             @if($property->service_id == $service->id )
                             <?php $counter++;?>
-                            @if( $counter <= 4) <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                                <a href="{{ url('/properties/'.$property->property_url) }}">
-                                    <div class="product_box">
-                                        <div class="product_img">
-                                            <div class="owl-carousel product-slide owl-theme">
-                                                @foreach(\App\PropertyImages::where('property_id', $property->id)->get()
-                                                as
-                                                $pimage)
-                                                <div class="item">
-                                                    <img style="max-height: 161px;"
-                                                        src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
-                                                </div>
-                                                @endforeach
+                            @if( $counter <= 4) 
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                                <a href="{{ url('/properties/'.$property->property_url) }}"><div class="product_box">
+                                    <div class="product_img">
+                                        <div class="owl-carousel product-slide owl-theme">
+                                            @foreach(\App\PropertyImages::where('property_id', $property->id)->get()
+                                            as
+                                            $pimage)
+                                            <div class="item">
+                                                <img style="max-height: 161px;"
+                                                    src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name) }}">
                                             </div>
-                                            <div class="bottom_strip">
-                                                <h6><i class="fas fa-map-marker-alt"></i>
-                                                    @if(!empty($property->city_name))
-                                                    <span>{{ $property->city_name }},</span>
-                                                    @endif
-                                                    @if(!empty($property->country_name))
-                                                    <span>{{ $property->country_name }}</span>
-                                                    @endif
-                                                </h6>
-                                                <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
-                                                <span class="tagbtn rent">{{ $property->service_name }}</span>
-                                            </div>
+                                            @endforeach
                                         </div>
-                                        <div class="product_text">
-                                            <div class="protxt_top">
+                                        <div class="bottom_strip">
+                                            <h6><i class="fas fa-map-marker-alt"></i>
+                                                @if(!empty($property->city_name))
+                                                <span>{{ $property->city_name }},</span>
+                                                @endif
+                                                @if(!empty($property->country_name))
+                                                <span>{{ $property->country_name }}</span>
+                                                @endif
+                                            </h6>
+                                            <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
+                                            <span class="tagbtn rent">{{ $property->service_name }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="product_text">
+                                        <div class="protxt_top">
+                                            <ul>
+                                                <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                                    <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                                </li>
+                                                <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                                    <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
+                                                </li>
+                                                <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                                    <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="protxt_inn">
+                                            <h6>{{ $property->property_name }}</h6>
+                                            <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
+                                            <div class="price_sec">
                                                 <ul>
-                                                    <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                                        <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                                    <li>
+                                                        @if(!empty($property->property_price))
+                                                        <h5><span>@if(!empty($property->currency))
+                                                                {{ $property->currency }} @endif</span>
+                                                            {{ $property->property_price }}</h5>
+                                                        @else
+                                                        <a href="/properties/{{ $property->property_url }}"
+                                                            class="btn_fullinfo">Get Price</a>
+                                                        @endif
                                                     </li>
-                                                    <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                                        <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
-                                                    </li>
-                                                    <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                                        <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="protxt_inn">
-                                                <h6>{{ $property->property_name }}</h6>
-                                                <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
-                                                <div class="price_sec">
-                                                    <ul>
-                                                        <li>
-                                                            @if(!empty($property->property_price))
-                                                            <h5><span>@if(!empty($property->currency))
-                                                                    {{ $property->currency }} @endif</span>
-                                                                {{ $property->property_price }}</h5>
-                                                            @else
-                                                            <a href="/properties/{{ $property->property_url }}"
-                                                                class="btn_fullinfo">Get Price</a>
-                                                            @endif
-                                                        </li>
-                                                        <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
+                                                    <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
                                                             class="btn_fullinfo">Full Info</a></li> -->
-                                                    </ul>
-                                                </div>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </a>
+                                </div></a>
+                            </div>
+                            @endif
+                            @endif
+                            @endforeach
                         </div>
-                        @endif
-                        @endif
-                        @endforeach
-                    </div>
                     <!--<div class="view_sec text-center"><a class="btnview_all" href="{{ url('/properties') }}">View-->
                     <!--        All</a></div>-->
-                </div>
-                @endif
-                @endforeach
+                    </div>
+                    @endif
+                    @endforeach
             </div>
         </div>
         <div class="col-12 col-md-3 col-xl-3" style="display:none;">
@@ -376,68 +371,67 @@
                     @foreach($commercial_property as $property)
                     <?php $counter++;?>
                     @if($counter <= 3) <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                        <a href="{{ url('/properties/'.$property->property_url) }}">
-                            <div class="product_box">
-                                <div class="product_img">
-                                    <div class="owl-carousel product-slide owl-theme">
-                                        @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as
-                                        $pimage)
-                                        <div class="item"><img style="max-height: 223px;"
-                                                src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
-                                        </div>
-                                        @endforeach
+                    <a href="{{ url('/properties/'.$property->property_url) }}">
+                    <div class="product_box">
+                            <div class="product_img">
+                                <div class="owl-carousel product-slide owl-theme">
+                                    @foreach(\App\PropertyImages::where('property_id', $property->id)->get() as $pimage)
+                                    <div class="item"><img style="max-height: 223px;"
+                                            src="{{ asset('/images/backend_images/property_images/large/'.$pimage->image_name)}}">
                                     </div>
-                                    <div class="bottom_strip">
-                                        <h6><i class="fas fa-map-marker-alt"></i>
-                                            @if(!empty($property->city))
-                                            {{ $property->city_name }}, </span>
-                                            @endif
-                                            @if(!empty($property->country))
-                                            <span> {{ $property->country_name }}</span>
-                                            @endif
-                                        </h6>
-                                        <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
-                                        <span class="tagbtn rent">
-                                            {{ $property->service_name }}
-                                        </span>
-                                    </div>
+                                    @endforeach
                                 </div>
-                                <div class="product_text">
-                                    <div class="protxt_top">
+                                <div class="bottom_strip">
+                                    <h6><i class="fas fa-map-marker-alt"></i>
+                                        @if(!empty($property->city))
+                                            {{ $property->city_name }}, </span>
+                                        @endif
+                                        @if(!empty($property->country))
+                                        <span> {{ $property->country_name }}</span>
+                                        @endif
+                                    </h6>
+                                    <p>@if($property->parea){{ $property->parea }} Square Ft @endif</p>
+                                    <span class="tagbtn rent">
+                                        {{ $property->service_name }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="product_text">
+                                <div class="protxt_top">
+                                    <ul>
+                                        <li><i><img src="/images/frontend_images/images/room.svg"></i>
+                                            <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
+                                            <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
+                                        </li>
+                                        <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
+                                            <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="protxt_inn">
+                                    <h6>{{ $property->property_name }}</h6>
+                                    <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
+                                    <div class="price_sec">
                                         <ul>
-                                            <li><i><img src="/images/frontend_images/images/room.svg"></i>
-                                                <p><span>{{ $property->rooms }}</span>Rooms</p>
+                                            <li>
+                                                @if(!empty($property->property_price))
+                                                <h5><span>@if(!empty($property->country)) {{ $property->currency }}
+                                                        @endif</span> {{ $property->property_price }}</h5>
+                                                @else
+                                                <a href="/properties/{{ $property->property_url }}"
+                                                    class="btn_fullinfo">Get Price</a>
+                                                @endif
                                             </li>
-                                            <li><i><img src="/images/frontend_images/images/bedroom.svg"></i>
-                                                <p><span>{{ $property->bedrooms }}</span>Bedrooms</p>
-                                            </li>
-                                            <li><i><img src="/images/frontend_images/images/bathroom.svg"></i>
-                                                <p><span>{{ $property->bathrooms }}</span>Bathroom</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="protxt_inn">
-                                        <h6>{{ $property->property_name }}</h6>
-                                        <p>{{ str_limit(strip_tags($property->description), $limit=80) }}</p>
-                                        <div class="price_sec">
-                                            <ul>
-                                                <li>
-                                                    @if(!empty($property->property_price))
-                                                    <h5><span>@if(!empty($property->country)) {{ $property->currency }}
-                                                            @endif</span> {{ $property->property_price }}</h5>
-                                                    @else
-                                                    <a href="/properties/{{ $property->property_url }}"
-                                                        class="btn_fullinfo">Get Price</a>
-                                                    @endif
-                                                </li>
-                                                <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
+                                            <!-- <li><a href="{{ url('/properties/'.$property->property_url) }}"
                                                     class="btn_fullinfo">Full Info</a></li> -->
-                                            </ul>
-                                        </div>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                </div></a>
+                        </div>
+                    </div></a>
                 @endif
                 @endforeach
             </div>
@@ -448,6 +442,8 @@
 </div>
 </div>
 <!-- /.Commercial Properties -->
+
+
 
 <!-- Other Services -->
 <div class="oter_services">
@@ -498,7 +494,7 @@
                         <img src="/images/frontend_images/images/icon-02.png">
                     </div>
                     <div class="viewsourcetxt">
-                        <h1>3,000+</h1>
+                        <h1>{{ \App\Property::count() }}+</h1>
                         <p>Properties Listed</p>
                     </div>
                 </div>
@@ -551,7 +547,7 @@
                                     @foreach($countries as $country)
                                     @if($country->continent == $continent->code)
                                     <li style="display: block;">
-                                        <a href="{{ url('/country/'.$country->iso2.'/properties?country='.$country->iso2) }}"
+                                        <a href="{{ url('/country/'.$country->iso2.'/properties') }}"
                                             style="margin: 0.2em 0em;"
                                             class="btn btn-outline-dark">{{ $country->name }}</a>
                                     </li>
@@ -570,11 +566,10 @@
 </div>
 <!-- /. Properties in Contenent -->
 
-<?php $arry_ip = geoip()->getLocation('14.98.69.170'); ?>
+<?php $arry_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
 
 <!-- Dealers -->
-<div
-    class="latest_product @if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0) d-none @endif">
+<div class="latest_product @if(\App\User::whereIn('usertype', array('A','B'))->where('country', $arry_ip->iso_code)->count() == 0) d-none @endif">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
@@ -589,7 +584,8 @@
                                 <div class="item">
                                     <a href="{{ url('/profile/'.$d->id.'/user') }}">
                                         <div class="dealers_box">
-                                            <div class="dealers_img"><img src="{{ url('/images/user.png') }}"></div>
+                                            <div class="dealers_img"><img
+                                                    src="/images/user.png"></div>
                                             <div class="dealers_txt">
                                                 <h4>{{ $d->first_name }}</h4>
                                             </div>
@@ -607,17 +603,17 @@
 </div>
 <!-- /.Dealers -->
 
-<!-- Home Page Content Start here -->
+<!-- Homepage Content start here -->
 <div class="home_page_content" style="padding-top: 1em;">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-12 col-xl-12">
                 @include('admin.homepage.partials.home_page_content')
-                <p class="text-center"><a href="{{ url('/about-us') }}" class="btn btn-md btn-custom">Read More</a></p>
+                <p class="text-center"><a href="https://www.indiapropertyclinic.com/about-us" class="btn btn-md btn-custom">Read More</a></p>
             </div>
         </div>
     </div>
 </div>
-<!-- /. Home Page Content Start here -->
+<!-- /. Homepage Content ends here -->
 
 @endsection

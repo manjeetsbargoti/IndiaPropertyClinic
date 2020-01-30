@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        @if(Auth::user()->admin == 1)
+        @if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
@@ -43,7 +43,7 @@
         @endif
         <div class="clearfix visible-sm-block"></div>
 
-        @if(Auth::user()->admin == 1)
+        @if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-green"><i class="ion ion-ios-help"></i></span>
@@ -56,7 +56,7 @@
         </div>
         @endif
 
-        @if(Auth::user()->admin == 1)
+        @if(Auth::user()->admin == 1 || Auth::user()->usertype == 'S')
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
@@ -91,7 +91,11 @@
                 @if( $counter <= 4)
                 <li class="item">
                   <div class="product-img"><span class="label label-info">{{ date('d M, Y', strtotime($p->created_at)) }} </span>
-                    <img style="width: 67px !important;" class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/'.$p->image_name)}}" alt="{{ $p->property_name }}">
+                    @if(!empty($p->image_name))
+                        <img style="width: 67px !important;" class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/'.$p->image_name)}}" alt="{{ $p->property_name }}">
+                    @else
+                        <img style="width: 67px !important;" class="img-responsive" src="{{ asset('/images/backend_images/property_images/large/default.jpg')}}" alt="{{ $p->property_name }}">
+                    @endif
                   </div>
                   <div class="product-info">
                     <a href="{{ url('/properties/') }}/{{ $p->property_url }}" target="_blank" class="product-title">{{ str_limit($p->property_name, $limit=50) }}

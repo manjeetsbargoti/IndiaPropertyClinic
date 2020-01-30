@@ -10,7 +10,7 @@ class SitemapController extends Controller
     // Create index method which will create sitemap
     public function index()
     {
-        $property = Property::latest()->limit(20000)->get();
+        $property = Property::select('property_url','created_at')->latest()->limit(20000)->get();
 
   		return response()->view('sitemap.index', [
       		'property' => $property,
