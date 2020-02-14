@@ -18,7 +18,6 @@ use Carbon\CarbonPeriod;
 use Closure;
 use DateTime;
 use DateTimeImmutable;
-use InvalidArgumentException;
 
 /**
  * Trait Converter.
@@ -163,13 +162,11 @@ trait Converter
      * echo Carbon::now()->toTimeString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toTimeString($unitPrecision = 'second')
+    public function toTimeString()
     {
-        return $this->rawFormat(static::getTimeFormatByPrecision($unitPrecision));
+        return $this->rawFormat('H:i:s');
     }
 
     /**
@@ -180,38 +177,11 @@ trait Converter
      * echo Carbon::now()->toDateTimeString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toDateTimeString($unitPrecision = 'second')
+    public function toDateTimeString()
     {
-        return $this->rawFormat('Y-m-d '.static::getTimeFormatByPrecision($unitPrecision));
-    }
-
-    /**
-     * Return a format from H:i to H:i:s.u according to given unit precision.
-     *
-     * @param string $unitPrecision "minute", "second", "millisecond" or "microsecond"
-     *
-     * @return string
-     */
-    public static function getTimeFormatByPrecision($unitPrecision)
-    {
-        switch (static::singularUnit($unitPrecision)) {
-            case 'minute':
-                return 'H:i';
-            case 'second':
-                return 'H:i:s';
-            case 'm':
-            case 'millisecond':
-                return 'H:i:s.v';
-            case 'µ':
-            case 'microsecond':
-                return 'H:i:s.u';
-        }
-
-        throw new InvalidArgumentException('Precision unit expected among: minute, second, millisecond and microsecond.');
+        return $this->rawFormat('Y-m-d H:i:s');
     }
 
     /**
@@ -220,17 +190,13 @@ trait Converter
      * @example
      * ```
      * echo Carbon::now()->toDateTimeLocalString();
-     * echo "\n";
-     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
-     *
-     * @param string $unitPrecision
      *
      * @return string
      */
-    public function toDateTimeLocalString($unitPrecision = 'second')
+    public function toDateTimeLocalString()
     {
-        return $this->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision));
+        return $this->rawFormat('Y-m-d\TH:i:s');
     }
 
     /**
@@ -316,13 +282,11 @@ trait Converter
      * echo Carbon::now()->toIso8601ZuluString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toIso8601ZuluString($unitPrecision = 'second')
+    public function toIso8601ZuluString()
     {
-        return $this->copy()->utc()->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision).'\Z');
+        return $this->copy()->utc()->rawFormat('Y-m-d\TH:i:s\Z');
     }
 
     /**
@@ -597,9 +561,9 @@ trait Converter
     /**
      * Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).
      *
-     * @param \DateTimeInterface|Carbon|CarbonImmutable|int|null $end      period end date or recurrences count if int
-     * @param int|\DateInterval|string|null                      $interval period default interval or number of the given $unit
-     * @param string|null                                        $unit     if specified, $interval must be an integer
+     * @param \DateTimeInterface|Carbon|CarbonImmutable|null $end      period end date
+     * @param int|\DateInterval|string|null                  $interval period default interval or number of the given $unit
+     * @param string|null                                    $unit     if specified, $interval must be an integer
      *
      * @return CarbonPeriod
      */
@@ -615,9 +579,7 @@ trait Converter
             $period->setDateInterval($interval);
         }
 
-        if (is_int($end) || is_string($end) && ctype_digit($end)) {
-            $period->setRecurrences($end);
-        } elseif ($end) {
+        if ($end) {
             $period->setEndDate($end);
         }
 

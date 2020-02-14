@@ -186,6 +186,19 @@
                   </ul>
               </li>
               <?php endif; ?>
+              <?php if(Auth::user()->usertype  == 'A' || Auth::user()->usertype  == 'B' || Auth::user()->usertype  == 'U' || Auth::user()->usertype  == 'S' || Auth::user()->admin == 1): ?>
+              <li class="treeview <?php echo e((request()->is('admin/categories*')) ? 'active':''); ?> <?php echo e((request()->is('admin/blog*')) ? 'active':''); ?>">
+                  <a href="<?php echo e(url('/admin/blog')); ?>"><i class="fa fa-building text-green"></i> <span>Blog</span>
+                      <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <li class="<?php echo e((request()->is('admin/blog*')) ? 'active':''); ?>"><a href="<?php echo e(url('/admin/blog')); ?>"><i class="fa fa-circle-o text-purple"></i>All Blog</a></li>
+                      <li class="<?php echo e((request()->is('admin/categories*')) ? 'active':''); ?>"><a href="<?php echo e(route('admin.categories')); ?>"><i class="fa fa-circle-o text-purple"></i>All categories</a></li>
+                  </ul>
+              </li>
+              <?php endif; ?>
               <?php if(Auth::user()->admin  == 1): ?>
               <li class="treeview <?php echo e((request()->is('admin/queries*')) ? 'active':''); ?>">
                   <a href="<?php echo e(url('/admin/queries/property')); ?>"><i class="fa fa-ticket text-green"></i> <span>Support Center</span>

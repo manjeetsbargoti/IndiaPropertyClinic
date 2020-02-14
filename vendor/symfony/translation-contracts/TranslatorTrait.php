@@ -25,9 +25,9 @@ trait TranslatorTrait
     /**
      * {@inheritdoc}
      */
-    public function setLocale(string $locale)
+    public function setLocale($locale)
     {
-        $this->locale = $locale;
+        $this->locale = (string) $locale;
     }
 
     /**
@@ -41,18 +41,16 @@ trait TranslatorTrait
     /**
      * {@inheritdoc}
      */
-    public function trans(?string $id, array $parameters = [], string $domain = null, string $locale = null): string
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
-        if (null === $id || '' === $id) {
-            return '';
-        }
+        $id = (string) $id;
 
         if (!isset($parameters['%count%']) || !is_numeric($parameters['%count%'])) {
             return strtr($id, $parameters);
         }
 
         $number = (float) $parameters['%count%'];
-        $locale = $locale ?: $this->getLocale();
+        $locale = (string) $locale ?: $this->getLocale();
 
         $parts = [];
         if (preg_match('/^\|++$/', $id)) {

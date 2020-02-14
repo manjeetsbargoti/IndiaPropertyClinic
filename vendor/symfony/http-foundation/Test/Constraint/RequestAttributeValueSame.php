@@ -12,7 +12,6 @@
 namespace Symfony\Component\HttpFoundation\Test\Constraint;
 
 use PHPUnit\Framework\Constraint\Constraint;
-use Symfony\Component\HttpFoundation\Request;
 
 final class RequestAttributeValueSame extends Constraint
 {

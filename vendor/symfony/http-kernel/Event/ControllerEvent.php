@@ -21,8 +21,6 @@ namespace Symfony\Component\HttpKernel\Event;
  * Controllers should be callables.
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
- *
- * @final since Symfony 4.4
  */
 class ControllerEvent extends FilterControllerEvent
 {

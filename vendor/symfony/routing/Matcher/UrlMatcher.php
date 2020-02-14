@@ -93,7 +93,9 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             throw new NoConfigurationException();
         }
 
-        throw 0 < \count($this->allow) ? new MethodNotAllowedException(array_unique($this->allow)) : new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
+        throw 0 < \count($this->allow)
+            ? new MethodNotAllowedException(array_unique($this->allow))
+            : new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
     }
 
     /**
@@ -118,7 +120,8 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     /**
      * Tries to match a URL with a set of routes.
      *
-     * @param string $pathinfo The path info to be parsed
+     * @param string          $pathinfo The path info to be parsed
+     * @param RouteCollection $routes   The set of routes
      *
      * @return array An array of parameters
      *
@@ -205,6 +208,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
      * in matchers that do not have access to the matched Route instance
      * (like the PHP and Apache matcher dumpers).
      *
+     * @param Route  $route      The route we are matching against
      * @param string $name       The name of the route
      * @param array  $attributes An array of attributes from the matcher
      *
@@ -227,6 +231,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
      *
      * @param string $pathinfo The path
      * @param string $name     The route name
+     * @param Route  $route    The route
      *
      * @return array The first element represents the status, the second contains additional information
      */
@@ -274,7 +279,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     /**
      * @internal
      */
-    protected function createRequest(string $pathinfo): ?Request
+    protected function createRequest($pathinfo)
     {
         if (!class_exists('Symfony\Component\HttpFoundation\Request')) {
             return null;

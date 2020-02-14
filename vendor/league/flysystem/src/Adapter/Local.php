@@ -287,8 +287,6 @@ class Local extends AbstractAdapter
             $result[] = $this->normalizeFileInfo($file);
         }
 
-        unset($iterator);
-
         return array_filter($result);
     }
 
@@ -321,7 +319,7 @@ class Local extends AbstractAdapter
         $finfo = new Finfo(FILEINFO_MIME_TYPE);
         $mimetype = $finfo->file($location);
 
-        if (in_array($mimetype, ['application/octet-stream', 'inode/x-empty', 'application/x-empty'])) {
+        if (in_array($mimetype, ['application/octet-stream', 'inode/x-empty'])) {
             $mimetype = Util\MimeType::detectByFilename($location);
         }
 
@@ -413,8 +411,6 @@ class Local extends AbstractAdapter
             $this->guardAgainstUnreadableFileInfo($file);
             $this->deleteFileInfoObject($file);
         }
-
-        unset($contents);
 
         return rmdir($location);
     }

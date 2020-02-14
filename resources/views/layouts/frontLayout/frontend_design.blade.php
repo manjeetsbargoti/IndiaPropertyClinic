@@ -7,20 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
     <!-- for Google -->
-    <meta name="title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif"/>
+    <meta name="title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif"/>
     <meta name="description" content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif"/>
     <meta name="keywords" content="@if(!empty($meta_keywords)) {{ $meta_keywords }} @elseif(!empty($property->city_name)){{ 'Property in '.$property->country_name.', Property in '.$property->state_name.', Property in '.$property->city_name }}@elseif(!empty($service->service_name))<?php echo implode(',', explode(' ', $service->service_name)); ?>@else{{ config('app.name') }} @endif"/>
     <meta name="copyright" content="Copyright (C) Since 2019 - This Content is owned by original poster" />
 
     <!-- for Facebook -->
-    <meta property="og:title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
+    <meta property="og:title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
     <meta property="og:type" content="article" />
     <meta property="og:description" content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif" />
     <meta property="og:url" content="@if(!empty($property->property_url)){{ url('properties/'.$property->property_url) }}@elseif(!empty($service->url)){{ url('/services/'.$service->url) }}@else{{ config('app.name') }}@endif" />
 
     <!-- for Twitter -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name.' | '.config('app.name') !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
+    <meta name="twitter:title" content="@if(!empty($meta_title)) {{ $meta_title }} @elseif(!empty($property->property_name)){!! $property->property_name !!}@elseif(!empty($service->service_name)){!! $service->service_name.' | '.config('app.name') !!}@else{{ config('app.name') }}@endif" />
     <meta name="twitter:description" content="@if(!empty($meta_description)) {{ $meta_description }} @elseif(!empty($property->description)){{ strip_tags(str_limit($property->description, $limit=150)) }}@elseif(!empty($service->s_description)){!! str_limit(strip_tags($service->s_description), $limit=150) !!}@else{{ config('app.name') }}@endif" />
 
     <!-- CSRF Token -->

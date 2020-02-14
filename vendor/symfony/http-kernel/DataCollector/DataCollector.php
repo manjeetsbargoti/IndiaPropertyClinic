@@ -77,6 +77,9 @@ abstract class DataCollector implements DataCollectorInterface
             return $var;
         }
         if (null === $this->cloner) {
+            if (!class_exists(CutStub::class)) {
+                throw new \LogicException(sprintf('The VarDumper component is needed for the %s() method. Install symfony/var-dumper version 3.4 or above.', __METHOD__));
+            }
             $this->cloner = new VarCloner();
             $this->cloner->setMaxItems(-1);
             $this->cloner->addCasters($this->getCasters());
@@ -102,14 +105,15 @@ abstract class DataCollector implements DataCollectorInterface
 
                 return $a;
             },
-        ] + ReflectionCaster::UNSET_CLOSURE_FILE_INFO;
+        ];
+
+        if (method_exists(ReflectionCaster::class, 'unsetClosureFileInfo')) {
+            $casters += ReflectionCaster::UNSET_CLOSURE_FILE_INFO;
+        }
 
         return $casters;
     }
 
-    /**
-     * @return array
-     */
     public function __sleep()
     {
         if (__CLASS__ !== $c = (new \ReflectionMethod($this, 'serialize'))->getDeclaringClass()->name) {

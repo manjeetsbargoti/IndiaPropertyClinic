@@ -47,8 +47,10 @@ class CollectionConfigurator
 
     /**
      * Creates a sub-collection.
+     *
+     * @return self
      */
-    final public function collection(string $name = ''): self
+    final public function collection($name = '')
     {
         return new self($this->collection, $this->name.$name, $this, $this->prefixes);
     }
@@ -60,7 +62,7 @@ class CollectionConfigurator
      *
      * @return $this
      */
-    final public function prefix($prefix): self
+    final public function prefix($prefix)
     {
         if (\is_array($prefix)) {
             if (null === $this->parentPrefixes) {
@@ -86,7 +88,7 @@ class CollectionConfigurator
         return $this;
     }
 
-    private function createRoute(string $path): Route
+    private function createRoute($path): Route
     {
         return (clone $this->route)->setPath($path);
     }

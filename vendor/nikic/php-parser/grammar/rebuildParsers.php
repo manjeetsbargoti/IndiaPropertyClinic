@@ -13,10 +13,13 @@ $tmpResultFile  = __DIR__ . '/tmp_parser.php';
 $resultDir = __DIR__ . '/../lib/PhpParser/Parser';
 $tokensResultsFile = $resultDir . '/Tokens.php';
 
-$kmyacc = getenv('KMYACC');
-if (!$kmyacc) {
-    // Use phpyacc from dev dependencies by default.
-    $kmyacc = PHP_BINARY . ' ' . __DIR__ . '/../vendor/bin/phpyacc';
+// check for kmyacc binary in this directory, otherwise fall back to global name
+if (file_exists(__DIR__ . '/kmyacc.exe')) {
+    $kmyacc = __DIR__ . '/kmyacc.exe';
+} else if (file_exists(__DIR__ . '/kmyacc')) {
+    $kmyacc = __DIR__ . '/kmyacc';
+} else {
+    $kmyacc = 'kmyacc';
 }
 
 $options = array_flip($argv);
@@ -59,7 +62,8 @@ foreach ($grammarFileToName as $grammarFile => $name) {
     $additionalArgs = $optionDebug ? '-t -v' : '';
 
     echo "Building $name parser.\n";
-    $output = execCmd("$kmyacc $additionalArgs -m $skeletonFile -p $name $tmpGrammarFile");
+    $output = trim(shell_exec("$kmyacc $additionalArgs -l -m $skeletonFile -p $name $tmpGrammarFile 2>&1"));
+    echo "Output: \"$output\"\n";
 
     $resultCode = file_get_contents($tmpResultFile);
     $resultCode = removeTrailingWhitespace($resultCode);
@@ -69,7 +73,8 @@ foreach ($grammarFileToName as $grammarFile => $name) {
     unlink($tmpResultFile);
 
     echo "Building token definition.\n";
-    $output = execCmd("$kmyacc -m $tokensTemplate $tmpGrammarFile");
+    $output = trim(shell_exec("$kmyacc -l -m $tokensTemplate $tmpGrammarFile 2>&1"));
+    assert($output === '');
     rename($tmpResultFile, $tokensResultsFile);
 
     if (!$optionKeepTmpGrammar) {
@@ -227,15 +232,6 @@ function ensureDirExists($dir) {
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
     }
-}
-
-function execCmd($cmd) {
-    $output = trim(shell_exec("$cmd 2>&1"));
-    if ($output !== "") {
-        echo "> " . $cmd . "\n";
-        echo $output;
-    }
-    return $output;
 }
 
 //////////////////////////////

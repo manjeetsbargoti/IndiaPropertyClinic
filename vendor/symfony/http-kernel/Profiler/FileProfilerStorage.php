@@ -47,7 +47,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null): array
+    public function find($ip, $url, $limit, $method, $start = null, $end = null, $statusCode = null)
     {
         $file = $this->getIndexFilename();
 
@@ -113,14 +113,10 @@ class FileProfilerStorage implements ProfilerStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function read($token): ?Profile
+    public function read($token)
     {
         if (!$token || !file_exists($file = $this->getFilename($token))) {
             return null;
-        }
-
-        if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://'.$file;
         }
 
         return $this->createProfileFromData($token, unserialize(file_get_contents($file)));
@@ -131,7 +127,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
      *
      * @throws \RuntimeException
      */
-    public function write(Profile $profile): bool
+    public function write(Profile $profile)
     {
         $file = $this->getFilename($profile->getToken());
 
@@ -165,14 +161,7 @@ class FileProfilerStorage implements ProfilerStorageInterface
             'status_code' => $profile->getStatusCode(),
         ];
 
-        $context = stream_context_create();
-
-        if (\function_exists('gzcompress')) {
-            $file = 'compress.zlib://'.$file;
-            stream_context_set_option($context, 'zlib', 'level', 3);
-        }
-
-        if (false === file_put_contents($file, serialize($data), 0, $context)) {
+        if (false === file_put_contents($file, serialize($data))) {
             return false;
         }
 
@@ -291,10 +280,6 @@ class FileProfilerStorage implements ProfilerStorageInterface
         foreach ($data['children'] as $token) {
             if (!$token || !file_exists($file = $this->getFilename($token))) {
                 continue;
-            }
-
-            if (\function_exists('gzcompress')) {
-                $file = 'compress.zlib://'.$file;
             }
 
             $profile->addChild($this->createProfileFromData($token, unserialize(file_get_contents($file)), $profile));

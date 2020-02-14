@@ -36,10 +36,9 @@ return [
     'a_second' => 'մի քանի վայրկյան|:count վայրկյան',
     's' => ':countվրկ',
     'ago' => ':time առաջ',
-    'from_now' => ':timeից',
+    'from_now' => ':time ներկա պահից',
     'after' => ':time հետո',
     'before' => ':time առաջ',
-    'diff_now' => 'հիմա',
     'diff_yesterday' => 'երեկ',
     'diff_tomorrow' => 'վաղը',
     'formats' => [

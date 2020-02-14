@@ -141,7 +141,14 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
         return $this->messages;
     }
 
-    private function collectMessage(?string $locale, ?string $domain, ?string $id, string $translation, ?array $parameters = [])
+    /**
+     * @param string|null $locale
+     * @param string|null $domain
+     * @param string      $id
+     * @param string      $translation
+     * @param array|null  $parameters
+     */
+    private function collectMessage($locale, $domain, $id, $translation, $parameters = [])
     {
         if (null === $domain) {
             $domain = 'messages';
@@ -150,7 +157,6 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
         $id = (string) $id;
         $catalogue = $this->translator->getCatalogue($locale);
         $locale = $catalogue->getLocale();
-        $fallbackLocale = null;
         if ($catalogue->defines($id, $domain)) {
             $state = self::MESSAGE_DEFINED;
         } elseif ($catalogue->has($id, $domain)) {
@@ -159,9 +165,10 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
             $fallbackCatalogue = $catalogue->getFallbackCatalogue();
             while ($fallbackCatalogue) {
                 if ($fallbackCatalogue->defines($id, $domain)) {
-                    $fallbackLocale = $fallbackCatalogue->getLocale();
+                    $locale = $fallbackCatalogue->getLocale();
                     break;
                 }
+
                 $fallbackCatalogue = $fallbackCatalogue->getFallbackCatalogue();
             }
         } else {
@@ -170,7 +177,6 @@ class DataCollectorTranslator implements LegacyTranslatorInterface, TranslatorIn
 
         $this->messages[] = [
             'locale' => $locale,
-            'fallbackLocale' => $fallbackLocale,
             'domain' => $domain,
             'id' => $id,
             'translation' => $translation,

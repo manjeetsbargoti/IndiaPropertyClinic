@@ -87,7 +87,7 @@ stub:
         const FAILURE = 1;
     }
 
-    \Mockery::namedMock('Fetcher', 'FetcherStub')
+    \Mockery::mock('Fetcher', 'FetcherStub')
         ->shouldReceive('fetch')
         ->andReturn(0);
 

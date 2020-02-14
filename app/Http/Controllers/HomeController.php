@@ -7,6 +7,7 @@ use Auth;
 use Image;
 use Session;
 use App\User;
+use App\State;
 use App\Cities;
 use App\Country;
 use App\Property;
@@ -305,35 +306,59 @@ class HomeController extends Controller
     // Home Page Search-Result Function Start
     public function searchresult(Request $request)
     {
-        $data = $request->all();
-        $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']);
-        $scityname = rtrim($data['search_text']);
-        $scityID = $data['property_cat'];
-        $scityname = json_decode(json_encode($scityname));
-        $scityID = json_decode(json_encode($scityID));
-        $city = Cities::where(['name' => rtrim($data['search_text'])])->get();
-        $city = json_decode(json_encode($city), true);
+        $perPage = 24;
+        $requestData = $request->all();
 
-        if (empty($data['search_text']) && !empty($data['property_type'])) {
-            $properties = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->paginate(18);
-            $properties_count = Property::where(['property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->count();
-        } elseif (empty($data['search_text']) && empty($data['property_type'])) {
-            $properties = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->paginate(18);
-            $properties_count = Property::where(['service_id' => $data['property_cat'], 'country'=>$arr_ip->iso_code])->count();
-        } elseif (empty($data['property_type']) && !empty($city[0])) {
-            $r = $city[0];
-            $properties = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->paginate(18);
-            $properties_count = Property::where(['city' => $r['id'], 'service_id' => $data['property_cat']])->count();
-        } else {
-            $r = null;
-            $properties = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->paginate(18);
-            $properties_count = Property::where(['city' => $r['id'], 'property_type_id' => $data['property_type'], 'service_id' => $data['property_cat']])->count();
+        // dd($requestData);
+
+        $city = Cities::where(['name' => rtrim($requestData['search_text'])])->first();
+
+        if($city)
+        {
+            $cityID = $city->id;
+            $scityname = $city->name;
+        }else{
+            $cityID = '';
+            $scityname = '';
         }
+        
+        // dd($cityID);
+
+        $propertyService = $requestData['property_cat'];
+
+        if(!empty($requestData['property_type']))
+        {
+            $propertyType = $requestData['property_type'];
+        }else{
+            $propertyType = '';
+        }
+        
+
+
+        $properties = new Property;
+
+        // dd($properties);
+
+        if (!empty($cityID) && empty($propertyType)) {
+            $properties = $properties->where(['city' => $cityID, 'service_id' => $propertyService]);
+        } elseif (empty($cityID) && !empty($propertyType)) {
+            $properties = $properties->where(['property_type_id' => $propertyType, 'service_id' => $propertyService]);
+        } elseif (empty($cityID) && empty($propertyType)) {
+            $properties = $properties->where(['service_id' => $propertyService]);
+        } elseif (!empty($cityID) && !empty($propertyType)) {
+            $properties = $properties->where(['city' => $cityID, 'property_type_id' => $propertyType, 'service_id' => $propertyService]);
+        }
+
+        $properties = $properties->latest()->paginate($perPage);
+
+        // dd($properties);
+
+        $properties_count = $properties->count();
 
         // $propertyImages = PropertyImages::get();
-        if (!empty($properties)) {
+        // if (!empty($properties)) {
             // $properties = json_decode(json_encode($properties));
-        }
+        // }
         foreach ($properties as $key => $val) {
             $service_name = Services::where(['id' => $val->service_id])->first();
             $properties[$key]->service_name = $service_name->service_name;
@@ -359,6 +384,9 @@ class HomeController extends Controller
                 $properties[$key]->city_name = $cityname->name;
             }
         }
+
+        dd($properties);
+
         if (!empty($country_count)) {
             $countrycount = $country_count;
         } else {
@@ -376,7 +404,7 @@ class HomeController extends Controller
         }
 
         if (!empty($properties)) {
-            $contRow = count($properties);
+            $contRow = $properties->count();
             // echo "<pre>"; print_r($contRow); die;
         } else {
             $contRow = 0;
@@ -384,17 +412,17 @@ class HomeController extends Controller
         
         // echo "<pre>"; print_r($data); die;
        
-        $service_name = Services::where('id', $data['property_cat'])->first();
-        $property_type = PropertyTypes::where('property_type_code', $data['property_type'])->first();
+        $service_name = Services::where('id', $requestData['property_cat'])->first();
+        $property_type = PropertyTypes::where('property_type_code', $propertyType)->first();
 
-        if(!empty($data['search_text']) && !empty($data['property_type']))
+        if(!empty($requestData['search_text']) && !empty($requestData['property_type']))
         {
-            $meta_title = $property_type['property_type']." in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
-        }elseif(!empty($data['search_text']) && empty($data['property_type'])){
-            $meta_title = "Properties in ".$data['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
-        }elseif(empty($data['search_text']) && !empty($data['property_type'])){
+            $meta_title = $property_type['property_type']." in ".$requestData['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }elseif(!empty($requestData['search_text']) && empty($requestData['property_type'])){
+            $meta_title = "Properties in ".$requestData['search_text']." for ".$service_name['service_name']." | India Property Clinic | IPC";
+        }elseif(empty($requestData['search_text']) && !empty($requestData['property_type'])){
             $meta_title = $property_type['property_type']." for ".$service_name['service_name']." | India Property Clinic | IPC";
-        }elseif(empty($data['search_text']) && empty($data['property_type'])){
+        }elseif(empty($requestData['search_text']) && empty($requestData['property_type'])){
             $meta_title = "Properties for ".$service_name['service_name']." | India Property Clinic | IPC";
         }
 
@@ -681,6 +709,157 @@ class HomeController extends Controller
         file_put_contents(resource_path('views/admin/homepage/partials/home_page_content.blade.php'), $request->home_page_content);
 
         return back();
+    }
+
+    // Builders based on country
+    public function countryBuilders(Request $request, $country=null)
+    {
+        $perpage = 24;
+
+        $country_name = $country;
+        // dd($country_name);
+
+        $country_name_count = Country::where('name', $country)->count();
+        if($country_name_count > 0)
+        {
+            $country_name = $country;
+        }else{
+            $country_name = str_replace(array('_','-'),' ', $country);
+        }
+        // dd($country_name);
+
+        $country_iso = Country::where('name',$country_name)->first();
+        // dd($country_iso);
+
+        $data = User::where(['users.country'=>$country_iso->iso2, 'usertype'=>'B'])
+                ->leftJoin('user_types','users.usertype','=','user_types.usercode')
+                ->leftJoin('cities','users.city','=','cities.id')
+                ->leftJoin('states','users.state','=','states.id')
+                ->leftJoin('countries','users.country','=','countries.iso2')
+                ->select('users.id','users.first_name','users.last_name','user_types.usertype_name as usertype','cities.name as city','states.name as state','countries.name as country')
+                ->latest('users.created_at')->paginate($perpage);
+
+        // dd($data);
+
+        $location = $country_name;
+
+        $country = Country::orderBy('name','asc')->get();
+
+        return view('frontend.users.all_builders', compact('data','country', 'location'));
+    }
+
+    // Builders based on State
+    public function stateBuilders(Request $request, $state=null)
+    {
+        $perpage = 24;
+
+        $state_name = $state;
+        // dd($state_name);
+
+        $state_name_count = State::where('name', $state)->count();
+        if($state_name_count > 0)
+        {
+            $state_name = $state;
+        }else{
+            $state_name = str_replace(array('_', '-'),' ', $state);
+        }
+        // dd($state_name);
+
+        $state_id = State::where('name',$state_name)->first();
+        // dd($state_id);
+
+        $data = User::where(['users.state'=>$state_id->id, 'usertype'=>'B'])
+                ->leftJoin('user_types','users.usertype','=','user_types.usercode')
+                ->leftJoin('cities','users.city','=','cities.id')
+                ->leftJoin('states','users.state','=','states.id')
+                ->leftJoin('countries','users.country','=','countries.iso2')
+                ->select('users.id','users.first_name','users.last_name','user_types.usertype_name as usertype','cities.name as city','states.name as state','countries.name as country')
+                ->latest('users.created_at')->paginate($perpage);
+
+        $count = User::where(['state'=>$state_id->id, 'usertype'=>'B'])->count();
+
+        // dd($data);
+
+        $location = $state_name;
+
+        $country = Country::orderBy('name','asc')->get();
+
+        return view('frontend.users.all_builders', compact('data','country','location','count'));
+    }
+
+    // Builders based on City
+    public function cityBuilders(Request $request, $city=null)
+    {
+        $perpage = 24;
+
+        $city_name = $city;
+        // dd($city_name);
+
+        $city_name_count = Cities::where('name', $city)->count();
+        if($city_name_count > 0)
+        {
+            $city_name = $city;
+        }else{
+            $city_name = str_replace(array('_'),' ', $city);
+        }
+        // dd($city_name);
+
+        $city_id = Cities::where('name', 'LIKE',$city_name)->first();
+        // dd($city_id);
+
+        $data = User::where(['users.city'=>$city_id->id, 'usertype'=>'B'])
+                ->leftJoin('user_types','users.usertype','=','user_types.usercode')
+                ->leftJoin('cities','users.city','=','cities.id')
+                ->leftJoin('states','users.state','=','states.id')
+                ->leftJoin('countries','users.country','=','countries.iso2')
+                ->select('users.id','users.first_name','users.last_name','user_types.usertype_name as usertype','cities.name as city','states.name as state','countries.name as country')
+                ->latest('users.created_at')->paginate($perpage);
+
+        $count = User::where(['city'=>$city_id->id, 'usertype'=>'B'])->count();
+
+        // dd($data);
+
+        $location = $city_name;
+
+        $country = Country::orderBy('name','asc')->get();
+
+        return view('frontend.users.all_builders', compact('data','country','location','count'));
+    }
+
+    // Search Builders
+    public function searchBuilders(Request $request)
+    {
+        $perPage    = 24;
+        $country    = $request['country'];
+        $state      = $request['state'];
+        $city       = $request['city'];
+
+        // dd($request->all());
+
+        $data = new User;
+
+        if ($country) {
+            $data = $data->where(['users.country' => $country, 'usertype'=>'B']);
+        }
+        if ($state) {
+            $data = $data->whereBetween('users.state', $state);
+        }
+        if ($city) {
+            $data = $data->where('users.city', $city);
+        }
+
+        $data = $data->leftJoin('user_types','users.usertype','=','user_types.usercode')
+                ->leftJoin('cities','users.city','=','cities.id')
+                ->leftJoin('states','users.state','=','states.id')
+                ->leftJoin('countries','users.country','=','countries.iso2')
+                ->select('users.id','users.first_name','users.last_name','user_types.usertype_name as usertype','cities.name as city','states.name as state','countries.name as country')
+                ->latest('users.created_at')->paginate($perPage);
+
+        // dd($data);
+
+        $country = Country::orderBy('name','asc')->get();
+
+        return view('frontend.users.all_builders', compact('data','country'));
     }
 
 }

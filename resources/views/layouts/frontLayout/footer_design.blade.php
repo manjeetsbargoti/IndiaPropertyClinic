@@ -117,7 +117,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale {{ $ctryid->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $ctryid->iso2)->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Real Estate sale {{ $s->name }}</a></li>
+                <li style="display: block;"><a class="{{ (request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name)) }}">Real Estate sale {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['country']))
@@ -125,14 +125,14 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale {{ $cntryname->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $_GET['country'])->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Real Estate sale {{ $s->name }}</a></li>
+                <li style="display: block;"><a class="{{ (request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name)) }}">Real Estate sale {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @else
             <h5 style="color: #000;">Real Estate for Sale <?php echo $arr_ip->country; ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
-                <li style="display: block;"><a class="{{ (request()->is('state/'.$s->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/'.$s->name.'/properties') }}">Real Estate sale {{ $s->name }}</a></li>
+                <li style="display: block;"><a class="{{ (request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name)) }}">Real Estate sale {{ $s->name }}</a></li>
                 @endforeach
             </ul>
             @endif
@@ -143,7 +143,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale {{ $sid->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $sid->id)->get() as $c)
-                <li style="display: block;"><a class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Real Estate sale {{ $c->name }}</a></li>
+                <li style="display: block;"><a class="{{ (request()->is('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name)) }}">Real Estate sale {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['state']))
@@ -151,7 +151,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale {{ $statname->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $_GET['state'])->get() as $c)
-                <li style="display: block;"><a class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Real Estate sale {{ $c->name }}</a></li>
+                <li style="display: block;"><a class="{{ (request()->is('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name)) }}">Real Estate sale {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @endif
@@ -167,14 +167,88 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale {{ $cid->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $cid->state_id)->get() as $c)
-                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Real Estate sale {{ $c->name }}</a></li>
+                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name)) }}">Real Estate sale {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @elseif(!empty($_GET['city']))
             <h5 style="color: #000;">Real Estate for Sale {{ $stateid->name }}</h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 @foreach(\App\Cities::where('state_id', $stateid['state_id'])->get() as $c)
-                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/'.$c->name.'/properties') }}">Real Estate sale {{ $c->name }}</a></li>
+                <li style="display: block;"><a  class="{{ (request()->is('city/'.$c->name.'/properties')) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name)) }}">Real Estate sale {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
+    </div>
+
+    <!-- Footer Menu -->
+    <div class="footer_menu">
+        <?php // echo $cid; ?>
+        <div class="container footer-csc {{ (request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block' }}">
+            <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+            @if(!empty($ctryid))
+            <h5 style="color: #000;">Real Estate Builders {{ $ctryid->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\State::where('country', $ctryid->iso2)->get() as $s)
+                <li style="display: block;"><a class="{{ (request()->is('country/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name)) }}">Real Estate Builders {{ $s->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['country']))
+            <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
+            <h5 style="color: #000;">Real Estate Builders {{ $cntryname->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\State::where('country', $cntryname->name)->get() as $s)
+                <li style="display: block;"><a class="{{ (request()->is('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name)) }}">Real Estate Builders {{ $s->name }}</a></li>
+                @endforeach
+            </ul>
+            @else
+            <h5 style="color: #000;">Real Estate Builders <?php echo $arr_ip->country; ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\State::where('country', $arr_ip->iso_code)->get() as $s)
+                <li style="display: block;"><a class="{{ (request()->is('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name)) }}">Real Estate Builders {{ $s->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+
+        </div>
+
+        <div class="container footer-csc {{ (request()->is('state*')) ? 'd-block':'d-none' }}">
+            @if(!empty($sid))
+            <h5 style="color: #000;">Real Estate Builders {{ $sid->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $sid->id)->get() as $c)
+                <li style="display: block;"><a class="{{ (request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name)) }}">Real Estate Builders {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['state']))
+            <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
+            <h5 style="color: #000;">Real Estate for Builders {{ $statname->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $_GET['state'])->get() as $c)
+                <li style="display: block;"><a class="{{ (request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name)) }}">Real Estate Builders {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @endif
+        </div>
+
+        <div class="container footer-csc {{ (request()->is('city*')) ? 'd-block':'d-none' }}">
+            
+            @if(!empty($_GET['city']))
+            <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
+            @endif
+           
+            @if(!empty($cid))
+            <h5 style="color: #000;">Real Estate Builders {{ $cid->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $cid->state_id)->get() as $c)
+                <li style="display: block;"><a  class="{{ (request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name)) }}">Real Estate Builders {{ $c->name }}</a></li>
+                @endforeach
+            </ul>
+            @elseif(!empty($_GET['city']))
+            <h5 style="color: #000;">Real Estate Builders {{ $stateid->name }}</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                @foreach(\App\Cities::where('state_id', $stateid['state_id'])->get() as $c)
+                <li style="display: block;"><a  class="{{ (request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':'' }}" style="color: #171747; font-weight: 500; font-size: 14px;" href="{{ url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name)) }}">Real Estate Builders {{ $c->name }}</a></li>
                 @endforeach
             </ul>
             @endif
@@ -483,14 +557,17 @@ $footerProperties = Controller::footersection();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-md-10 col-lg-10">
                         <div class="copyright_menu">
                             <ul>
                                 <li><a href="{{ url('/about-us') }}">About Us</a></li>
                                 <li><a href="#">Contact Us</a></li>
                                 <li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
                                 <li><a href="{{ url('/terms-condition') }}">Terms of Use</a></li>
-                                <li><a href="{{ url('/property/sitemap.xml') }}">Sitemap</a></li>
+                                <li><a href="{{ url('/property/sitemap.xml') }}">Property Sitemap</a></li>
+                                <li><a href="{{ url('/csc/sitemap.xml') }}">Country State Sitemap</a></li>
+                                <li><a href="{{ url('/service/sitemap.xml') }}">Services Sitemap</a></li>
+                                <li><a href="{{ url('/city/sitemap.xml') }}">City Sitemap</a></li>
                             </ul>
 
                             <p>@if(!empty(config('app.copyright'))) {{ config('app.copyright') }} @else Copyright &copy;
@@ -499,7 +576,7 @@ $footerProperties = Controller::footersection();
                                 </script> | India Property Clinic. All Rights Reserved. @endif</p>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <div class="social_link social_linkfoot">
                             <a href="https://www.facebook.com/indiapropertyclinic" target="_blank"><i class="fab fa-facebook"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>

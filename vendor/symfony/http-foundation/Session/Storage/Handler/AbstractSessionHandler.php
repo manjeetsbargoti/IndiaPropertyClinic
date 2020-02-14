@@ -29,7 +29,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     private $igbinaryEmptyData;
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function open($savePath, $sessionName)
     {
@@ -64,7 +64,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     abstract protected function doDestroy($sessionId);
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function validateId($sessionId)
     {
@@ -75,7 +75,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function read($sessionId)
     {
@@ -98,7 +98,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function write($sessionId, $data)
     {
@@ -115,7 +115,7 @@ abstract class AbstractSessionHandler implements \SessionHandlerInterface, \Sess
     }
 
     /**
-     * @return bool
+     * {@inheritdoc}
      */
     public function destroy($sessionId)
     {

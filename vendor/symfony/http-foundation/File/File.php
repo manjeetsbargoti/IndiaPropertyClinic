@@ -99,9 +99,6 @@ class File extends \SplFileInfo
         return $target;
     }
 
-    /**
-     * @return self
-     */
     protected function getTargetFile($directory, $name = null)
     {
         if (!is_dir($directory)) {
@@ -122,7 +119,7 @@ class File extends \SplFileInfo
      *
      * @param string $name The new file name
      *
-     * @return string
+     * @return string containing
      */
     protected function getName($name)
     {

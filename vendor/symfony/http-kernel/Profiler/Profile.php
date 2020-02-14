@@ -291,9 +291,6 @@ class Profile
         return isset($this->collectors[$name]);
     }
 
-    /**
-     * @return array
-     */
     public function __sleep()
     {
         return ['token', 'parent', 'children', 'collectors', 'ip', 'method', 'url', 'time', 'statusCode'];

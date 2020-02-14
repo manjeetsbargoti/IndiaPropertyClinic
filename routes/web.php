@@ -170,6 +170,17 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::match(['get', 'post'], '/admin/ppc/page/{id}/edit', 'PpcController@editPpcPage');
 });
 
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+	Route::get('categories', 'CategoriesController@index')->name('admin.categories');
+	Route::any('categories/add', 'CategoriesController@add')->name('admin.categories.add');
+	Route::any('categories/edit/{id}', 'CategoriesController@edit')->name('admin.categories.edit');
+    Route::any('categories/delete/{id}', 'CategoriesController@delete')->name('admin.categories.delete');
+    Route::get('categories/change-status/{id}', 'CategoriesController@changeStatus')->name('admin.categories.change-status');
+    Route::post('categories/get-slug', 'CategoriesController@getSlug')->name('admin.categories.get-slug');
+    Route::get('categories/restore/{id}', 'CategoriesController@restore')->name('admin.categories.restore');
+    Route::get('categories/force-delete/{id}', 'CategoriesController@forceDelete')->name('admin.categories.force-delete');
+});
+
 Route::group(['middleware' => ['auth', 'admin:0']], function () {
     Route::match(['get', 'post'], '/user/account', 'AdminController@userAccount');
 });
@@ -200,6 +211,10 @@ Route::get('/state/{state_id}/properties', 'PropertyController@searchByState');
 Route::get('/city/{city_id}/properties', 'PropertyController@searchByCity');
 Route::get('/properties/{id}/{name}', 'PropertyController@searchByService');
 Route::get('/country/{country_id}/properties', 'PropertyController@searchByCountry');
+
+Route::get('/state/real-estate-for-sale-{state_id}', 'PropertyController@searchByState');
+Route::get('/city/real-estate-for-sale-{city_id}', 'PropertyController@searchByCity');
+Route::get('/country/real-estate-for-sale-{country_id}', 'PropertyController@searchByCountry');
 
 Route::get('/country_property/properties-for-sale-in-{country_name}', 'PropertyController@searchByCountryName');
 Route::get('/country/{property_type}-for-sale-in-{country_name}', 'PropertyController@searchByCountryPropertyType');
@@ -250,6 +265,8 @@ Route::match(['get','post'], '/list-your-business', 'BusinessController@listBusi
 // Routes for Getting State List and City List Dynamically
 Route::get('/get-state-list', 'PropertyController@getStateList');
 Route::get('/get-city-list', 'PropertyController@getCityList');
+Route::get('/country/get-state-list', 'PropertyController@getStateList');
+Route::get('/country/get-city-list', 'PropertyController@getCityList');
 
 // Request Service Page
 Route::match(['get', 'post'], '/service/request', 'RepairServiceController@serviceRequest')->name('service-request');
@@ -275,3 +292,18 @@ Route::match(['get', 'post'], '/ipc/{url}', 'PpcController@ppcPages');
 
 // Generate Sitemap Manual
 Route::match(['get','post'], '/property/sitemap.xml', 'SitemapController@index');
+Route::match(['get','post'], '/csc/sitemap.xml', 'SitemapController@cscSitemap');
+Route::match(['get','post'], '/service/sitemap.xml', 'SitemapController@serviceSitemap');
+Route::match(['get','post'], '/city/sitemap.xml', 'SitemapController@citySitemap');
+
+Route::group(['prefix' => 'blog'], function () {
+    Route::get('categories', 'BlogController@categories')->name('blog-categories');
+    Route::get('all', 'BlogController@blog')->name('blog');
+    Route::get('single-blog', 'BlogController@singleBlog')->name('single-blog');
+});
+
+// Builders List
+Route::match(['get','post'],'/country/builders/real-estate-builders-{country}', 'HomeController@countryBuilders');
+Route::match(['get','post'],'/state/builders/real-estate-builders-{state}', 'HomeController@stateBuilders');
+Route::match(['get','post'],'/city/builders/real-estate-builders-{city}', 'HomeController@cityBuilders');
+Route::match(['get','post'],'/country/builders/search', 'HomeController@searchBuilders');

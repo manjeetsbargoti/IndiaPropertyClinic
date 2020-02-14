@@ -549,7 +549,7 @@
                                     <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <?php if($country->continent == $continent->code): ?>
                                     <li style="display: block;">
-                                        <a href="<?php echo e(url('/country/'.$country->iso2.'/properties')); ?>"
+                                        <a href="<?php echo e(url('/country/real-estate-for-sale-'.str_replace(' ','_', $country->name))); ?>"
                                             style="margin: 0.2em 0em;"
                                             class="btn btn-outline-dark"><?php echo e($country->name); ?></a>
                                     </li>

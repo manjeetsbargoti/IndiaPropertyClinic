@@ -18,6 +18,8 @@ use Symfony\Component\Mime\Part\TextPart;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @experimental in 4.3
  */
 class Message extends RawMessage
 {
@@ -32,7 +34,9 @@ class Message extends RawMessage
 
     public function __clone()
     {
-        $this->headers = clone $this->headers;
+        if (null !== $this->headers) {
+            $this->headers = clone $this->headers;
+        }
 
         if (null !== $this->body) {
             $this->body = clone $this->body;
@@ -84,12 +88,16 @@ class Message extends RawMessage
         }
 
         // determine the "real" sender
-        if (!$headers->has('Sender') && \count($froms = $headers->get('From')->getAddresses()) > 1) {
-            $headers->addMailboxHeader('Sender', $froms[0]);
+        $senders = $headers->get('From')->getAddresses();
+        $sender = $senders[0];
+        if ($headers->has('Sender')) {
+            $sender = $headers->get('Sender')->getAddress();
+        } elseif (\count($senders) > 1) {
+            $headers->addMailboxHeader('Sender', $sender);
         }
 
         if (!$headers->has('Message-ID')) {
-            $headers->addIdHeader('Message-ID', $this->generateMessageId());
+            $headers->addIdHeader('Message-ID', $this->generateMessageId($sender->getAddress()));
         }
 
         // remove the Bcc field which should NOT be part of the sent message
@@ -117,26 +125,9 @@ class Message extends RawMessage
         yield from $body->toIterable();
     }
 
-    public function ensureValidity()
+    private function generateMessageId(string $email): string
     {
-        if (!$this->headers->has('From')) {
-            throw new LogicException('An email must have a "From" header.');
-        }
-
-        parent::ensureValidity();
-    }
-
-    public function generateMessageId(): string
-    {
-        if ($this->headers->has('Sender')) {
-            $sender = $this->headers->get('Sender')->getAddress();
-        } elseif ($this->headers->has('From')) {
-            $sender = $this->headers->get('From')->getAddresses()[0];
-        } else {
-            throw new LogicException('An email must have a "From" or a "Sender" header to compute a Messsage ID.');
-        }
-
-        return bin2hex(random_bytes(16)).strstr($sender->getAddress(), '@');
+        return bin2hex(random_bytes(16)).strstr($email, '@');
     }
 
     public function __serialize(): array

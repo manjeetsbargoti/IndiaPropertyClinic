@@ -22,7 +22,7 @@ use Psr\Container\ContainerInterface;
 trait ServiceSubscriberTrait
 {
     /** @var ContainerInterface */
-    protected $container;
+    private $container;
 
     public static function getSubscribedServices(): array
     {

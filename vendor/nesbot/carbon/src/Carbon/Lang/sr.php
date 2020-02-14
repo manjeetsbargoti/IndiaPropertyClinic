@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/*
+/**
  * Authors:
  * - Josh Soref
  * - François B
@@ -30,9 +30,9 @@ return [
     'd' => ':count d.',
     'hour' => ':count sat|:count sata|:count sati',
     'h' => ':count č.',
-    'minute' => ':count minut|:count minuta|:count minuta',
+    'minute' => ':count minut|:count minuta |:count minuta',
     'min' => ':count min.',
-    'second' => ':count sekundu|:count sekunde|:count sekundi',
+    'second' => ':count sekund|:count sekunde|:count sekunde',
     's' => ':count sek.',
     'ago' => 'pre :time',
     'from_now' => 'za :time',
@@ -63,32 +63,32 @@ return [
         'nextWeek' => function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
-                    return '[u nedelju u] LT';
+                    return '[у недељу у] LT';
                 case 3:
-                    return '[u sredu u] LT';
+                    return '[у среду у] LT';
                 case 6:
-                    return '[u subotu u] LT';
+                    return '[у суботу у] LT';
                 default:
-                    return '[u] dddd [u] LT';
+                    return '[у] dddd [у] LT';
             }
         },
         'lastDay' => '[juče u] LT',
         'lastWeek' => function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
-                    return '[prošle nedelje u] LT';
+                    return '[прошле недеље у] LT';
                 case 1:
-                    return '[prošlog ponedeljka u] LT';
+                    return '[прошлог понедељка у] LT';
                 case 2:
-                    return '[prošlog utorka u] LT';
+                    return '[прошлог уторка у] LT';
                 case 3:
-                    return '[prošle srede u] LT';
+                    return '[прошле среде у] LT';
                 case 4:
-                    return '[prošlog četvrtka u] LT';
+                    return '[прошлог четвртка у] LT';
                 case 5:
-                    return '[prošlog petka u] LT';
+                    return '[прошлог петка у] LT';
                 default:
-                    return '[prošle subote u] LT';
+                    return '[прошле суботе у] LT';
             }
         },
         'sameElse' => 'L',
@@ -102,4 +102,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' i '],
+    'meridiem' => ['пре подне', 'по подне'],
 ];

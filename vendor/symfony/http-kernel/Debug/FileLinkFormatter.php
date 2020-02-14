@@ -13,6 +13,7 @@ namespace Symfony\Component\HttpKernel\Debug;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Exception\ExceptionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -79,7 +80,7 @@ class FileLinkFormatter
     {
         try {
             return $router->generate($routeName).$queryString;
-        } catch (\Throwable $e) {
+        } catch (ExceptionInterface $e) {
             return null;
         }
     }
@@ -95,7 +96,7 @@ class FileLinkFormatter
 
             if ($request instanceof Request && (!$this->urlFormat instanceof \Closure || $this->urlFormat = ($this->urlFormat)())) {
                 return [
-                    $request->getSchemeAndHttpHost().$this->urlFormat,
+                    $request->getSchemeAndHttpHost().$request->getBasePath().$this->urlFormat,
                     $this->baseDir.\DIRECTORY_SEPARATOR, '',
                 ];
             }

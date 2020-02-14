@@ -51,7 +51,7 @@ class ResponseHeaderBag extends HeaderBag
     {
         $headers = [];
         foreach ($this->all() as $name => $value) {
-            $headers[$this->headerNames[$name] ?? $name] = $value;
+            $headers[isset($this->headerNames[$name]) ? $this->headerNames[$name] : $name] = $value;
         }
 
         return $headers;
@@ -87,19 +87,10 @@ class ResponseHeaderBag extends HeaderBag
 
     /**
      * {@inheritdoc}
-     *
-     * @param string|null $key The name of the headers to return or null to get them all
      */
-    public function all(/*string $key = null*/)
+    public function all()
     {
         $headers = parent::all();
-
-        if (1 <= \func_num_args() && null !== $key = func_get_arg(0)) {
-            $key = strtr($key, self::UPPER, self::LOWER);
-
-            return 'set-cookie' !== $key ? $headers[$key] ?? [] : array_map('strval', $this->getCookies());
-        }
-
         foreach ($this->getCookies() as $cookie) {
             $headers['set-cookie'][] = (string) $cookie;
         }
@@ -112,7 +103,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function set($key, $values, $replace = true)
     {
-        $uniqueKey = strtr($key, self::UPPER, self::LOWER);
+        $uniqueKey = str_replace('_', '-', strtolower($key));
 
         if ('set-cookie' === $uniqueKey) {
             if ($replace) {
@@ -143,7 +134,7 @@ class ResponseHeaderBag extends HeaderBag
      */
     public function remove($key)
     {
-        $uniqueKey = strtr($key, self::UPPER, self::LOWER);
+        $uniqueKey = str_replace('_', '-', strtolower($key));
         unset($this->headerNames[$uniqueKey]);
 
         if ('set-cookie' === $uniqueKey) {
@@ -276,13 +267,13 @@ class ResponseHeaderBag extends HeaderBag
      */
     protected function computeCacheControlValue()
     {
-        if (!$this->cacheControl) {
-            if ($this->has('Last-Modified') || $this->has('Expires')) {
-                return 'private, must-revalidate'; // allows for heuristic expiration (RFC 7234 Section 4.2.2) in the case of "Last-Modified"
-            }
-
-            // conservative by default
+        if (!$this->cacheControl && !$this->has('ETag') && !$this->has('Last-Modified') && !$this->has('Expires')) {
             return 'no-cache, private';
+        }
+
+        if (!$this->cacheControl) {
+            // conservative by default
+            return 'private, must-revalidate';
         }
 
         $header = $this->getCacheControlHeader();
@@ -298,7 +289,7 @@ class ResponseHeaderBag extends HeaderBag
         return $header;
     }
 
-    private function initDate(): void
+    private function initDate()
     {
         $now = \DateTime::createFromFormat('U', time());
         $now->setTimezone(new \DateTimeZone('UTC'));

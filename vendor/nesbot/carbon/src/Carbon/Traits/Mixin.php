@@ -12,7 +12,6 @@ namespace Carbon\Traits;
 
 use Closure;
 use ReflectionClass;
-use ReflectionException;
 use ReflectionMethod;
 use Throwable;
 
@@ -36,13 +35,6 @@ use Throwable;
  */
 trait Mixin
 {
-    /**
-     * Stack of macro instance contexts.
-     *
-     * @var array
-     */
-    protected static $macroContextStack = [];
-
     /**
      * Mix another object into the class.
      *
@@ -70,7 +62,7 @@ trait Mixin
      *
      * @param object|string $mixin
      *
-     * @throws ReflectionException
+     * @throws \ReflectionException
      *
      * @return void
      */
@@ -84,7 +76,7 @@ trait Mixin
     /**
      * @param string $mixin
      *
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     private static function loadMixinClass($mixin)
     {
@@ -103,9 +95,6 @@ trait Mixin
         }
     }
 
-    /**
-     * @param string $trait
-     */
     private static function loadMixinTrait($trait)
     {
         $baseClass = static::class;
@@ -131,46 +120,5 @@ trait Mixin
                 return $closure(...func_get_args());
             });
         }
-    }
-
-    /**
-     * Stack a Carbon context from inside calls of self::this() and execute a given action.
-     *
-     * @param static|null $context
-     * @param callable    $callable
-     *
-     * @throws Throwable
-     *
-     * @return mixed
-     */
-    protected static function bindMacroContext($context, callable $callable)
-    {
-        static::$macroContextStack[] = $context;
-        $exception = null;
-        $result = null;
-
-        try {
-            $result = $callable();
-        } catch (Throwable $throwable) {
-            $exception = $throwable;
-        }
-
-        array_pop(static::$macroContextStack);
-
-        if ($exception) {
-            throw $exception;
-        }
-
-        return $result;
-    }
-
-    /**
-     * Return the current context from inside a macro callee or a new one if static.
-     *
-     * @return static
-     */
-    protected static function this()
-    {
-        return end(static::$macroContextStack) ?: new static();
     }
 }

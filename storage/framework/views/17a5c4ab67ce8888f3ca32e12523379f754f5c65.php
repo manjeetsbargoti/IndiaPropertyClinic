@@ -55,25 +55,25 @@ $country = Controller::countries();
     <!-- Mobile menu start -->
     <nav id="menu">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="<?php echo e(url('/')); ?>">Home</a></li>
             <li><span>About us</span>
+            <?php $__currentLoopData = $mainnavservice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainnav): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li>
+                <a class="<?php echo e((request()->is('properties/'.$mainnav->id.'/'.$mainnav->url)) ? 'active':''); ?>"
+                            href="<?php echo e(url('/properties/'.$mainnav->id.'/'.$mainnav->url)); ?>"><?php echo e($mainnav->service_name); ?>
+
+                    <span class="sr-only">(current)</span></a>
+            </li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <li><span>Home Services</span>
                 <ul>
-                    <li><a href="#about/history">History</a></li>
-                    <li><span>The team</span>
-                        <ul>
-                            <li><a href="#about/team/management">Management</a></li>
-                            <li><a href="#about/team/sales">Sales</a></li>
-                            <li><a href="#about/team/development">Development</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#about/address">Our address</a></li>
+                <?php $__currentLoopData = \App\OtherServices::where('parent_id', 0)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rservice): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><a class="dropdown-item <?php echo e((request()->is('services/'.$rservice->url)) ? 'active':''); ?>" href="<?php echo e(url('/services/'.$rservice->url)); ?>"><?php echo e($rservice->service_name); ?></a></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </li>
+            </li>
             <li><a href="#contact">Contact</a></li>
-
-            <li class="Divider">Other demos</li>
-            <li><a href="advanced.html">Advanced demo</a></li>
-            <li><a href="onepage.html">One page demo</a></li>
         </ul>
     </nav>
 
@@ -180,7 +180,7 @@ $country = Controller::countries();
                 </div>
                 <div class="topcountries">
                     <button data-toggle="collapse" data-target="#topcon_toggle">
-                        <span class="country_before">Top Countries</span>
+                        <span class="country_before">International</span>
                     </button>
                     <div id="topcon_toggle" class="collapse">
                         <div class="container">
@@ -214,7 +214,7 @@ $country = Controller::countries();
                                                 <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $coun): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <?php if($coun->continent == $c->code): ?>
                                                 <li>
-                                                    <a href="<?php echo e(url('country_property/properties-for-sale-in-'.str_replace(' ','-',$coun->name))); ?>"
+                                                    <a href="<?php echo e(url('country_property/properties-for-sale-in-'.str_replace(' ','_',$coun->name))); ?>"
                                                         style="margin: 0.2em 0em;"
                                                         class="btn btn-outline-dark"><?php echo e($coun->name); ?></a>
                                                 </li>

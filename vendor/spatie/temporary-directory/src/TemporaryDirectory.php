@@ -29,7 +29,7 @@ class TemporaryDirectory
         }
 
         if (empty($this->name)) {
-            $this->name = mt_rand().'-'.str_replace([' ', '.'], '', microtime());
+            $this->name = mt_rand() . '-' .str_replace([' ', '.'], '', microtime());
         }
 
         if ($this->forceCreate && file_exists($this->getFullPath())) {
@@ -86,7 +86,7 @@ class TemporaryDirectory
     public function empty(): self
     {
         $this->deleteDirectory($this->getFullPath());
-        mkdir($this->getFullPath(), 0777, true);
+        mkdir($this->getFullPath());
 
         return $this;
     }

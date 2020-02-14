@@ -15,6 +15,8 @@ use Symfony\Component\Mime\Part\AbstractMultipartPart;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @experimental in 4.3
  */
 final class MixedPart extends AbstractMultipartPart
 {

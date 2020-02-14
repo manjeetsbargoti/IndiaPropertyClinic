@@ -11,6 +11,5 @@ Cookbook
     class_constants
     big_parent_class
     mockery_on
-    mocking_class_within_class
 
 .. include:: map.rst.inc

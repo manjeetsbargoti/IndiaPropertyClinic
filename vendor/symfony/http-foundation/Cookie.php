@@ -18,10 +18,6 @@ namespace Symfony\Component\HttpFoundation;
  */
 class Cookie
 {
-    const SAMESITE_NONE = 'none';
-    const SAMESITE_LAX = 'lax';
-    const SAMESITE_STRICT = 'strict';
-
     protected $name;
     protected $value;
     protected $domain;
@@ -29,14 +25,13 @@ class Cookie
     protected $path;
     protected $secure;
     protected $httpOnly;
-
     private $raw;
     private $sameSite;
     private $secureDefault = false;
 
-    private static $reservedCharsList = "=,; \t\r\n\v\f";
-    private static $reservedCharsFrom = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
-    private static $reservedCharsTo = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
+    const SAMESITE_NONE = 'none';
+    const SAMESITE_LAX = 'lax';
+    const SAMESITE_STRICT = 'strict';
 
     /**
      * Creates cookie from raw header string.
@@ -98,7 +93,7 @@ class Cookie
         }
 
         // from PHP source code
-        if ($raw && false !== strpbrk($name, self::$reservedCharsList)) {
+        if (preg_match("/[=,; \t\r\n\013\014]/", $name)) {
             throw new \InvalidArgumentException(sprintf('The cookie name "%s" contains invalid characters.', $name));
         }
 
@@ -146,13 +141,7 @@ class Cookie
      */
     public function __toString()
     {
-        if ($this->isRaw()) {
-            $str = $this->getName();
-        } else {
-            $str = str_replace(self::$reservedCharsFrom, self::$reservedCharsTo, $this->getName());
-        }
-
-        $str .= '=';
+        $str = ($this->isRaw() ? $this->getName() : urlencode($this->getName())).'=';
 
         if ('' === (string) $this->getValue()) {
             $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001).'; Max-Age=0';

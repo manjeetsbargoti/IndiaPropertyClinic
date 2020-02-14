@@ -98,12 +98,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param \Throwable|null $exception
-     */
-    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
+    public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         if (!$this->dataCount) {
             $this->data = [];
@@ -153,7 +148,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
     /**
      * @internal
      */
-    public function __sleep(): array
+    public function __sleep()
     {
         if (!$this->dataCount) {
             $this->data = [];
@@ -261,7 +256,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         }
     }
 
-    private function doDump(DataDumperInterface $dumper, $data, string $name, string $file, int $line)
+    private function doDump(DataDumperInterface $dumper, $data, $name, $file, $line)
     {
         if ($dumper instanceof CliDumper) {
             $contextDumper = function ($name, $file, $line, $fmt) {

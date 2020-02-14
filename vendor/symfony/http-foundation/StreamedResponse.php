@@ -63,6 +63,8 @@ class StreamedResponse extends Response
     /**
      * Sets the PHP callback associated with this Response.
      *
+     * @param callable $callback A valid PHP callback
+     *
      * @return $this
      */
     public function setCallback(callable $callback)

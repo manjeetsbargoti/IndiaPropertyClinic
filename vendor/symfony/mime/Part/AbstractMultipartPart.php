@@ -15,6 +15,8 @@ use Symfony\Component\Mime\Header\Headers;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @experimental in 4.3
  */
 abstract class AbstractMultipartPart extends AbstractPart
 {
@@ -72,20 +74,6 @@ abstract class AbstractMultipartPart extends AbstractPart
             yield "\r\n";
         }
         yield '--'.$this->getBoundary()."--\r\n";
-    }
-
-    public function asDebugString(): string
-    {
-        $str = parent::asDebugString();
-        foreach ($this->getParts() as $part) {
-            $lines = explode("\n", $part->asDebugString());
-            $str .= "\n  └ ".array_shift($lines);
-            foreach ($lines as $line) {
-                $str .= "\n  |".$line;
-            }
-        }
-
-        return $str;
     }
 
     private function getBoundary(): string

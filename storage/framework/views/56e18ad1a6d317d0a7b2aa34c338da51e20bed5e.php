@@ -117,7 +117,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($ctryid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $ctryid->iso2)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php elseif(!empty($_GET['country'])): ?>
@@ -125,14 +125,14 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($cntryname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $_GET['country'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php else: ?>
             <h5 style="color: #000;">Real Estate for Sale <?php echo $arr_ip->country; ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\State::where('country', $arr_ip->iso_code)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('state/'.$s->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/'.$s->name.'/properties')); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/real-estate-for-sale-'.str_replace(' ','_',$s->name))); ?>">Real Estate sale <?php echo e($s->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -143,7 +143,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($sid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $sid->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php elseif(!empty($_GET['state'])): ?>
@@ -151,7 +151,7 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($statname->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $_GET['state'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -167,14 +167,88 @@ $footerProperties = Controller::footersection();
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($cid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $cid->state_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php elseif(!empty($_GET['city'])): ?>
             <h5 style="color: #000;">Real Estate for Sale <?php echo e($stateid->name); ?></h5>
             <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
                 <?php $__currentLoopData = \App\Cities::where('state_id', $stateid['state_id'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/'.$c->name.'/properties')); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('city/'.$c->name.'/properties')) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/real-estate-for-sale-'.str_replace(' ','_',$c->name))); ?>">Real Estate sale <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Footer Menu -->
+    <div class="footer_menu">
+        <?php // echo $cid; ?>
+        <div class="container footer-csc <?php echo e((request()->is('state*') || request()->is('city*')) ? 'd-none':'d-block'); ?>">
+            <?php $arr_ip = geoip()->getLocation($_SERVER['REMOTE_ADDR']); ?>
+            <?php if(!empty($ctryid)): ?>
+            <h5 style="color: #000;">Real Estate Builders <?php echo e($ctryid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\State::where('country', $ctryid->iso2)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('country/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))); ?>">Real Estate Builders <?php echo e($s->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['country'])): ?>
+            <?php $cntryname = \App\Country::select('name')->where('iso2', $_GET['country'])->first(); ?>
+            <h5 style="color: #000;">Real Estate Builders <?php echo e($cntryname->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\State::where('country', $cntryname->name)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))); ?>">Real Estate Builders <?php echo e($s->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php else: ?>
+            <h5 style="color: #000;">Real Estate Builders <?php echo $arr_ip->country; ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\State::where('country', $arr_ip->iso_code)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/state/builders/real-estate-builders-'.str_replace(' ','_',$s->name))); ?>">Real Estate Builders <?php echo e($s->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php endif; ?>
+
+        </div>
+
+        <div class="container footer-csc <?php echo e((request()->is('state*')) ? 'd-block':'d-none'); ?>">
+            <?php if(!empty($sid)): ?>
+            <h5 style="color: #000;">Real Estate Builders <?php echo e($sid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('state_id', $sid->id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))); ?>">Real Estate Builders <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['state'])): ?>
+            <?php $statname = \App\State::select('name')->where('id', $_GET['state'])->first(); ?>
+            <h5 style="color: #000;">Real Estate for Builders <?php echo e($statname->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('state_id', $_GET['state'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a class="<?php echo e((request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))); ?>">Real Estate Builders <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php endif; ?>
+        </div>
+
+        <div class="container footer-csc <?php echo e((request()->is('city*')) ? 'd-block':'d-none'); ?>">
+            
+            <?php if(!empty($_GET['city'])): ?>
+            <?php $stateid = \App\Cities::select('name', 'state_id')->where('id', $_GET['city'])->first(); ?>
+            <?php endif; ?>
+           
+            <?php if(!empty($cid)): ?>
+            <h5 style="color: #000;">Real Estate Builders <?php echo e($cid->name); ?></h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('name', $cid->name)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))); ?>">Real Estate Builders <?php echo e($c->name); ?></a></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+            <?php elseif(!empty($_GET['city'])): ?>
+            <h5 style="color: #000;">Real Estate Builders $_GET['city']</h5>
+            <ul style="column-count: 4; column-gap: 1em;-webkit-column-count: 4; -webkit-column-gap: 1em; text-align: left;">
+                <?php $__currentLoopData = \App\Cities::where('name', $_GET['city'])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <li style="display: block;"><a  class="<?php echo e((request()->is('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))) ? 'active':''); ?>" style="color: #171747; font-weight: 500; font-size: 14px;" href="<?php echo e(url('/city/builders/real-estate-builders-'.str_replace(' ','_',$c->name))); ?>">Real Estate Builders <?php echo e($c->name); ?></a></li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <?php endif; ?>
@@ -485,14 +559,17 @@ $footerProperties = Controller::footersection();
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-md-10 col-lg-10">
                         <div class="copyright_menu">
                             <ul>
                                 <li><a href="<?php echo e(url('/about-us')); ?>">About Us</a></li>
                                 <li><a href="#">Contact Us</a></li>
                                 <li><a href="<?php echo e(url('/privacy-policy')); ?>">Privacy Policy</a></li>
                                 <li><a href="<?php echo e(url('/terms-condition')); ?>">Terms of Use</a></li>
-                                <li><a href="<?php echo e(url('/property/sitemap.xml')); ?>">Sitemap</a></li>
+                                <li><a href="<?php echo e(url('/property/sitemap.xml')); ?>">Property Sitemap</a></li>
+                                <li><a href="<?php echo e(url('/csc/sitemap.xml')); ?>">Country State Sitemap</a></li>
+                                <li><a href="<?php echo e(url('/service/sitemap.xml')); ?>">Services Sitemap</a></li>
+                                <li><a href="<?php echo e(url('/city/sitemap.xml')); ?>">City Sitemap</a></li>
                             </ul>
 
                             <p><?php if(!empty(config('app.copyright'))): ?> <?php echo e(config('app.copyright')); ?> <?php else: ?> Copyright &copy;
@@ -501,7 +578,7 @@ $footerProperties = Controller::footersection();
                                 </script> | India Property Clinic. All Rights Reserved. <?php endif; ?></p>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-2">
                         <div class="social_link social_linkfoot">
                             <a href="https://www.facebook.com/indiapropertyclinic" target="_blank"><i class="fab fa-facebook"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>

@@ -21,6 +21,8 @@ use Symfony\Component\Mime\Part\TextPart;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @experimental in 4.3
  */
 class Email extends Message
 {
@@ -101,7 +103,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -111,7 +113,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -121,7 +123,7 @@ class Email extends Message
     }
 
     /**
-     * @return Address[]
+     * @return (Address|NamedAddress)[]
      */
     public function getFrom(): array
     {
@@ -157,7 +159,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -167,7 +169,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -177,7 +179,7 @@ class Email extends Message
     }
 
     /**
-     * @return Address[]
+     * @return (Address|NamedAddress)[]
      */
     public function getTo(): array
     {
@@ -185,7 +187,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -205,7 +207,7 @@ class Email extends Message
     }
 
     /**
-     * @return Address[]
+     * @return (Address|NamedAddress)[]
      */
     public function getCc(): array
     {
@@ -213,7 +215,7 @@ class Email extends Message
     }
 
     /**
-     * @param Address|string ...$addresses
+     * @param Address|NamedAddress|string ...$addresses
      *
      * @return $this
      */
@@ -233,7 +235,7 @@ class Email extends Message
     }
 
     /**
-     * @return Address[]
+     * @return (Address|NamedAddress)[]
      */
     public function getBcc(): array
     {
@@ -399,15 +401,6 @@ class Email extends Message
         return $this->generateBody();
     }
 
-    public function ensureValidity()
-    {
-        if (null === $this->text && null === $this->html && !$this->attachments) {
-            throw new LogicException('A message must have a text or an HTML part or attachments.');
-        }
-
-        parent::ensureValidity();
-    }
-
     /**
      * Generates an AbstractPart based on the raw body of a message.
      *
@@ -430,9 +423,10 @@ class Email extends Message
      */
     private function generateBody(): AbstractPart
     {
-        $this->ensureValidity();
-
         [$htmlPart, $attachmentParts, $inlineParts] = $this->prepareParts();
+        if (null === $this->text && null === $this->html && !$attachmentParts) {
+            throw new LogicException('A message must have a text or an HTML part or attachments.');
+        }
 
         $part = null === $this->text ? null : new TextPart($this->text, $this->textCharset);
         if (null !== $htmlPart) {
@@ -523,29 +517,29 @@ class Email extends Message
     /**
      * @return $this
      */
-    private function setHeaderBody(string $type, string $name, $body): object
+    private function setHeaderBody(string $type, string $name, $body)
     {
         $this->getHeaders()->setHeaderBody($type, $name, $body);
 
         return $this;
     }
 
-    private function addListAddressHeaderBody(string $name, array $addresses)
+    private function addListAddressHeaderBody($name, array $addresses)
     {
-        if (!$header = $this->getHeaders()->get($name)) {
+        if (!$to = $this->getHeaders()->get($name)) {
             return $this->setListAddressHeaderBody($name, $addresses);
         }
-        $header->addAddresses(Address::createArray($addresses));
+        $to->addAddresses(Address::createArray($addresses));
 
         return $this;
     }
 
-    private function setListAddressHeaderBody(string $name, array $addresses)
+    private function setListAddressHeaderBody($name, array $addresses)
     {
         $addresses = Address::createArray($addresses);
         $headers = $this->getHeaders();
-        if ($header = $headers->get($name)) {
-            $header->setAddresses($addresses);
+        if ($to = $headers->get($name)) {
+            $to->setAddresses($addresses);
         } else {
             $headers->addMailboxListHeader($name, $addresses);
         }

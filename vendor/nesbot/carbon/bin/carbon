@@ -16,6 +16,6 @@ if (!file_exists($dir.'/autoload.php')) {
     exit(1);
 }
 
-require $dir.'/autoload.php';
+include $dir.'/autoload.php';
 
 exit((new \Carbon\Cli\Invoker())(...$argv) ? 0 : 1);

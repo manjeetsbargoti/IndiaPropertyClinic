@@ -43,7 +43,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function getArguments(Request $request, $controller): array
+    public function getArguments(Request $request, $controller)
     {
         $arguments = [];
 
@@ -55,14 +55,12 @@ final class ArgumentResolver implements ArgumentResolverInterface
 
                 $resolved = $resolver->resolve($request, $metadata);
 
-                $atLeastOne = false;
-                foreach ($resolved as $append) {
-                    $atLeastOne = true;
-                    $arguments[] = $append;
+                if (!$resolved instanceof \Generator) {
+                    throw new \InvalidArgumentException(sprintf('%s::resolve() must yield at least one value.', \get_class($resolver)));
                 }
 
-                if (!$atLeastOne) {
-                    throw new \InvalidArgumentException(sprintf('%s::resolve() must yield at least one value.', \get_class($resolver)));
+                foreach ($resolved as $append) {
+                    $arguments[] = $append;
                 }
 
                 // continue to the next controller argument

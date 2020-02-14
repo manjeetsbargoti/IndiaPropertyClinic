@@ -19,8 +19,6 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @final since Symfony 4.4
  */
 class TimeDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -35,10 +33,8 @@ class TimeDataCollector extends DataCollector implements LateDataCollectorInterf
 
     /**
      * {@inheritdoc}
-     *
-     * @param \Throwable|null $exception
      */
-    public function collect(Request $request, Response $response/*, \Throwable $exception = null*/)
+    public function collect(Request $request, Response $response, \Exception $exception = null)
     {
         if (null !== $this->kernel) {
             $startTime = $this->kernel->getStartTime();

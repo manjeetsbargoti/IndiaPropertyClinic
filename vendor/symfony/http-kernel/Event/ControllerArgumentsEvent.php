@@ -22,8 +22,6 @@ namespace Symfony\Component\HttpKernel\Event;
  * controller.
  *
  * @author Christophe Coevoet <stof@notk.org>
- *
- * @final since Symfony 4.4
  */
 class ControllerArgumentsEvent extends FilterControllerArgumentsEvent
 {

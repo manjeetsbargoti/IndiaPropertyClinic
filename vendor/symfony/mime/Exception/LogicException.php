@@ -13,6 +13,8 @@ namespace Symfony\Component\Mime\Exception;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @experimental in 4.3
  */
 class LogicException extends \LogicException implements ExceptionInterface
 {

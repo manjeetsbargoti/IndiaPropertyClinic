@@ -13,18 +13,21 @@ namespace Symfony\Component\Mime\Header;
 
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Exception\RfcComplianceException;
+use Symfony\Component\Mime\NamedAddress;
 
 /**
  * A Mailbox list MIME Header for something like From, To, Cc, and Bcc (one or more named addresses).
  *
  * @author Chris Corbyn
+ *
+ * @experimental in 4.3
  */
 final class MailboxListHeader extends AbstractHeader
 {
     private $addresses = [];
 
     /**
-     * @param Address[] $addresses
+     * @param (NamedAddress|Address)[] $addresses
      */
     public function __construct(string $name, array $addresses)
     {
@@ -34,7 +37,7 @@ final class MailboxListHeader extends AbstractHeader
     }
 
     /**
-     * @param Address[] $body
+     * @param (NamedAddress|Address)[] $body
      *
      * @throws RfcComplianceException
      */
@@ -46,9 +49,9 @@ final class MailboxListHeader extends AbstractHeader
     /**
      * @throws RfcComplianceException
      *
-     * @return Address[]
+     * @return (NamedAddress|Address)[]
      */
-    public function getBody(): array
+    public function getBody()
     {
         return $this->getAddresses();
     }
@@ -56,7 +59,7 @@ final class MailboxListHeader extends AbstractHeader
     /**
      * Sets a list of addresses to be shown in this Header.
      *
-     * @param Address[] $addresses
+     * @param (NamedAddress|Address)[] $addresses
      *
      * @throws RfcComplianceException
      */
@@ -69,7 +72,7 @@ final class MailboxListHeader extends AbstractHeader
     /**
      * Sets a list of addresses to be shown in this Header.
      *
-     * @param Address[] $addresses
+     * @param (NamedAddress|Address)[] $addresses
      *
      * @throws RfcComplianceException
      */
@@ -89,7 +92,7 @@ final class MailboxListHeader extends AbstractHeader
     }
 
     /**
-     * @return Address[]
+     * @return (NamedAddress|Address)[]
      */
     public function getAddresses(): array
     {
@@ -108,8 +111,8 @@ final class MailboxListHeader extends AbstractHeader
         $strings = [];
         foreach ($this->addresses as $address) {
             $str = $address->getEncodedAddress();
-            if ($name = $address->getName()) {
-                $str = $this->createPhrase($this, $name, $this->getCharset(), !$strings).' <'.$str.'>';
+            if ($address instanceof NamedAddress && $name = $address->getName()) {
+                $str = $this->createPhrase($this, $name, $this->getCharset(), empty($strings)).' <'.$str.'>';
             }
             $strings[] = $str;
         }

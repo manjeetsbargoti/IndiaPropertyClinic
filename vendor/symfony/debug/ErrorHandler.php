@@ -23,8 +23,6 @@ use Symfony\Component\Debug\FatalErrorHandler\FatalErrorHandlerInterface;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedFunctionFatalErrorHandler;
 use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
 
-@trigger_error(sprintf('The "%s" class is deprecated since Symfony 4.4, use "%s" instead.', ErrorHandler::class, \Symfony\Component\ErrorHandler\ErrorHandler::class), E_USER_DEPRECATED);
-
 /**
  * A generic ErrorHandler for the PHP engine.
  *
@@ -49,8 +47,6 @@ use Symfony\Component\Debug\FatalErrorHandler\UndefinedMethodFatalErrorHandler;
  * @author Grégoire Pineau <lyrixx@lyrixx.info>
  *
  * @final since Symfony 4.3
- *
- * @deprecated since Symfony 4.4, use Symfony\Component\ErrorHandler\ErrorHandler instead.
  */
 class ErrorHandler
 {
@@ -176,8 +172,9 @@ class ErrorHandler
     /**
      * Sets a logger to non assigned errors levels.
      *
-     * @param array|int $levels  An array map of E_* to LogLevel::* or an integer bit field of E_* constants
-     * @param bool      $replace Whether to replace or not any existing logger
+     * @param LoggerInterface $logger  A PSR-3 logger to put as default for the given levels
+     * @param array|int       $levels  An array map of E_* to LogLevel::* or an integer bit field of E_* constants
+     * @param bool            $replace Whether to replace or not any existing logger
      */
     public function setDefaultLogger(LoggerInterface $logger, $levels = E_ALL, $replace = false)
     {
@@ -352,7 +349,7 @@ class ErrorHandler
     /**
      * Re-registers as a PHP error handler if levels changed.
      */
-    private function reRegister(int $prev)
+    private function reRegister($prev)
     {
         if ($prev !== $this->thrownErrors | $this->loggedErrors) {
             $handler = set_error_handler('var_dump');
@@ -385,7 +382,8 @@ class ErrorHandler
      */
     public function handleError($type, $message, $file, $line)
     {
-        if (\PHP_VERSION_ID >= 70300 && E_WARNING === $type && '"' === $message[0] && false !== strpos($message, '" targeting switch is equivalent to "break')) {
+        // @deprecated to be removed in Symfony 5.0
+        if (\PHP_VERSION_ID >= 70300 && $message && '"' === $message[0] && 0 === strpos($message, '"continue') && preg_match('/^"continue(?: \d++)?" targeting switch is equivalent to "break(?: \d++)?"\. Did you mean to use "continue(?: \d++)?"\?$/', $message)) {
             $type = E_DEPRECATED;
         }
 
@@ -691,7 +689,7 @@ class ErrorHandler
     /**
      * Cleans the trace by removing function arguments and the frames added by the error handler and DebugClassLoader.
      */
-    private function cleanTrace(array $backtrace, int $type, string $file, int $line, bool $throw): array
+    private function cleanTrace($backtrace, $type, $file, $line, $throw)
     {
         $lightTrace = $backtrace;
 

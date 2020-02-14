@@ -115,7 +115,8 @@ class RouteCollectionBuilder
     /**
      * Add a RouteCollectionBuilder.
      *
-     * @param string $prefix
+     * @param string                 $prefix
+     * @param RouteCollectionBuilder $builder
      */
     public function mount($prefix, self $builder)
     {
@@ -307,9 +308,7 @@ class RouteCollectionBuilder
             } else {
                 /* @var self $route */
                 $subCollection = $route->build();
-                if (null !== $this->prefix) {
-                    $subCollection->addPrefix($this->prefix);
-                }
+                $subCollection->addPrefix($this->prefix);
 
                 $routeCollection->addCollection($subCollection);
             }

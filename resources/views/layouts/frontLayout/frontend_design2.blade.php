@@ -49,7 +49,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/frontend_css/jquery.mmenu.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/frontend_css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/frontend_css/style.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/frontend_css/style2.css') }}">
 
 
     @include('admin.system.partials.code_head')

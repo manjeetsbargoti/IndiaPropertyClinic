@@ -520,8 +520,9 @@ Setting ``To:`` Recipients
 or ``addTo()`` methods of the message.
 
 To set ``To:`` recipients, create the message object using either ``new
-Swift_Message( ... )``, then call the ``setTo()`` method with a complete array
-of addresses, or use the ``addTo()`` method to iteratively add recipients.
+Swift_Message( ... )`` or ``new Swift_Message( ... )``, then call the
+``setTo()`` method with a complete array of addresses, or use the ``addTo()``
+method to iteratively add recipients.
 
 The ``setTo()`` method accepts input in various formats as described earlier in
 this chapter. The ``addTo()`` method takes either one or two parameters. The
@@ -557,8 +558,9 @@ Setting ``Cc:`` Recipients
 message.
 
 To set ``Cc:`` recipients, create the message object using either ``new
-Swift_Message( ... )``, then call the ``setCc()`` method with a complete array
-of addresses, or use the ``addCc()`` method to iteratively add recipients.
+Swift_Message( ... )`` or ``new Swift_Message( ... )``, then call the
+``setCc()`` method with a complete array of addresses, or use the ``addCc()``
+method to iteratively add recipients.
 
 The ``setCc()`` method accepts input in various formats as described earlier in
 this chapter. The ``addCc()`` method takes either one or two parameters. The
@@ -594,8 +596,9 @@ Setting ``Bcc:`` Recipients
 it, and are set with the ``setBcc()`` or ``addBcc()`` methods of the message.
 
 To set ``Bcc:`` recipients, create the message object using either ``new
-Swift_Message( ... )``, then call the ``setBcc()`` method with a complete array
-of addresses, or use the ``addBcc()`` method to iteratively add recipients.
+Swift_Message( ... )`` or ``new Swift_Message( ... )``, then call the
+``setBcc()`` method with a complete array of addresses, or use the ``addBcc()``
+method to iteratively add recipients.
 
 The ``setBcc()`` method accepts input in various formats as described earlier
 in this chapter. The ``addBcc()`` method takes either one or two parameters.

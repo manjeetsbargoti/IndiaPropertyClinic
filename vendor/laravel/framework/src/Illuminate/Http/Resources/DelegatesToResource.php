@@ -50,7 +50,7 @@ trait DelegatesToResource
      */
     public function offsetExists($offset)
     {
-        return isset($this->resource[$offset]);
+        return array_key_exists($offset, $this->resource);
     }
 
     /**

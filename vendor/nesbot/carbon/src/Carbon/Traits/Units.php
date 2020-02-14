@@ -190,7 +190,9 @@ trait Units
         }
 
         if (is_numeric($unit)) {
-            [$value, $unit] = [$unit, $value];
+            $tempUnit = $value;
+            $value = $unit;
+            $unit = $tempUnit;
         }
 
         return $this->addUnit($unit, $value, $overflow);

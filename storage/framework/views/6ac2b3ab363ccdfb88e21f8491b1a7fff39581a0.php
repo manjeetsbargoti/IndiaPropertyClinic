@@ -49,7 +49,7 @@
     <link type="text/css" rel="stylesheet" href="<?php echo e(asset('css/frontend_css/jquery.mmenu.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/owl.carousel.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/style.css')); ?>">
-
+    <link rel="stylesheet" href="<?php echo e(asset('css/frontend_css/style2.css')); ?>">
 
 
     <?php echo $__env->make('admin.system.partials.code_head', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

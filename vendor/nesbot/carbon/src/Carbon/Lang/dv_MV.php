@@ -13,6 +13,9 @@
  * Authors:
  * - Ahmed Ali
  */
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'dv');
 
 $months = [
     'ޖެނުއަރީ',

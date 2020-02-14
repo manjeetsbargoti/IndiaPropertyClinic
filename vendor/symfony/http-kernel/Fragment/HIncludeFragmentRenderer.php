@@ -19,7 +19,6 @@ use Symfony\Component\Templating\EngineInterface;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Loader\ExistsLoaderInterface;
-use Twig\Loader\SourceContextLoaderInterface;
 
 /**
  * Implements the Hinclude rendering strategy.
@@ -35,6 +34,7 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
 
     /**
      * @param EngineInterface|Environment $templating            An EngineInterface or a Twig instance
+     * @param UriSigner                   $signer                A UriSigner instance
      * @param string                      $globalDefaultTemplate The global default content (it can be a template name or the content)
      */
     public function __construct($templating = null, UriSigner $signer = null, string $globalDefaultTemplate = null, string $charset = 'utf-8')
@@ -51,8 +51,6 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
      * @param EngineInterface|Environment|null $templating An EngineInterface or an Environment instance
      *
      * @throws \InvalidArgumentException
-     *
-     * @internal
      */
     public function setTemplating($templating)
     {
@@ -137,23 +135,22 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
         }
 
         $loader = $this->templating->getLoader();
-
-        if (1 === Environment::MAJOR_VERSION && !$loader instanceof ExistsLoaderInterface) {
-            try {
-                if ($loader instanceof SourceContextLoaderInterface) {
-                    $loader->getSourceContext($template);
-                } else {
-                    $loader->getSource($template);
-                }
-
-                return true;
-            } catch (LoaderError $e) {
-            }
-
-            return false;
+        if ($loader instanceof ExistsLoaderInterface || method_exists($loader, 'exists')) {
+            return $loader->exists($template);
         }
 
-        return $loader->exists($template);
+        try {
+            if (method_exists($loader, 'getSourceContext')) {
+                $loader->getSourceContext($template);
+            } else {
+                $loader->getSource($template);
+            }
+
+            return true;
+        } catch (LoaderError $e) {
+        }
+
+        return false;
     }
 
     /**

@@ -141,11 +141,10 @@ class PrettyPageHandler extends Handler
 
         if (class_exists('Symfony\Component\VarDumper\Cloner\VarCloner')) {
             $cloner = new VarCloner();
-            // Only dump object internals if a custom caster exists for performance reasons
-            // https://github.com/filp/whoops/pull/404
+            // Only dump object internals if a custom caster exists.
             $cloner->addCasters(['*' => function ($obj, $a, $stub, $isNested, $filter = 0) {
                 $class = $stub->class;
-                $classes = [$class => $class] + class_parents($obj) + class_implements($obj);
+                $classes = [$class => $class] + class_parents($class) + class_implements($class);
 
                 foreach ($classes as $class) {
                     if (isset(AbstractCloner::$defaultCasters[$class])) {

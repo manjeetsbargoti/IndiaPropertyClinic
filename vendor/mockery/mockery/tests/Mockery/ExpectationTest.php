@@ -179,27 +179,6 @@ class ExpectationTest extends MockeryTestCase
         $this->assertNull($this->mock->bar);
     }
 
-    /**
-     * @group issue/1005
-     */
-    public function testSetsPublicPropertiesCorrectlyForDifferentInstancesOfSameClass()
-    {
-        $mockInstanceOne = mock('MockeryTest_Foo');
-        $mockInstanceTwo = mock('MockeryTest_Foo');
-
-        $mockInstanceOne->shouldReceive('foo')
-            ->andSet('bar', 'baz');
-
-        $mockInstanceTwo->shouldReceive('foo')
-            ->andSet('bar', 'bazz');
-
-        $mockInstanceOne->foo();
-        $mockInstanceTwo->foo();
-
-        $this->assertEquals('baz', $mockInstanceOne->bar);
-        $this->assertEquals('bazz', $mockInstanceTwo->bar);
-    }
-
     public function testReturnsSameValueForAllIfNoArgsExpectationAndSomeGiven()
     {
         $this->mock->shouldReceive('foo')->andReturn(1);
@@ -237,35 +216,6 @@ class ExpectationTest extends MockeryTestCase
             return $v+1;
         });
         $this->assertEquals(6, $this->mock->foo(5));
-    }
-
-    public function testReturnsValueOfArgument()
-    {
-        $args = [1, 2, 3, 4, 5];
-        $index = 2;
-        $this->mock->shouldReceive('foo')->withArgs($args)->andReturnArg($index);
-        $this->assertEquals($args[$index], $this->mock->foo(...$args));
-    }
-
-    public function testReturnsNullArgument()
-    {
-        $args = [1, null, 3];
-        $index = 1;
-        $this->mock->shouldReceive('foo')->withArgs($args)->andReturnArg($index);
-        $this->assertNull($this->mock->foo(...$args));
-    }
-
-    public function testExceptionOnInvalidArgumentIndexValue()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->mock->shouldReceive('foo')->andReturnArg("invalid");
-    }
-
-    public function testExceptionOnArgumentIndexOutOfRange()
-    {
-        $this->expectException(\OutOfBoundsException::class);
-        $this->mock->shouldReceive('foo')->andReturnArg(2);
-        $this->mock->foo(0, 1); // only pass 2 arguments so index #2 won't exist
     }
 
     public function testReturnsUndefined()
@@ -1326,14 +1276,14 @@ class ExpectationTest extends MockeryTestCase
 
     public function testRealConstraintMatchesArgument()
     {
-        $this->mock->shouldReceive('foo')->with(Mockery::type('float'))->once();
+        $this->mock->shouldReceive('foo')->with(Mockery::type('real'))->once();
         $this->mock->foo(2.25);
     }
 
     public function testRealConstraintNonMatchingCase()
     {
         $this->mock->shouldReceive('foo')->times(3);
-        $this->mock->shouldReceive('foo')->with(1, Mockery::type('float'))->never();
+        $this->mock->shouldReceive('foo')->with(1, Mockery::type('real'))->never();
         $this->mock->foo();
         $this->mock->foo(1);
         $this->mock->foo(1, 2, 3);
@@ -1341,7 +1291,7 @@ class ExpectationTest extends MockeryTestCase
 
     public function testRealConstraintThrowsExceptionWhenConstraintUnmatched()
     {
-        $this->mock->shouldReceive('foo')->with(Mockery::type('float'));
+        $this->mock->shouldReceive('foo')->with(Mockery::type('real'));
         $this->expectException(\Mockery\Exception::class);
         $this->mock->foo('f');
         Mockery::close();
@@ -1553,25 +1503,6 @@ class ExpectationTest extends MockeryTestCase
         $this->expectException(\Mockery\Exception::class);
         $this->mock->foo(array('a'=>1, 'b'=>3));
         Mockery::close();
-    }
-
-    public function testCaptureStoresArgumentOfTypeScalar_ClosureEvaluatesToTrue()
-    {
-        $temp = null;
-        $this->mock->shouldReceive('foo')->with(Mockery::capture($temp))->once();
-        $this->mock->foo(4);
-
-        $this->assertSame(4, $temp);
-    }
-
-    public function testCaptureStoresArgumentOfTypeArgument_ClosureEvaluatesToTrue()
-    {
-        $object = new stdClass();
-        $temp = null;
-        $this->mock->shouldReceive('foo')->with(Mockery::capture($temp))->once();
-        $this->mock->foo($object);
-
-        $this->assertSame($object, $temp);
     }
 
     public function testOnConstraintMatchesArgument_ClosureEvaluatesToTrue()

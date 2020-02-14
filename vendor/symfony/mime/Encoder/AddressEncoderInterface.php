@@ -15,6 +15,8 @@ use Symfony\Component\Mime\Exception\AddressEncoderException;
 
 /**
  * @author Christian Schmidt
+ *
+ * @experimental in 4.3
  */
 interface AddressEncoderInterface
 {

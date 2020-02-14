@@ -31,7 +31,7 @@ interface ArgumentValueResolverInterface
     /**
      * Returns the possible value(s).
      *
-     * @return iterable
+     * @return \Generator
      */
     public function resolve(Request $request, ArgumentMetadata $argument);
 }
